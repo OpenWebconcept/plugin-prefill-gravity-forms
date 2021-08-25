@@ -1,5 +1,5 @@
-
 <?php
+
 /**
  * Script for select element
  **/

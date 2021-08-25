@@ -61,10 +61,10 @@ class GravityFormsAddon extends GFAddOn
 
         return [
             [
-                'title' => __('ION', config('app.text_domain')),
+                'title' => __('ION', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label'             => __('ION number', config('app.text_domain')),
+                        'label'             => __('ION number', 'prefill-gravity-forms'),
                         'type'              => 'text',
                         'class'             => 'medium',
                         'name'              => "{$prefix}ion-number",
@@ -73,10 +73,10 @@ class GravityFormsAddon extends GFAddOn
                 ]
             ],
             [
-                'title' => __('Certificates', config('app.text_domain')),
+                'title' => __('Certificates', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label'                => esc_html__('Certificates root location', config('app.text_domain')),
+                        'label'                => esc_html__('Certificates root location', 'prefill-gravity-forms'),
                         'type'                 => 'text',
                         'class'                => 'medium',
                         'name'                 => "{$prefix}location-root-path-certificates",
@@ -84,21 +84,21 @@ class GravityFormsAddon extends GFAddOn
                         'required'             => true
                     ],
                     [
-                        'label'                => esc_html__('Public certificate location', config('app.text_domain')),
+                        'label'                => esc_html__('Public certificate location', 'prefill-gravity-forms'),
                         'type'                 => 'select',
                         'name'                 => "{$prefix}public-certificate",
                         'choices'              => $this->getPublicCertificates(),
                         'required'             => true
                     ],
                     [
-                        'label'                => esc_html__('Private certificate location', config('app.text_domain')),
+                        'label'                => esc_html__('Private certificate location', 'prefill-gravity-forms'),
                         'type'                 => 'select',
                         'name'                 => "{$prefix}private-certificate",
                         'choices'              => $this->getPrivateCertificates(),
                         'required'             => true,
                     ],
                     [
-                        'label'             => __('Passphrase', config('app.text_domain')),
+                        'label'             => __('Passphrase', 'prefill-gravity-forms'),
                         'type'              => 'text',
                         'class'             => 'medium',
                         'name'              => "{$prefix}passphrase",
@@ -121,7 +121,7 @@ class GravityFormsAddon extends GFAddOn
     {
         $noCertificate = [
             [
-                'label' => esc_html__('No certificate selected', config('app.text_domain')),
+                'label' => esc_html__('No certificate selected', 'prefill-gravity-forms'),
                 'value' => 'no-certificate'
             ]
         ];

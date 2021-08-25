@@ -3,7 +3,6 @@
 namespace OWC\PrefillGravityForms\GravityForms;
 
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
-use function OWC\PrefillGravityForms\Foundation\Helpers\resolve;
 
 class GravityFormsFieldSettings
 {
