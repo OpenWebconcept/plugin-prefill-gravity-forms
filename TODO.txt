@@ -1,0 +1,16 @@
+To-do:
+
+Location: app/public/htdocs/wp-content/plugins/prefill-gravity-forms/src/PrefillGravityForms/GravityForms/GravityForms.php:91
+Task: The url for the request could be set via the form settings.
+Clarify: Every request needs a BSN number at the end of the url?
+
+Location: app/public/htdocs/wp-content/plugins/prefill-gravity-forms/src/PrefillGravityForms/GravityForms/GravityForms.php:100
+Task: The HTTPHEADER 'x-doelbinding: BurgerlijkeStand' could/should be set via the form settings.
+Clarify: Does the HTTPHEADER 'x-doelbinding' always need to be present?
+
+Location: app/public/htdocs/wp-content/plugins/prefill-gravity-forms/src/PrefillGravityForms/GravityForms/GravityForms.php:102
+Clarify: The HTTPHEADER 'Cookie: MKSSESSIONID=4da985b7-4794-4532-b220-57d0f7d8e734' is not needed? In the current situation this header is not used.
+
+Task: Figure out how to add the options for the custom select per field dynamically via the settings
+
+Task: Add translations
