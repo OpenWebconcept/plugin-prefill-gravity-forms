@@ -51,9 +51,9 @@ class GravityForms
         return $bsn;
     }
 
-    protected function findLinkedValue(string $linkedValue = '', array $response): string
+    public function findLinkedValue(string $linkedValue = '', array $response = []): string
     {
-        if (empty($linkedValue)) {
+        if (empty($linkedValue) || empty($response)) {
             return $linkedValue;
         }
 
@@ -64,7 +64,7 @@ class GravityForms
     /**
      * Use array items after exploding to retrieve nested array values from the response.
      */
-    protected function explodeDotNotationValue(string $value, array $response): string
+    public function explodeDotNotationValue(string $value, array $response): string
     {
         $exploded = explode('.', $value);
         $holder   = [];

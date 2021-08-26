@@ -1,6 +1,6 @@
 <?php
 
-namespace OWC\Persberichten\Tests;
+namespace OWC\PrefillGravityForms\Tests;
 
 use PHPUnit\Framework\TestCase as PHPUnit;
 

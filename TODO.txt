@@ -13,4 +13,4 @@ Clarify: The HTTPHEADER 'Cookie: MKSSESSIONID=4da985b7-4794-4532-b220-57d0f7d8e7
 
 Task: Figure out how to add the options for the custom select per field dynamically via the settings
 
-Task: Add translations
+Task: Add translations -> done but not for the views.
