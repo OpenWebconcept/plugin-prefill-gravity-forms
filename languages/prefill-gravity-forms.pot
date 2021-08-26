@@ -1,0 +1,31 @@
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:64
+msgid "ION"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:67
+msgid "ION number"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:76
+msgid "Certificates"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:79
+msgid "Certificates root location"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:87
+msgid "Public certificate location"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:94
+msgid "Private certificate location"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:101
+msgid "Passphrase"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:124
+msgid "No certificate selected"
+msgstr ""

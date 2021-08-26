@@ -1,0 +1,31 @@
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:64
+msgid "ION"
+msgstr "ION"
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:67
+msgid "ION number"
+msgstr "ION nummer"
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:76
+msgid "Certificates"
+msgstr "Certificaten"
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:79
+msgid "Certificates root location"
+msgstr "Certificaten hoofd locatie"
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:87
+msgid "Public certificate location"
+msgstr "Publieke locatie certificaten"
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:94
+msgid "Private certificate location"
+msgstr "Privé locatie certificaten"
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:101
+msgid "Passphrase"
+msgstr "Wachtwoord"
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:124
+msgid "No certificate selected"
+msgstr "Geen certificaat geselecteerd"
