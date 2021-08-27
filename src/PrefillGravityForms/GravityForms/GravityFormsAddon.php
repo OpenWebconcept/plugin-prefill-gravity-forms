@@ -61,13 +61,20 @@ class GravityFormsAddon extends GFAddOn
 
         return [
             [
-                'title' => __('ION', 'prefill-gravity-forms'),
+                'title' => __('General', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label'             => __('ION number', 'prefill-gravity-forms'),
+                        'label'             => __('OIN number', 'prefill-gravity-forms'),
                         'type'              => 'text',
                         'class'             => 'medium',
-                        'name'              => "{$prefix}ion-number",
+                        'name'              => "{$prefix}oin-number",
+                        'required'          => true
+                    ],
+                    [
+                        'label'             => __('Base URL', 'prefill-gravity-forms'),
+                        'type'              => 'text',
+                        'class'             => 'medium',
+                        'name'              => "{$prefix}base-url",
                         'required'          => true
                     ]
                 ]
