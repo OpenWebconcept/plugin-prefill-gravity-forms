@@ -1,31 +1,35 @@
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:64
-msgid "ION"
-msgstr "ION"
+msgid "General"
+msgstr "Algemeen"
 
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:67
-msgid "ION number"
-msgstr "ION nummer"
+msgid "OIN number"
+msgstr "OIN nummer"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:76
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:74
+msgid "Base URL"
+msgstr "Basis URL"
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:83
 msgid "Certificates"
 msgstr "Certificaten"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:79
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:86
 msgid "Certificates root location"
 msgstr "Certificaten hoofd locatie"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:87
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:94
 msgid "Public certificate location"
 msgstr "Publieke locatie certificaten"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:94
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:101
 msgid "Private certificate location"
 msgstr "Privé locatie certificaten"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:101
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:108
 msgid "Passphrase"
 msgstr "Wachtwoord"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:124
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:131
 msgid "No certificate selected"
 msgstr "Geen certificaat geselecteerd"
