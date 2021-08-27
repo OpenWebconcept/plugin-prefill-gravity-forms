@@ -18,7 +18,7 @@ class GravityForms
 
         $response = $this->request($bsn);
 
-        if (empty($response)) {
+        if (empty($response) || isset($response['status'])) {
             return $form;
         }
 
@@ -62,7 +62,8 @@ class GravityForms
     }
 
     /**
-     * Use array items after exploding to retrieve nested array values from the response.
+     * Explode string in to array items.
+     * Use these array items to retrieve nested array values from the response.
      */
     public function explodeDotNotationValue(string $value, array $response): string
     {
@@ -71,14 +72,29 @@ class GravityForms
 
         foreach ($exploded as $key => $item) {
             if ($key === 0) {
-                $holder = $response[$item];
+                $holder = $response[$item] ?? '';
                 continue;
             }
 
-            $holder = $holder[$item];
+            if (empty($holder)) {
+                break;
+            }
+
+            $holder = $holder[$item] ?? '';
         }
 
-        return !is_array($holder) ? $holder : '';
+        return is_string($holder) || is_numeric($holder) ? $holder : '';
+    }
+
+    public function getRequestURL(string $identifier = ''): string
+    {
+        $baseURL = $this->settings->getBaseURL();
+
+        if (empty($baseURL) || empty($identifier)) {
+            return '';
+        }
+
+        return \trailingslashit($baseURL) . $identifier;
     }
 
     protected function request(string $bsn = '159859037')
@@ -86,9 +102,8 @@ class GravityForms
         try {
             $curl = curl_init();
 
-            // Omzetten naar Guzzle?
             curl_setopt_array($curl, [
-                CURLOPT_URL => 'https://apitest.locgov.nl/iconnect/brpmks/1.3.0/ingeschrevenpersonen/' . $bsn,
+                CURLOPT_URL => $this->getRequestURL($bsn),
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -98,14 +113,13 @@ class GravityForms
                 CURLOPT_CUSTOMREQUEST => 'GET',
                 CURLOPT_HTTPHEADER => [
                     'x-doelbinding: BurgerlijkeStand',
-                    'x-origin-oin: ' . $this->settings->get('ion-number'),
-                    // 'Cookie: MKSSESSIONID=4da985b7-4794-4532-b220-57d0f7d8e734'
+                    'x-origin-oin: ' . $this->settings->getNumberOIN()
                 ],
-                CURLOPT_SSLCERT => $this->settings->get('public-certificate'),
-                CURLOPT_SSLKEY => $this->settings->get('private-certificate')
+                CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
+                CURLOPT_SSLKEY => $this->settings->getPrivateCertificate()
             ]);
 
-            curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->settings->get('passphrase'));
+            curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->settings->getPassphrase());
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
 

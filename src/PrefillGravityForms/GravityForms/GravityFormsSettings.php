@@ -39,4 +39,29 @@ class GravityFormsSettings
         $key = $this->prefix . $key;
         return $this->options[$key] ?? '';
     }
+
+    public function getBaseURL()
+    {
+        return $this->options[$this->prefix . 'base-url'] ?? '';
+    }
+
+    public function getNumberOIN()
+    {
+        return $this->options[$this->prefix . 'oin-number'] ?? '';
+    }
+
+    public function getPublicCertificate()
+    {
+        return $this->options[$this->prefix . 'public-certificate'] ?? '';
+    }
+
+    public function getPrivateCertificate()
+    {
+        return $this->options[$this->prefix . 'private-certificate'] ?? '';
+    }
+
+    public function getPassphrase()
+    {
+        return $this->options[$this->prefix . 'passphrase'] ?? '';
+    }
 }
