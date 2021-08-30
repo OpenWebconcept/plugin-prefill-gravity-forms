@@ -16,7 +16,13 @@ class GravityForms
             return $form;
         }
 
-        $response = $this->request($bsn);
+        $doelBinding = rgar($form, 'owc-iconnect-doelbinding');
+
+        if (empty($doelBinding) || !is_string($doelBinding)) {
+            return $form;
+        }
+
+        $response = $this->request($bsn, $doelBinding);
 
         if (empty($response) || isset($response['status'])) {
             return $form;
@@ -65,21 +71,24 @@ class GravityForms
      * Explode string in to array items.
      * Use these array items to retrieve nested array values from the response.
      */
-    public function explodeDotNotationValue(string $value, array $response): string
+    public function explodeDotNotationValue(string $dotNotationString, array $response): string
     {
-        $exploded = explode('.', $value);
+        $exploded = explode('.', $dotNotationString);
         $holder   = [];
 
         foreach ($exploded as $key => $item) {
             if ($key === 0) {
+                // Place the wanted part of the response in $holder.
                 $holder = $response[$item] ?? '';
                 continue;
             }
 
+            // If $holder is empty there is no need to proceed.
             if (empty($holder)) {
                 break;
             }
 
+            // Place the nested part of the response in $holder.
             $holder = $holder[$item] ?? '';
         }
 
@@ -97,7 +106,7 @@ class GravityForms
         return \trailingslashit($baseURL) . $identifier;
     }
 
-    protected function request(string $bsn = '159859037')
+    protected function request(string $bsn = '159859037', string $doelBinding = '')
     {
         try {
             $curl = curl_init();
@@ -112,7 +121,7 @@ class GravityForms
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'GET',
                 CURLOPT_HTTPHEADER => [
-                    'x-doelbinding: BurgerlijkeStand',
+                    'x-doelbinding: ' . $doelBinding,
                     'x-origin-oin: ' . $this->settings->getNumberOIN()
                 ],
                 CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),

@@ -4,29 +4,28 @@ namespace OWC\PrefillGravityForms\GravityForms;
 
 class GravityFormsFormSettings
 {
-    public function addFormSettings($settings, $form)
+    public function addFormSettingsCSS(): void
     {
-        $settings['iConnect']['my_custom_setting'] = '
+        wp_enqueue_style('gf-custom-admin', \plugins_url(PG_DIR . '/resources/css/admin.css'), []);
+    }
+
+    public function addFormSettings(array $settings, array $form): array
+    {
+        $settings['iConnect']['owc-iconnect-doelbinding'] = '
         <tr>
-            <td><label class="gform-settings-label" for="my_custom_setting">Doelbinding</label></td>
+            <td><label class="gform-settings-label" for="owc-iconnect-doelbinding">Doelbinding</label></td>
         </tr>
         <tr>
-            <td><input type="text" class="gform-settings-input__container" value="' . rgar($form, 'my_custom_setting') . '" name="my_custom_setting"></td>
+            <td><input type="text" class="gform-settings-input__container" value="' . rgar($form, 'owc-iconnect-doelbinding') . '" name="owc-iconnect-doelbinding"></td>
         </tr>';
 
         return $settings;
     }
 
-    public function saveFormSettings($form)
+    public function saveFormSettings(array $form): array
     {
-        $form['my_custom_setting'] = rgpost('my_custom_setting');
+        $form['owc-iconnect-doelbinding'] = rgpost('owc-iconnect-doelbinding');
+
         return $form;
     }
-
-    /**
-     * TO-DO: 
-     * 
-     * Opmaak van het veld in het formulier.
-     * Ophalen van opgeslagen data en toepassen in request.
-     */
 }

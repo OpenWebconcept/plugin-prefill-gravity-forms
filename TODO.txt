@@ -1,18 +1,6 @@
 To-do:
 
-Location: app/public/htdocs/wp-content/plugins/prefill-gravity-forms/src/PrefillGravityForms/GravityForms/GravityForms.php:91
-Task: The url for the request could be set via the form settings.
-Clarify: Every request needs a BSN number at the end of the url?
+1. Figure out how to add the options for the custom select per field dynamically via the settings -> Holger
+2. Implement functionality of DigiD field, from the DigiD plugin, to work together with this plugin.
+3. Find out if the DigiD field contains validations and if those work well with this plugin? 
 
-Location: app/public/htdocs/wp-content/plugins/prefill-gravity-forms/src/PrefillGravityForms/GravityForms/GravityForms.php:100
-Task: The HTTPHEADER 'x-doelbinding: BurgerlijkeStand' could/should be set via the form settings.
-Clarify: Does the HTTPHEADER 'x-doelbinding' always need to be present?
-Answer: Yes, provide via GF settings.
-
-Task: Figure out how to add the options for the custom select per field dynamically via the settings -> Holger
-
-Task: Add translations -> done but not for the views.
-
-// foutief bsn? Veld checken op length van 9 cijfers. Is het bsn dan alsnog onjuist dan een melding geven en stoppen.
-
-Doelbinding per formulier.

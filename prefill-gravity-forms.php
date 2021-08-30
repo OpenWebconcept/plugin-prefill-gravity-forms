@@ -21,6 +21,7 @@ if (!defined('WPINC')) {
 }
 
 define('PG_VERSION', '1.0.0');
+define('PG_DIR', basename(__DIR__));
 define('PG_ROOT_PATH', __DIR__);
 
 /**
