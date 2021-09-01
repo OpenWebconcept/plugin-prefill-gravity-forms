@@ -2,13 +2,16 @@
 
 namespace OWC\PrefillGravityForms\GravityForms;
 
+use function Yard\DigiD\Foundation\Helpers\decrypt;
+
 class GravityForms
 {
     public function __construct()
     {
         $this->settings = GravityFormsSettings::make();
     }
-    public function preRender(array $form)
+
+    public function preRender(array $form): array
     {
         $bsn = $this->getBSN($form);
 
@@ -28,6 +31,26 @@ class GravityForms
             return $form;
         }
 
+        return $this->preFillFields($form, $response);
+    }
+
+    protected function getBSN(array $form): string
+    {
+        $bsn = '';
+
+        foreach ($form['fields'] as $field) {
+            if ($field->type !== 'digid' || empty($_POST['input_' . $field->id . '_1'])) {
+                continue;
+            }
+
+            $bsn = decrypt(\sanitize_text_field($_POST['input_' . $field->id . '_1']));
+        }
+
+        return $bsn;
+    }
+
+    protected function preFillFields(array $form, array $response): array
+    {
         foreach ($form['fields'] as $field) {
             $linkedValue = $field->linkedFieldValue ?? '';
             $foundValue  = $this->findLinkedValue($linkedValue, $response);
@@ -42,28 +65,12 @@ class GravityForms
         return $form;
     }
 
-    protected function getBSN(array $form)
-    {
-        $bsn = '';
-
-        foreach ($form['fields'] as $field) {
-            if ($field->id !== 1) {
-                continue;
-            }
-
-            $bsn = rgpost('input_' . $field->id);
-        }
-
-        return $bsn;
-    }
-
     public function findLinkedValue(string $linkedValue = '', array $response = []): string
     {
         if (empty($linkedValue) || empty($response)) {
             return $linkedValue;
         }
 
-        // https://github.com/adbario/php-dot-notation/blob/2.x/src/Dot.php ??
         return $this->explodeDotNotationValue($linkedValue, $response);
     }
 

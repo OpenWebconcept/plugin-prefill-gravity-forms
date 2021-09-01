@@ -25,7 +25,7 @@ class GravityFormsServiceProvider extends ServiceProvider
         $this->plugin->loader->addAction('gform_editor_js', $gravityFormsFieldSettings, 'addSelectScript', 10, 2);
         $this->plugin->loader->addAction('admin_head', $gravityFormsFormSettings, 'addFormSettingsCSS', 10, 0);
         $this->plugin->loader->addFilter('gform_form_settings', $gravityFormsFormSettings, 'addFormSettings', 10, 2);
-        $this->plugin->loader->addFilter('gform_pre_form_settings_save', $gravityFormsFormSettings, 'saveFormSettings', 10, 1);
+        $this->plugin->loader->addFilter('gform_pre_form_settings_save', $gravityFormsFormSettings, 'saveFormSettings');
     }
 
     private function registerSettingsAddon(): void
