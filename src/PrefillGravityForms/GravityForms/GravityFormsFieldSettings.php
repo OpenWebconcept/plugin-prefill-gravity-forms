@@ -13,8 +13,10 @@ class GravityFormsFieldSettings
 
     public function addSelect($position, $formId)
     {
-        if ($position == 0) {
-            echo view('select.php');
+        if ($position !== 0) {
+            return;
         }
+
+        echo view('select.php');
     }
 }

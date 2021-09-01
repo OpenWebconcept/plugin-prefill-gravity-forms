@@ -113,7 +113,7 @@ class GravityForms
         return \trailingslashit($baseURL) . $identifier;
     }
 
-    protected function request(string $bsn = '159859037', string $doelBinding = '')
+    protected function request(string $bsn = '159859037', string $doelBinding = ''): array
     {
         try {
             $curl = curl_init();

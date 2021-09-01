@@ -6,7 +6,7 @@ class GravityFormsFormSettings
 {
     public function addFormSettingsCSS(): void
     {
-        wp_enqueue_style('gf-custom-admin', \plugins_url(PG_DIR . '/resources/css/admin.css'), []);
+        wp_enqueue_style('gf-custom-admin', \plugins_url(PG_DIR . '/resources/css/admin.css'));
     }
 
     public function addFormSettings(array $settings, array $form): array
