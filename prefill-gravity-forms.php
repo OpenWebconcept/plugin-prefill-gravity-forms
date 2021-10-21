@@ -3,8 +3,8 @@
 /**
  * Plugin Name:       Yard | Prefill GravityForms
  * Plugin URI:        https://www.openwebconcept.nl/
- * Description:       Press releases are a variation on OpenPub items. A press release can be added to a laposta campaign based on the connected taxonomy. This only happens when the press release is saved for the first time.
- * Version:           1.0.0
+ * Description:       Prefill GravityForms fields, based on the dutch BSN number. Retrieve personal information and place these values in the corrensponding fields.
+ * Version:           1.0.1
  * Author:            Yard | Digital Agency
  * Author URI:        https://www.yard.nl/
  * License:           GPL-3.0
@@ -20,7 +20,7 @@ if (!defined('WPINC')) {
     die;
 }
 
-define('PG_VERSION', '1.0.0');
+define('PG_VERSION', '1.0.1');
 define('PG_DIR', basename(__DIR__));
 define('PG_ROOT_PATH', __DIR__);
 

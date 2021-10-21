@@ -3,6 +3,7 @@
 namespace OWC\PrefillGravityForms\GravityForms;
 
 use function Yard\DigiD\Foundation\Helpers\decrypt;
+use function Yard\DigiD\Foundation\Helpers\resolve;
 
 class GravityForms
 {
@@ -39,11 +40,20 @@ class GravityForms
         $bsn = '';
 
         foreach ($form['fields'] as $field) {
-            if ($field->type !== 'digid' || empty($_POST['input_' . $field->id . '_1'])) {
+            // DigiD field is required in form.
+            if ($field->type !== 'digid') {
                 continue;
             }
 
-            $bsn = decrypt(\sanitize_text_field($_POST['input_' . $field->id . '_1']));
+            $resolvedBSN = resolve('session')->getSegment('digid')->get('bsn');
+
+            if (empty($resolvedBSN)) {
+                continue;
+            }
+
+            $bsn = decrypt($resolvedBSN);
+
+            break;
         }
 
         return $bsn;

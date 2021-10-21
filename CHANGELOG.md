@@ -1,3 +1,11 @@
+## v1.0.1
+
+### Add
+
+-   Add plugin description.
+-   Retrieve BSN from DigiD session.
+-   Add depedency Yard | GravityForms DigiD plugin.
+
 ## v1.0.0
 
 ### Add

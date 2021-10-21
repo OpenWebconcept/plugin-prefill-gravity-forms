@@ -27,6 +27,12 @@ return [
             'label'   => 'Gravity Forms',
             'version' => '>=2.5.8',
             'file'    => 'gravityforms/gravityforms.php',
+        ],
+        [
+            'type'    => 'plugin',
+            'label'   => 'Yard | GravityForms DigiD',
+            'version' => '>=1.0.15',
+            'file'    => 'owc-gravityforms-digid/plugin.php',
         ]
     ]
 ];
