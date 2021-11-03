@@ -17,6 +17,15 @@ class GravityFormsFormSettings
         </tr>
         <tr>
             <td><input type="text" class="gform-settings-input__container" value="' . rgar($form, 'owc-iconnect-doelbinding') . '" name="owc-iconnect-doelbinding"></td>
+        </tr>
+        <tr>
+            <td><label class="gform-settings-label" for="owc-iconnect-expand">Breid uit</label></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" class="gform-settings-input__container" value="' . rgar($form, 'owc-iconnect-expand') . '" name="owc-iconnect-expand">
+                <span>Breid de resultaten uit met andere entiteiten. Kommagescheiden waardes in vullen. Bijvoorbeeld: \'ouders,partners,kinderen\'</span>
+            </td>
         </tr>';
 
         return $settings;
@@ -25,6 +34,7 @@ class GravityFormsFormSettings
     public function saveFormSettings(array $form): array
     {
         $form['owc-iconnect-doelbinding'] = rgpost('owc-iconnect-doelbinding');
+        $form['owc-iconnect-expand'] = rgpost('owc-iconnect-expand');
 
         return $form;
     }

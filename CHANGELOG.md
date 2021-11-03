@@ -1,3 +1,13 @@
+## v1.0.2
+
+### Add
+
+-   Expand selectable prefill fields in form field settings.
+-   Return linked values with ucfirst() when form field type is 'text'.
+-   Return linked values in dd-mm-yyyy notation when form field type is 'date'.
+-   Add expand parameters to request url.
+-   Add form field setting for expanding the result set.
+
 ## v1.0.1
 
 ### Add

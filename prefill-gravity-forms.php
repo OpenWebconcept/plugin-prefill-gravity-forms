@@ -20,7 +20,7 @@ if (!defined('WPINC')) {
     die;
 }
 
-define('PG_VERSION', '1.0.1');
+define('PG_VERSION', '1.0.2');
 define('PG_DIR', basename(__DIR__));
 define('PG_ROOT_PATH', __DIR__);
 

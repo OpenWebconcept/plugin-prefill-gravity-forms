@@ -20,13 +20,14 @@ class GravityForms
             return $form;
         }
 
-        $doelBinding = rgar($form, 'owc-iconnect-doelbinding');
+        $doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
+        $expand = rgar($form, 'owc-iconnect-expand', '');
 
         if (empty($doelBinding) || !is_string($doelBinding)) {
             return $form;
         }
 
-        $response = $this->request($bsn, $doelBinding);
+        $response = $this->request($bsn, $doelBinding, $expand);
 
         if (empty($response) || isset($response['status'])) {
             return $form;
@@ -69,7 +70,13 @@ class GravityForms
                 continue;
             }
 
-            $field->defaultValue = $foundValue;
+            if ($field->type === 'text') {
+                $field->defaultValue = ucfirst($foundValue);
+            }
+
+            if ($field->type === 'date') {
+                $field->defaultValue = (new \DateTime($foundValue))->format('d-m-Y');
+            }
         }
 
         return $form;
@@ -112,7 +119,7 @@ class GravityForms
         return is_string($holder) || is_numeric($holder) ? $holder : '';
     }
 
-    public function getRequestURL(string $identifier = ''): string
+    public function getRequestURL(string $identifier = '', string $expand = ''): string
     {
         $baseURL = $this->settings->getBaseURL();
 
@@ -120,16 +127,32 @@ class GravityForms
             return '';
         }
 
-        return \trailingslashit($baseURL) . $identifier;
+        $url = sprintf('%s/%s', $baseURL, $identifier);
+
+        if (!empty($expand)) {
+            $url = sprintf('%s?%s', $url, $this->createExpandArguments($expand));
+        }
+
+        return $url;
     }
 
-    protected function request(string $bsn = '159859037', string $doelBinding = ''): array
+    protected function createExpandArguments(string $expand): string
+    {
+        $exploded = explode(',', $expand);
+        $filtered = array_filter($exploded);
+        $new = array_map("trim", $filtered);
+        $imploded = implode(',', $new);
+
+        return urldecode(http_build_query(['expand' => $imploded], '', ','));
+    }
+
+    protected function request(string $bsn = '100251663', string $doelBinding = '', string $expand = ''): array
     {
         try {
             $curl = curl_init();
 
             curl_setopt_array($curl, [
-                CURLOPT_URL => $this->getRequestURL($bsn),
+                CURLOPT_URL => $this->getRequestURL($bsn, $expand),
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
