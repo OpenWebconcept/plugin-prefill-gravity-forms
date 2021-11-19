@@ -112,11 +112,27 @@ class GravityForms
                 break;
             }
 
+            // If holder is a multidimensional array, unflatten.
+            if (!empty($holder[0]) && is_array($holder[0])) {
+                $holder = $this->unflattenHolderArray($holder);
+            }
+
             // Place the nested part of the response in $holder.
             $holder = $holder[$item] ?? '';
         }
 
         return is_string($holder) || is_numeric($holder) ? $holder : '';
+    }
+
+    protected function unflattenHolderArray(array $holder): array
+    {
+        $backupHolder = [];
+
+        foreach ($holder as $part) {
+            $backupHolder = array_merge($backupHolder, $part);
+        }
+
+        return $backupHolder;
     }
 
     public function getRequestURL(string $identifier = '', string $expand = ''): string

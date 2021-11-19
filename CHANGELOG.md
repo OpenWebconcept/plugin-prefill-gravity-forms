@@ -1,3 +1,9 @@
+## v1.0.3
+
+### Add
+
+-   Handle multidimensional arrays in response when retrieving linked values.
+
 ## v1.0.2
 
 ### Add
