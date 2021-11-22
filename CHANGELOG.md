@@ -1,3 +1,9 @@
+## v1.0.4
+
+### Refactor
+
+-   Apply the right plug-in version.
+
 ## v1.0.3
 
 ### Add

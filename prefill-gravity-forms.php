@@ -4,7 +4,7 @@
  * Plugin Name:       Yard | Prefill GravityForms
  * Plugin URI:        https://www.openwebconcept.nl/
  * Description:       Prefill GravityForms fields, based on the dutch BSN number. Retrieve personal information and place these values in the corrensponding fields.
- * Version:           1.0.1
+ * Version:           1.0.4
  * Author:            Yard | Digital Agency
  * Author URI:        https://www.yard.nl/
  * License:           GPL-3.0
@@ -20,7 +20,7 @@ if (!defined('WPINC')) {
     die;
 }
 
-define('PG_VERSION', '1.0.3');
+define('PG_VERSION', '1.0.4');
 define('PG_DIR', basename(__DIR__));
 define('PG_ROOT_PATH', __DIR__);
 
