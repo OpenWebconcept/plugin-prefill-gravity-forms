@@ -1,3 +1,9 @@
+## v1.0.5
+
+### Refactor
+
+-   Update plugin name.
+
 ## v1.0.4
 
 ### Refactor
