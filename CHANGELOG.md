@@ -1,3 +1,9 @@
+## v1.0.6
+
+### Refactor
+
+-   iConnect settings, enable selection of .crt and .cer files.
+
 ## v1.0.5
 
 ### Refactor

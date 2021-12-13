@@ -149,7 +149,7 @@ class GravityFormsAddon extends GFAddOn
      */
     private function getPublicCertificates(): array
     {
-        return $this->formatListOfCertificates(glob($this->getCertificateLocation() . '/*.{crt}', GLOB_BRACE));
+        return $this->formatListOfCertificates(glob($this->getCertificateLocation() . '/*.{crt,cer}', GLOB_BRACE));
     }
 
     /**
