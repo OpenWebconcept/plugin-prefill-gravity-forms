@@ -103,19 +103,10 @@ class GravityFormsAddon extends GFAddOn
                         'name'                 => "{$prefix}private-certificate",
                         'choices'              => $this->getPrivateCertificates(),
                         'required'             => true,
-                    ],
-                    [
-                        'label'             => __('Passphrase', 'prefill-gravity-forms'),
-                        'type'              => 'text',
-                        'class'             => 'medium',
-                        'name'              => "{$prefix}passphrase",
-                        'required'          => true
                     ]
                 ]
             ]
         ];
-
-        // Certificaten
     }
 
     /**

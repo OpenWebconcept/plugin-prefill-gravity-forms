@@ -1,3 +1,10 @@
+## v1.0.7
+
+### Refactor
+
+-   CURL header x-doelbinding is optional.
+-   Remove 'Passphrase' form setting.
+
 ## v1.0.6
 
 ### Refactor

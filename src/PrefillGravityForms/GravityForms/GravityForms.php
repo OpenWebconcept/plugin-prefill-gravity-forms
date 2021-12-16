@@ -23,8 +23,8 @@ class GravityForms
         $doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
         $expand = rgar($form, 'owc-iconnect-expand', '');
 
-        if (empty($doelBinding) || !is_string($doelBinding)) {
-            return $form;
+        if (!is_string($doelBinding)) {
+            $doelBinding = (string) $doelBinding;
         }
 
         $response = $this->request($bsn, $doelBinding, $expand);
@@ -162,6 +162,16 @@ class GravityForms
         return urldecode(http_build_query(['expand' => $imploded], '', ','));
     }
 
+    protected function getCurlHeaders(string $doelBinding = ''): array
+    {
+        $headers = [
+            'x-doelbinding: ' . $doelBinding,
+            'x-origin-oin: ' . $this->settings->getNumberOIN()
+        ];
+
+        return array_filter($headers);
+    }
+
     protected function request(string $bsn = '100251663', string $doelBinding = '', string $expand = ''): array
     {
         try {
@@ -176,15 +186,11 @@ class GravityForms
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => [
-                    'x-doelbinding: ' . $doelBinding,
-                    'x-origin-oin: ' . $this->settings->getNumberOIN()
-                ],
+                CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
                 CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
                 CURLOPT_SSLKEY => $this->settings->getPrivateCertificate()
             ]);
 
-            curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->settings->getPassphrase());
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
 
