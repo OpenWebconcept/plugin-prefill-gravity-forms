@@ -12,6 +12,31 @@ class GravityForms
         $this->settings = GravityFormsSettings::make();
     }
 
+    /**
+     * BSN numbers could start with one or more zero's at the beginning.
+     * The zero's are not returned by DigiD so the required length of 9 characters is not met. 
+     * Supplement the value so it meets the required length of 9.
+     */
+    protected function supplementBSN(string $bsn): string
+    {
+        $bsnLength = strlen($bsn);
+        $requiredLength = 9;
+        $difference = $requiredLength - $bsnLength;
+        $complementedBSN = '';
+
+        if ($difference < 1 || $difference > $requiredLength) {
+            return $bsn;
+        }
+
+        for ($i = 1; $i <= $difference; $i++) {
+            $complementedBSN .= '0';
+        }
+
+        $bsn = $complementedBSN . $bsn;
+
+        return $bsn;
+    }
+
     public function preRender(array $form): array
     {
         $bsn = $this->getBSN($form);
@@ -19,6 +44,8 @@ class GravityForms
         if (empty($bsn)) {
             return $form;
         }
+
+        $bsn = $this->supplementBSN($bsn);
 
         $doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
         $expand = rgar($form, 'owc-iconnect-expand', '');

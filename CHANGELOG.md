@@ -1,3 +1,9 @@
+## v1.0.8
+
+### Refactor
+
+-   Supplement BSN when length is lower than required 9.
+
 ## v1.0.7
 
 ### Refactor
