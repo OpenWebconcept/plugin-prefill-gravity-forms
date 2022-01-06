@@ -1,3 +1,13 @@
+# Changelog
+
+-   tested: WordPress 5.8.2
+
+## v1.0.9
+
+### Feat
+
+-   Add logging to Microsoft Teams.
+
 ## v1.0.8
 
 ### Refactor

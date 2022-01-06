@@ -21,7 +21,7 @@
     },
     "require-dev": {
       "mockery/mockery": "^1.0",
-      "phpunit/phpunit": "^8.0",
+      "phpunit/phpunit": "^9.0",
       "10up/wp_mock": "dev-master",
       "friendsofphp/php-cs-fixer": "^2.18",
       "phpstan/phpstan": "^0.12",

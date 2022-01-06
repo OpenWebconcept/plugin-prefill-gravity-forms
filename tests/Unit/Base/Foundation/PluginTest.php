@@ -13,7 +13,7 @@ class PluginTest extends TestCase
 
     public function setUp(): void
     {
-        WP_Mock::setUp();
+        Parent::setUp();
         WP_Mock::passthruFunction('load_plugin_textdomain');
 
         if (!defined('PG_VERSION')) {
@@ -21,11 +21,6 @@ class PluginTest extends TestCase
         }
 
         $this->plugin = Plugin::getInstance('test');
-    }
-
-    public function tearDown(): void
-    {
-        WP_Mock::tearDown();
     }
 
     /** @test */

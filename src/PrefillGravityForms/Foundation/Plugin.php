@@ -97,7 +97,7 @@ class Plugin
             'config'   => function () {
                 return new Config($this->rootPath . '/config');
             },
-            'loader' => Loader::getInstance()
+            'loader' => Loader::getInstance(),
 
         ]);
         $this->container = $builder->build();

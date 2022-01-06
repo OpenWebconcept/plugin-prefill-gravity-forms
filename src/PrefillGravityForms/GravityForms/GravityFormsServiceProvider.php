@@ -15,7 +15,7 @@ class GravityFormsServiceProvider extends ServiceProvider
         $this->loadHooks();
     }
 
-    protected function loadHooks()
+    protected function loadHooks(): void
     {
         $gravityFormsFieldSettings = new GravityFormsFieldSettings;
         $gravityFormsFormSettings  = new GravityFormsFormSettings;

@@ -14,18 +14,13 @@ class GravityFormsTest extends TestCase
 
     public function setUp(): void
     {
-        WP_Mock::setUp();
+        Parent::setUp();
 
         \WP_Mock::userFunction('get_option', [
             'return' => []
         ]);
 
         $this->gravityForms = new GravityForms();
-    }
-
-    public function tearDown(): void
-    {
-        WP_Mock::tearDown();
     }
 
     /** @test */
@@ -44,5 +39,14 @@ class GravityFormsTest extends TestCase
         $expected = 'testt';
 
         $this->assertNotEquals($result, $expected);
+    }
+
+    /** @test */
+    public function supplement_bsn_correctly(): void
+    {
+        $result = $this->gravityForms->supplementBSN('1');
+        $expected = '000000001';
+
+        $this->assertEquals($result, $expected);
     }
 }

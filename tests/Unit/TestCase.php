@@ -2,10 +2,21 @@
 
 namespace OWC\PrefillGravityForms\Tests;
 
+use WP_Mock;
 use PHPUnit\Framework\TestCase as PHPUnit;
 
 class TestCase extends PHPUnit
 {
+    public function setUp(): void
+    {
+        WP_Mock::setUp();
+    }
+
+    public function tearDown(): void
+    {
+        WP_Mock::tearDown();
+    }
+
     /**
      * Call protected/private method of a class.
      *

@@ -2,6 +2,7 @@
 
 namespace OWC\PrefillGravityForms\GravityForms;
 
+use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use function Yard\DigiD\Foundation\Helpers\decrypt;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 
@@ -10,31 +11,20 @@ class GravityForms
     public function __construct()
     {
         $this->settings = GravityFormsSettings::make();
+        $this->teams = $this->resolveTeams();
     }
 
-    /**
-     * BSN numbers could start with one or more zero's at the beginning.
-     * The zero's are not returned by DigiD so the required length of 9 characters is not met. 
-     * Supplement the value so it meets the required length of 9.
-     */
-    protected function supplementBSN(string $bsn): string
+    public function resolveTeams(): TeamsLogger
     {
-        $bsnLength = strlen($bsn);
-        $requiredLength = 9;
-        $difference = $requiredLength - $bsnLength;
-        $complementedBSN = '';
+        try {
+            if (!function_exists('Yard\DigiD\Foundation\Helpers\resolve')) {
+                throw new \Exception;
+            }
 
-        if ($difference < 1 || $difference > $requiredLength) {
-            return $bsn;
+            return TeamsLogger::make(resolve('teams'));
+        } catch (\Exception $e) {
+            return TeamsLogger::make(new \Psr\Log\NullLogger());
         }
-
-        for ($i = 1; $i <= $difference; $i++) {
-            $complementedBSN .= '0';
-        }
-
-        $bsn = $complementedBSN . $bsn;
-
-        return $bsn;
     }
 
     public function preRender(array $form): array
@@ -47,6 +37,13 @@ class GravityForms
 
         $bsn = $this->supplementBSN($bsn);
 
+        if (strlen($bsn) !== 9) {
+            $this->teams->addRecord('error', 'BSN', [
+                'message' => 'BSN does not meet the required length of 9.'
+            ]);
+            return $form;
+        }
+
         $doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
         $expand = rgar($form, 'owc-iconnect-expand', '');
 
@@ -56,7 +53,11 @@ class GravityForms
 
         $response = $this->request($bsn, $doelBinding, $expand);
 
-        if (empty($response) || isset($response['status'])) {
+        if (isset($response['status'])) {
+            $this->teams->addRecord('error', 'Prefill data', [
+                'message' => 'Retrieving prefill data failed.',
+                'status' => $response['status']
+            ]);
             return $form;
         }
 
@@ -85,6 +86,24 @@ class GravityForms
         }
 
         return $bsn;
+    }
+
+    /**
+     * BSN numbers could start with one or more zero's at the beginning.
+     * The zero's are not returned by DigiD so the required length of 9 characters is not met. 
+     * Supplement the value so it meets the required length of 9.
+     */
+    public function supplementBSN(string $bsn): string
+    {
+        $bsnLength = strlen($bsn);
+        $requiredLength = 9;
+        $difference = $requiredLength - $bsnLength;
+
+        if ($difference < 1 || $difference > $requiredLength) {
+            return $bsn;
+        }
+
+        return sprintf("%'.0" . $requiredLength . "d", $bsn);
     }
 
     protected function preFillFields(array $form, array $response): array
@@ -199,7 +218,7 @@ class GravityForms
         return array_filter($headers);
     }
 
-    protected function request(string $bsn = '100251663', string $doelBinding = '', string $expand = ''): array
+    protected function request(string $bsn = '', string $doelBinding = '', string $expand = ''): array
     {
         try {
             $curl = curl_init();
@@ -235,7 +254,9 @@ class GravityForms
 
             return $decoded;
         } catch (\Exception $e) {
-            return [];
+            return [
+                'status' => $e->getMessage()
+            ];
         }
     }
 }
