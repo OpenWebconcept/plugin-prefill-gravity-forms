@@ -2,6 +2,12 @@
 
 -   tested: WordPress 5.8.2
 
+## v1.0.10
+
+### Fix
+
+-   Root path to certificates
+
 ## v1.0.9
 
 ### Feat
