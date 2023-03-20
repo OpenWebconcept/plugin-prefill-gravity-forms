@@ -1,10 +1,9 @@
 <?php
-
 /**
  * Select element for custom field
- **/
+ */
 ?>
-<li style="display: list-item;">
+<li class="label_setting field_setting">
     <label for="linkedField" class="section_label">
         <?php _e('Automatisch invullen', 'prefill-gravity-forms'); ?>
         <?php gform_tooltip('caseCategoryToolTip'); ?>
