@@ -2,21 +2,35 @@
 
 namespace OWC\PrefillGravityForms\GravityForms;
 
+use function OWC\PrefillGravityForms\Foundation\Helpers\get_supplier;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 
 class GravityFormsFieldSettings
 {
     public function addSelectScript()
     {
-        echo view('scriptSelect.php');
+        echo view('scriptSelectPrefill.php');
     }
 
-    public function addSelect($position, $formId)
+    /**
+     * Add custom select to Gravity Form fields.
+     * Used for mapping a field to a supplier setting.
+     */
+    public function addSelect($position, $formId): void
     {
-        if (0 !== $position) {
+        if (! class_exists('\GFAPI')) {
             return;
         }
 
-        echo view('select.php');
+        $form = \GFAPI::get_form($formId);
+        $supplier = get_supplier($form, true);
+
+        if ($position !== 0 || empty($supplier)) {
+            return;
+        }
+        // Render the supplier based options.
+        $mappingOptions = sprintf('partials/gf-field-options-%s.php', $supplier);
+
+        echo view($mappingOptions);
     }
 }

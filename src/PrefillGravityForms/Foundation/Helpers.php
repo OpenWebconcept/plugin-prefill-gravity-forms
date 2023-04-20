@@ -58,7 +58,7 @@ function decrypt($string): string
  *
  * @return string
  */
-function config(string $setting, string $default = ''): ?string
+function config(string $setting, $default = ''): ?string
 {
     return resolve('config')->get($setting, $default);
 }
@@ -72,4 +72,28 @@ function view(string $template, array $vars = []): string
     }
 
     return $view->render($template, $vars);
+}
+
+/**
+ * Get the current selected supplier on a per form basis.
+ * Returns label as default, use parameter $getKey to return the key from the config array.
+ */
+function get_supplier(array $form, bool $getKey = false): string
+{
+    $allowed = config('suppliers', []);
+    $supplier = $form[sprintf('%s-form-setting-supplier', 'owc')] ?? '';
+
+    if (! is_array($allowed) || empty($allowed) || empty($supplier)) {
+        return '';
+    }
+
+    if (! in_array($supplier, array_keys($allowed))) {
+        return '';
+    }
+
+    if ($getKey) {
+        return $supplier;
+    }
+
+    return $allowed[$supplier] ?? '';
 }
