@@ -2,6 +2,12 @@
 
 -   tested: WordPress 5.8.2
 
+## v1.0.11
+
+### Refactor
+
+-   Restore 'Passphrase' form setting, is only used when this setting has a value.
+
 ## v1.0.10
 
 ### Fix

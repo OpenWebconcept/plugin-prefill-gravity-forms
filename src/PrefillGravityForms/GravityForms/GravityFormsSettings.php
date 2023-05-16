@@ -59,4 +59,9 @@ class GravityFormsSettings
     {
         return $this->options[$this->prefix . 'private-certificate'] ?? '';
     }
+
+    public function getPassphrase(): string
+    {
+        return $this->options[$this->prefix . 'passphrase'] ?? '';
+    }
 }

@@ -2,8 +2,8 @@
 
 namespace OWC\PrefillGravityForms\GravityForms;
 
-use GFAddOn;
 use function OWC\PrefillGravityForms\Foundation\Helpers\storage_path;
+use GFAddOn;
 
 class GravityFormsAddon extends GFAddOn
 {
@@ -103,6 +103,13 @@ class GravityFormsAddon extends GFAddOn
                         'name'                 => "{$prefix}private-certificate",
                         'choices'              => $this->getPrivateCertificates(),
                         'required'             => true,
+                    ],
+                    [
+                        'label'             => __('Passphrase', 'prefill-gravity-forms'),
+                        'type'              => 'text',
+                        'class'             => 'medium',
+                        'name'              => "{$prefix}passphrase",
+                        'required'          => false
                     ]
                 ]
             ]

@@ -2,9 +2,9 @@
 
 namespace OWC\PrefillGravityForms\GravityForms;
 
-use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use function Yard\DigiD\Foundation\Helpers\decrypt;
 use function Yard\DigiD\Foundation\Helpers\resolve;
+use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 
 class GravityForms
 {
@@ -90,7 +90,7 @@ class GravityForms
 
     /**
      * BSN numbers could start with one or more zero's at the beginning.
-     * The zero's are not returned by DigiD so the required length of 9 characters is not met. 
+     * The zero's are not returned by DigiD so the required length of 9 characters is not met.
      * Supplement the value so it meets the required length of 9.
      */
     public function supplementBSN(string $bsn): string
@@ -237,6 +237,10 @@ class GravityForms
                 CURLOPT_SSLKEY => $this->settings->getPrivateCertificate()
             ]);
 
+            if (! empty($this->settings->getPassphrase())) {
+                curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->settings->getPassphrase());
+            }
+            
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
 
