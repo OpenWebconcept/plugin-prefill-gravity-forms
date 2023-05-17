@@ -7,7 +7,6 @@ class EnableUController extends BaseController
     public function handle(array $form)
     {
         $bsn = $this->getBSN($form);
-        // $bsn = '999995078';
 
         if (empty($bsn)) {
             return $form;

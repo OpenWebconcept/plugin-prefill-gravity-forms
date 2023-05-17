@@ -199,6 +199,11 @@ abstract class BaseController
             $curl = curl_init();
 
             curl_setopt_array($curl, $this->getDefaultCurlArgs() + $args);
+
+            if (! empty($this->settings->getPassphrase())) {
+                curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->settings->getPassphrase());
+            }
+            
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
     
