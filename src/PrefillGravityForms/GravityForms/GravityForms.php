@@ -2,7 +2,8 @@
 
 namespace OWC\PrefillGravityForms\GravityForms;
 
-use function Yard\DigiD\Foundation\Helpers\decrypt;
+use Exception;
+use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 
@@ -32,7 +33,7 @@ class GravityForms
 
     public function preRender(array $form): array
     {
-        $bsn = $this->getBSN($form);
+        $bsn = $this->getBSN();
 
         if (empty($bsn)) {
             return $form;
@@ -69,28 +70,15 @@ class GravityForms
         return $this->preFillFields($form, $response);
     }
 
-    protected function getBSN(array $form): string
+    protected function getBSN(): string
     {
-        $bsn = '';
-
-        foreach ($form['fields'] as $field) {
-            // DigiD field is required in form.
-            if ('digid' !== $field->type) {
-                continue;
-            }
-
-            $resolvedBSN = resolve('session')->getSegment('digid')->get('bsn');
-
-            if (empty($resolvedBSN)) {
-                continue;
-            }
-
-            $bsn = decrypt($resolvedBSN);
-
-            break;
+        try {
+            $bsn = resolve('session')->getSegment('digid')->get('bsn');
+        } catch(Exception $e) {
+            $bsn = '';
         }
 
-        return $bsn;
+        return is_string($bsn) && ! empty($bsn) ? decrypt($bsn) : '';
     }
 
     /**

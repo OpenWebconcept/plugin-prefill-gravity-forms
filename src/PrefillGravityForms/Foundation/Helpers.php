@@ -25,6 +25,34 @@ function resolve($container, $arguments = [])
 }
 
 /**
+ * Encrypt a string.
+ */
+function encrypt($string): string
+{
+    try {
+        $encrypted = resolve(\OWC\PrefillGravityForms\Foundation\Cryptor::class)->encrypt($string);
+    } catch(\Exception $e) {
+        $encrypted = '';
+    }
+
+    return $encrypted;
+}
+
+/**
+ * Decrypt a string.
+ */
+function decrypt($string): string
+{
+    try {
+        $decrypted = resolve(\OWC\PrefillGravityForms\Foundation\Cryptor::class)->decrypt($string);
+    } catch(\Exception $e) {
+        $decrypted = '';
+    }
+
+    return $decrypted ?: '';
+}
+
+/**
  * @param string $setting
  * @param string $default
  *

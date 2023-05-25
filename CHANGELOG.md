@@ -2,6 +2,12 @@
 
 -   tested: WordPress 5.8.2
 
+## v1.0.13
+
+### Refactor
+
+-   Retrieve bsn by DigiD session instead of value of form field
+
 ## v1.0.12
 
 ### Refactor
