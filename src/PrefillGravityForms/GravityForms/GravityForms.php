@@ -82,10 +82,10 @@ class GravityForms
     }
 
     /**
-     * BSN numbers could start with one or more zero's at the beginning.
-     * The zero's are not returned by DigiD so the required length of 9 characters is not met.
-     * Supplement the value so it meets the required length of 9.
-     */
+         * BSN numbers could start with one or more zero's at the beginning.
+         * The zero's are not returned by DigiD so the required length of 9 characters is not met.
+         * Supplement the value so it meets the required length of 9.
+         */
     public function supplementBSN(string $bsn): string
     {
         $bsnLength = strlen($bsn);
