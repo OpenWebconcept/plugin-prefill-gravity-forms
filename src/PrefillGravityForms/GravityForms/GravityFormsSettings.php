@@ -4,14 +4,9 @@ namespace OWC\PrefillGravityForms\GravityForms;
 
 class GravityFormsSettings
 {
-    /** @var string */
-    protected $prefix = 'owc-iconnect-';
-
-    /** @var string */
-    protected $name = 'gravityformsaddon_owc-gravityforms-iconnect_settings';
-
-    /** @var array */
-    protected $options = [];
+    protected string $prefix = 'owc-iconnect-';
+    protected string $name = 'gravityformsaddon_owc-gravityforms-iconnect_settings';
+    protected array $options = [];
 
     final private function __construct()
     {
@@ -20,8 +15,6 @@ class GravityFormsSettings
 
     /**
      * Static constructor
-     *
-     * @return self
      */
     public static function make(): self
     {
@@ -30,13 +23,11 @@ class GravityFormsSettings
 
     /**
      * Get the value from the database.
-     *
-     * @param string $key
-     * @return string
      */
     public function get(string $key): string
     {
         $key = $this->prefix . $key;
+
         return $this->options[$key] ?? '';
     }
 

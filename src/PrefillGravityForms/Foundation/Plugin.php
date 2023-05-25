@@ -19,36 +19,25 @@ class Plugin
     /**
      * Version of the plugin.
      * Used for setting versions of enqueue scripts and styles.
-     *
-     * @var string VERSION
      */
     const VERSION = \PG_VERSION;
 
     /**
      * Path to the root of the plugin.
-     *
-     * @var string $rootPath
      */
-    protected $rootPath;
+    protected string $rootPath;
 
     /**
      * Instance of the configuration repository.
-     *
-     * @var Config
      */
-    public $config;
+    public Config $config;
 
     /**
      * Instance of the Hook loader.
-     *
-     * @var Loader
      */
-    public $loader;
+    public Loader $loader;
 
-    /**
-     * @var \DI\Container
-     */
-    protected $container;
+    protected \DI\Container $container;
 
     /**
      * @var Plugin
@@ -57,10 +46,6 @@ class Plugin
 
     /**
      * Constructor of the BasePlugin
-     *
-     * @param string $rootPath
-     *
-     * @return void
      */
     public function __construct(string $rootPath)
     {
@@ -72,12 +57,8 @@ class Plugin
 
     /**
      * Return the Plugin instance
-     *
-     * @param string $rootPath
-     *
-     * @return self
      */
-    public static function getInstance($rootPath = ''): self
+    public static function getInstance(string $rootPath = ''): self
     {
         if (null == static::$instance) {
             static::$instance = new static($rootPath);
@@ -86,15 +67,12 @@ class Plugin
         return static::$instance;
     }
 
-    /**
-     * @return \DI\Container
-     */
-    protected function buildContainer()
+    protected function buildContainer(): void
     {
-        $builder         = new \DI\ContainerBuilder();
+        $builder = new \DI\ContainerBuilder();
         $builder->addDefinitions([
-            'app'         => $this,
-            'config'   => function () {
+            'app' => $this,
+            'config' => function () {
                 return new Config($this->rootPath . '/config');
             },
             'loader' => Loader::getInstance(),
@@ -103,11 +81,6 @@ class Plugin
         $this->container = $builder->build();
     }
 
-    /**
-     * Return container
-     *
-     * @return \DI\Container
-     */
     public function getContainer(): \DI\Container
     {
         return $this->container;
@@ -115,8 +88,6 @@ class Plugin
 
     /**
      * Boot the plugin.
-     *
-     * @return bool
      */
     public function boot(): bool
     {
@@ -145,16 +116,11 @@ class Plugin
     /**
      * Call method on service providers.
      *
-     * @param string $method
-     * @param string $key
-     *
-     * @return void
-     *
      * @throws \Exception
      */
-    public function callServiceProviders($method, $key = '')
+    public function callServiceProviders(string $method, string $key = ''): void
     {
-        $offset   = $key ? "core.providers.{$key}" : 'core.providers';
+        $offset = $key ? "core.providers.{$key}" : 'core.providers';
         $services = $this->config->get($offset);
 
         foreach ($services as $service) {
@@ -164,7 +130,7 @@ class Plugin
 
             $service = new $service($this);
 
-            if (!$service instanceof ServiceProvider) {
+            if (! $service instanceof ServiceProvider) {
                 throw new \Exception('Provider must be an instance of ServiceProvider.');
             }
 
@@ -176,28 +142,22 @@ class Plugin
 
     /**
      * Get the name of the plugin.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return static::NAME;
     }
 
     /**
      * Get the version of the plugin.
-     *
-     * @return string
      */
-    public function getVersion()
+    public function getVersion(): string
     {
         return static::VERSION;
     }
 
     /**
      * Return root path of plugin.
-     *
-     * @return string
      */
     public function getRootPath(): string
     {

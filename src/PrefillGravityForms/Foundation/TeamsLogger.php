@@ -6,22 +6,22 @@ use Psr\Log\LoggerInterface;
 
 class TeamsLogger
 {
-    protected LoggerInterface $instance;
+    protected LoggerInterface $teams;
 
     protected string $name;
 
-    private function __construct(LoggerInterface $instance)
+    private function __construct(LoggerInterface $teams)
     {
-        $this->teams = $instance;
+        $this->teams = $teams;
         $this->name = 'Yard | BRP Prefill GravityForms';
     }
 
     /**
      * Static constructor.
      */
-    public static function make(LoggerInterface $instance): self
+    public static function make(LoggerInterface $teams): self
     {
-        return new static($instance);
+        return new static($teams);
     }
 
     /**
@@ -29,7 +29,7 @@ class TeamsLogger
      */
     public function addRecord(string $method = 'info', string $title, array $context): void
     {
-        if (!$this->isValid($method)) {
+        if (! $this->isValid($method)) {
             return;
         }
 

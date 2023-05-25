@@ -4,17 +4,10 @@ namespace OWC\PrefillGravityForms\Foundation;
 
 class View
 {
-    /** @var string */
-    protected $templateDirectory = PG_ROOT_PATH . '/views/';
 
-    /** @var array */
-    protected $vars = [];
-
-    /**
-     * @var array Associative array of variables that will be accessible from
-     * the template.
-     */
-    protected $bindings = [];
+    protected string $templateDirectory = PG_ROOT_PATH . '/views/';
+    protected array $vars = [];
+    protected array $bindings = []; // Associative array of variables that will be accessible from the template.
 
     public function __construct($templateDirectory = null)
     {
@@ -24,30 +17,31 @@ class View
         }
     }
 
+    public function exists(string $templateFile = ''): bool
+    {
+        return is_file($this->templateDirectory . $templateFile);
+    }
+
     /**
      * Render the view
-     *
-     * @param string $templateFile
-     *
-     * @return string
      */
     public function render(string $templateFile = '', array $vars = []): string
     {
+        if (! is_file($this->templateDirectory . $templateFile)) {
+            return '';
+        }
+
         $this->bindAll($vars);
         ob_start();
         include($this->templateDirectory . $templateFile);
         $data = trim(ob_get_clean());
+
         return $this->parseTemplate($data, $this->bindings);
     }
 
     /**
      * Search and replace of variables.
      * Searching for {{VARIABLE}}.
-     *
-     * @param string $templateFile
-     * @param array $bindings
-     *
-     * @return string
      */
     protected function parseTemplate(string $template, array $bindings = []): string
     {
@@ -55,6 +49,7 @@ class View
             '#{{\s?(.*?)\s?}}#',
             function ($match) use ($bindings) {
                 $match[1] = trim($match[1], '');
+
                 return $bindings[$match[1]] ?? '';
             },
             $template
@@ -63,11 +58,8 @@ class View
 
     /**
      * Bind a single variable that will be accessible when the view is rendered.
-     *
-     * @param string $parameter
-     * @param mixed $value
      */
-    public function bind($parameter, $value)
+    public function bind(string $parameter, $value)
     {
         $this->bindings[$parameter] = $value;
     }
@@ -76,9 +68,8 @@ class View
      * Bind multiple parameters at once.
      *
      * @see View:bind()
-     * @param array $bindings
      */
-    public function bindAll(array $bindings)
+    public function bindAll(array $bindings): void
     {
         foreach ($bindings as $parameter => $value) {
             $this->bind($parameter, $value);

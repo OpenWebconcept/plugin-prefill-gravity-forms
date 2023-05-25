@@ -8,16 +8,19 @@ use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 
 class GravityForms
 {
+    protected TeamsLogger $teams;
+    protected GravityFormsSettings $settings;
+    
     public function __construct()
     {
-        $this->settings = GravityFormsSettings::make();
         $this->teams = $this->resolveTeams();
+        $this->settings = GravityFormsSettings::make();
     }
 
     public function resolveTeams(): TeamsLogger
     {
         try {
-            if (!function_exists('Yard\DigiD\Foundation\Helpers\resolve')) {
+            if (! function_exists('Yard\DigiD\Foundation\Helpers\resolve')) {
                 throw new \Exception;
             }
 
@@ -39,15 +42,16 @@ class GravityForms
 
         if (strlen($bsn) !== 9) {
             $this->teams->addRecord('error', 'BSN', [
-                'message' => 'BSN does not meet the required length of 9.'
+                'message' => 'BSN does not meet the required length of 9.',
             ]);
+
             return $form;
         }
 
         $doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
         $expand = rgar($form, 'owc-iconnect-expand', '');
 
-        if (!is_string($doelBinding)) {
+        if (! is_string($doelBinding)) {
             $doelBinding = (string) $doelBinding;
         }
 
@@ -56,8 +60,9 @@ class GravityForms
         if (isset($response['status'])) {
             $this->teams->addRecord('error', 'Prefill data', [
                 'message' => 'Retrieving prefill data failed.',
-                'status' => $response['status']
+                'status' => $response['status'],
             ]);
+
             return $form;
         }
 
@@ -70,7 +75,7 @@ class GravityForms
 
         foreach ($form['fields'] as $field) {
             // DigiD field is required in form.
-            if ($field->type !== 'digid') {
+            if ('digid' !== $field->type) {
                 continue;
             }
 
@@ -99,28 +104,28 @@ class GravityForms
         $requiredLength = 9;
         $difference = $requiredLength - $bsnLength;
 
-        if ($difference < 1 || $difference > $requiredLength) {
+        if (1 > $difference || $difference > $requiredLength) {
             return $bsn;
         }
 
-        return sprintf("%'.0" . $requiredLength . "d", $bsn);
+        return sprintf("%'.0" . $requiredLength . 'd', $bsn);
     }
 
     protected function preFillFields(array $form, array $response): array
     {
         foreach ($form['fields'] as $field) {
             $linkedValue = $field->linkedFieldValue ?? '';
-            $foundValue  = $this->findLinkedValue($linkedValue, $response);
+            $foundValue = $this->findLinkedValue($linkedValue, $response);
 
             if (empty($foundValue)) {
                 continue;
             }
 
-            if ($field->type === 'text') {
+            if ('text' === $field->type) {
                 $field->defaultValue = ucfirst($foundValue);
             }
 
-            if ($field->type === 'date') {
+            if ('date' === $field->type) {
                 $field->defaultValue = (new \DateTime($foundValue))->format('d-m-Y');
             }
         }
@@ -144,12 +149,13 @@ class GravityForms
     public function explodeDotNotationValue(string $dotNotationString, array $response): string
     {
         $exploded = explode('.', $dotNotationString);
-        $holder   = [];
+        $holder = [];
 
         foreach ($exploded as $key => $item) {
-            if ($key === 0) {
+            if (0 === $key) {
                 // Place the wanted part of the response in $holder.
                 $holder = $response[$item] ?? '';
+
                 continue;
             }
 
@@ -159,7 +165,7 @@ class GravityForms
             }
 
             // If holder is a multidimensional array, unflatten.
-            if (!empty($holder[0]) && is_array($holder[0])) {
+            if (! empty($holder[0]) && is_array($holder[0])) {
                 $holder = $this->unflattenHolderArray($holder);
             }
 
@@ -191,7 +197,7 @@ class GravityForms
 
         $url = sprintf('%s/%s', $baseURL, $identifier);
 
-        if (!empty($expand)) {
+        if (! empty($expand)) {
             $url = sprintf('%s?%s', $url, $this->createExpandArguments($expand));
         }
 
@@ -202,7 +208,7 @@ class GravityForms
     {
         $exploded = explode(',', $expand);
         $filtered = array_filter($exploded);
-        $new = array_map("trim", $filtered);
+        $new = array_map('trim', $filtered);
         $imploded = implode(',', $new);
 
         return urldecode(http_build_query(['expand' => $imploded], '', ','));
@@ -212,7 +218,7 @@ class GravityForms
     {
         $headers = [
             'x-doelbinding: ' . $doelBinding,
-            'x-origin-oin: ' . $this->settings->getNumberOIN()
+            'x-origin-oin: ' . $this->settings->getNumberOIN(),
         ];
 
         return array_filter($headers);
@@ -234,7 +240,7 @@ class GravityForms
                 CURLOPT_CUSTOMREQUEST => 'GET',
                 CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
                 CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
-                CURLOPT_SSLKEY => $this->settings->getPrivateCertificate()
+                CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
             ]);
 
             if (! empty($this->settings->getPassphrase())) {
@@ -252,14 +258,14 @@ class GravityForms
 
             $decoded = json_decode($output, true);
 
-            if (!$decoded && json_last_error() !== JSON_ERROR_NONE) {
+            if (! $decoded && json_last_error() !== JSON_ERROR_NONE) {
                 throw new \Exception('Something went wrong with decoding of the JSON output.');
             }
 
             return $decoded;
         } catch (\Exception $e) {
             return [
-                'status' => $e->getMessage()
+                'status' => $e->getMessage(),
             ];
         }
     }

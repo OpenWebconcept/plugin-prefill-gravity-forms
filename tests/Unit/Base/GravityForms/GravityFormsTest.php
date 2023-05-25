@@ -2,9 +2,8 @@
 
 namespace OWC\PrefillGravityForms\Tests\Base\GravityForms;
 
-use WP_Mock;
-use OWC\PrefillGravityForms\GravityForms\GravityForms;
 use OWC\PrefillGravityForms\Foundation\Plugin;
+use OWC\PrefillGravityForms\GravityForms\GravityForms;
 use OWC\PrefillGravityForms\Tests\TestCase;
 
 class GravityFormsTest extends TestCase
@@ -17,7 +16,7 @@ class GravityFormsTest extends TestCase
         Parent::setUp();
 
         \WP_Mock::userFunction('get_option', [
-            'return' => []
+            'return' => [],
         ]);
 
         $this->gravityForms = new GravityForms();
@@ -26,7 +25,7 @@ class GravityFormsTest extends TestCase
     /** @test */
     public function find_nested_item_in_array_from_dot_notation_string(): void
     {
-        $result   = $this->gravityForms->findLinkedValue('depthOne.depthTwo.depthThree', ['depthOne' => ['depthTwo' => ['depthThree' => 'test']]]);
+        $result = $this->gravityForms->findLinkedValue('depthOne.depthTwo.depthThree', ['depthOne' => ['depthTwo' => ['depthThree' => 'test']]]);
         $expected = 'test';
 
         $this->assertEquals($result, $expected);
@@ -35,7 +34,7 @@ class GravityFormsTest extends TestCase
     /** @test */
     public function not_find_nested_item_in_array_from_dot_notation_string(): void
     {
-        $result   = $this->gravityForms->findLinkedValue('depthOne.depthTwo.depthThree', ['depthOne' => ['depthTwo' => ['depthThree' => 'test']]]);
+        $result = $this->gravityForms->findLinkedValue('depthOne.depthTwo.depthThree', ['depthOne' => ['depthTwo' => ['depthThree' => 'test']]]);
         $expected = 'testt';
 
         $this->assertNotEquals($result, $expected);

@@ -9,23 +9,17 @@ class DependencyChecker
 {
     /**
      * Plugins that need to be checked for.
-     *
-     * @var array $dependencies
      */
-    private $dependencies;
+    private array $dependencies;
 
     /**
      * Build up array of failed plugins, either because
      * they have the wrong version or are inactive.
-     *
-     * @var array $failed
      */
-    private $failed = [];
+    private array $failed = [];
 
     /**
      * Determine which plugins need to be present.
-     *
-     * @param array $dependencies
      *
      * @return void
      */
@@ -36,8 +30,6 @@ class DependencyChecker
 
     /**
      * Determines if the dependencies are not met.
-     *
-     * @return bool
      */
     public function failed(): bool
     {
@@ -45,9 +37,11 @@ class DependencyChecker
             switch ($dependency['type']) {
                 case 'class':
                     $this->checkClass($dependency);
+
                     break;
                 case 'plugin':
                     $this->checkPlugin($dependency);
+
                     break;
             }
         }
@@ -58,12 +52,10 @@ class DependencyChecker
     /**
      * Notifies the administrator which plugins need to be enabled,
      * or which plugins have the wrong version.
-     *
-     * @return void
      */
-    public function notify()
+    public function notify(): void
     {
-        add_action('admin_notices', function () {
+        \add_action('admin_notices', function () {
             $list = '<p>' . __(
                 'The following plugins are required to use the Yard | Prefill GravityForms:',
                 'prefill-gravity-forms'
@@ -82,13 +74,8 @@ class DependencyChecker
 
     /**
      * Marks a dependency as failed.
-     *
-     * @param array  $dependency
-     * @param string $defaultMessage
-     *
-     * @return void
      */
-    private function markFailed(array $dependency, string $defaultMessage)
+    private function markFailed(array $dependency, string $defaultMessage): void
     {
         $this->failed[] = array_merge([
             'message' => $dependency['message'] ?? $defaultMessage,
@@ -97,14 +84,10 @@ class DependencyChecker
 
     /**
      * Checks if required class exists.
-     *
-     * @param array $dependency
-     *
-     * @return void
      */
-    private function checkClass(array $dependency)
+    private function checkClass(array $dependency): void
     {
-        if (!class_exists($dependency['name'])) {
+        if (! class_exists($dependency['name'])) {
             $this->markFailed($dependency, __('Class does not exist', 'prefill-gravity-forms'));
 
             return;
@@ -113,18 +96,14 @@ class DependencyChecker
 
     /**
      * Check if a plugin is enabled and has the correct version.
-     *
-     * @param array $dependency
-     *
-     * @return void
      */
-    private function checkPlugin(array $dependency)
+    private function checkPlugin(array $dependency): void
     {
-        if (!function_exists('is_plugin_active')) {
+        if (! function_exists('is_plugin_active')) {
             include_once ABSPATH . 'wp-admin/includes/plugin.php';
         }
 
-        if (!is_plugin_active($dependency['file'])) {
+        if (! is_plugin_active($dependency['file'])) {
             $this->markFailed($dependency, __('Inactive', 'prefill-gravity-forms'));
 
             return;
@@ -132,7 +111,7 @@ class DependencyChecker
 
         // If there is a version lock set on the dependency...
         if (isset($dependency['version'])) {
-            if (!$this->checkVersion($dependency)) {
+            if (! $this->checkVersion($dependency)) {
                 $this->markFailed($dependency, __('Minimal version:', 'prefill-gravity-forms') . ' <b>' . $dependency['version'] . '</b>');
             }
         }
@@ -140,10 +119,6 @@ class DependencyChecker
 
     /**
      * Checks the installed version of the plugin.
-     *
-     * @param array $dependency
-     *
-     * @return bool
      */
     private function checkVersion(array $dependency): bool
     {

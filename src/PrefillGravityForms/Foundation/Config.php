@@ -10,21 +10,21 @@ class Config
     /**
      * Directory where config files are located.
      *
-     * @var string $path
+     * @var string
      */
     protected $path;
 
     /**
      * Array with names of protected nodes in the config-items.
      *
-     * @var array $protectNodes
+     * @var array
      */
     protected $protectedNodes = [];
 
     /**
      * Array with all the config values.
      *
-     * @var array $items
+     * @var array
      */
     protected $items = [];
 
@@ -41,7 +41,7 @@ class Config
      */
     public function __construct($path, array $items = [])
     {
-        $this->path  = $path;
+        $this->path = $path;
         $this->items = $items;
         $this->scanDirectory($this->getPath());
     }
@@ -65,7 +65,7 @@ class Config
      */
     public function get($setting)
     {
-        if (!$setting) {
+        if (! $setting) {
             return $this->all();
         }
 
@@ -105,7 +105,7 @@ class Config
                 // If the key doesn't exist at this depth, we will just create an empty array
                 // to hold the next value, allowing us to create the arrays to hold final
                 // values at the correct depth. Then we'll keep digging into the array.
-                if (!isset($tempItems[$part]) || !is_array($tempItems[$part])) {
+                if (! isset($tempItems[$part]) || ! is_array($tempItems[$part])) {
                     $tempItems[$part] = [];
                 }
                 $tempItems = &$tempItems[$part];
@@ -143,6 +143,7 @@ class Config
     public function setPath($path): self
     {
         $this->path = $path;
+
         return $this;
     }
 
@@ -154,6 +155,7 @@ class Config
     public function setProtectedNodes($nodes = [])
     {
         $this->protectedNodes = $nodes;
+
         return $this;
     }
 
@@ -169,15 +171,16 @@ class Config
         foreach ($files as $file) {
             $fileType = filetype($file);
 
-            if ("dir" == $fileType) {
+            if ('dir' == $fileType) {
                 $this->scanDirectory($file);
             } else {
-                $name  = str_replace('.php', '', basename($file));
+                $name = str_replace('.php', '', basename($file));
                 $value = include $file;
 
                 // If its in the first directory just add the file.
                 if ($path == $this->path) {
                     $this->items[$name] = $value;
+
                     continue;
                 }
 
@@ -185,7 +188,7 @@ class Config
                 $path = str_replace($this->path . '/', '', $path);
 
                 // Build an array from the path.
-                $items        = [];
+                $items = [];
                 $items[$name] = $value;
                 foreach (array_reverse(explode('/', $path)) as $key) {
                     $items = [$key => $items];

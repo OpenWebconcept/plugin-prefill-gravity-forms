@@ -37,8 +37,6 @@ class GravityFormsAddon extends GFAddOn
 
     /**
      * Singleton loader.
-     *
-     * @return self
      */
     public static function get_instance(): self
     {
@@ -52,83 +50,79 @@ class GravityFormsAddon extends GFAddOn
 
     /**
      * Configures the settings which should be rendered on the Form Settings > Simple Add-On tab.
-     *
-     * @return array
      */
-    public function plugin_settings_fields()
+    public function plugin_settings_fields(): array
     {
-        $prefix = "owc-iconnect-";
+        $prefix = 'owc-iconnect-';
 
         return [
             [
                 'title' => __('General', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label'             => __('OIN number', 'prefill-gravity-forms'),
-                        'type'              => 'text',
-                        'class'             => 'medium',
-                        'name'              => "{$prefix}oin-number",
-                        'required'          => true
+                        'label' => __('OIN number', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}oin-number",
+                        'required' => true,
                     ],
                     [
-                        'label'             => __('Base URL', 'prefill-gravity-forms'),
-                        'type'              => 'text',
-                        'class'             => 'medium',
-                        'name'              => "{$prefix}base-url",
-                        'required'          => true
-                    ]
-                ]
+                        'label' => __('Base URL', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}base-url",
+                        'required' => true,
+                    ],
+                ],
             ],
             [
                 'title' => __('Certificates', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label'                => esc_html__('Certificates root location', 'prefill-gravity-forms'),
-                        'type'                 => 'text',
-                        'class'                => 'medium',
-                        'name'                 => "{$prefix}location-root-path-certificates",
-                        'default_value'        => $this->getRootPathToCertificates(),
-                        'required'             => true
+                        'label' => esc_html__('Certificates root location', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}location-root-path-certificates",
+                        'default_value' => $this->getRootPathToCertificates(),
+                        'required' => true,
                     ],
                     [
-                        'label'                => esc_html__('Public certificate location', 'prefill-gravity-forms'),
-                        'type'                 => 'select',
-                        'name'                 => "{$prefix}public-certificate",
-                        'choices'              => $this->getPublicCertificates(),
-                        'required'             => true
+                        'label' => esc_html__('Public certificate location', 'prefill-gravity-forms'),
+                        'type' => 'select',
+                        'name' => "{$prefix}public-certificate",
+                        'choices' => $this->getPublicCertificates(),
+                        'required' => true,
                     ],
                     [
-                        'label'                => esc_html__('Private certificate location', 'prefill-gravity-forms'),
-                        'type'                 => 'select',
-                        'name'                 => "{$prefix}private-certificate",
-                        'choices'              => $this->getPrivateCertificates(),
-                        'required'             => true,
+                        'label' => esc_html__('Private certificate location', 'prefill-gravity-forms'),
+                        'type' => 'select',
+                        'name' => "{$prefix}private-certificate",
+                        'choices' => $this->getPrivateCertificates(),
+                        'required' => true,
                     ],
                     [
-                        'label'             => __('Passphrase', 'prefill-gravity-forms'),
-                        'type'              => 'text',
-                        'class'             => 'medium',
-                        'name'              => "{$prefix}passphrase",
-                        'required'          => false
-                    ]
-                ]
-            ]
+                        'label' => __('Passphrase', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}passphrase",
+                        'required' => false,
+                        'tooltip' => esc_html__('Leave empty when a password is not required for the requests to the "Haalcentraal" API.', 'prefill-gravity-forms'),
+                    ],
+                ],
+            ],
         ];
     }
 
     /**
      * Format the list of certificates for the selectbox.
-     *
-     * @param array $certificates
-     * @return array
      */
     private function formatListOfCertificates(array $certificates): array
     {
         $noCertificate = [
             [
                 'label' => esc_html__('No certificate selected', 'prefill-gravity-forms'),
-                'value' => 'no-certificate'
-            ]
+                'value' => 'no-certificate',
+            ],
         ];
 
         $certificates = array_values(array_map(function ($certificate) {
@@ -137,13 +131,12 @@ class GravityFormsAddon extends GFAddOn
                 'value' => $certificate,
             ];
         }, $certificates));
+
         return array_merge($noCertificate, $certificates);
     }
 
     /**
      * Get all the public certificates from the storage map.
-     *
-     * @return array
      */
     private function getPublicCertificates(): array
     {
@@ -152,8 +145,6 @@ class GravityFormsAddon extends GFAddOn
 
     /**
      * Get all the private certificates from the storage map.
-     *
-     * @return array
      */
     private function getPrivateCertificates(): array
     {
@@ -162,24 +153,21 @@ class GravityFormsAddon extends GFAddOn
 
     /**
      * Get the correct path for the certificates of the current site.
-     *
-     * @return string
      */
     private function getCertificateLocation(): string
     {
         if (is_multisite()) {
             return sprintf('%s/%s', $this->getRootPathToCertificates(), get_current_blog_id() ?? '1');
         }
+
         return sprintf('%s', $this->getRootPathToCertificates());
     }
 
     /**
      * Get root path to certificates.
-     *
-     * @return string
      */
     private function getRootPathToCertificates(): string
     {
-        return (!empty(GravityFormsSettings::make()->get('location-root-path-certificates'))) ? GravityFormsSettings::make()->get('location-root-path-certificates') : storage_path('certificates');
+        return (! empty(GravityFormsSettings::make()->get('location-root-path-certificates'))) ? GravityFormsSettings::make()->get('location-root-path-certificates') : storage_path('certificates');
     }
 }

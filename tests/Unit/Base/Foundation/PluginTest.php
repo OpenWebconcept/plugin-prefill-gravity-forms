@@ -2,9 +2,9 @@
 
 namespace OWC\PrefillGravityForms\Tests\Base\Foundation;
 
-use WP_Mock;
 use OWC\PrefillGravityForms\Foundation\Plugin;
 use OWC\PrefillGravityForms\Tests\TestCase;
+use WP_Mock;
 
 class PluginTest extends TestCase
 {
@@ -16,7 +16,7 @@ class PluginTest extends TestCase
         Parent::setUp();
         WP_Mock::passthruFunction('load_plugin_textdomain');
 
-        if (!defined('PG_VERSION')) {
+        if (! defined('PG_VERSION')) {
             define('PG_VERSION', '1.0.0');
         }
 

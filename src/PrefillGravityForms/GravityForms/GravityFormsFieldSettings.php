@@ -13,7 +13,7 @@ class GravityFormsFieldSettings
 
     public function addSelect($position, $formId)
     {
-        if ($position !== 0) {
+        if (0 !== $position) {
             return;
         }
 

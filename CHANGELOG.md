@@ -2,6 +2,13 @@
 
 -   tested: WordPress 5.8.2
 
+## v1.0.12
+
+### Refactor
+
+-   Add tooltip for the 'Passphrase' form setting.
+-   Clean-up code
+
 ## v1.0.11
 
 ### Refactor

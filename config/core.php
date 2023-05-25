@@ -3,9 +3,9 @@
 return [
 
     // Service Providers.
-    'providers'    => [
+    'providers' => [
         // Global providers.
-        OWC\PrefillGravityForms\GravityForms\GravityFormsServiceProvider::class
+        OWC\PrefillGravityForms\GravityForms\GravityFormsServiceProvider::class,
     ],
 
     /**
@@ -23,16 +23,17 @@ return [
      */
     'dependencies' => [
         [
-            'type'    => 'plugin',
-            'label'   => 'Gravity Forms',
+            'type' => 'plugin',
+            'label' => 'Gravity Forms',
             'version' => '>=2.5.8',
-            'file'    => 'gravityforms/gravityforms.php',
+            'file' => 'gravityforms/gravityforms.php',
         ],
         [
-            'type'    => 'plugin',
-            'label'   => 'Yard | GravityForms DigiD',
+            'type' => 'plugin',
+            'label' => 'Yard | GravityForms DigiD',
             'version' => '>=1.0.15',
-            'file'    => 'owc-gravityforms-digid/plugin.php',
-        ]
-    ]
+            'file' => 'owc-gravityforms-digid/plugin.php',
+        ],
+    ],
+    'text_domain' => PG_PLUGIN_SLUG
 ];

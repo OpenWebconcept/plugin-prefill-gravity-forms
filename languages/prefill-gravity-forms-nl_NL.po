@@ -1,35 +1,40 @@
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:64
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:60
 msgid "General"
 msgstr "Algemeen"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:67
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:63
 msgid "OIN number"
 msgstr "OIN nummer"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:74
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:70
 msgid "Base URL"
 msgstr "Basis URL"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:83
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:79
 msgid "Certificates"
 msgstr "Certificaten"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:86
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:82
 msgid "Certificates root location"
 msgstr "Certificaten hoofd locatie"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:94
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:90
 msgid "Public certificate location"
 msgstr "Publieke locatie certificaten"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:101
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:97
 msgid "Private certificate location"
 msgstr "Privé locatie certificaten"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:108
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:104
 msgid "Passphrase"
 msgstr "Wachtwoord"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:131
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:109
+msgid "Leave empty when a password is not required for the requests to the \"Haalcentraal\" API."
+msgstr "Dit veld mag leeg gelaten worden als er geen wachtwoord vereist is voor het maken van de verzoeken naar de \"Haalcentraal\" API."
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:123
 msgid "No certificate selected"
 msgstr "Geen certificaat geselecteerd"
+

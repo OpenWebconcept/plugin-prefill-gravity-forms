@@ -9,22 +9,16 @@ class Loader
 {
     /**
      * The array of actions registered with WordPress.
-     *
-     * @var      array $actions The actions registered with WordPress to fire when the plugin loads.
      */
-    protected $actions = [];
+    protected array $actions = [];
 
     /**
      * The array of filters registered with WordPress.
-     *
-     * @var      array $filters The filters registered with WordPress to fire when the plugin loads.
      */
-    protected $filters = [];
+    protected array $filters = [];
 
     /**
      * Retrieves an instance of the loader, and creates one if it doesn't exist.
-     *
-     * @return self
      */
     public static function getInstance(): self
     {
@@ -38,7 +32,6 @@ class Loader
 
     /**
      * Add a new action to the collection to be registered with WordPress.
-     *
      *
      * @param    string $hook          The name of the WordPress action that is being registered.
      * @param    object $component     A reference to the instance of the object on which the action is defined.
@@ -87,11 +80,11 @@ class Loader
     protected function add($hooks, $hook, $component, $callback, $priority, $acceptedArgs)
     {
         $hooks[] = [
-            'hook'          => $hook,
-            'component'     => $component,
-            'callback'      => $callback,
-            'priority'      => $priority,
-            'accepted_args' => $acceptedArgs
+            'hook' => $hook,
+            'component' => $component,
+            'callback' => $callback,
+            'priority' => $priority,
+            'accepted_args' => $acceptedArgs,
         ];
 
         return $hooks;

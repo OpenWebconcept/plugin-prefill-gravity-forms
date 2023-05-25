@@ -37,5 +37,11 @@ function config(string $setting, string $default = ''): ?string
 
 function view(string $template, array $vars = []): string
 {
-    return resolve(\OWC\PrefillGravityForms\Foundation\View::class)->render($template, $vars);
+    $view = resolve(\OWC\PrefillGravityForms\Foundation\View::class);
+
+    if (! $view->exists($template)) {
+        return '';
+    }
+
+    return $view->render($template, $vars);
 }
