@@ -4,16 +4,10 @@ namespace OWC\PrefillGravityForms\Foundation;
 
 class Cryptor
 {
-    /** @var string */
-    protected $method = 'aes-128-ctr'; // default cipher method if none supplied
+    protected string $method = 'aes-128-ctr'; // default cipher method if none supplied
+    private string $key;
 
-    /** @var string */
-    private $key;
-
-    /**
-     * @param boolean $method
-     */
-    public function __construct($method = false)
+    public function __construct(bool $method = false)
     {
         $key = \AUTH_KEY ?? php_uname();
         if (ctype_print($key)) {

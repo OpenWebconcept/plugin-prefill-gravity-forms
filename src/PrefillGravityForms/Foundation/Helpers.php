@@ -52,13 +52,7 @@ function decrypt($string): string
     return $decrypted ?: '';
 }
 
-/**
- * @param string $setting
- * @param string $default
- *
- * @return string
- */
-function config(string $setting, $default = ''): ?string
+function config(string $setting, $default = '')
 {
     return resolve('config')->get($setting, $default);
 }

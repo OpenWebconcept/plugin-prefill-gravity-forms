@@ -2,8 +2,9 @@
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use Exception;
+use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
-use function Yard\DigiD\Foundation\Helpers\decrypt;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
@@ -33,31 +34,15 @@ abstract class BaseController
         }
     }
 
-    /**
-     * Validate if form has a DigiD field.
-     * If so return the decrypted BSN number.
-     */
-    protected function getBSN(array $form): string
+    protected function getBSN(): string
     {
-        $bsn = '';
-
-        foreach ($form['fields'] as $field) {
-            if ($field->type !== 'digid') {
-                continue;
-            }
-
-            $resolvedBSN = resolve('session')->getSegment('digid')->get('bsn');
-
-            if (empty($resolvedBSN)) {
-                continue;
-            }
-
-            $bsn = decrypt($resolvedBSN);
-
-            break;
+        try {
+            $bsn = resolve('session')->getSegment('digid')->get('bsn');
+        } catch(Exception $e) {
+            $bsn = '';
         }
 
-        return $bsn;
+        return is_string($bsn) && ! empty($bsn) ? decrypt($bsn) : '';
     }
 
     /**

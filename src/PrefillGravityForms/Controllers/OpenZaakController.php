@@ -6,7 +6,7 @@ class OpenZaakController extends BaseController
 {
     public function handle(array $form)
     {
-        $bsn = $this->getBSN($form);
+        $bsn = $this->getBSN();
 
         if (empty($bsn)) {
             return $form;
