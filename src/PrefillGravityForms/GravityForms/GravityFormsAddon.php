@@ -19,14 +19,14 @@ class GravityFormsAddon extends GFAddOn
      *
      * @var string
      */
-    protected $_title = 'iConnect';
+    protected $_title = 'OWC Prefill';
 
     /**
      * The short title of the Add-On to be used in limited spaces.
      *
      * @var string
      */
-    protected $_short_title = 'iConnect';
+    protected $_short_title = 'OWC Prefill';
 
     /**
      * Instance object
@@ -47,6 +47,17 @@ class GravityFormsAddon extends GFAddOn
         return self::$_instance;
     }
 
+    /**
+     * Return the plugin's icon for the plugin/form settings menu.
+     *
+     * @since 2.5
+     *
+     * @return string
+     */
+    public function get_menu_icon()
+    {
+        return 'dashicons-admin-tools';
+    }
 
     /**
      * Configures the settings which should be rendered on the Form Settings > Simple Add-On tab.
