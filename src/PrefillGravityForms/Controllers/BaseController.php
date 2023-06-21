@@ -175,6 +175,10 @@ abstract class BaseController
             'x-origin-oin: ' . $this->settings->getNumberOIN()
         ];
 
+        if (! empty($this->settings->getAPIKey())) {
+            $headers[] = 'x-opentunnel-api-key: ' . $this->settings->getAPIKey();
+        }
+
         return array_filter($headers);
     }
 

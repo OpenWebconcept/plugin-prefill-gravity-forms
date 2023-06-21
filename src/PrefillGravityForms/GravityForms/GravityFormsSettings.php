@@ -41,6 +41,11 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'oin-number'] ?? '';
     }
 
+    public function getAPIKey(): string
+    {
+        return $this->options[$this->prefix . 'api-key'] ?? '';
+    }
+
     public function getPublicCertificate(): string
     {
         return $this->options[$this->prefix . 'public-certificate'] ?? '';

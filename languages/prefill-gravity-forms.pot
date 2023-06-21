@@ -10,30 +10,38 @@ msgstr ""
 msgid "Base URL"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:79
-msgid "Certificates"
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:88
+msgid "API key"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:82
-msgid "Certificates root location"
-msgstr ""
-
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:90
-msgid "Public certificate location"
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:92
+msgid "API key is not always required. This depends on the supplier."
 msgstr ""
 
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:97
+msgid "Certificates"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:100
+msgid "Certificates root location"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:108
+msgid "Public certificate location"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:115
 msgid "Private certificate location"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:104
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:122
 msgid "Passphrase"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:109
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:127
 msgid "Leave empty when a password is not required for the requests to the \"Haalcentraal\" API."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:123
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:141
 msgid "No certificate selected"
 msgstr ""

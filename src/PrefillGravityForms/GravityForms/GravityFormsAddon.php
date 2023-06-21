@@ -84,6 +84,13 @@ class GravityFormsAddon extends GFAddOn
                         'name' => "{$prefix}base-url",
                         'required' => true,
                     ],
+                    [
+                        'label' => __('API key', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}api-key",
+                        'description' => __('API key is not always required. This depends on the supplier.', 'prefill-gravity-forms'),
+                    ],
                 ],
             ],
             [

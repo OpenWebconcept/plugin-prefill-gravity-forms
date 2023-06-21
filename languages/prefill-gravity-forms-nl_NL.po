@@ -14,27 +14,35 @@ msgstr "Basis URL"
 msgid "Certificates"
 msgstr "Certificaten"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:82
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:88
+msgid "API key"
+msgstr "API sleutel"
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:92
+msgid "API key is not always required. This depends on the supplier."
+msgstr "API sleutel is niet altijd vereist. Dit hangt af van de leverancier."
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:100
 msgid "Certificates root location"
 msgstr "Certificaten hoofd locatie"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:90
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:108
 msgid "Public certificate location"
 msgstr "Publieke locatie certificaten"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:97
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:115
 msgid "Private certificate location"
 msgstr "Privé locatie certificaten"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:104
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:122
 msgid "Passphrase"
 msgstr "Wachtwoord"
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:109
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:127
 msgid "Leave empty when a password is not required for the requests to the \"Haalcentraal\" API."
 msgstr "Dit veld mag leeg gelaten worden als er geen wachtwoord vereist is voor het maken van de verzoeken naar de \"Haalcentraal\" API."
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:123
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:141
 msgid "No certificate selected"
 msgstr "Geen certificaat geselecteerd"
 

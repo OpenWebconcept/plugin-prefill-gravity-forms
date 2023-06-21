@@ -1,12 +1,22 @@
 # Changelog
 
--   tested: WordPress 5.8.2
+-   tested: WordPress 6.2.2
+
+## v1.0.14
+
+### Feat
+
+-   Implement API key general setting.
+
+### Refactor
+
+-   gf-addon title and icon
 
 ## v1.0.13
 
 ### Refactor
 
--   Retrieve bsn by DigiD session instead of value of form field
+-   Retrieve bsn by DigiD session instead of value of form field.
 
 ## v1.0.12
 
