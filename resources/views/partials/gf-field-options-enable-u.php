@@ -39,7 +39,7 @@
             <option value="verblijfplaats.huisnummer"><?php _e('Huisnummer', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.huisletter"><?php _e('Huisletter', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.postcode"><?php _e('Postcode', 'prefill-gravity-forms'); ?></option>
-            <option value="verblijfplaats.woonplaats"><?php _e('Woonplaats', 'prefill-gravity-forms'); ?></option>
+            <option value="verblijfplaats.woonplaatsnaam"><?php _e('Woonplaats', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.adresregel1"><?php _e('Adres', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.adresregel2"><?php _e('Postcode + plaats', 'prefill-gravity-forms'); ?></option>
         </optgroup>

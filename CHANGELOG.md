@@ -2,6 +2,12 @@
 
 -   tested: WordPress 6.2.2
 
+## v1.0.15
+
+### Refactor
+
+-   Mapping field 'woonplaats' to 'woonplaatsnaam'.
+
 ## v1.0.14
 
 ### Feat
