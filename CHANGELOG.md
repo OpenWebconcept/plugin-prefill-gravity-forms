@@ -2,6 +2,12 @@
 
 -   tested: WordPress 6.2.2
 
+## v1.0.16
+
+### Feat
+
+-   When a field is mapped but there is no value found, set field to read-only.
+
 ## v1.0.15
 
 ### Refactor

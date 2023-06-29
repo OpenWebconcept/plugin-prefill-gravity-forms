@@ -67,9 +67,15 @@ abstract class BaseController
     {
         foreach ($form['fields'] as $field) {
             $linkedValue = $field->linkedFieldValue ?? '';
-            $foundValue  = $this->findLinkedValue($linkedValue, $response);
+
+            if (empty($linkedValue)) {
+                continue;
+            }
+
+            $foundValue = $this->findLinkedValue($linkedValue, $response);
             
             if (empty($foundValue)) {
+                $field->cssClass = 'owc_prefilled'; // When field is mapped but there is no value found, set to read-only.
                 continue;
             }
 
