@@ -1,4 +1,0 @@
-To-do:
-
-1. Figure out how to add the options for the custom select per field dynamically via the settings -> Holger
-

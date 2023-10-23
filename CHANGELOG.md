@@ -1,6 +1,12 @@
 # Changelog
 
--   tested: WordPress 6.2.2
+-   Tested up to: WordPress 6.3.2
+
+## v1.0.17
+
+### Feat
+
+-   Disable prefilled form fields when using 'Openzaak' or 'PinkRoccade' as configured supplier.
 
 ## v1.0.16
 

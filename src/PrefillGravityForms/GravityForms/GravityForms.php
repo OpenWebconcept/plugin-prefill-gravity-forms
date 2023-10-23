@@ -11,7 +11,7 @@ class GravityForms
     public function preRender(array $form): array
     {
         $this->setSupplier($form);
-        
+
         if (empty($this->supplier)) {
             return $form;
         }

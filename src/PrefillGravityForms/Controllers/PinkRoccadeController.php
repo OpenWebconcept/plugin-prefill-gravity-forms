@@ -2,11 +2,7 @@
 
 namespace OWC\PrefillGravityForms\Controllers;
 
-/**
- * Depcrecated; should me removed when it's safe to do so.
- * Some applications could still use 'OpenZaak' as configured supplier.
- */
-class OpenZaakController extends BaseController
+class PinkRoccadeController extends BaseController
 {
     public function handle(array $form)
     {

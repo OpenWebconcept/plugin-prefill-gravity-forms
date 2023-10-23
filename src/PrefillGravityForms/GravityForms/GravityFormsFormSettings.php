@@ -48,6 +48,11 @@ class GravityFormsFormSettings
                             'name'  => "owc-form-setting-supplier-enable-u",
                             'label' => __('EnableU', config('core.text_domain')),
                             'value' => 'enable-u',
+                        ],
+                        [
+                            'name'  => "owc-form-setting-supplier-pink-roccade",
+                            'label' => __('PinkRoccade', config('core.text_domain')),
+                            'value' => 'pink-roccade',
                         ]
                     ],
                 ],
