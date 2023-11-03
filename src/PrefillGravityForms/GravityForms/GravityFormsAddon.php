@@ -2,8 +2,9 @@
 
 namespace OWC\PrefillGravityForms\GravityForms;
 
-use function OWC\PrefillGravityForms\Foundation\Helpers\storage_path;
 use GFAddOn;
+
+use function OWC\PrefillGravityForms\Foundation\Helpers\storage_path;
 
 class GravityFormsAddon extends GFAddOn
 {

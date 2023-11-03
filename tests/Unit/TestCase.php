@@ -2,8 +2,8 @@
 
 namespace OWC\PrefillGravityForms\Tests;
 
-use PHPUnit\Framework\TestCase as PHPUnit;
 use WP_Mock;
+use PHPUnit\Framework\TestCase as PHPUnit;
 
 class TestCase extends PHPUnit
 {

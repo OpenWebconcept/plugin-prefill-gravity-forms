@@ -36,9 +36,10 @@ class EnableUController extends BaseController
                 'message' => 'Retrieving prefill data failed.',
                 'status' => $response['status']
             ]);
+
             return $form;
         }
-        
+
         echo $this->disableFormFields();
 
         return $this->preFillFields($form, $response);

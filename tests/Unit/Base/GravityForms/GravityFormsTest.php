@@ -2,9 +2,9 @@
 
 namespace OWC\PrefillGravityForms\Tests\Base\GravityForms;
 
+use OWC\PrefillGravityForms\Tests\TestCase;
 use OWC\PrefillGravityForms\Foundation\Plugin;
 use OWC\PrefillGravityForms\GravityForms\GravityForms;
-use OWC\PrefillGravityForms\Tests\TestCase;
 
 class GravityFormsTest extends TestCase
 {
@@ -13,7 +13,7 @@ class GravityFormsTest extends TestCase
 
     public function setUp(): void
     {
-        Parent::setUp();
+        parent::setUp();
 
         \WP_Mock::userFunction('get_option', [
             'return' => [],

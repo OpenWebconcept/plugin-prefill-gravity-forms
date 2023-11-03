@@ -14,13 +14,13 @@ class Plugin
      *
      * @var string
      */
-    const NAME = 'prefill-gravity-forms';
+    public const NAME = 'prefill-gravity-forms';
 
     /**
      * Version of the plugin.
      * Used for setting versions of enqueue scripts and styles.
      */
-    const VERSION = \PG_VERSION;
+    public const VERSION = \PG_VERSION;
 
     /**
      * Path to the root of the plugin.

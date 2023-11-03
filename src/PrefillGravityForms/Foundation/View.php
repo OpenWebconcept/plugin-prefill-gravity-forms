@@ -31,7 +31,7 @@ class View
         if (! is_file($this->templateDirectory . $templateFile)) {
             return '';
         }
-        
+
         $this->bindAll($vars);
         ob_start();
         include($this->templateDirectory . $templateFile);

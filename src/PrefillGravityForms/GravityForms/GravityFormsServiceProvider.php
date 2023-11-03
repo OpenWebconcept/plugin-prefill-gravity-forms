@@ -10,7 +10,7 @@ class GravityFormsServiceProvider extends ServiceProvider
     {
         $this->registerSettingsAddon();
     }
-    
+
     public function boot(): void
     {
         $this->loadHooks();
@@ -18,10 +18,10 @@ class GravityFormsServiceProvider extends ServiceProvider
 
     protected function loadHooks(): void
     {
-        $gravityFormsFieldSettings = new GravityFormsFieldSettings;
-        $gravityFormsFormSettings = new GravityFormsFormSettings;
+        $gravityFormsFieldSettings = new GravityFormsFieldSettings();
+        $gravityFormsFormSettings = new GravityFormsFormSettings();
 
-        $this->plugin->loader->addFilter('gform_pre_render', new GravityForms, 'preRender');
+        $this->plugin->loader->addFilter('gform_pre_render', new GravityForms(), 'preRender');
         $this->plugin->loader->addAction('gform_field_standard_settings', $gravityFormsFieldSettings, 'addSelect', 10, 2);
         $this->plugin->loader->addAction('gform_editor_js', $gravityFormsFieldSettings, 'addSelectScript', 10, 0);
         $this->plugin->loader->addFilter('gform_form_settings_fields', $gravityFormsFormSettings, 'addFormSettings', 9999, 2);

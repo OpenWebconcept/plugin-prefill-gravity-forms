@@ -2,8 +2,8 @@
 
 namespace OWC\PrefillGravityForms\GravityForms;
 
-use function OWC\PrefillGravityForms\Foundation\Helpers\get_supplier;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
+use function OWC\PrefillGravityForms\Foundation\Helpers\get_supplier;
 
 class GravityFormsFieldSettings
 {

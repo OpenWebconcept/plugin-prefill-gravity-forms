@@ -2,19 +2,22 @@
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use DateTime;
+use GF_Field;
 use Exception;
-use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
-use function OWC\PrefillGravityForms\Foundation\Helpers\view;
-use function Yard\DigiD\Foundation\Helpers\resolve;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
+
+use function Yard\DigiD\Foundation\Helpers\resolve;
+use function OWC\PrefillGravityForms\Foundation\Helpers\view;
+use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
 
 abstract class BaseController
 {
     protected GravityFormsSettings $settings;
     protected TeamsLogger $teams;
     protected string $supplier;
-    
+
     public function __construct()
     {
         $this->settings = GravityFormsSettings::make();
@@ -25,11 +28,11 @@ abstract class BaseController
     {
         try {
             if (! function_exists('Yard\DigiD\Foundation\Helpers\resolve')) {
-                throw new \Exception;
+                throw new Exception();
             }
 
             return TeamsLogger::make(resolve('teams'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return TeamsLogger::make(new \Psr\Log\NullLogger());
         }
     }
@@ -73,21 +76,23 @@ abstract class BaseController
             }
 
             $foundValue = $this->findLinkedValue($linkedValue, $response);
-            
+
             if (empty($foundValue)) {
-                $field->cssClass = 'owc_prefilled'; // When field is mapped but there is no value found, set to read-only.
+                $field->cssClass = 'owc_prefilled'; // When field has mapping but there is no value found, set to read-only.
+
                 continue;
             }
 
             if ($field->type === 'text') {
-                $field->defaultValue = ucfirst($foundValue);
-                $field->cssClass = 'owc_prefilled';
+                $this->handleFieldText($field, $foundValue);
+
+                continue;
             }
 
             if ($field->type === 'date') {
-                $field->defaultValue = (new \DateTime($foundValue))->format('d-m-Y');
-                $field->displayOnly = true;
-                $field->cssClass = 'owc_prefilled';
+                $this->handleFieldDate($field, $foundValue);
+
+                continue;
             }
         }
 
@@ -110,12 +115,13 @@ abstract class BaseController
     public function explodeDotNotationValue(string $dotNotationString, array $response): string
     {
         $exploded = explode('.', $dotNotationString);
-        $holder   = [];
+        $holder = [];
 
         foreach ($exploded as $key => $item) {
             if ($key === 0) {
                 // Place the wanted part of the response in $holder.
                 $holder = $response[$item] ?? '';
+
                 continue;
             }
 
@@ -124,9 +130,9 @@ abstract class BaseController
                 break;
             }
 
-            // If holder is a multidimensional array, unflatten.
-            if (!empty($holder[0]) && is_array($holder[0])) {
-                $holder = $this->unflattenHolderArray($holder);
+            // If holder is a multidimensional array, flatten.
+            if (! empty($holder[0]) && is_array($holder[0])) {
+                $holder = $this->flattenMultidimensionalArray($holder);
             }
 
             // Place the nested part of the response in $holder.
@@ -136,15 +142,57 @@ abstract class BaseController
         return is_string($holder) || is_numeric($holder) ? $holder : '';
     }
 
-    protected function unflattenHolderArray(array $holder): array
+    protected function flattenMultidimensionalArray(array $array): array
     {
-        $backupHolder = [];
+        $holder = [];
 
-        foreach ($holder as $part) {
-            $backupHolder = array_merge($backupHolder, $part);
+        foreach ($array as $part) {
+            $holder = array_merge($holder, $part);
         }
 
-        return $backupHolder;
+        return $holder;
+    }
+
+    protected function handleFieldText(GF_Field $field, string $foundValue): void
+    {
+        if ($this->isPossibleDate($foundValue)) {
+            $field->defaultValue = (new \DateTime($foundValue))->format('d-m-Y');
+        } else {
+            $field->defaultValue = ucfirst($foundValue);
+        }
+
+        $field->cssClass = 'owc_prefilled';
+    }
+
+    public function isPossibleDate(string $value): bool
+    {
+        return (date('Y-m-d', strtotime($value)) == $value);
+    }
+
+    protected function handleFieldDate(GF_Field $field, string $foundValue): void
+    {
+        try {
+            $date = new DateTime($foundValue);
+        } catch(Exception $e) {
+            return;
+        }
+
+        // Field consists of 1 part.
+        if (empty($field->inputs) || $field->dateType === 'datepicker') {
+            $field->defaultValue = $date->format('d-m-Y');
+            $field->displayOnly = true;
+            $field->cssClass = 'owc_prefilled';
+
+            return;
+        }
+
+        // Field consists of 3 parts which are represented by the input attribute.
+        if (! empty($field->inputs) && ($field->dateType === 'datefield' || $field->dateType === 'datedropdown')) {
+            $field->inputs[0]['defaultValue'] = $date->format('m');
+            $field->inputs[1]['defaultValue'] = $date->format('d');
+            $field->inputs[2]['defaultValue'] = $date->format('Y');
+            $field->cssClass = 'owc_prefilled';
+        }
     }
 
     public function getRequestURL(string $identifier = '', string $expand = ''): string
@@ -198,22 +246,22 @@ abstract class BaseController
             if (! empty($this->settings->getPassphrase())) {
                 curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->settings->getPassphrase());
             }
-            
+
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-    
+
             $output = curl_exec($curl);
-    
+
             if (curl_error($curl)) {
                 throw new \Exception(curl_error($curl));
             }
-    
+
             $decoded = json_decode($output, true);
-    
+
             if (! $decoded || json_last_error() !== JSON_ERROR_NONE) {
                 throw new \Exception('Something went wrong with decoding of the JSON output.');
             }
-    
+
             return $decoded;
         } catch (\Exception $e) {
             return [

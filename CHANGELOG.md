@@ -2,6 +2,13 @@
 
 -   Tested up to: WordPress 6.3.2
 
+## v1.1
+
+### Feat
+
+-   Prefill all advanced date fields.
+-	Small clean-up/refactoring & run composer format script.
+
 ## v1.0.17
 
 ### Feat
