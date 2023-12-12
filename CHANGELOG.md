@@ -2,6 +2,12 @@
 
 -   Tested up to: WordPress 6.3.2
 
+## v1.2.0
+
+### Feat
+
+-   Personal data blocks
+
 ## v1.1
 
 ### Feat

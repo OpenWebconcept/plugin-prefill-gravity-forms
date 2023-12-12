@@ -4,7 +4,7 @@
  * Plugin Name:       Yard | BRP Prefill GravityForms
  * Plugin URI:        https://www.openwebconcept.nl/
  * Description:       Prefill GravityForms fields, based on the dutch BSN number. Retrieve personal information and place these values in the corrensponding fields.
- * Version:           1.1
+ * Version:           1.2.0
  * Author:            Yard | Digital Agency
  * Author URI:        https://www.yard.nl/
  * License:           GPL-3.0
@@ -16,11 +16,11 @@
 /**
  * If this file is called directly, abort.
  */
-if (! defined('WPINC')) {
+if (!defined('WPINC')) {
     die;
 }
 
-define('PG_VERSION', '1.1');
+define('PG_VERSION', '1.2.0');
 define('PG_DIR', basename(__DIR__));
 define('PG_ROOT_PATH', __DIR__);
 define('PG_PLUGIN_SLUG', 'prefill-gravity-forms');
@@ -38,6 +38,7 @@ $autoloader = new OWC\PrefillGravityForms\Autoloader();
  * plugin overrides. The plugins_loaded action hook fires early, and precedes the setup_theme, after_setup_theme, init
  * and wp_loaded action hooks.
  */
+
 \add_action('plugins_loaded', function () {
     $plugin = \OWC\PrefillGravityForms\Foundation\Plugin::getInstance(__DIR__)->boot();
 }, 10);

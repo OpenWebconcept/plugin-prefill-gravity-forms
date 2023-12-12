@@ -6,6 +6,7 @@ return [
     'providers' => [
         // Global providers.
         OWC\PrefillGravityForms\GravityForms\GravityFormsServiceProvider::class,
+        OWC\PrefillGravityForms\Blocks\BlockServiceProvider::class,
     ],
 
     /**

@@ -7,13 +7,14 @@ use GF_Field;
 use Exception;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
+use OWC\PrefillGravityForms\Traits\SessionTrait;
 
 use function Yard\DigiD\Foundation\Helpers\resolve;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
-use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
 
 abstract class BaseController
 {
+    use SessionTrait;
     protected GravityFormsSettings $settings;
     protected TeamsLogger $teams;
     protected string $supplier;
@@ -27,7 +28,7 @@ abstract class BaseController
     public function resolveTeams(): TeamsLogger
     {
         try {
-            if (! function_exists('Yard\DigiD\Foundation\Helpers\resolve')) {
+            if (!function_exists('Yard\DigiD\Foundation\Helpers\resolve')) {
                 throw new Exception();
             }
 
@@ -35,35 +36,6 @@ abstract class BaseController
         } catch (Exception $e) {
             return TeamsLogger::make(new \Psr\Log\NullLogger());
         }
-    }
-
-    protected function getBSN(): string
-    {
-        try {
-            $bsn = resolve('session')->getSegment('digid')->get('bsn');
-        } catch(Exception $e) {
-            $bsn = '';
-        }
-
-        return is_string($bsn) && ! empty($bsn) ? decrypt($bsn) : '';
-    }
-
-    /**
-     * BSN numbers could start with one or more zero's at the beginning.
-     * The zero's are not returned by DigiD so the required length of 9 characters is not met.
-     * Supplement the value so it meets the required length of 9.
-     */
-    protected function supplementBSN(string $bsn): string
-    {
-        $bsnLength = strlen($bsn);
-        $requiredLength = 9;
-        $difference = $requiredLength - $bsnLength;
-
-        if ($difference < 1 || $difference > $requiredLength) {
-            return $bsn;
-        }
-
-        return sprintf("%'.0" . $requiredLength . "d", $bsn);
     }
 
     protected function preFillFields(array $form, array $response): array
@@ -131,7 +103,7 @@ abstract class BaseController
             }
 
             // If holder is a multidimensional array, flatten.
-            if (! empty($holder[0]) && is_array($holder[0])) {
+            if (!empty($holder[0]) && is_array($holder[0])) {
                 $holder = $this->flattenMultidimensionalArray($holder);
             }
 
@@ -187,7 +159,7 @@ abstract class BaseController
         }
 
         // Field consists of 3 parts which are represented by the input attribute.
-        if (! empty($field->inputs) && ($field->dateType === 'datefield' || $field->dateType === 'datedropdown')) {
+        if (!empty($field->inputs) && ($field->dateType === 'datefield' || $field->dateType === 'datedropdown')) {
             $field->inputs[0]['defaultValue'] = $date->format('m');
             $field->inputs[1]['defaultValue'] = $date->format('d');
             $field->inputs[2]['defaultValue'] = $date->format('Y');
@@ -205,7 +177,7 @@ abstract class BaseController
 
         $url = sprintf('%s/%s', $baseURL, $identifier);
 
-        if (! empty($expand)) {
+        if (!empty($expand)) {
             $url = sprintf('%s?%s', $url, $this->createExpandArguments($expand));
         }
 
@@ -229,7 +201,7 @@ abstract class BaseController
             'x-origin-oin: ' . $this->settings->getNumberOIN()
         ];
 
-        if (! empty($this->settings->getAPIKey())) {
+        if (!empty($this->settings->getAPIKey())) {
             $headers[] = 'x-opentunnel-api-key: ' . $this->settings->getAPIKey();
         }
 
@@ -243,7 +215,7 @@ abstract class BaseController
 
             curl_setopt_array($curl, $this->getDefaultCurlArgs() + $args);
 
-            if (! empty($this->settings->getPassphrase())) {
+            if (!empty($this->settings->getPassphrase())) {
                 curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->settings->getPassphrase());
             }
 
@@ -258,7 +230,7 @@ abstract class BaseController
 
             $decoded = json_decode($output, true);
 
-            if (! $decoded || json_last_error() !== JSON_ERROR_NONE) {
+            if (!$decoded || json_last_error() !== JSON_ERROR_NONE) {
                 throw new \Exception('Something went wrong with decoding of the JSON output.');
             }
 
