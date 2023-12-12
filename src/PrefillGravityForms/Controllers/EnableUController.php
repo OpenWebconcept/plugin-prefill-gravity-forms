@@ -12,20 +12,10 @@ class EnableUController extends BaseController
             return $form;
         }
 
-        $bsn = $this->supplementBSN($bsn);
-
-        if (strlen($bsn) !== 9) {
-            $this->teams->addRecord('error', 'BSN', [
-                'message' => 'BSN does not meet the required length of 9.'
-            ]);
-
-            return $form;
-        }
-
         $doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
         $expand = rgar($form, 'owc-iconnect-expand', '');
 
-        if (! is_string($doelBinding)) {
+        if (!is_string($doelBinding)) {
             $doelBinding = (string) $doelBinding;
         }
 

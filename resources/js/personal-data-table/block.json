@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+	"name": "prefill-gravity-forms/personal-data-table",
+  "version": "0.1.0",
+	"title": "Profielpagina",
+	"category": "embed",
+	"icon": "list-view",
+	"description": "Maak een profielpagina met persoonsgegevens van de ingelogde gebruiker.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "prefill-gravity-forms",
+	"editorScript": "file:./index.js"
+}

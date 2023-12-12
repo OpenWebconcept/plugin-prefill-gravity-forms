@@ -1,0 +1,20 @@
+{
+	"name": "prefill-gravityforms",
+	"version": "0.1.0",
+	"description": "Retrieve personal information",
+	"author": "Yard Digital Agency",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build --webpack-src-dir=./resources/js",
+		"format": "wp-scripts format --webpack-src-dir=./resources/js",
+		"lint:css": "wp-scripts lint-style --webpack-src-dir=./resources/js",
+		"lint:js": "wp-scripts lint-js --webpack-src-dir=./resources/js",
+		"packages-update": "wp-scripts packages-update --webpack-src-dir=./resources/js",
+		"plugin-zip": "wp-scripts plugin-zip --webpack-src-dir=./resources/js",
+		"start": "wp-scripts start --webpack-src-dir=./resources/js"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^26.18.0"
+	}
+}

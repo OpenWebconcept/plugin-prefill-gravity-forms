@@ -21,7 +21,17 @@ class GravityForms
 
     protected function setSupplier(array $form)
     {
-        $this->supplier = get_supplier($form);
+        $supplier = get_supplier($form);
+
+        /**
+         * OpenZaak is deprecated. Some applications may still use 'OpenZaak'
+         * as configured supplier. We'll use PinkRoccade instead.
+         */
+        if ('OpenZaak' === $supplier) {
+            $supplier = 'PinkRoccade';
+        }
+
+        $this->supplier = $supplier;
     }
 
     /**
@@ -35,7 +45,7 @@ class GravityForms
             return $form;
         }
 
-        if (! method_exists($instance, 'handle')) {
+        if (!method_exists($instance, 'handle')) {
             return $form;
         }
 
@@ -49,7 +59,7 @@ class GravityForms
     {
         $controller = sprintf('OWC\PrefillGravityForms\Controllers\%sController', $this->supplier);
 
-        if (! class_exists($controller)) {
+        if (!class_exists($controller)) {
             throw new \Exception(sprintf('Class %s does not exists', $controller));
         }
 
