@@ -2,11 +2,16 @@
 
 namespace OWC\PrefillGravityForms\GravityForms;
 
+use GF_Field;
+use GFAPI;
 use function OWC\PrefillGravityForms\Foundation\Helpers\get_supplier;
+use function Yard\DigiD\Foundation\Helpers\decrypt;
+use function Yard\DigiD\Foundation\Helpers\encrypt;
 
 class GravityForms
 {
     protected string $supplier;
+    protected bool $shouldDecrypt;
 
     public function preRender(array $form): array
     {
@@ -54,5 +59,51 @@ class GravityForms
         }
 
         return new $controller();
+    }
+
+    /**
+     * For security reasons, when populating/prefilling a field with a BSN number, the value is encrypted and securely stored.
+     */
+    public function saveFieldValue(string $value, $lead, GF_Field $field, array $form): string
+    {
+        if ('burgerservicenummer' !== ($field->linkedFieldValue ?? '')) {
+            return $value;
+        }
+
+        if (empty($value) || ! is_string($value)) {
+            return $value;
+        }
+
+        return encrypt($value);
+    }
+
+    /**
+     * Decrypts the value for display on the Entry list page, only for prepopulated fields containing a BSN number.
+     */
+    public function modifyEntryValue(string $value, int $formID, int $fieldID): string
+    {
+        $field = GFAPI::get_field($formID, $fieldID);
+
+        if (empty($field->linkedFieldValue) || 'burgerservicenummer' !== ($field->linkedFieldValue ?? '')) {
+            return $value;
+        }
+
+        $shouldDecrypt = apply_filters('owc_prefill_gravityforms_use_value_bsn_decrypted', false);
+
+        return $shouldDecrypt ? (esc_html(decrypt($value)) ?: esc_html($value)) : esc_html($value);
+    }
+
+    /**
+     * Decrypts the value for display on the Entry detail page, only for prepopulated fields containing a BSN number.
+     */
+    public function modifyEntryValueDetail($value, $field, $lead, $form): string
+    {
+        if (empty($field->linkedFieldValue) || 'burgerservicenummer' !== ($field->linkedFieldValue ?? '')) {
+            return $value;
+        }
+
+        $shouldDecrypt = apply_filters('owc_prefill_gravityforms_use_value_bsn_decrypted', false);
+
+        return $shouldDecrypt ? (esc_html(decrypt($value)) ?: esc_html($value)) : esc_html($value);
     }
 }
