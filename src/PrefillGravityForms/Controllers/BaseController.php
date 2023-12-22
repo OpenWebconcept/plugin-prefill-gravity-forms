@@ -3,14 +3,13 @@
 namespace OWC\PrefillGravityForms\Controllers;
 
 use DateTime;
-use GF_Field;
 use Exception;
+use GF_Field;
+use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
-
+use function Yard\DigiD\Foundation\Helpers\decrypt;
 use function Yard\DigiD\Foundation\Helpers\resolve;
-use function OWC\PrefillGravityForms\Foundation\Helpers\view;
-use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
 
 abstract class BaseController
 {
@@ -59,7 +58,7 @@ abstract class BaseController
         $requiredLength = 9;
         $difference = $requiredLength - $bsnLength;
 
-        if ($difference < 1 || $difference > $requiredLength) {
+        if (1 > $difference || $difference > $requiredLength) {
             return $bsn;
         }
 
@@ -83,13 +82,13 @@ abstract class BaseController
                 continue;
             }
 
-            if ($field->type === 'text') {
+            if ('text' === $field->type) {
                 $this->handleFieldText($field, $foundValue);
 
                 continue;
             }
 
-            if ($field->type === 'date') {
+            if ('date' === $field->type) {
                 $this->handleFieldDate($field, $foundValue);
 
                 continue;
@@ -118,7 +117,7 @@ abstract class BaseController
         $holder = [];
 
         foreach ($exploded as $key => $item) {
-            if ($key === 0) {
+            if (0 === $key) {
                 // Place the wanted part of the response in $holder.
                 $holder = $response[$item] ?? '';
 
@@ -178,7 +177,7 @@ abstract class BaseController
         }
 
         // Field consists of 1 part.
-        if (empty($field->inputs) || $field->dateType === 'datepicker') {
+        if (empty($field->inputs) || 'datepicker' === $field->dateType) {
             $field->defaultValue = $date->format('d-m-Y');
             $field->displayOnly = true;
             $field->cssClass = 'owc_prefilled';
@@ -187,7 +186,7 @@ abstract class BaseController
         }
 
         // Field consists of 3 parts which are represented by the input attribute.
-        if (! empty($field->inputs) && ($field->dateType === 'datefield' || $field->dateType === 'datedropdown')) {
+        if (! empty($field->inputs) && ('datefield' === $field->dateType || 'datedropdown' === $field->dateType)) {
             $field->inputs[0]['defaultValue'] = $date->format('m');
             $field->inputs[1]['defaultValue'] = $date->format('d');
             $field->inputs[2]['defaultValue'] = $date->format('Y');
@@ -226,7 +225,7 @@ abstract class BaseController
     {
         $headers = [
             'x-doelbinding: ' . $doelBinding,
-            'x-origin-oin: ' . $this->settings->getNumberOIN()
+            'x-origin-oin: ' . $this->settings->getNumberOIN(),
         ];
 
         if (! empty($this->settings->getAPIKey())) {
@@ -265,7 +264,7 @@ abstract class BaseController
             return $decoded;
         } catch (\Exception $e) {
             return [
-                'status' => $e->getMessage()
+                'status' => $e->getMessage(),
             ];
         }
     }

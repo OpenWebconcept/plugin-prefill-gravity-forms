@@ -1,13 +1,19 @@
 # Changelog
 
--   Tested up to: WordPress 6.3.2
+-   Tested up to: WordPress 6.4.2
+
+## v1.2
+
+### Feat
+
+-   Use decrypted value of prepopulated fields containing a BSN number when hook 'owc_prefill_gravityforms_use_value_bsn_decrypted' is used and set to true.
 
 ## v1.1
 
 ### Feat
 
 -   Prefill all advanced date fields.
--	Small clean-up/refactoring & run composer format script.
+-   Small clean-up/refactoring & run composer format script.
 
 ## v1.0.17
 
