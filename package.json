@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"description": "Retrieve personal information",
 	"author": "Yard Digital Agency",
-	"license": "GPL-2.0-or-later",
+	"license": "EUPL-1.2",
 	"main": "build/index.js",
 	"scripts": {
 		"build": "wp-scripts build --webpack-src-dir=./resources/js",
