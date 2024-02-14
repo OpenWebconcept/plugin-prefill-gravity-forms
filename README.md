@@ -23,19 +23,19 @@ See [here](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/m
 
 ### Manual installation
 
-1. Upload the 'prefill-gravity-forms' folder in to the ```/wp-content/plugins/``` directory.
-2. ```cd /wp-content/plugins/prefill-gravity-forms```
-3. Run ```composer install```, NPM asset build is in version control already.
+1. Upload the 'prefill-gravity-forms' folder in to the `/wp-content/plugins/` directory.
+2. `cd /wp-content/plugins/prefill-gravity-forms`
+3. Run `composer install, NPM asset build is in version control already.
 4. Activate the plugin in via the WordPress admin.
 
 ### Composer installation
 
-1. ```composer source git@github.com:OpenWebconcept/plugin-prefill-gravity-forms.git```
-2. ```composer require plugin/prefill-gravity-forms```
-3. ```cd /wp-content/plugins/prefill-gravity-forms```
-4. Run ```composer install```, NPM asset build is in version control already.
+1. `composer source git@github.com:OpenWebconcept/plugin-prefill-gravity-forms.git`
+2. `composer require plugin/prefill-gravity-forms`
+3. `cd /wp-content/plugins/prefill-gravity-forms`
+4. Run `composer install`, NPM asset build is in version control already.
 
-### Set-up
+### Setup
 
 1. Go to '/wp-admin/admin.php?page=gf_settings&subview=owc-gravityforms-iconnect' and configure all the required settings.
 
@@ -48,4 +48,4 @@ See [here](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/m
 
 ## License
 
-The source code is made available under the EUROPEAN UNION PUBLIC LICENCE v. 1.2 license. Some of the dependencies are licensed differently, with the BSD or MIT license, for example.
+The source code is made available under the [EUPL 1.2 license](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/main/LICENSE.md). Some of the dependencies are licensed differently, with the BSD or MIT license, for example.
