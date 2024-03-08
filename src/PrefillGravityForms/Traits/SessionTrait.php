@@ -10,7 +10,8 @@ trait SessionTrait
     protected function getBSN(): string
     {
         try {
-            $bsn = resolve('session')->getSegment('digid')->get('bsn');
+			$session = resolve('session');
+            $bsn = $session->getSegment('digid')->get('bsn') ?: $session->getSegment('eidas')->get('bsn');
         } catch(\Exception $e) {
             $bsn = '';
         }
