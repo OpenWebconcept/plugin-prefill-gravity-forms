@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       Yard | BRP Prefill GravityForms
  * Plugin URI:        https://www.openwebconcept.nl/
- * Description:       Prefill GravityForms fields, based on the dutch BSN number. Retrieve personal information and place these values in the corrensponding fields.
+ * Description:       Prefill GravityForms fields, based on a (Dutch) BSN number. Retrieve personal information and place these values in the corresponding fields.
  * Version:           1.3.0
  * Author:            Yard | Digital Agency
  * Author URI:        https://www.yard.nl/
