@@ -1,8 +1,12 @@
 <?php
 
-namespace OWC\PrefillGravityForms\GravityForms;
+namespace OWC\PrefillGravityForms\Providers;
 
 use OWC\PrefillGravityForms\Foundation\ServiceProvider;
+use OWC\PrefillGravityForms\GravityForms\GravityForms;
+use OWC\PrefillGravityForms\GravityForms\GravityFormsAddon;
+use OWC\PrefillGravityForms\GravityForms\GravityFormsFieldSettings;
+use OWC\PrefillGravityForms\GravityForms\GravityFormsFormSettings;
 
 class GravityFormsServiceProvider extends ServiceProvider
 {

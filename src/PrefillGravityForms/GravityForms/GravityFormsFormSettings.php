@@ -6,11 +6,6 @@ use function OWC\PrefillGravityForms\Foundation\Helpers\config;
 
 class GravityFormsFormSettings
 {
-    public function addFormSettingsCSS(): void
-    {
-        wp_enqueue_style('gf-custom-admin', \plugins_url(PG_DIR . '/resources/css/admin.css'));
-    }
-
     public function addFormSettings(array $fields): array
     {
         $fields[] = [
@@ -19,13 +14,13 @@ class GravityFormsFormSettings
                 [
                     'name' => 'owc-iconnect-doelbinding',
                     'label' => 'Doelbinding',
-                    'type' => 'text'
+                    'type' => 'text',
                 ],
                 [
                     'name' => 'owc-iconnect-expand',
                     'label' => 'Breidt uit',
                     'type' => 'text',
-                    'description' => 'Breid de resultaten uit met andere entiteiten. Kommagescheiden waardes in vullen. Bijvoorbeeld: \'ouders,partners,kinderen\''
+                    'description' => 'Breid de resultaten uit met andere entiteiten. Kommagescheiden waardes in vullen. Bijvoorbeeld: \'ouders,partners,kinderen\'',
                 ],
                 [
                     'name' => "owc-form-setting-supplier",
@@ -53,10 +48,10 @@ class GravityFormsFormSettings
                             'name' => "owc-form-setting-supplier-pink-roccade",
                             'label' => __('PinkRoccade', config('core.text_domain')),
                             'value' => 'pink-roccade',
-                        ]
+                        ],
                     ],
                 ],
-            ]
+            ],
         ];
 
         return $fields;

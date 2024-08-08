@@ -10,7 +10,14 @@ import Edit from './edit';
 import Save from './save';
 import metadata from './block.json';
 
-registerBlockType( metadata.name, {
+const { name, description, title, category, icon, attributes } = metadata;
+
+registerBlockType( name, {
+	title,
+	description,
+	attributes,
 	edit: Edit,
 	save: Save,
+	icon,
+	category,
 } );

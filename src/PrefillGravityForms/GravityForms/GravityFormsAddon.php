@@ -57,7 +57,7 @@ class GravityFormsAddon extends GFAddOn
      */
     public function get_menu_icon()
     {
-        return 'dashicons-admin-tools';
+        return 'dashicons-yard-y';
     }
 
     /**

@@ -5,8 +5,9 @@ return [
     // Service Providers.
     'providers' => [
         // Global providers.
-        OWC\PrefillGravityForms\GravityForms\GravityFormsServiceProvider::class,
-        OWC\PrefillGravityForms\Blocks\BlockServiceProvider::class,
+        OWC\PrefillGravityForms\Providers\GravityFormsServiceProvider::class,
+        OWC\PrefillGravityForms\Providers\BlockServiceProvider::class,
+        OWC\PrefillGravityForms\Providers\EnqueueServiceProvider::class,
     ],
 
     /**
@@ -36,5 +37,5 @@ return [
             'file' => 'owc-gravityforms-digid/plugin.php',
         ],
     ],
-    'text_domain' => PG_PLUGIN_SLUG
+    'text_domain' => PG_PLUGIN_SLUG,
 ];

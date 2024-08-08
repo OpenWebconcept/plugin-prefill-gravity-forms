@@ -163,4 +163,21 @@ class Plugin
     {
         return $this->rootPath;
     }
+
+    /**
+     * Get the path to a particular resource.
+     */
+    public function resourceUrl(string $file, string $directory = ''): string
+    {
+        $directory = ! empty($directory) ? $directory . '/' : '';
+
+        return plugins_url("build/{$directory}{$file}", $this->getName() . '/plugin.php');
+    }
+
+    public function resourcePath(string $file, string $directory = ''): string
+    {
+        $directory = ! empty($directory) ? $directory . '/' : '';
+
+        return $this->rootPath . "/build/{$directory}{$file}";
+    }
 }
