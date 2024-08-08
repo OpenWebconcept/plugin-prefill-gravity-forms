@@ -1,9 +1,4 @@
-<?php
-/**
- * Select element for custom field
- */
-?>
-<li class="label_setting field_setting">
+<li class="owc_pg_prefill_setting field_setting">
     <label for="linkedField" class="section_label">
         <?php _e('Automatisch invullen', 'prefill-gravity-forms'); ?>
     </label>
@@ -42,6 +37,8 @@
             <option value="verblijfplaats.woonplaatsnaam"><?php _e('Woonplaats', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.adresregel1"><?php _e('Adres', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.adresregel2"><?php _e('Postcode + plaats', 'prefill-gravity-forms'); ?></option>
+			<option value="verblijfplaats.gemeenteVanInschrijving.omschrijving"><?php _e('Gemeente', 'prefill-gravity-forms'); ?></option>
+			<option value="verblijfplaats.gemeenteVanInschrijving.code"><?php _e('Gemeentecode', 'prefill-gravity-forms'); ?></option>
         </optgroup>
         <optgroup label="Huwelijk/Partnerschap-gegevens">
             <option value="_embedded.partners.soortVerbintenis"><?php _e('Soort verbintenis', 'prefill-gravity-forms'); ?></option>

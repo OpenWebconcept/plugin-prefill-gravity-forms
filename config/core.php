@@ -1,8 +1,6 @@
 <?php
 
 return [
-
-    // Service Providers.
     'providers' => [
         // Global providers.
         OWC\PrefillGravityForms\Providers\GravityFormsServiceProvider::class,

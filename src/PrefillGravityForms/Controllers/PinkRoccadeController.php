@@ -17,16 +17,16 @@ class PinkRoccadeController extends BaseController
         $doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
         $expand = rgar($form, 'owc-iconnect-expand', '');
 
-        if (!is_string($doelBinding)) {
+        if (! is_string($doelBinding)) {
             $doelBinding = (string) $doelBinding;
         }
 
         $response = $this->request($bsn, $doelBinding, $expand);
 
-        if (!empty($response['status'])) {
+        if (! empty($response['status'])) {
             $this->teams->addRecord('error', 'Prefill data', [
                 'message' => 'Retrieving prefill data failed.',
-                'status' => $response['status']
+                'status' => $response['status'],
             ]);
 
             return $form;
@@ -39,7 +39,7 @@ class PinkRoccadeController extends BaseController
 
     public function get(): array
     {
-        if (!isset(self::$response)) {
+        if (! isset(self::$response)) {
             self::$response = self::makeRequest();
         }
 
@@ -63,7 +63,7 @@ class PinkRoccadeController extends BaseController
             CURLOPT_URL => $this->getRequestURL($bsn, $expand),
             CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
             CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
-            CURLOPT_SSLKEY => $this->settings->getPrivateCertificate()
+            CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
         ];
 
         return $this->handleCurl($curlArgs);

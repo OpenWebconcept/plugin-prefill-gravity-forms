@@ -32,11 +32,6 @@ class Plugin
      */
     public Config $config;
 
-    /**
-     * Instance of the Hook loader.
-     */
-    public Loader $loader;
-
     protected \DI\Container $container;
 
     /**
@@ -75,8 +70,6 @@ class Plugin
             'config' => function () {
                 return new Config($this->rootPath . '/config');
             },
-            'loader' => Loader::getInstance(),
-
         ]);
         $this->container = $builder->build();
     }
@@ -92,7 +85,6 @@ class Plugin
     public function boot(): bool
     {
         $this->config = resolve('config');
-        $this->loader = resolve('loader');
 
         $dependencyChecker = new DependencyChecker($this->config->get('core.dependencies'));
 
@@ -106,8 +98,6 @@ class Plugin
         // Set up service providers
         $this->callServiceProviders('register');
         $this->callServiceProviders('boot');
-
-        $this->loader->register();
 
         return true;
     }

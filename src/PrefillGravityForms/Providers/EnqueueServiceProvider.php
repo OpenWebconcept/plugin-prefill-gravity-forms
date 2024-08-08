@@ -8,8 +8,8 @@ class EnqueueServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->plugin->loader->addAction('admin_enqueue_scripts', $this, 'enqueueIconsStyles');
-        $this->plugin->loader->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
+        add_action('admin_enqueue_scripts', [$this, 'enqueueIconsStyles']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueueStyles']);
     }
 
     public function enqueueIconsStyles(): void
@@ -18,11 +18,13 @@ class EnqueueServiceProvider extends ServiceProvider
         $scriptAsset = file_exists($path) ? require $path : ['dependencies' => [], 'version' => round(microtime(true))];
 
         wp_enqueue_style(
-            'pg-icons',
+            'owc-pg-icons',
             $this->plugin->resourceUrl('icons.css'),
             $scriptAsset['dependencies'],
             $scriptAsset['version']
         );
+
+        $this->enqueueStyles();
     }
 
     public function enqueueStyles(): void
@@ -31,7 +33,7 @@ class EnqueueServiceProvider extends ServiceProvider
         $scriptAsset = file_exists($path) ? require $path : ['dependencies' => [], 'version' => round(microtime(true))];
 
         wp_enqueue_style(
-            'owc-gfa-styles',
+            'owc-pg-styles',
             $this->plugin->resourceUrl('style.css'),
             $scriptAsset['dependencies'],
             $scriptAsset['version']

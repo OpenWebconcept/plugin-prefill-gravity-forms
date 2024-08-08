@@ -55,7 +55,7 @@ class DependencyChecker
      */
     public function notify(): void
     {
-        \add_action('admin_notices', function () {
+        add_action('admin_notices', function () {
             $list = '<p>' . __(
                 'The following plugins are required to use the Yard | Prefill GravityForms:',
                 'prefill-gravity-forms'

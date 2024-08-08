@@ -2,30 +2,28 @@
 
 namespace OWC\PrefillGravityForms\GravityForms\Fields;
 
-use DateTime;
-use DateTimeZone;
 use GF_Field;
 use OWC\PrefillGravityForms\GravityForms\Fields\Traits\CheckBSN;
 use OWC\PrefillGravityForms\GravityForms\Fields\Traits\Icons;
 
-class AgeCheckField extends GF_Field
+class MunicipalityCheckField extends GF_Field
 {
     use CheckBSN;
     use Icons;
 
-    protected const AGE_CHECK_VALIDATION_FAILED_CSS_CLASS = 'error';
-    protected const AGE_CHECK_VALIDATION_SUCCESS_CSS_CLASS = 'success';
+    protected const MUNICIPALITY_CHECK_VALIDATION_FAILED_CSS_CLASS = 'error';
+    protected const MUNICIPALITY_CHECK_VALIDATION_SUCCESS_CSS_CLASS = 'success';
 
-    public $type = 'owc_pg_age_check';
+    public $type = 'owc_pg_municipality_check';
 
     public function get_form_editor_field_title()
     {
-        return esc_attr__('OWC leeftijdscheck', 'prefill-gravity-forms');
+        return esc_attr__('OWC Gemeentecheck', 'prefill-gravity-forms');
     }
 
     public function get_form_editor_field_description()
     {
-        return esc_attr__('Op basis van het BSN-nummer, verkregen wanneer een burger inlogt met DigiD, wordt de BRP bevraagd. De leeftijd van de burger wordt berekend en op basis daarvan wordt een melding weergegeven die aangeeft of de burger de juiste leeftijd heeft.', 'prefill-gravity-forms');
+        return esc_attr__('Op basis van de gemeentecode uit de BRP, verkregen wanneer een burger inlogt met DigiD, wordt er gekeken of de burger in de juiste gemeente woont. De gemeentecode waarop gecontroleerd wordt is instelbaar.', 'prefill-gravity-forms');
     }
 
     public function get_form_editor_field_icon()
@@ -44,7 +42,7 @@ class AgeCheckField extends GF_Field
             'label_setting',
             'label_placement_setting',
             'rules_setting',
-            'owc_pg_age_check_setting',
+            'owc_pg_municipality_check_setting',
         ];
     }
 
@@ -63,16 +61,16 @@ class AgeCheckField extends GF_Field
 
     public function validate($value, $form)
     {
-        $dateOfBirth = $value;
+        $municipalityCode = $value;
 
-        if (empty($dateOfBirth)) {
+        if (empty($municipalityCode)) {
             $this->failed_validation = true;
-            $this->validation_message = __('Het ophalen van uw geboortedatum is mislukt, probeer het later nog eens.', 'prefill-gravity-forms');
+            $this->validation_message = __('Het ophalen van de gemeentecode van uw gemeente is mislukt, probeer het later nog eens.', 'prefill-gravity-forms');
         }
 
-        $minimumAgeSetting = $this->get_minimun_age_setting();
+        $municipalityCodeSetting = $this->pgMunicipalityCodeCheckValue ?? false;
 
-        if (! $this->check_age($minimumAgeSetting, $dateOfBirth)) {
+        if (! $this->check_municipality_code($municipalityCodeSetting, $municipalityCode)) {
             $this->failed_validation = true;
             $this->validation_message = $this->get_check_failed_message();
         }
@@ -94,13 +92,13 @@ class AgeCheckField extends GF_Field
         }
 
         $bsn = $this->check_bsn_value_from_session();
-        $dateOfBirth = $value;
-        $minimumAgeSetting = $this->get_minimun_age_setting();
+        $municipalityCode = $value;
+        $municipalityCodeSetting = $this->get_municipality_code_setting();
 
-        if (empty($bsn) || empty($minimumAgeSetting) || empty($dateOfBirth)) {
-            $message = __('Log in met uw DigiD, zonder BSN-nummer kan de leeftijdscheck niet uitgevoerd worden.', 'prefill-gravity-forms');
+        if (empty($bsn) || empty($municipalityCodeSetting)) {
+            $message = __('Log in met uw DigiD, zonder BSN-nummer kan de gemeentecheck niet uitgevoerd worden.', 'prefill-gravity-forms');
 
-            if (empty($minimumAgeSetting)) {
+            if (empty($municipalityCodeSetting)) {
                 $message = __('Dit veld is onjuist geconfigueerd, contacteer de beheerder van deze website.', 'prefill-gravity-forms');
             }
 
@@ -109,17 +107,17 @@ class AgeCheckField extends GF_Field
                 '',
                 $message,
                 $this->get_error_svg(),
-                self::AGE_CHECK_VALIDATION_FAILED_CSS_CLASS
+                self::MUNICIPALITY_CHECK_VALIDATION_FAILED_CSS_CLASS
             );
         }
 
-        if (! $this->check_age($minimumAgeSetting, $dateOfBirth)) {
+        if (! $this->check_municipality_code($municipalityCodeSetting, $municipalityCode)) {
             return $this->format_field_input(
                 $form,
                 $value,
                 $this->get_check_failed_message(),
                 $this->get_error_svg(),
-                self::AGE_CHECK_VALIDATION_FAILED_CSS_CLASS
+                self::MUNICIPALITY_CHECK_VALIDATION_FAILED_CSS_CLASS
             );
         }
 
@@ -128,7 +126,7 @@ class AgeCheckField extends GF_Field
             $value,
             $this->get_check_success_message(),
             $this->get_success_svg(),
-            self::AGE_CHECK_VALIDATION_SUCCESS_CSS_CLASS
+            self::MUNICIPALITY_CHECK_VALIDATION_SUCCESS_CSS_CLASS
         );
     }
 
@@ -137,44 +135,42 @@ class AgeCheckField extends GF_Field
     /**
      * Retrieves the setting from this field which is used for the field validation.
      */
-    protected function get_minimun_age_setting(): int
+    protected function get_municipality_code_setting(): string
     {
-        $setting = $this->pgAgeCheckMinimumAgeValue ?? false;
-
-        return is_numeric($setting) ? (int) $setting : 0;
+        return $this->pgMunicipalityCodeCheckValue ?? '';
     }
 
     /**
-     * Retrieves the message that is shown when the age check fails.
+     * Retrieves the message that is shown when the municipality check fails.
      * When no message is configured the default message is shown.
      */
     protected function get_check_failed_message(): string
     {
-        $checkFailedMessage = $this->pgAgeCheckFailedMessage ?? false;
+        $checkFailedMessage = $this->pgMunicipalityCheckFailedMessage ?? false;
 
-        return $checkFailedMessage ?: __('U heeft niet de juiste leeftijd om dit formulier te mogen invullen.', 'prefill-gravity-forms');
+        return $checkFailedMessage ?: __('U woont niet in de juiste gemeente om dit formulier te mogen invullen.', 'prefill-gravity-forms');
     }
 
     /**
-     * Retrieves the message that is shown when the age check is successful.
+     * Retrieves the message that is shown when the municipality check is successful.
      * When no message is configured the default message is shown.
      */
     protected function get_check_success_message(): string
     {
-        $checkSuccessMessage = $this->pgAgeCheckSuccessMessage ?? false;
+        $checkSuccessMessage = $this->pgMunicipalityCheckSuccessMessage ?? false;
 
-        return $checkSuccessMessage ?: __('U heeft de juiste leeftijd om dit formulier te mogen invullen.', 'prefill-gravity-forms');
+        return $checkSuccessMessage ?: __('U woont in de juiste gemeente om dit formulier te mogen invullen.', 'prefill-gravity-forms');
     }
 
     public function get_field_tab_content_template_path(): string
     {
-        return 'partials/gf-field-age-check-settings.php';
+        return 'partials/gf-field-municipality-check-settings.php';
     }
 
     protected function get_field_input_editor(): string
     {
-        $message = __("Dit is een voorbeeldweergave van het veld 'OWC leeftijdscheck'. Stel de minimale leeftijd en de gewenste validatie berichten in via de instellingen van dit veld onder de kop 'OWC leeftijdscheck'.", 'prefill-gravity-forms');
-        $additionalMessage = __('Vergeet niet om dit veld automatisch te laten invullen met de geboortedatum vanuit de BRP.', 'prefill-gravity-forms');
+        $message = __("Dit is een voorbeeldweergave van het veld 'OWC Gemeentecheck'. Stel de gemeentecode in waarop gecontroleerd dient te worden in via de instellingen van dit veld onder de kop 'OWC Gemeentecheck'.", 'prefill-gravity-forms');
+        $additionalMessage = __('Vergeet niet om dit veld automatisch te laten invullen met de gemeentecode vanuit de BRP.', 'prefill-gravity-forms');
 
         return "<div class='ginput_container owc-pg is-editor'><p class='owc-pg-alert editor-info'>{$message}</p><p>{$additionalMessage}</p></div>";
     }
@@ -182,17 +178,14 @@ class AgeCheckField extends GF_Field
     protected function format_field_input(array $form, string $value, string $message, string $icon, string $alert_type_class): string
     {
         $field_id = $this->is_entry_detail() || $this->is_form_editor() || 0 == $form['id'] ? "input_$this->id" : 'input_' . $form['id'] . "_$this->id";
-        $input = "<p class='owc-pg-alert owc-pg-age-check {$alert_type_class}'>$icon $message</p>";
+        $input = "<p class='owc-pg-alert owc-pg-municipality-check {$alert_type_class}'>$icon $message</p>";
         $input_hidden = "<input name='input_{$this->id}' id='{$field_id}' type='hidden' value='{$value}' />";
 
         return "<div class='ginput_container owc-pg' id='{$this->id}'>{$input}{$input_hidden}</div>";
     }
 
-    protected function check_age(int $minimumAgeSetting, string $dateOfBirth): bool
+    protected function check_municipality_code(string $municipalityCodeSetting, string $municipalityCode): bool
     {
-        $now = new DateTime('', new DateTimeZone(wp_timezone_string()));
-        $dateOfBirth = new DateTime($dateOfBirth, new DateTimeZone(wp_timezone_string()));
-
-        return $now->diff($dateOfBirth)->y >= $minimumAgeSetting;
+        return $municipalityCodeSetting === $municipalityCode;
     }
 }

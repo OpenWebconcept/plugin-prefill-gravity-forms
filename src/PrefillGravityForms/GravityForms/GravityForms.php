@@ -2,6 +2,7 @@
 
 namespace OWC\PrefillGravityForms\GravityForms;
 
+use Exception;
 use function OWC\PrefillGravityForms\Foundation\Helpers\get_supplier;
 
 class GravityForms
@@ -41,11 +42,11 @@ class GravityForms
     {
         try {
             $instance = $this->getController();
-        } catch(\Exception $e) {
+        } catch(Exception $e) {
             return $form;
         }
 
-        if (!method_exists($instance, 'handle')) {
+        if (! method_exists($instance, 'handle')) {
             return $form;
         }
 
@@ -59,8 +60,8 @@ class GravityForms
     {
         $controller = sprintf('OWC\PrefillGravityForms\Controllers\%sController', $this->supplier);
 
-        if (!class_exists($controller)) {
-            throw new \Exception(sprintf('Class %s does not exists', $controller));
+        if (! class_exists($controller)) {
+            throw new Exception(sprintf('Class %s does not exists', $controller));
         }
 
         return new $controller();

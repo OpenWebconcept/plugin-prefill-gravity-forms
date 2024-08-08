@@ -69,7 +69,7 @@ class GravityFormsAddon extends GFAddOn
 
         return [
             [
-                'title' => __('General', 'prefill-gravity-forms'),
+                'title' => __('Algemeen', 'prefill-gravity-forms'),
                 'fields' => [
                     [
                         'label' => __('OIN number', 'prefill-gravity-forms'),
@@ -79,26 +79,26 @@ class GravityFormsAddon extends GFAddOn
                         'required' => true,
                     ],
                     [
-                        'label' => __('Base URL', 'prefill-gravity-forms'),
+                        'label' => __('Basis URL', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}base-url",
                         'required' => true,
                     ],
                     [
-                        'label' => __('API key', 'prefill-gravity-forms'),
+                        'label' => __('API sleutel', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-key",
-                        'description' => __('API key is not always required. This depends on the supplier.', 'prefill-gravity-forms'),
+                        'description' => __('API sleutel is niet altijd vereist. Dit hangt af van de leverancier.', 'prefill-gravity-forms'),
                     ],
                 ],
             ],
             [
-                'title' => __('Certificates', 'prefill-gravity-forms'),
+                'title' => __('Certificaten', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label' => esc_html__('Certificates root location', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Certificaten hoofd locatie', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}location-root-path-certificates",
@@ -106,26 +106,26 @@ class GravityFormsAddon extends GFAddOn
                         'required' => true,
                     ],
                     [
-                        'label' => esc_html__('Public certificate location', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Publieke locatie certificaten', 'prefill-gravity-forms'),
                         'type' => 'select',
                         'name' => "{$prefix}public-certificate",
                         'choices' => $this->getPublicCertificates(),
                         'required' => true,
                     ],
                     [
-                        'label' => esc_html__('Private certificate location', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Privé locatie certificaten', 'prefill-gravity-forms'),
                         'type' => 'select',
                         'name' => "{$prefix}private-certificate",
                         'choices' => $this->getPrivateCertificates(),
                         'required' => true,
                     ],
                     [
-                        'label' => __('Passphrase', 'prefill-gravity-forms'),
+                        'label' => __('Wachtwoord', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}passphrase",
                         'required' => false,
-                        'tooltip' => esc_html__('Leave empty when a password is not required for the requests to the "Haalcentraal" API.', 'prefill-gravity-forms'),
+                        'tooltip' => esc_html__('Dit veld mag leeg gelaten worden als er geen wachtwoord vereist is voor het maken van de verzoeken naar de "Haalcentraal" API.', 'prefill-gravity-forms'),
                     ],
                 ],
             ],
@@ -139,7 +139,7 @@ class GravityFormsAddon extends GFAddOn
     {
         $noCertificate = [
             [
-                'label' => esc_html__('No certificate selected', 'prefill-gravity-forms'),
+                'label' => esc_html__('Geen certificaat geselecteerd', 'prefill-gravity-forms'),
                 'value' => 'no-certificate',
             ],
         ];

@@ -2,21 +2,22 @@
 
 namespace OWC\PrefillGravityForms\Traits;
 
-use function Yard\DigiD\Foundation\Helpers\resolve;
+use Exception;
 use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
+use function Yard\DigiD\Foundation\Helpers\resolve;
 
 trait SessionTrait
 {
     protected function getBSN(): string
     {
         try {
-			$session = resolve('session');
+            $session = resolve('session');
             $bsn = $session->getSegment('digid')->get('bsn') ?: $session->getSegment('eidas')->get('bsn');
-        } catch(\Exception $e) {
+        } catch(Exception $e) {
             $bsn = '';
         }
 
-        $bsn = is_string($bsn) && !empty($bsn) ? decrypt($bsn) : '';
+        $bsn = is_string($bsn) && ! empty($bsn) ? decrypt($bsn) : '';
 
         if (empty($bsn)) {
             return '';
@@ -31,7 +32,7 @@ trait SessionTrait
 
         if (strlen($bsn) !== 9) {
             $this->teams->addRecord('error', 'BSN', [
-                'message' => 'BSN does not meet the required length of 9.'
+                'message' => 'BSN does not meet the required length of 9.',
             ]);
 
             return '';
@@ -51,7 +52,7 @@ trait SessionTrait
         $requiredLength = 9;
         $difference = $requiredLength - $bsnLength;
 
-        if ($difference < 1 || $difference > $requiredLength) {
+        if (1 > $difference || $difference > $requiredLength) {
             return $bsn;
         }
 
