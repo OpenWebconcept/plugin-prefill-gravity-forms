@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\GravityForms;
 
 class GravityFormsFormSettings
@@ -46,6 +48,11 @@ class GravityFormsFormSettings
                             'name' => "owc-form-setting-supplier-pink-roccade",
                             'label' => __('PinkRoccade', 'prefill-gravity-forms'),
                             'value' => 'pink-roccade',
+                        ],
+                        [
+                            'name' => "owc-form-setting-supplier-vrij-brp",
+                            'label' => __('VrijBRP', 'prefill-gravity-forms'),
+                            'value' => 'vrij-brp',
                         ],
                     ],
                 ],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\GravityForms\Fields;
 
 use GF_Field;

@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\GravityForms\Fields;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
 use GF_Field;
 use OWC\PrefillGravityForms\GravityForms\Fields\Traits\CheckBSN;
 use OWC\PrefillGravityForms\GravityForms\Fields\Traits\Icons;
@@ -191,7 +194,12 @@ class AgeCheckField extends GF_Field
     protected function check_age(int $minimumAgeSetting, string $dateOfBirth): bool
     {
         $now = new DateTime('', new DateTimeZone(wp_timezone_string()));
-        $dateOfBirth = new DateTime($dateOfBirth, new DateTimeZone(wp_timezone_string()));
+
+        try {
+            $dateOfBirth = new DateTime($dateOfBirth, new DateTimeZone(wp_timezone_string()));
+        } catch(Exception $e) {
+            return false;
+        }
 
         return $now->diff($dateOfBirth)->y >= $minimumAgeSetting;
     }
