@@ -135,6 +135,85 @@ class AgeCheckField extends GF_Field
         );
     }
 
+    /**
+     * Returns the HTML markup for the field's containing element.
+     *
+     * @since 2.5
+     *
+     * @param array $atts Container attributes.
+     * @param array $form The current Form object.
+     *
+     * @return string
+     */
+    public function get_field_container($atts, $form)
+    {
+        $dateOfBirth = $_POST["input_$this->id"] ?? '';
+        $minimumAgeSetting = $this->get_minimun_age_setting();
+
+        if ($minimumAgeSetting && $dateOfBirth && $this->check_age($minimumAgeSetting, $dateOfBirth)) {
+            $atts = [
+                'style' => 'display:none',
+            ];
+        }
+
+        // Get the field container tag.
+        $tag = $this->get_field_container_tag($form);
+
+        // Parse the provided attributes.
+        $atts = wp_parse_args($atts, [
+            'id' => '',
+            'class' => '',
+            'style' => '',
+            'tabindex' => '',
+            'aria-atomic' => '',
+            'aria-live' => '',
+            'data-field-class' => '',
+            'data-field-position' => '',
+        ]);
+
+        $tabindex_string = '' === (rgar($atts, 'tabindex')) ?  '' : ' tabindex="' . esc_attr($atts['tabindex']) . '"';
+        $disable_ajax_reload = $this->disable_ajax_reload();
+        $ajax_reload_id = 'skip' === $disable_ajax_reload || 'true' === $disable_ajax_reload || true === $disable_ajax_reload ? 'true' : esc_attr(rgar($atts, 'id'));
+        $is_form_editor = $this->is_form_editor();
+
+        $target_input_id = esc_attr(rgar($atts, 'id'));
+
+        // Get the field sidebar messages, this could be an array of messages or a warning message string.
+        $field_sidebar_messages = \GFCommon::is_form_editor() ? $this->get_field_sidebar_messages() : '';
+        $sidebar_message_type = 'warning';
+        $sidebar_message_content = $field_sidebar_messages;
+
+        if (is_array($field_sidebar_messages)) {
+            $sidebar_message = is_array(rgar($field_sidebar_messages, '0')) ? array_shift($field_sidebar_messages) : $field_sidebar_messages;
+            $sidebar_message_type = rgar($sidebar_message, 'type');
+            $sidebar_message_content = rgar($sidebar_message, 'content');
+        }
+
+        if (! empty($sidebar_message_content)) {
+            $atts['class'] .= ' gfield_' . ('error' === $sidebar_message_type ? 'warning' : $sidebar_message_type);
+            if ('error' === $sidebar_message_type) {
+                $atts['aria-invalid'] = 'true';
+            }
+        }
+
+        return sprintf(
+            '<%1$s id="%2$s" class="%3$s" %4$s%5$s%6$s%7$s%8$s%9$s data-js-reload="%10$s" %11$s>%12$s{FIELD_CONTENT}</%1$s>',
+            $tag,
+            esc_attr(rgar($atts, 'id')),
+            esc_attr(rgar($atts, 'class')),
+            rgar($atts, 'style') ? ' style="' . esc_attr($atts['style']) . '"' : '',
+            false === (rgar($atts, 'tabindex')) ? '' : $tabindex_string,
+            rgar($atts, 'aria-atomic') ? ' aria-atomic="' . esc_attr($atts['aria-atomic']) . '"' : '',
+            rgar($atts, 'aria-live') ? ' aria-live="' . esc_attr($atts['aria-live']) . '"' : '',
+            rgar($atts, 'data-field-class') ? ' data-field-class="' . esc_attr($atts['data-field-class']) . '"' : '',
+            rgar($atts, 'data-field-position') ? ' data-field-position="' . esc_attr($atts['data-field-position']) . '"' : '',
+            $ajax_reload_id,
+            rgar($atts, 'aria-invalid') ? ' aria-invalid="true"' : '',
+            empty($sidebar_message_content) ? '' : '<span class="field-' . $sidebar_message_type . '-message-content hidden">' . \GFCommon::maybe_wp_kses($sidebar_message_content) . '</span>'
+        );
+
+    }
+
     // # End overwriting parent methods --------------------------------------------------------------------------------------------------
 
     /**
@@ -197,7 +276,7 @@ class AgeCheckField extends GF_Field
 
         try {
             $dateOfBirth = new DateTime($dateOfBirth, new DateTimeZone(wp_timezone_string()));
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
 
