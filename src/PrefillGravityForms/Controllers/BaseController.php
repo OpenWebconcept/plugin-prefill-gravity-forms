@@ -11,6 +11,7 @@ use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 use OWC\PrefillGravityForms\Traits\SessionTrait;
+use TypeError;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 
 abstract class BaseController
@@ -151,7 +152,11 @@ abstract class BaseController
 
     public function isPossibleDate(string $value): bool
     {
-        return (date('Y-m-d', strtotime($value)) == $value);
+        try {
+            return (date('Y-m-d', strtotime($value)) == $value);
+        } catch (Exception | TypeError $e) {
+            return false;
+        }
     }
 
     /**
@@ -170,6 +175,7 @@ abstract class BaseController
             return;
         }
 
+        // Field consists of 1 part.
         if (empty($field->inputs) || 'datepicker' === $field->dateType) {
             $field->defaultValue = $date->format('d-m-Y');
             $field->displayOnly = true;
@@ -178,6 +184,7 @@ abstract class BaseController
             return;
         }
 
+        // Field consists of 3 parts which are represented by the input attribute.
         if (! empty($field->inputs) && ('datefield' === $field->dateType || 'datedropdown' === $field->dateType)) {
             $field->inputs[0]['defaultValue'] = $date->format('m');
             $field->inputs[1]['defaultValue'] = $date->format('d');

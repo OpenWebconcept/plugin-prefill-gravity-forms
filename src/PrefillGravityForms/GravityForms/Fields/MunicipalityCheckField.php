@@ -144,7 +144,7 @@ class MunicipalityCheckField extends GF_Field
      */
     public function get_field_container($atts, $form)
     {
-        $municipalityCode = $_POST["input_$this->id"] ?? '';
+        $municipalityCode = $_POST["input_$this->id"] ?? $this->defaultValue;
         $municipalityCodeSetting = $this->get_municipality_code_setting();
 
         if ($municipalityCodeSetting && $municipalityCode && $this->check_municipality_code($municipalityCodeSetting, $municipalityCode)) {

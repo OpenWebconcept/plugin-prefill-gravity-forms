@@ -147,7 +147,7 @@ class AgeCheckField extends GF_Field
      */
     public function get_field_container($atts, $form)
     {
-        $dateOfBirth = $_POST["input_$this->id"] ?? '';
+        $dateOfBirth = $_POST["input_$this->id"] ?? $this->defaultValue;
         $minimumAgeSetting = $this->get_minimun_age_setting();
 
         if ($minimumAgeSetting && $dateOfBirth && $this->check_age($minimumAgeSetting, $dateOfBirth)) {
