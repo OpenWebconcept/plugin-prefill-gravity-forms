@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\Controllers;
 
 use DateTime;
 use Exception;
 use GF_Field;
+use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 use OWC\PrefillGravityForms\Traits\SessionTrait;
-
-use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 
 abstract class BaseController
@@ -123,7 +124,7 @@ abstract class BaseController
             $holder = $holder[$item] ?? '';
         }
 
-        return is_string($holder) || is_numeric($holder) ? $holder : '';
+        return is_string($holder) || is_numeric($holder) ? (string) $holder : '';
     }
 
     protected function flattenMultidimensionalArray(array $array): array
@@ -165,7 +166,7 @@ abstract class BaseController
     {
         try {
             $date = new DateTime($foundValue);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return;
         }
 
@@ -219,8 +220,12 @@ abstract class BaseController
             'x-origin-oin: ' . $this->settings->getNumberOIN(),
         ];
 
-        if (! empty($this->settings->getAPIKey())) {
-            $headers[] = 'x-opentunnel-api-key: ' . $this->settings->getAPIKey();
+        if ($this->settings->useAuthenticationAPI()) {
+            if (! empty($this->settings->getAPIKey())) {
+                $headers[] = 'x-opentunnel-api-key: ' . $this->settings->getAPIKey();
+            } elseif (! empty($this->settings->getBearerTokenUsername()) && ! empty($this->settings->getBearerTokenPassword())) {
+                $headers[] = 'Authorization: Basic ' . base64_encode($this->settings->getBearerTokenUsername() . ':' . $this->settings->getBearerTokenPassword());
+            }
         }
 
         return array_filter($headers);

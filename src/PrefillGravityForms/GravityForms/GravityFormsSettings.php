@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\GravityForms;
 
 class GravityFormsSettings
@@ -41,9 +43,26 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'oin-number'] ?? '';
     }
 
+    public function useAuthenticationAPI(): bool
+    {
+        $value = $this->options[$this->prefix . 'api-use-authentication'] ?? '0';
+
+        return boolval($value);
+    }
+
     public function getAPIKey(): string
     {
         return $this->options[$this->prefix . 'api-key'] ?? '';
+    }
+
+    public function getBearerTokenUsername(): string
+    {
+        return $this->options[$this->prefix . 'api-basic-token-username'] ?? '';
+    }
+
+    public function getBearerTokenPassword(): string
+    {
+        return $this->options[$this->prefix . 'api-basic-token-password'] ?? '';
     }
 
     public function getPublicCertificate(): string

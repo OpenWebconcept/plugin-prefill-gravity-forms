@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\GravityForms;
 
 use GFAddOn;
@@ -86,12 +88,57 @@ class GravityFormsAddon extends GFAddOn
                         'required' => true,
                     ],
                     [
-                        'label' => __('API sleutel', 'prefill-gravity-forms'),
+                        'label' => __('Gebruik API authenticatie', 'prefill-gravity-forms'),
+                        'description' => __('Deze authenticatie zal gebruikt worden naast de gebruikelijke authenticatie middels certificaten.', 'prefill-gravity-forms'),
+                        'type' => 'toggle',
+                        'name' => "{$prefix}api-use-authentication",
+                        'required' => false,
+                        'default_value' => false,
+                    ],
+                ],
+            ],
+            [
+                'title' => __('API sleutel', 'prefill-gravity-forms'),
+                'class' => 'gform-settings-panel--half',
+                'description' => __('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
+                'fields' => [
+                    [
+                        'label' => __('Sleutel', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-key",
-                        'description' => __('API sleutel is niet altijd vereist. Dit hangt af van de leverancier.', 'prefill-gravity-forms'),
+                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
+                ],
+                'dependency' => [
+                    'field' => "{$prefix}api-use-authentication",
+                    'values' => [true],
+                ],
+            ],
+            [
+                'title' => __('API OAuth 2.0', 'prefill-gravity-forms'),
+                'class' => 'gform-settings-panel--half',
+                'description' => __('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
+                'fields' => [
+                    [
+                        'label' => esc_html__('Gebruikersnaam', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}api-basic-token-username",
+                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
+                    ],
+                    [
+                        'label' => esc_html__('Wachtwoord', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}api-basic-token-password",
+                        'sanitize_callback' => false,
+                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
+                    ],
+                ],
+                'dependency' => [
+                    'field' => "{$prefix}api-use-authentication",
+                    'values' => [true],
                 ],
             ],
             [
