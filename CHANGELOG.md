@@ -33,7 +33,7 @@
 
 ## v1.0.15
 
-- Change: apping field 'woonplaats' to 'woonplaatsnaam'
+- Change: mapping field 'woonplaats' to 'woonplaatsnaam'
 
 ## v1.0.14
 
