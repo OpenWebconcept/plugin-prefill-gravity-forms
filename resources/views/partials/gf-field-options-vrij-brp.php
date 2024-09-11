@@ -12,6 +12,7 @@
             <option value="naam.geslachtsnaam"><?php _e('Geslachtsnaam', 'prefill-gravity-forms'); ?></option>
             <option value="naam.voorletters"><?php _e('Voorletters', 'prefill-gravity-forms'); ?></option>
             <option value="naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
+			<option value="naam.voorvoegsel"><?php _e('Voorvoegsel', 'prefill-gravity-forms'); ?></option>
             <option value="naam.aanschrijfwijze"><?php _e('Aanschrijfwijze', 'prefill-gravity-forms'); ?></option>
             <option value="naam.aanduidingNaamgebruik"><?php _e('AanduidingNaamgebruik', 'prefill-gravity-forms'); ?></option>
         </optgroup>
@@ -21,12 +22,17 @@
         </optgroup>
         <optgroup label="Geboorte">
             <option value="geboorte.datum.datum"><?php _e('Geboortedatum', 'prefill-gravity-forms'); ?></option>
-            <option value="geboorte.land.omschrijving"><?php _e('Geboorteland', 'prefill-gravity-forms'); ?></option>
+			<option value="geboorte.datum.dag"><?php _e('Geboortedag', 'prefill-gravity-forms'); ?></option>
+			<option value="geboorte.datum.maand"><?php _e('Geboortemaand', 'prefill-gravity-forms'); ?></option>
+			<option value="geboorte.plaats.code"><?php _e('Geboorteplaats code', 'prefill-gravity-forms'); ?></option>
             <option value="geboorte.plaats.omschrijving"><?php _e('Geboorteplaats', 'prefill-gravity-forms'); ?></option>
+			<option value="geboorte.land.code"><?php _e('Geboorteland code', 'prefill-gravity-forms'); ?></option>
+            <option value="geboorte.land.omschrijving"><?php _e('Geboorteland', 'prefill-gravity-forms'); ?></option>
         </optgroup>
         <optgroup label="Verblijfplaats">
             <option value="verblijfplaats.straat"><?php _e('Straat', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.huisnummer"><?php _e('Huisnummer', 'prefill-gravity-forms'); ?></option>
+			<option value="verblijfplaats.huisletter"><?php _e('Huisletter', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.postcode"><?php _e('Postcode', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.woonplaats"><?php _e('Woonplaats', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.adresregel1"><?php _e('Adres', 'prefill-gravity-forms'); ?></option>
@@ -35,9 +41,57 @@
             <option value="verblijfplaats.gemeenteVanInschrijving.code"><?php _e('Gemeentecode', 'prefill-gravity-forms'); ?></option>
         </optgroup>
         <optgroup label="Huwelijk/Partnerschap-gegevens">
-            <option value="_embedded.partners.0.soortVerbintenis"><?php _e('Soort verbintenis', 'prefill-gravity-forms'); ?></option>
-            <option value="_embedded.partners.0.naam.geslachtsnaam"><?php _e('Geslachtsnaam', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.burgerservicenummer"><?php _e('Burgerservicenummer', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.naam.geslachtsnaam"><?php _e('Geslachtsnaam', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.naam.voorletters"><?php _e('Voorletters', 'prefill-gravity-forms'); ?></option>
             <option value="_embedded.partners.0.naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.naam.voorvoegsel"><?php _e('Voorvoegsel', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.geboorte.datum.datum"><?php _e('Geboortedatum', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.geboorte.datum.dag"><?php _e('Geboortedag', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.geboorte.datum.maand"><?php _e('Geboortemaand', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.geboorte.plaats.code"><?php _e('Geboorteplaats code', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.geboorte.plaats.omschrijving"><?php _e('Geboorteplaats', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.geboorte.land.code"><?php _e('Geboorteland code', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.geboorte.land.omschrijving"><?php _e('Geboorteland', 'prefill-gravity-forms'); ?></option>
+            <option value="_embedded.partners.0.soortVerbintenis"><?php _e('Soort verbintenis', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.aangaanHuwelijkPartnerschap.datum.datum"><?php _e('Verbintenis datum', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.aangaanHuwelijkPartnerschap.datum.dag"><?php _e('Verbintenis dag', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.aangaanHuwelijkPartnerschap.datum.maand"><?php _e('Verbintenis maand', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.aangaanHuwelijkPartnerschap.datum.jaar"><?php _e('Verbintenis jaar', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.aangaanHuwelijkPartnerschap.land.code"><?php _e('Verbintenis land code', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.aangaanHuwelijkPartnerschap.land.omschrijving"><?php _e('Verbintenis land', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.aangaanHuwelijkPartnerschap.plaats.code"><?php _e('Verbintenis plaats code', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.partners.0.aangaanHuwelijkPartnerschap.plaats.omschrijving"><?php _e('Verbintenis plaats', 'prefill-gravity-forms'); ?></option>
         </optgroup>
+		<optgroup label="Ouder 1 (doorgaans de moeder)">
+			<option value="_embedded.ouders.0.burgerservicenummer"><?php _e('Burgerservicenummer', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.geslachtsaanduiding"><?php _e('Geslachtsaanduiding', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.naam.geslachtsnaam"><?php _e('Geslachtsnaam', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.naam.voorletters"><?php _e('Voorletters', 'prefill-gravity-forms'); ?></option>
+            <option value="_embedded.ouders.0.naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.naam.voorvoegsel"><?php _e('Voorvoegsel', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.geboorte.datum.datum"><?php _e('Geboortedatum', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.geboorte.datum.dag"><?php _e('Geboortedag', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.geboorte.datum.maand"><?php _e('Geboortemaand', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.geboorte.plaats.code"><?php _e('Geboorteplaats code', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.geboorte.plaats.omschrijving"><?php _e('Geboorteplaats', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.geboorte.land.code"><?php _e('Geboorteland code', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.0.geboorte.land.omschrijving"><?php _e('Geboorteland', 'prefill-gravity-forms'); ?></option>
+		</optgroup>
+		<optgroup label="Ouder 2 (doorgaans de vader)">
+			<option value="_embedded.ouders.1.burgerservicenummer"><?php _e('Burgerservicenummer', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.geslachtsaanduiding"><?php _e('Geslachtsaanduiding', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.naam.geslachtsnaam"><?php _e('Geslachtsnaam', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.naam.voorletters"><?php _e('Voorletters', 'prefill-gravity-forms'); ?></option>
+            <option value="_embedded.ouders.1.naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.naam.voorvoegsel"><?php _e('Voorvoegsel', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.geboorte.datum.datum"><?php _e('Geboortedatum', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.geboorte.datum.dag"><?php _e('Geboortedag', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.geboorte.datum.maand"><?php _e('Geboortemaand', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.geboorte.plaats.code"><?php _e('Geboorteplaats code', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.geboorte.plaats.omschrijving"><?php _e('Geboorteplaats', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.geboorte.land.code"><?php _e('Geboorteland code', 'prefill-gravity-forms'); ?></option>
+			<option value="_embedded.ouders.1.geboorte.land.omschrijving"><?php _e('Geboorteland', 'prefill-gravity-forms'); ?></option>
+		</optgroup>
     </select>
 </li>
