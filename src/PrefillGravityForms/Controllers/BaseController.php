@@ -95,39 +95,45 @@ abstract class BaseController
     }
 
     /**
-     * Explode string in to array items.
+     * Explode dot notation string into array items.
      * Use these array items to retrieve nested array values from the response.
      */
     public function explodeDotNotationValue(string $dotNotationString, array $response): string
     {
         $exploded = explode('.', $dotNotationString);
-        $holder = [];
 
-        foreach ($exploded as $key => $item) {
-            if (0 === $key) {
-                // Place the wanted part of the response in $holder.
-                $holder = $response[$item] ?? '';
+        // Initialize the holder with the first part of the response array.
+        $holder = $response[$exploded[0]] ?? '';
 
-                continue;
-            }
-
-            // If $holder is empty there is no need to proceed.
+        foreach (array_slice($exploded, 1) as $item) {
             if (empty($holder)) {
                 break;
             }
 
-            // If holder is a multidimensional array, flatten.
-            if (! empty($holder[0]) && is_array($holder[0])) {
+            // Flatten if the holder is a single multidimensional array and the item is not numeric
+            if ($this->isSingleMultidimensionalArray($holder) && ! is_numeric($item)) {
                 $holder = $this->flattenMultidimensionalArray($holder);
             }
 
-            // Place the nested part of the response in $holder.
+            // Move deeper into the nested array.
             $holder = $holder[$item] ?? '';
         }
 
+        // Return the result, ensuring it's a string or numeric value.
         return is_string($holder) || is_numeric($holder) ? (string) $holder : '';
     }
 
+    /**
+     * Checks if the array contains only one element, and that element is itself an array.
+     */
+    protected function isSingleMultidimensionalArray(array $array): bool
+    {
+        return count($array) === 1 && is_array(reset($array));
+    }
+
+    /**
+     * Flatten a multidimensional array with identical keys into a single array where the values of the last array remain.
+     */
     protected function flattenMultidimensionalArray(array $array): array
     {
         $holder = [];
