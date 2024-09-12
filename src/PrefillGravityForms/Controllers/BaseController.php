@@ -233,7 +233,7 @@ abstract class BaseController
             'x-origin-oin: ' . $this->settings->getNumberOIN(),
         ];
 
-        if ($this->settings->useAuthenticationAPI()) {
+        if ($this->settings->useAPIAuthentication()) {
             if (! empty($this->settings->getAPIKey())) {
                 $headers[] = 'x-opentunnel-api-key: ' . $this->settings->getAPIKey();
             } elseif (! empty($this->settings->getBearerTokenUsername()) && ! empty($this->settings->getBearerTokenPassword())) {

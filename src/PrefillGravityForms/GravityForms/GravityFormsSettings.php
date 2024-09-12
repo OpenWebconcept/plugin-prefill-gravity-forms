@@ -43,7 +43,7 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'oin-number'] ?? '';
     }
 
-    public function useAuthenticationAPI(): bool
+    public function useAPIAuthentication(): bool
     {
         $value = $this->options[$this->prefix . 'api-use-authentication'] ?? '0';
 
