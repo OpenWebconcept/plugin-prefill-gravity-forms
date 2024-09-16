@@ -1,10 +1,15 @@
 # Changelog
 
-- Tested up to: WordPress 6.4.3
+- Tested up to: WordPress 6.6.2
+
+## v1.4.0
+
+- Add: VrijBRP as supplier
+- Add: custom age check and municipality check GF fields
+- Change: GF Addon fields + implement basic token usage
+- Change: explode dot notated values when prefilling
 
 ## v1.3.0
-
-### Chore
 
 - Add: check for eIDAS BSN
 - Change: changelog formatting
