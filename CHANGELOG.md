@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.4.1
+
+- Fix: check if $holder is array before using 'isSingleMultidimensionalArray' method when prefilling
+
 ## v1.4.0
 
 - Add: VrijBRP as supplier

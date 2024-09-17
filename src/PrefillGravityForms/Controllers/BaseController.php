@@ -7,11 +7,12 @@ namespace OWC\PrefillGravityForms\Controllers;
 use DateTime;
 use Exception;
 use GF_Field;
-use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 use OWC\PrefillGravityForms\Traits\SessionTrait;
 use TypeError;
+
+use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 
 abstract class BaseController
@@ -111,7 +112,7 @@ abstract class BaseController
             }
 
             // Flatten if the holder is a single multidimensional array and the item is not numeric
-            if ($this->isSingleMultidimensionalArray($holder) && ! is_numeric($item)) {
+            if (is_array($holder) && $this->isSingleMultidimensionalArray($holder) && ! is_numeric($item)) {
                 $holder = $this->flattenMultidimensionalArray($holder);
             }
 
