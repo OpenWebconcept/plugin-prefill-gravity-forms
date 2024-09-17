@@ -13,11 +13,16 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
-    }
+    },
+    {
+			"type": "vcs",
+			"url": "git@github.com:OpenWebconcept/idp-userdata"
+		}
   ],
   "require": {
     "php": ">=7.0",
-    "php-di/php-di": "^6.0"
+    "php-di/php-di": "^6.0",
+    "owc/idp-userdata": "^1.0"
   },
   "require-dev": {
     "mockery/mockery": "^1.0",
