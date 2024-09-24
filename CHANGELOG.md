@@ -2,6 +2,11 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.0
+
+- Add: WeAreFrank! as supplier
+- Change: refactor controller classes
+
 ## v1.5.0
 
 - Add: implement IdpUserData for retrieving BSN

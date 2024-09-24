@@ -7,4 +7,5 @@ return [
     'openzaak' => 'OpenZaak',
     'pink-roccade' => 'PinkRoccade',
     'vrij-brp' => 'VrijBRP',
+    'we-are-frank' => 'WeAreFrank'
 ];

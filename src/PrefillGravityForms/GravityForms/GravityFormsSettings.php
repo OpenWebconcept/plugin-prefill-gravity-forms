@@ -55,12 +55,12 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'api-key'] ?? '';
     }
 
-    public function getBearerTokenUsername(): string
+    public function getAPITokenUsername(): string
     {
         return $this->options[$this->prefix . 'api-basic-token-username'] ?? '';
     }
 
-    public function getBearerTokenPassword(): string
+    public function getAPITokenPassword(): string
     {
         return $this->options[$this->prefix . 'api-basic-token-password'] ?? '';
     }

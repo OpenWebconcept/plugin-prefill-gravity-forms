@@ -47,6 +47,14 @@ abstract class BaseController
         }
     }
 
+    protected function logError(string $message, int $status): void
+    {
+        $this->teams->addRecord('error', 'Prefill data', [
+            'message' => $message,
+            'status' => $status,
+        ]);
+    }
+
     protected function preFillFields(array $form, array $response): array
     {
         foreach ($form['fields'] as $field) {
@@ -237,8 +245,8 @@ abstract class BaseController
         if ($this->settings->useAPIAuthentication()) {
             if (! empty($this->settings->getAPIKey())) {
                 $headers[] = 'x-opentunnel-api-key: ' . $this->settings->getAPIKey();
-            } elseif (! empty($this->settings->getBearerTokenUsername()) && ! empty($this->settings->getBearerTokenPassword())) {
-                $headers[] = 'Authorization: Basic ' . base64_encode($this->settings->getBearerTokenUsername() . ':' . $this->settings->getBearerTokenPassword());
+            } elseif (! empty($this->settings->getAPITokenUsername()) && ! empty($this->settings->getAPITokenPassword())) {
+                $headers[] = 'Authorization: Basic ' . base64_encode($this->settings->getAPITokenUsername() . ':' . $this->settings->getAPITokenPassword());
             }
         }
 

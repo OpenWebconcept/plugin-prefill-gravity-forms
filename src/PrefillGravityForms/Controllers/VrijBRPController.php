@@ -21,20 +21,17 @@ class VrijBRPController extends BaseController
             $doelBinding = (string) $doelBinding;
         }
 
-        $response = $this->request($bsn, $doelBinding, $expand);
+        $apiResponse = $this->request($bsn, $doelBinding, $expand);
 
-        if (isset($response['status'])) {
-            $this->teams->addRecord('error', 'Prefill data', [
-                'message' => 'Retrieving prefill data failed.',
-                'status' => $response['status'],
-            ]);
+        if (isset($apiResponse['status'])) {
+            $this->logError('Retrieving prefill data failed.', $apiResponse['status'] ?? 500);
 
             return $form;
         }
 
         echo $this->disableFormFields();
 
-        return $this->preFillFields($form, $response);
+        return $this->preFillFields($form, $apiResponse);
     }
 
     protected function request(string $bsn = '', string $doelBinding = '', string $expand = ''): array
