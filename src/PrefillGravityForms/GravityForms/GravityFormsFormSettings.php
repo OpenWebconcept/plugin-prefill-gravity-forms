@@ -54,6 +54,11 @@ class GravityFormsFormSettings
                             'label' => __('VrijBRP', 'prefill-gravity-forms'),
                             'value' => 'vrij-brp',
                         ],
+                        [
+                            'name' => "owc-form-setting-supplier-we-are-frank",
+                            'label' => __('WeAreFrank!', 'prefill-gravity-forms'),
+                            'value' => 'we-are-frank',
+                        ],
                     ],
                 ],
             ],
