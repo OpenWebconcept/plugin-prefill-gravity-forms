@@ -6,6 +6,7 @@
 
 - Add: WeAreFrank! as supplier
 - Change: refactor controller classes
+- Change: English translatable strings to Dutch
 
 ## v1.5.0
 

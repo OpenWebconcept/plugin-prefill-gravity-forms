@@ -9,7 +9,7 @@ class GravityFormsFormSettings
     public function addFormSettings(array $fields): array
     {
         $fields[] = [
-            'title' => esc_html__('iConnect', 'prefill-gravity-forms'),
+            'title' => esc_html__('OWC Prefill', 'prefill-gravity-forms'),
             'fields' => [
                 [
                     'name' => 'owc-iconnect-doelbinding',
@@ -25,13 +25,13 @@ class GravityFormsFormSettings
                 [
                     'name' => "owc-form-setting-supplier",
                     'default_value' => "owc-form-setting-supplier-none",
-                    'tooltip' => '<h6>' . __('Select a supplier', 'prefill-gravity-forms') . '</h6>' . __('Choose the Zaaksysteem supplier. Please note that you\'ll also need to configure the credentials in the Gravity Forms main settings.', 'prefill-gravity-forms'),
+                    'tooltip' => '<h6>' . __('Selecteer een leverancier', 'prefill-gravity-forms') . '</h6>' . __('Kies een Zaaksysteem leverancier. Let op dat je de inloggegevens ook moet configureren in de algemene instellingen van Gravity Forms.', 'prefill-gravity-forms'),
                     'type' => 'select',
-                    'label' => esc_html__('Select a supplier', 'prefill-gravity-forms'),
+                    'label' => esc_html__('Selecteer een leverancier', 'prefill-gravity-forms'),
                     'choices' => [
                         [
                             'name' => "owc-form-setting-supplier-none",
-                            'label' => __('Select supplier', 'prefill-gravity-forms'),
+                            'label' => __('Selecteer een leverancier', 'prefill-gravity-forms'),
                             'value' => 'none',
                         ],
                         [
