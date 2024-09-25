@@ -3,6 +3,7 @@
 namespace OWC\PrefillGravityForms\Traits;
 
 use Exception;
+
 use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 
@@ -13,7 +14,7 @@ trait SessionTrait
         try {
             $session = resolve('session');
             $bsn = $session->getSegment('digid')->get('bsn') ?: $session->getSegment('eidas')->get('bsn');
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $bsn = '';
         }
 
