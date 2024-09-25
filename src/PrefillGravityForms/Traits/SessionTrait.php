@@ -11,7 +11,6 @@ trait SessionTrait
 {
     protected function getBSN(): string
     {
-        return '999993483';
         try {
             $session = resolve('session');
             $bsn = $session->getSegment('digid')->get('bsn') ?: $session->getSegment('eidas')->get('bsn');
