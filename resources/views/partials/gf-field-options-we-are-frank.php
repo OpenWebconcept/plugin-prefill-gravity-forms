@@ -32,9 +32,10 @@
         	<option value="geboorte.land.code"><?php _e('Geboorteland code', 'prefill-gravity-forms'); ?></option>
     	</optgroup>
         <optgroup label="Verblijfplaats">
-            <option value="verblijfplaats.verblijfadres.regel1"><?php _e('Straat + huisnummer', 'prefill-gravity-forms'); ?></option>
-            <option value="verblijfplaats.verblijfadres.regel3"><?php _e('Postcode', 'prefill-gravity-forms'); ?></option>
-            <option value="verblijfplaats.verblijfadres.regel2"><?php _e('Woonplaats', 'prefill-gravity-forms'); ?></option>
+            <option value="verblijfplaats.verblijfadres.officieleStraatnaam"><?php _e('Straat', 'prefill-gravity-forms'); ?></option>
+			<option value="verblijfplaats.verblijfadres.huisnummer"><?php _e('Huisnummer', 'prefill-gravity-forms'); ?></option>
+            <option value="verblijfplaats.verblijfadres.postcode"><?php _e('Postcode', 'prefill-gravity-forms'); ?></option>
+            <option value="verblijfplaats.verblijfadres.woonplaats"><?php _e('Woonplaats', 'prefill-gravity-forms'); ?></option>
             <option value="gemeenteVanInschrijving.omschrijving"><?php _e('Gemeente', 'prefill-gravity-forms'); ?></option>
             <option value="gemeenteVanInschrijving.code"><?php _e('Gemeentecode', 'prefill-gravity-forms'); ?></option>
         </optgroup>
