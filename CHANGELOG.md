@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.1
+
+- Change: WeAreFrank! GF fields mapping options
+
 ## v1.6.0
 
 - Add: WeAreFrank! as supplier
