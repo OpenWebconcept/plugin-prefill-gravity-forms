@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.5.0
+
+- Add: implement IdpUserData for retrieving BSN
+
 ## v1.4.1
 
 - Fix: check if $holder is array before using 'isSingleMultidimensionalArray' method when prefilling
