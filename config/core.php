@@ -28,10 +28,6 @@ return [
             'version' => '>=2.5.8',
             'file' => 'gravityforms/gravityforms.php',
         ],
-        [
-            'type' => 'class',
-            'name' => \OWC\IdpUserData\DigiDUserDataInterface::class,
-        ],
     ],
     'text_domain' => PG_PLUGIN_SLUG,
 ];
