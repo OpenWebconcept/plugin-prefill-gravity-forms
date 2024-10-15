@@ -13,10 +13,11 @@ trait SessionTrait
     protected function getBSN(): string
     {
         if (DigiDSession::isLoggedIn()) {
-            $userData = DigiDSession::getUserData();
-            $bsn = $userData->getBsn();
+            $bsn = DigiDSession::getUserData()->getBsn();
+
             return $this->validateBSN($bsn);
         }
+
         try {
             $session = resolve('session');
             $bsn = $session->getSegment('digid')->get('bsn') ?: $session->getSegment('eidas')->get('bsn');
