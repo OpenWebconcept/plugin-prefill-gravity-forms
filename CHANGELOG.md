@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.2
+
+- Change: logging uses message and status code inside controllers
+
 ## v1.6.1
 
 - Change: WeAreFrank! GF fields mapping options
