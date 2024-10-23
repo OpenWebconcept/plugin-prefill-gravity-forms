@@ -255,9 +255,9 @@ abstract class BaseController
 
     protected function handleCurl(array $args): array
     {
-        try {
-            $curl = curl_init();
+        $curl = curl_init();
 
+        try {
             curl_setopt_array($curl, $this->getDefaultCurlArgs() + $args);
 
             if (! empty($this->settings->getPassphrase())) {
@@ -273,18 +273,26 @@ abstract class BaseController
                 throw new Exception(curl_error($curl));
             }
 
+            $httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+            if (200 !== $httpStatus) {
+                throw new Exception('Request failed', is_int($httpStatus) ? $httpStatus : 500);
+            }
+
             $decoded = json_decode($output, true);
 
             if (! $decoded || json_last_error() !== JSON_ERROR_NONE) {
-                throw new Exception('Something went wrong with decoding of the JSON output.');
+                throw new Exception('Something went wrong with decoding of the JSON output.', 500);
             }
 
             return $decoded;
         } catch (Exception $e) {
             return [
                 'message' => $e->getMessage(),
-                'status' => 500,
+                'status' => $e->getCode(),
             ];
+        } finally {
+            curl_close($curl);
         }
     }
 
