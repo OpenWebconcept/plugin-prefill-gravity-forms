@@ -19,10 +19,16 @@ class WeAreFrankController extends BaseController
 
         $apiResponse = $this->request($preparedData);
         $personData = $apiResponse['personen'] ?? [];
-        $firstPerson = reset($personData);
+        $firstPerson = reset($personData); // Response is in a multidimensional array which differs form other suppliers.
 
-        if (isset($firstPerson['status']) || ! is_array($firstPerson) || ! count($firstPerson)) {
-            $this->logError('Retrieving prefill data failed.', $firstPerson['status'] ?? 500);
+        if (isset($apiResponse['status']) || ! is_array($firstPerson) || ! count($firstPerson)) {
+            $message = 'Retrieving prefill data failed';
+
+            if (isset($apiResponse['message'])) {
+                $message = sprintf('%s: %s', $message, $apiResponse['message']);
+            }
+
+            $this->logError($message, $apiResponse['status'] ?? 500);
 
             return $form;
         }
@@ -40,6 +46,7 @@ class WeAreFrankController extends BaseController
      *
      * @param string $bsn The citizen's BSN (Burgerservicenummer), a unique identification number in the Netherlands.
      * @param string $expand Comma-separated list of additional fields to include in the query. Possible values: 'ouders', 'kinderen', 'partners'.
+     *
      * @return array The prepared data payload for the query, including the base fields and any additional expanded fields.
      */
     protected function prepareData(string $bsn, string $expand = ''): array
@@ -77,6 +84,7 @@ class WeAreFrankController extends BaseController
      * Splits the expand parameter into an array of fields.
      *
      * @param string $expand Comma-separated list of additional fields.
+     *
      * @return array An array of expanded fields.
      */
     protected function getExpandFields(string $expand): array

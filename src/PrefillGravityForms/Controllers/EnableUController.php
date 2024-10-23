@@ -22,7 +22,13 @@ class EnableUController extends BaseController
         $apiResponse = $this->request($bsn, $doelBinding, $expand);
 
         if (isset($apiResponse['status'])) {
-            $this->logError('Retrieving prefill data failed.', $apiResponse['status'] ?? 500);
+            $message = 'Retrieving prefill data failed';
+
+            if (isset($apiResponse['message'])) {
+                $message = sprintf('%s: %s', $message, $apiResponse['message']);
+            }
+
+            $this->logError($message, $apiResponse['status'] ?? 500);
 
             return $form;
         }

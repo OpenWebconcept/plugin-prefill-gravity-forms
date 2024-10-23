@@ -7,12 +7,12 @@ namespace OWC\PrefillGravityForms\Controllers;
 use DateTime;
 use Exception;
 use GF_Field;
+use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 use OWC\PrefillGravityForms\Traits\SessionTrait;
-use TypeError;
 
-use function OWC\PrefillGravityForms\Foundation\Helpers\view;
+use TypeError;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 
 abstract class BaseController
@@ -282,7 +282,8 @@ abstract class BaseController
             return $decoded;
         } catch (Exception $e) {
             return [
-                'status' => $e->getMessage(),
+                'message' => $e->getMessage(),
+                'status' => 500,
             ];
         }
     }
