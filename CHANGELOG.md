@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.3
+
+- Add: check response of curl request and return exception when request failed
+
 ## v1.6.2
 
 - Change: logging uses message and status code inside controllers
