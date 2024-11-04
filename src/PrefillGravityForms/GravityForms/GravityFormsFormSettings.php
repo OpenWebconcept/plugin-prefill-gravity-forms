@@ -25,7 +25,7 @@ class GravityFormsFormSettings
                 [
                     'name' => "owc-form-setting-supplier",
                     'default_value' => "owc-form-setting-supplier-none",
-                    'tooltip' => '<h6>' . __('Selecteer een leverancier', 'prefill-gravity-forms') . '</h6>' . __('Kies een Zaaksysteem leverancier. Let op dat je de inloggegevens ook moet configureren in de algemene instellingen van Gravity Forms.', 'prefill-gravity-forms'),
+                    'tooltip' => '<h6>' . __('Selecteer een leverancier', 'prefill-gravity-forms') . '</h6>' . __('Kies een leverancier. Let op dat je de inloggegevens ook moet configureren in de algemene instellingen van Gravity Forms.', 'prefill-gravity-forms'),
                     'type' => 'select',
                     'label' => esc_html__('Selecteer een leverancier', 'prefill-gravity-forms'),
                     'choices' => [

@@ -2,21 +2,29 @@
 
 namespace OWC\PrefillGravityForms\Services;
 
-use OWC\PrefillGravityForms\Controllers\PinkRoccadeController;
+use OWC\PrefillGravityForms\Controllers\BaseController;
+use OWC\PrefillGravityForms\Traits\ControllerTrait;
 
 class PersonalDataService
 {
-    private PinkRoccadeController $controller;
+    use ControllerTrait;
 
-    public function __construct()
+    private string $supplier;
+    private BaseController $controller;
+
+    public function __construct(string $supplier)
     {
-        $this->controller = new PinkRoccadeController();
+        $this->supplier = $supplier;
+        $this->controller = $this->getController($this->supplier);
     }
 
     public function get(string $key): string
     {
-        $data = $this->controller->get();
+        if (! $this->controller instanceof BaseController || 1 > strlen($key)) {
+            return '';
+        }
 
+        $data = $this->controller->get();
         $value = $this->getValueFromNestedArray($this->key($key), $data);
 
         return $this->format($key, $value);

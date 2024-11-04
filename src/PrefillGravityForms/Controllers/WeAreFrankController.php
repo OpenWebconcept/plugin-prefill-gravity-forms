@@ -6,7 +6,7 @@ namespace OWC\PrefillGravityForms\Controllers;
 
 class WeAreFrankController extends BaseController
 {
-    public function handle(array $form)
+    public function handle(array $form): array
     {
         $bsn = $this->getBSN();
 
@@ -17,25 +17,28 @@ class WeAreFrankController extends BaseController
         $expand = rgar($form, 'owc-iconnect-expand', '');
         $preparedData = $this->prepareData($bsn, $expand);
 
-        $apiResponse = $this->request($preparedData);
-        $personData = $apiResponse['personen'] ?? [];
-        $firstPerson = reset($personData); // Response is in a multidimensional array which differs form other suppliers.
+        $firstPerson = $this->fetchPersonData($preparedData);
 
-        if (isset($apiResponse['status']) || ! is_array($firstPerson) || ! count($firstPerson)) {
-            $message = 'Retrieving prefill data failed';
-
-            if (isset($apiResponse['message'])) {
-                $message = sprintf('%s: %s', $message, $apiResponse['message']);
-            }
-
-            $this->logError($message, $apiResponse['status'] ?? 500);
-
+        if (empty($firstPerson)) {
             return $form;
         }
 
         echo $this->disableFormFields();
 
         return $this->preFillFields($form, $firstPerson);
+    }
+
+    protected function makeRequest(): array
+    {
+        $bsn = $this->getBSN();
+
+        if (empty($bsn)) {
+            return [];
+        }
+
+        $preparedData = $this->prepareData($bsn);
+
+        return $this->fetchPersonData($preparedData) ?? [];
     }
 
     /**
@@ -90,6 +93,27 @@ class WeAreFrankController extends BaseController
     protected function getExpandFields(string $expand): array
     {
         return array_filter(explode(',', $expand));
+    }
+
+    protected function fetchPersonData(array $preparedData): array
+    {
+        $apiResponse = $this->request($preparedData);
+        $personData = $apiResponse['personen'] ?? [];
+        $firstPerson = reset($personData); // Response is in a multidimensional array which differs from other suppliers.
+
+        if (isset($apiResponse['status']) || ! is_array($firstPerson) || ! count($firstPerson)) {
+            $message = 'Retrieving prefill data failed';
+
+            if (isset($apiResponse['message'])) {
+                $message = sprintf('%s: %s', $message, $apiResponse['message']);
+            }
+
+            $this->logError($message, $apiResponse['status'] ?? 500);
+
+            return [];
+        }
+
+        return $firstPerson;
     }
 
     protected function request(array $data = []): array

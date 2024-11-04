@@ -16,9 +16,11 @@ import { useEffect, useState } from '@wordpress/element';
  * Internal dependencies
  */
 import personalDataOptions from './config/personalDataOptions';
+import supplierOptions from './config/supplierOptions';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { selectedOption, htmlElement, isChildOfTable } = attributes;
+	const { selectedSupplier, selectedOption, htmlElement, isChildOfTable } =
+		attributes;
 
 	const { blockParents } = useSelect( ( select ) => ( {
 		blockParents: select( 'core/block-editor' ).getBlockNamesByClientId(
@@ -35,6 +37,15 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 			setAttributes( { isChildOfTable: true } );
 		}
 	}, [ blockParents, setAttributes ] );
+
+	const handleSupplierChange = ( value ) => {
+		const selectedSupplierData = {
+			value,
+			label: supplierOptions.find( ( option ) => option.value === value )
+				.label,
+		};
+		setAttributes( { selectedSupplier: selectedSupplierData } );
+	};
 
 	const handlePersonalDataChange = ( value ) => {
 		const selectedOptionData = {
@@ -57,8 +68,18 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 	const DynamicElement = htmlElement || 'div';
 
+	const selectSupplierControl = (
+		<SelectControl
+			label="Leverancier"
+			value={ selectedSupplier.value }
+			options={ supplierOptions }
+			onChange={ handleSupplierChange }
+		/>
+	);
+
 	const selectPersonalDataControl = (
 		<SelectControl
+			label="Automatisch invullen"
 			value={ selectedOption.value }
 			options={ personalDataOptions }
 			onChange={ handlePersonalDataChange }
@@ -103,6 +124,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						<PanelBody initialOpen={ true }>
 							{ tab.name === 'settings' && (
 								<>
+									{ selectSupplierControl }
 									{ selectPersonalDataControl }
 									{ ! isChildOfTable &&
 										selectHtmlElementControl }

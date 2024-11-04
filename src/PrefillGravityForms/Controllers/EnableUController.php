@@ -4,7 +4,7 @@ namespace OWC\PrefillGravityForms\Controllers;
 
 class EnableUController extends BaseController
 {
-    public function handle(array $form)
+    public function handle(array $form): array
     {
         $bsn = $this->getBSN();
 
@@ -19,6 +19,30 @@ class EnableUController extends BaseController
             $doelBinding = (string) $doelBinding;
         }
 
+        $apiResponse = $this->fetchApiResponse($bsn, $doelBinding, $expand);
+
+        if (empty($apiResponse)) {
+            return $form;
+        }
+
+        echo $this->disableFormFields();
+
+        return $this->preFillFields($form, $apiResponse);
+    }
+
+    protected function makeRequest(): array
+    {
+        $bsn = $this->getBSN();
+
+        if (empty($bsn)) {
+            return [];
+        }
+
+        return $this->fetchApiResponse($bsn);
+    }
+
+    protected function fetchApiResponse(string $bsn, string $doelBinding = '', string $expand = ''): array
+    {
         $apiResponse = $this->request($bsn, $doelBinding, $expand);
 
         if (isset($apiResponse['status'])) {
@@ -30,12 +54,10 @@ class EnableUController extends BaseController
 
             $this->logError($message, $apiResponse['status'] ?? 500);
 
-            return $form;
+            return [];
         }
 
-        echo $this->disableFormFields();
-
-        return $this->preFillFields($form, $apiResponse);
+        return $apiResponse;
     }
 
     protected function request(string $bsn = '', string $doelBinding = '', string $expand = ''): array

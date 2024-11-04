@@ -4,9 +4,7 @@ namespace OWC\PrefillGravityForms\Controllers;
 
 class PinkRoccadeController extends BaseController
 {
-    private static $response;
-
-    public function handle(array $form)
+    public function handle(array $form): array
     {
         $bsn = $this->getBSN();
 
@@ -21,6 +19,30 @@ class PinkRoccadeController extends BaseController
             $doelBinding = (string) $doelBinding;
         }
 
+        $apiResponse = $this->fetchApiResponse($bsn, $doelBinding, $expand);
+
+        if (empty($apiResponse)) {
+            return $form;
+        }
+
+        echo $this->disableFormFields();
+
+        return $this->preFillFields($form, $apiResponse);
+    }
+
+    protected function makeRequest(): array
+    {
+        $bsn = $this->getBSN();
+
+        if (empty($bsn)) {
+            return [];
+        }
+
+        return $this->fetchApiResponse($bsn);
+    }
+
+    protected function fetchApiResponse(string $bsn, string $doelBinding = '', string $expand = ''): array
+    {
         $apiResponse = $this->request($bsn, $doelBinding, $expand);
 
         if (isset($apiResponse['status'])) {
@@ -32,32 +54,10 @@ class PinkRoccadeController extends BaseController
 
             $this->logError($message, $apiResponse['status'] ?? 500);
 
-            return $form;
-        }
-
-        echo $this->disableFormFields();
-
-        return $this->preFillFields($form, $apiResponse);
-    }
-
-    public function get(): array
-    {
-        if (! isset(self::$response)) {
-            self::$response = self::makeRequest();
-        }
-
-        return self::$response;
-    }
-
-    private function makeRequest(): array
-    {
-        $bsn = $this->getBSN();
-
-        if (empty($bsn)) {
             return [];
         }
 
-        return $this->request($bsn);
+        return $apiResponse;
     }
 
     protected function request(string $bsn = '', string $doelBinding = '', string $expand = ''): array

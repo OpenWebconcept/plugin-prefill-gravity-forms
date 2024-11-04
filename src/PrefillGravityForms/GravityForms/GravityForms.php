@@ -4,9 +4,12 @@ namespace OWC\PrefillGravityForms\GravityForms;
 
 use Exception;
 use function OWC\PrefillGravityForms\Foundation\Helpers\get_supplier;
+use OWC\PrefillGravityForms\Traits\ControllerTrait;
 
 class GravityForms
 {
+    use ControllerTrait;
+
     protected string $supplier;
 
     public function preRender(array $form): array
@@ -41,8 +44,8 @@ class GravityForms
     protected function handleSupplier(array $form): array
     {
         try {
-            $instance = $this->getController();
-        } catch(Exception $e) {
+            $instance = $this->getController($this->supplier);
+        } catch (Exception $e) {
             return $form;
         }
 
@@ -51,19 +54,5 @@ class GravityForms
         }
 
         return $instance->handle($form);
-    }
-
-    /**
-     * Get controller class based on supplier.
-     */
-    protected function getController(): object
-    {
-        $controller = sprintf('OWC\PrefillGravityForms\Controllers\%sController', $this->supplier);
-
-        if (! class_exists($controller)) {
-            throw new Exception(sprintf('Class %s does not exists', $controller));
-        }
-
-        return new $controller();
     }
 }

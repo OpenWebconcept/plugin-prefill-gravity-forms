@@ -24,15 +24,29 @@ abstract class BaseController
         'owc_pg_municipality_check',
     ];
 
+    protected static $response;
+
     protected GravityFormsSettings $settings;
     protected TeamsLogger $teams;
-    protected string $supplier;
 
     public function __construct()
     {
         $this->settings = GravityFormsSettings::make();
         $this->teams = $this->resolveTeams();
     }
+
+    abstract public function handle(array $form): array;
+
+    public function get(): array
+    {
+        if (! isset(static::$response)) {
+            static::$response = static::makeRequest();
+        }
+
+        return static::$response;
+    }
+
+    abstract protected function makeRequest(): array;
 
     public function resolveTeams(): TeamsLogger
     {

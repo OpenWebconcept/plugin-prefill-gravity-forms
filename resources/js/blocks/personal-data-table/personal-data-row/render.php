@@ -2,16 +2,18 @@
 
 use OWC\PrefillGravityForms\Services\PersonalDataService;
 
+$retrievedValue = (new PersonalDataService($attributes['selectedSupplier']['value'] ?? ''))->get($attributes['selectedOption']['value'] ?? '');
+
 if ($attributes['isChildOfTable']) : ?>
 	<tr>
-		<th><?php echo $attributes['selectedOption']['label'] ?></th>
-		<td><?php echo (new PersonalDataService())->get($attributes['selectedOption']['value'])?></td>
+		<th><?php echo $attributes['selectedOption']['label']; ?></th>
+		<td><?php echo $retrievedValue; ?></td>
 	</tr>
 <?php else :
     echo sprintf(
         "<%s>%s</%s>",
         $attributes['htmlElement'] ?? 'p',
-        (new PersonalDataService())->get($attributes['selectedOption']['value']),
+        $retrievedValue,
         $attributes['htmlElement'] ?? 'p'
     );
 endif;

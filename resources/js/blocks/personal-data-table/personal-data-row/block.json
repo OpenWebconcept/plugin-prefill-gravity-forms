@@ -11,24 +11,31 @@
 	"supports": {
 		"html": false
 	},
-  "attributes": {
-    "selectedOption": {
-    "type" :"object",
-    "default" : {
-        "value" :"",
-        "label" :""
-    }
-  },
-  "isChildOfTable": {
-    "type": "boolean",
-    "default": false
-  },
-    "htmlElement": {
-      "type": "string",
-      "default": "p"
-    }
-  },
+	"attributes": {
+		"selectedSupplier": {
+			"type": "object",
+			"default": {
+				"value": "",
+				"label": ""
+			}
+		},
+		"selectedOption": {
+			"type": "object",
+			"default": {
+				"value": "",
+				"label": ""
+			}
+		},
+		"isChildOfTable": {
+			"type": "boolean",
+			"default": false
+		},
+		"htmlElement": {
+			"type": "string",
+			"default": "p"
+		}
+	},
 	"textdomain": "prefill-gravity-forms",
 	"editorScript": "file:./index.js",
-  "render": "file:./render.php"
+	"render": "file:./render.php"
 }
