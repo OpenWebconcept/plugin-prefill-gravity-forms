@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.5
+
+- Fix: return null when controller class, based on selected supplier, is not found
+
 ## v1.6.4
 
 - Fix: personal data row block so it supports multiple suppliers
