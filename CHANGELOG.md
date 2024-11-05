@@ -2,6 +2,11 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.4
+
+- Fix: personal data row block so it supports multiple suppliers
+- Fix: check if multi-dimensional array contains only one array
+
 ## v1.6.3
 
 - Add: check response of curl request and return exception when request failed
