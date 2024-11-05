@@ -137,7 +137,6 @@ abstract class BaseController
             if (is_array($holder) && $this->isSingleMultidimensionalArray($holder) && ! is_numeric($item)) {
                 $holder = $this->flattenMultidimensionalArray($holder);
             }
-
             // Move deeper into the nested array.
             $holder = $holder[$item] ?? '';
         }
@@ -151,7 +150,7 @@ abstract class BaseController
      */
     protected function isSingleMultidimensionalArray(array $array): bool
     {
-        return count($array) === 1 && is_array(reset($array));
+        return isset($array[0]) && ! isset($array[1]) && is_array($array[0]);
     }
 
     /**
