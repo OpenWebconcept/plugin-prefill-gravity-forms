@@ -10,7 +10,7 @@ class PersonalDataService
     use ControllerTrait;
 
     private string $supplier;
-    private BaseController $controller;
+    private ?BaseController $controller;
 
     public function __construct(string $supplier)
     {
