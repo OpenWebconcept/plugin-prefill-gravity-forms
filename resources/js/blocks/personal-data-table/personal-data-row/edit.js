@@ -70,6 +70,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 	const selectSupplierControl = (
 		<SelectControl
+			help="Selecteer de juiste leverancier die ingesteld is in de algemene instellingen."
 			label="Leverancier"
 			value={ selectedSupplier.value }
 			options={ supplierOptions }
