@@ -24,8 +24,6 @@ abstract class BaseController
         'owc_pg_municipality_check',
     ];
 
-    protected static $response;
-
     protected GravityFormsSettings $settings;
     protected TeamsLogger $teams;
 
@@ -39,11 +37,7 @@ abstract class BaseController
 
     public function get(): array
     {
-        if (! isset(static::$response)) {
-            static::$response = static::makeRequest();
-        }
-
-        return static::$response;
+        return static::makeRequest();
     }
 
     abstract protected function makeRequest(): array;
