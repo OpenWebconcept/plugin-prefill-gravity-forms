@@ -2,6 +2,11 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.6
+
+- Add: add help property to supplier select control in personal-data-row block
+- Change: remove static response from controller classes
+
 ## v1.6.5
 
 - Fix: return null when controller class, based on selected supplier, is not found
