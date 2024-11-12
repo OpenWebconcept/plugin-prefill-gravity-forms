@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.7
+
+- Fix: check if DigiD userdata is not null before retrieving BSN
+
 ## v1.6.6
 
 - Add: add help property to supplier select control in personal-data-row block
