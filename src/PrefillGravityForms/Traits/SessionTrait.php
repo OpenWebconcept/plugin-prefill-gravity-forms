@@ -12,7 +12,7 @@ trait SessionTrait
 {
     protected function getBSN(): string
     {
-        if (DigiDSession::isLoggedIn()) {
+        if (DigiDSession::isLoggedIn() && ! is_null(DigiDSession::getUserData())) {
             $bsn = DigiDSession::getUserData()->getBsn();
 
             return $this->validateBSN($bsn);
