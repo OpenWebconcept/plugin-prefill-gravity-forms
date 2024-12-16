@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.8
+
+- Add: timeout option to CURL args
+
 ## v1.6.7
 
 - Fix: check if DigiD userdata is not null before retrieving BSN
