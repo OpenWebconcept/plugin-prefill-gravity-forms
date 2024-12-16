@@ -273,6 +273,7 @@ abstract class BaseController
 
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeoutOptionCURL());
 
             $output = curl_exec($curl);
 
@@ -301,6 +302,13 @@ abstract class BaseController
         } finally {
             curl_close($curl);
         }
+    }
+
+    protected function timeoutOptionCURL(): int
+    {
+        $timeout = apply_filters('owc_prefill_gravity_forms_curl_timeout', 10);
+
+        return is_int($timeout) && 0 < $timeout ? $timeout : 10;
     }
 
     protected function getDefaultCurlArgs(): array
