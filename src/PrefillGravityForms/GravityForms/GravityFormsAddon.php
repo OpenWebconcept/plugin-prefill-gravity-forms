@@ -109,6 +109,14 @@ class GravityFormsAddon extends GFAddOn
                         'name' => "{$prefix}api-key",
                         'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
+                    [
+                        'label' => __('Header naam', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}api-key-header-name",
+                        'default_value' => 'x-api-key',
+                        'description' => __('Is vereist als header in HTTP verzoeken.', 'prefill-gravity-forms'),
+                    ],
                 ],
                 'dependency' => [
                     'field' => "{$prefix}api-use-authentication",

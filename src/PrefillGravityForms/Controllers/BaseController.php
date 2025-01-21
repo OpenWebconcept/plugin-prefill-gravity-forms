@@ -251,9 +251,10 @@ abstract class BaseController
 
         if ($this->settings->useAPIAuthentication()) {
             if (! empty($this->settings->getAPIKey())) {
-                $headers[] = 'x-opentunnel-api-key: ' . $this->settings->getAPIKey();
+                $headers[] = sprintf('%s: %s', $this->settings->getAPIKeyHeaderName(), $this->settings->getAPIKey());
             } elseif (! empty($this->settings->getAPITokenUsername()) && ! empty($this->settings->getAPITokenPassword())) {
-                $headers[] = 'Authorization: Basic ' . base64_encode($this->settings->getAPITokenUsername() . ':' . $this->settings->getAPITokenPassword());
+                $bearerToken = base64_encode(sprintf('%s:%s', $this->settings->getAPITokenUsername(), $this->settings->getAPITokenPassword()));
+                $headers[] = sprintf('Authorization: Basic %s', $bearerToken);
             }
         }
 

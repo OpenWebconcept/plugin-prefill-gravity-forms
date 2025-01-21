@@ -55,6 +55,11 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'api-key'] ?? '';
     }
 
+    public function getAPIKeyHeaderName(): string
+    {
+        return $this->options[$this->prefix . 'api-key-header-name'] ?? 'x-api-key';
+    }
+
     public function getAPITokenUsername(): string
     {
         return $this->options[$this->prefix . 'api-basic-token-username'] ?? '';
