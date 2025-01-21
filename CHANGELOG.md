@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.9
+
+- Add: configurable api-key header in GF addon settings
+
 ## v1.6.8
 
 - Add: timeout option to CURL args
