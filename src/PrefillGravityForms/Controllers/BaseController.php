@@ -55,7 +55,7 @@ abstract class BaseController
         }
     }
 
-    protected function logError(string $message, int $status): void
+    protected function logError(string $message, $status): void
     {
         $this->teams->addRecord('error', 'Prefill data', [
             'message' => $message,
