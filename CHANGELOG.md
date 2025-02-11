@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.6.11
+
+- Change: hide empty values personal-data-row Gutenberg block
+
 ## v1.6.10
 
 - Fix: remove typehinting on status param in logError()
