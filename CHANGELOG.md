@@ -2,6 +2,11 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.7.0
+
+- Add: children to the mapping options
+- Add: 'huisletter' as prefill option to supplier options WeAreFrank
+
 ## v1.6.11
 
 - Change: hide empty values personal-data-row Gutenberg block
