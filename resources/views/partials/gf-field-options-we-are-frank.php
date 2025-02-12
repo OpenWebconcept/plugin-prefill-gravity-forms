@@ -87,5 +87,20 @@
 			<option value="ouders.1.geboorte.land.code"><?php _e('Geboorteland code', 'prefill-gravity-forms'); ?></option>
 			<option value="ouders.1.geboorte.land.omschrijving"><?php _e('Geboorteland', 'prefill-gravity-forms'); ?></option>
 		</optgroup>
+		<optgroup label="Kinderen (gebruik vaker voor meerdere kinderen)">
+			<option value="kinderen.*.burgerservicenummer"><?php _e('Burgerservicenummer', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.geslachtsaanduiding"><?php _e('Geslachtsaanduiding', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.naam.geslachtsnaam"><?php _e('Geslachtsnaam', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.naam.voorletters"><?php _e('Voorletters', 'prefill-gravity-forms'); ?></option>
+            <option value="kinderen.*.naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.naam.voorvoegsel"><?php _e('Voorvoegsel', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.geboorte.datum.datum"><?php _e('Geboortedatum', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.geboorte.datum.dag"><?php _e('Geboortedag', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.geboorte.datum.maand"><?php _e('Geboortemaand', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.geboorte.plaats.code"><?php _e('Geboorteplaats code', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.geboorte.plaats.omschrijving"><?php _e('Geboorteplaats', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.geboorte.land.code"><?php _e('Geboorteland code', 'prefill-gravity-forms'); ?></option>
+			<option value="kinderen.*.geboorte.land.omschrijving"><?php _e('Geboorteland', 'prefill-gravity-forms'); ?></option>
+		</optgroup>
     </select>
 </li>

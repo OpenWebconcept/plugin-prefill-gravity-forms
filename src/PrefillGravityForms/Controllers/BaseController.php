@@ -26,6 +26,7 @@ abstract class BaseController
 
     protected GravityFormsSettings $settings;
     protected TeamsLogger $teams;
+    protected int $numberOfChildrenPrefilled = 0;
 
     public function __construct()
     {
@@ -66,13 +67,14 @@ abstract class BaseController
     protected function preFillFields(array $form, array $response): array
     {
         foreach ($form['fields'] as $field) {
-            $linkedValue = $field->linkedFieldValue ?? '';
+            $linkedMappingOption = $field->linkedFieldValue ?? '';
 
-            if (empty($linkedValue)) {
+            if (! is_string($linkedMappingOption) || 1 > strlen($linkedMappingOption)) {
                 continue;
             }
 
-            $foundValue = $this->findLinkedValue($linkedValue, $response);
+            $linkedMappingOption = $this->replaceChildIndexPlaceholder($linkedMappingOption);
+            $foundValue = $this->findValueOfMappedOption($linkedMappingOption, $response);
 
             if (empty($foundValue)) {
                 $field->cssClass = 'owc_prefilled'; // When field has mapping but there is no value found, set to read-only.
@@ -102,20 +104,50 @@ abstract class BaseController
         return $form;
     }
 
-    public function findLinkedValue(string $linkedValue = '', array $response = []): string
+    /**
+     * Replaces the child index placeholder (*) in the linked field reference.
+     *
+     * In the prefill options, child-related fields use an asterisk (*) as a placeholder
+     * for the child index (e.g., "kinderen.*"). This method replaces the
+     * asterisk with an incremented number to ensure unique identifiers for each child.
+     *
+     * Example:
+     * Input:  "kinderen.*.burgerservicenummer"
+     * Output: "kinderen.0.burgerservicenummer" (for the first child)
+     *         "kinderen.1.burgerservicenummer" (for the second child)
+     */
+    protected function replaceChildIndexPlaceholder(string $linkedMappingOption): string
     {
-        if (empty($linkedValue) || empty($response)) {
-            return $linkedValue;
+        if (strpos($linkedMappingOption, 'kinderen.*') === false) {
+            return $linkedMappingOption;
         }
 
-        return $this->explodeDotNotationValue($linkedValue, $response);
+        $linkedMappingOption = str_replace(
+            'kinderen.*',
+            sprintf('kinderen.%d', $this->numberOfChildrenPrefilled),
+            $linkedMappingOption
+        );
+
+        // Increment the counter to ensure the next child gets a unique index.
+        $this->numberOfChildrenPrefilled++;
+
+        return $linkedMappingOption;
+    }
+
+    protected function findValueOfMappedOption(string $linkedMappingOption = '', array $response = []): string
+    {
+        if (1 > strlen($linkedMappingOption) || ! count($response)) {
+            return $linkedMappingOption;
+        }
+
+        return $this->explodeDotNotationValue($linkedMappingOption, $response);
     }
 
     /**
      * Explode dot notation string into array items.
      * Use these array items to retrieve nested array values from the response.
      */
-    public function explodeDotNotationValue(string $dotNotationString, array $response): string
+    protected function explodeDotNotationValue(string $dotNotationString, array $response): string
     {
         $exploded = explode('.', $dotNotationString);
 
@@ -131,6 +163,7 @@ abstract class BaseController
             if (is_array($holder) && $this->isSingleMultidimensionalArray($holder) && ! is_numeric($item)) {
                 $holder = $this->flattenMultidimensionalArray($holder);
             }
+
             // Move deeper into the nested array.
             $holder = $holder[$item] ?? '';
         }
@@ -215,17 +248,17 @@ abstract class BaseController
         }
     }
 
-    public function getRequestURL(string $identifier = '', string $expand = ''): string
+    protected function getRequestURL(string $identifier = '', string $expand = ''): string
     {
         $baseURL = $this->settings->getBaseURL();
 
-        if (empty($baseURL) || empty($identifier)) {
+        if (1 > strlen($baseURL) || 1 > strlen($identifier)) {
             return '';
         }
 
         $url = sprintf('%s/%s', $baseURL, $identifier);
 
-        if (! empty($expand)) {
+        if (0 < strlen($expand)) {
             $url = sprintf('%s?%s', $url, $this->createExpandArguments($expand));
         }
 
