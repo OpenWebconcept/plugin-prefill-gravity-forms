@@ -34,6 +34,7 @@
         <optgroup label="Verblijfplaats">
             <option value="verblijfplaats.verblijfadres.officieleStraatnaam"><?php _e('Straat', 'prefill-gravity-forms'); ?></option>
 			<option value="verblijfplaats.verblijfadres.huisnummer"><?php _e('Huisnummer', 'prefill-gravity-forms'); ?></option>
+			<option value="verblijfplaats.verblijfadres.huisletter"><?php _e('Huisletter', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.verblijfadres.postcode"><?php _e('Postcode', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.verblijfadres.woonplaats"><?php _e('Woonplaats', 'prefill-gravity-forms'); ?></option>
             <option value="gemeenteVanInschrijving.omschrijving"><?php _e('Gemeente', 'prefill-gravity-forms'); ?></option>
