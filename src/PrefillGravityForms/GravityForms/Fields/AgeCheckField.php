@@ -73,9 +73,7 @@ class AgeCheckField extends GF_Field
             $this->validation_message = __('Het ophalen van uw geboortedatum is mislukt, probeer het later nog eens.', 'prefill-gravity-forms');
         }
 
-        $minimumAgeSetting = $this->get_minimun_age_setting();
-
-        if (! $this->check_age($minimumAgeSetting, $dateOfBirth)) {
+        if (! $this->check_age($dateOfBirth)) {
             $this->failed_validation = true;
             $this->validation_message = $this->get_check_failed_message();
         }
@@ -98,12 +96,13 @@ class AgeCheckField extends GF_Field
 
         $bsn = $this->check_bsn_value_from_session();
         $dateOfBirth = $value;
-        $minimumAgeSetting = $this->get_minimun_age_setting();
+        $minimumAgeSetting = $this->get_minimum_age_setting();
+		$maximumAgeSetting = $this->get_maximum_age_setting();
 
-        if (empty($bsn) || empty($minimumAgeSetting) || empty($dateOfBirth)) {
+        if (empty($bsn) || empty($dateOfBirth || (empty($minimumAgeSetting) && empty($maximumAgeSetting)))) {
             $message = __('Log in met uw DigiD, zonder BSN-nummer kan de leeftijdscheck niet uitgevoerd worden.', 'prefill-gravity-forms');
 
-            if (empty($minimumAgeSetting)) {
+            if (empty($minimumAgeSetting) && empty($maximumAgeSetting)) {
                 $message = __('Dit veld is onjuist geconfigueerd, contacteer de beheerder van deze website.', 'prefill-gravity-forms');
             }
 
@@ -116,7 +115,7 @@ class AgeCheckField extends GF_Field
             );
         }
 
-        if (! $this->check_age($minimumAgeSetting, $dateOfBirth)) {
+        if (! $this->check_age($dateOfBirth)) {
             return $this->format_field_input(
                 $form,
                 $value,
@@ -148,9 +147,9 @@ class AgeCheckField extends GF_Field
     public function get_field_container($atts, $form)
     {
         $dateOfBirth = $_POST["input_$this->id"] ?? $this->defaultValue;
-        $minimumAgeSetting = $this->get_minimun_age_setting();
 
-        if ($minimumAgeSetting && $dateOfBirth && $this->check_age($minimumAgeSetting, $dateOfBirth)) {
+
+        if ($dateOfBirth && $this->check_age($dateOfBirth)) {
             $atts = [
                 'style' => 'display:none',
             ];
@@ -171,7 +170,7 @@ class AgeCheckField extends GF_Field
             'data-field-position' => '',
         ]);
 
-        $tabindex_string = '' === (rgar($atts, 'tabindex')) ?  '' : ' tabindex="' . esc_attr($atts['tabindex']) . '"';
+        $tabindex_string = '' === (rgar($atts, 'tabindex')) ? '' : ' tabindex="' . esc_attr($atts['tabindex']) . '"';
         $disable_ajax_reload = $this->disable_ajax_reload();
         $ajax_reload_id = 'skip' === $disable_ajax_reload || 'true' === $disable_ajax_reload || true === $disable_ajax_reload ? 'true' : esc_attr(rgar($atts, 'id'));
         $is_form_editor = $this->is_form_editor();
@@ -219,9 +218,16 @@ class AgeCheckField extends GF_Field
     /**
      * Retrieves the setting from this field which is used for the field validation.
      */
-    protected function get_minimun_age_setting(): int
+    protected function get_minimum_age_setting(): int
     {
         $setting = $this->pgAgeCheckMinimumAgeValue ?? false;
+
+        return is_numeric($setting) ? (int) $setting : 0;
+    }
+
+    protected function get_maximum_age_setting(): int
+    {
+        $setting = $this->pgAgeCheckMaximumAgeValue ?? false;
 
         return is_numeric($setting) ? (int) $setting : 0;
     }
@@ -255,7 +261,7 @@ class AgeCheckField extends GF_Field
 
     protected function get_field_input_editor(): string
     {
-        $message = __("Dit is een voorbeeldweergave van het veld 'OWC leeftijdscheck'. Stel de minimale leeftijd en de gewenste validatie berichten in via de instellingen van dit veld onder de kop 'OWC leeftijdscheck'.", 'prefill-gravity-forms');
+        $message = __("Dit is een voorbeeldweergave van het veld 'OWC leeftijdscheck'. Stel de minimale en/of maximale leeftijd en de gewenste validatie berichten in via de instellingen van dit veld onder de kop 'OWC leeftijdscheck'.", 'prefill-gravity-forms');
         $additionalMessage = __('Vergeet niet om dit veld automatisch te laten invullen met de geboortedatum vanuit de BRP.', 'prefill-gravity-forms');
 
         return "<div class='ginput_container owc-pg is-editor'><p class='owc-pg-alert editor-info'>{$message}</p><p>{$additionalMessage}</p></div>";
@@ -270,8 +276,15 @@ class AgeCheckField extends GF_Field
         return "<div class='ginput_container owc-pg' id='{$this->id}'>{$input}{$input_hidden}</div>";
     }
 
-    protected function check_age(int $minimumAgeSetting, string $dateOfBirth): bool
+    protected function check_age(string $dateOfBirth): bool
     {
+        $minimumAgeSetting = $this->get_minimum_age_setting();
+        $maximumAgeSetting = $this->get_maximum_age_setting();
+
+        if (0 === $minimumAgeSetting && 0 === $maximumAgeSetting) {
+            return true;
+        }
+
         $now = new DateTime('', new DateTimeZone(wp_timezone_string()));
 
         try {
@@ -280,6 +293,14 @@ class AgeCheckField extends GF_Field
             return false;
         }
 
-        return $now->diff($dateOfBirth)->y >= $minimumAgeSetting;
+        $age = $now->diff($dateOfBirth)->y;
+        if (0 !== $minimumAgeSetting && $age < $minimumAgeSetting) {
+            return false;
+        }
+        if (0 !== $maximumAgeSetting && $age > $maximumAgeSetting) {
+            return false;
+        }
+
+        return true;
     }
 }

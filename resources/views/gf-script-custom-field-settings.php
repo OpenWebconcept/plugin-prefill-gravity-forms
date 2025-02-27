@@ -34,6 +34,7 @@
 
         if (field.type === 'owc_pg_age_check') {
             jQuery('#pgAgeCheckMinimumAge').val(field['pgAgeCheckMinimumAgeValue'] || '');
+			jQuery('#pgAgeCheckMaximumAge').val(field['pgAgeCheckMaximumAgeValue'] || '');
             jQuery('#pgAgeCheckFailed').val(field['pgAgeCheckFailedValue'] || '');
             jQuery('#pgAgeCheckSuccess').val(field['pgAgeCheckSuccessValue'] || '');
         }
