@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.7.1
+
+- Add: max age check
+
 ## v1.7.0
 
 - Add: children to the mapping options
