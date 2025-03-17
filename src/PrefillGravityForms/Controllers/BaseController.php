@@ -26,7 +26,7 @@ abstract class BaseController
 
     protected GravityFormsSettings $settings;
     protected TeamsLogger $teams;
-    protected int $numberOfChildrenPrefilled = 0;
+    protected array $prefilledChildrenMappingOptions = [];
 
     public function __construct()
     {
@@ -122,14 +122,18 @@ abstract class BaseController
             return $linkedMappingOption;
         }
 
+        // Store the children mapping option used to keep track of the number of times a mapping option is used.
+        $this->prefilledChildrenMappingOptions[] = $linkedMappingOption;
+
+        $timesMappingOptionIsUsed = count(array_filter($this->prefilledChildrenMappingOptions, function ($field) use ($linkedMappingOption) {
+            return $field === $linkedMappingOption;
+        }));
+
         $linkedMappingOption = str_replace(
             'kinderen.*',
-            sprintf('kinderen.%d', $this->numberOfChildrenPrefilled),
+            sprintf('kinderen.%d', $timesMappingOptionIsUsed ? $timesMappingOptionIsUsed - 1 : 0),
             $linkedMappingOption
         );
-
-        // Increment the counter to ensure the next child gets a unique index.
-        $this->numberOfChildrenPrefilled++;
 
         return $linkedMappingOption;
     }
