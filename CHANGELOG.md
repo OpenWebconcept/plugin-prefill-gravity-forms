@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.7.3
+
+- Fix: set field properties age check validation messages
+
 ## v1.7.2
 
 - Fix: prefill children information
