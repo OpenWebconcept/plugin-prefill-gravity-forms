@@ -7,13 +7,13 @@ namespace OWC\PrefillGravityForms\Controllers;
 use DateTime;
 use Exception;
 use GF_Field;
+use function OWC\PrefillGravityForms\Foundation\Helpers\resolve;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 use OWC\PrefillGravityForms\Traits\SessionTrait;
 use TypeError;
 use WP_Screen;
-use function Yard\DigiD\Foundation\Helpers\resolve;
 
 abstract class BaseController
 {
@@ -47,17 +47,17 @@ abstract class BaseController
         return method_exists($current_screen, 'is_block_editor') && $current_screen->is_block_editor();
     }
 
-    public function get(): array
+    public function get(string $doelBinding = ''): array
     {
-        return static::makeRequest();
+        return static::makeRequest($doelBinding);
     }
 
-    abstract protected function makeRequest(): array;
+    abstract protected function makeRequest(string $doelBinding = ''): array;
 
     public function resolveTeams(): TeamsLogger
     {
         try {
-            if (! function_exists('Yard\DigiD\Foundation\Helpers\resolve')) {
+            if (! function_exists('OWC\PrefillGravityForms\Foundation\Helpers\resolve')) {
                 throw new Exception();
             }
 
@@ -69,9 +69,14 @@ abstract class BaseController
 
     protected function logError(string $message, $status): void
     {
-        $this->teams->addRecord('error', 'Prefill data', [
+        error_log(sprintf('Yard | BRP Prefill GravityForms: %s', json_encode([
             'message' => $message,
             'status' => $status,
+        ])));
+
+        $this->teams->addRecord('error', 'Prefill data', [
+            'Message:' => $message,
+            'Status:' => $status,
         ]);
     }
 
@@ -330,16 +335,16 @@ abstract class BaseController
                 throw new Exception(curl_error($curl));
             }
 
-            $httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-            if (200 !== $httpStatus) {
-                throw new Exception('Request failed', is_int($httpStatus) ? $httpStatus : 500);
-            }
-
             $decoded = json_decode($output, true);
 
             if (! $decoded || json_last_error() !== JSON_ERROR_NONE) {
                 throw new Exception('Something went wrong with decoding of the JSON output.', 500);
+            }
+
+            $httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+            if (200 !== $httpStatus) {
+                throw new Exception(sprintf('%s', $decoded['detail'] ?? ($decoded['Error Details'] ?? 'Request failed, error unknown')), is_int($httpStatus) ? $httpStatus : 500);
             }
 
             return $decoded;
