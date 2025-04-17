@@ -69,6 +69,20 @@ class Plugin
             'config' => function () {
                 return new Config($this->rootPath . '/config');
             },
+            'teams' => function () {
+                $logger = new \Monolog\Logger('microsoft-teams-logger');
+
+                if (true === $_ENV['MS_TEAMS_DISABLE_LOGGING'] ?? true || ! isset($_ENV['MS_TEAMS_WEBHOOK'])) {
+                    return $logger->pushHandler(new \Monolog\Handler\NullHandler());
+                }
+
+                return $logger->pushHandler(new \CMDISP\MonologMicrosoftTeams\TeamsLogHandler(
+                    $_ENV['MS_TEAMS_WEBHOOK'],
+                    \Monolog\Logger::INFO,
+                    true,
+                    new \CMDISP\MonologMicrosoftTeams\TeamsFormatter
+                ));
+            },
         ]);
         $this->container = $builder->build();
     }

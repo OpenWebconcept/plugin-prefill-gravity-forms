@@ -29,7 +29,7 @@ class TeamsLogger
      */
     public function addRecord(string $method = 'info', string $title, array $context): void
     {
-        if (! $this->isValid($method)) {
+        if (! $this->isValid($method) || ! method_exists($this->teams, 'withName')) {
             return;
         }
 

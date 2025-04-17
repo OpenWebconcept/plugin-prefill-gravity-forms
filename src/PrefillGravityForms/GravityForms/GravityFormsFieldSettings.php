@@ -5,6 +5,7 @@ namespace OWC\PrefillGravityForms\GravityForms;
 use GFAPI;
 use function OWC\PrefillGravityForms\Foundation\Helpers\get_supplier;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
+use OWC\PrefillGravityForms\Foundation\View;
 
 class GravityFormsFieldSettings
 {
@@ -27,6 +28,15 @@ class GravityFormsFieldSettings
         $supplier = get_supplier($form, true);
 
         if (0 !== $position || empty($supplier)) {
+            return;
+        }
+
+        $themeMappingOptions = $form['owc-iconnect-theme-mapping-options-file'] ?? '0';
+
+        // Check if the theme mapping options file exists.
+        if ('0' !== $themeMappingOptions && is_file($themeMappingOptions)) {
+            echo (new View())->renderFullPath($themeMappingOptions);
+
             return;
         }
 

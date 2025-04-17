@@ -49,3 +49,17 @@ See [here](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/m
 ## License
 
 The source code is made available under the [EUPL 1.2 license](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/main/LICENSE.md). Some of the dependencies are licensed differently, with the BSD or MIT license, for example.
+
+## Hooks
+
+#### Provide Custom Mapping Options from a Theme Directory
+
+This plugin includes supplier-specific mapping option files. In version 1 of the "HaalCentraal API", all available fields were returned, even when only a subset was needed.
+
+Since version 2 of HaalCentraal, this has changed: the goal binding (doelbinding) now determines which fields are returned. This results in a more concise dataset that contains only the necessary fields. Because each municipality (gemeente) can define its own unique goal bindings and corresponding fields, this plugin cannot include all possible mapping configurations by default.
+
+```php
+add_filter('owc_prefill_gravity_forms_theme_dir_mapping_options', function ($value) {
+    return __DIR__ . '/templates/owc-prefill/';
+}, 10, 1);
+```

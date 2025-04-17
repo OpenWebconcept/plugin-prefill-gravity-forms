@@ -2,6 +2,7 @@
 
 namespace OWC\PrefillGravityForms\Foundation\Helpers;
 
+use Exception;
 use OWC\PrefillGravityForms\Foundation\Plugin;
 
 function app(): Plugin
@@ -11,7 +12,7 @@ function app(): Plugin
 
 function make($name, $container)
 {
-    return \Yard\DigiD\Foundation\Plugin::getInstance()->getContainer()->set($name, $container);
+    return \OWC\PrefillGravityForms\Foundation\Plugin::getInstance()->getContainer()->set($name, $container);
 }
 
 function storage_path(string $path = ''): string
@@ -31,7 +32,7 @@ function encrypt($string): string
 {
     try {
         $encrypted = resolve(\OWC\PrefillGravityForms\Foundation\Cryptor::class)->encrypt($string);
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         $encrypted = '';
     }
 
@@ -45,7 +46,7 @@ function decrypt($string): string
 {
     try {
         $decrypted = resolve(\OWC\PrefillGravityForms\Foundation\Cryptor::class)->decrypt($string);
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         $decrypted = '';
     }
 
@@ -74,8 +75,8 @@ function view(string $template, array $vars = []): string
  */
 function get_supplier(array $form, bool $getKey = false): string
 {
-    $allowed = config('suppliers', []);
-    $supplier = $form[sprintf('%s-form-setting-supplier', 'owc')] ?? '';
+    $allowed = config('suppliers.mapping', []);
+    $supplier = $form['owc-form-setting-supplier'] ?? '';
 
     if (! is_array($allowed) || empty($allowed) || empty($supplier)) {
         return '';

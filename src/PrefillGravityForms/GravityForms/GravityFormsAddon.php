@@ -78,25 +78,41 @@ class GravityFormsAddon extends GFAddOn
 
         return [
             [
-                'title' => __('Algemeen', 'prefill-gravity-forms'),
+                'title' => esc_html__('Algemeen', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label' => __('OIN number', 'prefill-gravity-forms'),
+                        'label' => esc_html__('OIN number', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}oin-number",
                         'required' => true,
                     ],
                     [
-                        'label' => __('Basis URL', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Basis URL', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}base-url",
                         'required' => true,
                     ],
                     [
-                        'label' => __('Gebruik API authenticatie', 'prefill-gravity-forms'),
-                        'description' => __('Deze authenticatie zal gebruikt worden naast de gebruikelijke authenticatie middels certificaten.', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Verwerking', 'prefill-gravity-forms'),
+                        'description' => esc_html__('Uitleg nog te bepalen...', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}processing",
+                        'required' => false,
+                    ],
+                    [
+                        'label' => esc_html__('Gebruiker', 'prefill-gravity-forms'),
+                        'description' => esc_html__('Gebruiker die de "HaalCentraal" aanroept, meestal "BurgerZelf".', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}user",
+                        'required' => false,
+                    ],
+                    [
+                        'label' => esc_html__('Gebruik API authenticatie', 'prefill-gravity-forms'),
+                        'description' => esc_html__('Deze authenticatie zal gebruikt worden naast de gebruikelijke authenticatie middels certificaten.', 'prefill-gravity-forms'),
                         'type' => 'toggle',
                         'name' => "{$prefix}api-use-authentication",
                         'required' => false,
@@ -105,24 +121,24 @@ class GravityFormsAddon extends GFAddOn
                 ],
             ],
             [
-                'title' => __('API sleutel', 'prefill-gravity-forms'),
+                'title' => esc_html__('API sleutel', 'prefill-gravity-forms'),
                 'class' => 'gform-settings-panel--half',
-                'description' => __('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
+                'description' => esc_html__('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label' => __('Sleutel', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Sleutel', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-key",
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
+                        'default_value' => esc_html__('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                     [
-                        'label' => __('Header naam', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Header naam', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-key-header-name",
                         'default_value' => 'x-api-key',
-                        'description' => __('Is vereist als header in HTTP verzoeken.', 'prefill-gravity-forms'),
+                        'description' => esc_html__('Is vereist als header in HTTP verzoeken.', 'prefill-gravity-forms'),
                     ],
                 ],
                 'dependency' => [
@@ -131,16 +147,16 @@ class GravityFormsAddon extends GFAddOn
                 ],
             ],
             [
-                'title' => __('API OAuth 2.0', 'prefill-gravity-forms'),
+                'title' => esc_html__('API OAuth 2.0', 'prefill-gravity-forms'),
                 'class' => 'gform-settings-panel--half',
-                'description' => __('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
+                'description' => esc_html__('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
                 'fields' => [
                     [
                         'label' => esc_html__('Gebruikersnaam', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-basic-token-username",
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
+                        'default_value' => esc_html__('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                     [
                         'label' => esc_html__('Wachtwoord', 'prefill-gravity-forms'),
@@ -148,7 +164,7 @@ class GravityFormsAddon extends GFAddOn
                         'class' => 'medium',
                         'name' => "{$prefix}api-basic-token-password",
                         'sanitize_callback' => false,
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
+                        'default_value' => esc_html__('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                 ],
                 'dependency' => [
@@ -157,7 +173,7 @@ class GravityFormsAddon extends GFAddOn
                 ],
             ],
             [
-                'title' => __('Certificaten', 'prefill-gravity-forms'),
+                'title' => esc_html__('Certificaten', 'prefill-gravity-forms'),
                 'fields' => [
                     [
                         'label' => esc_html__('Certificaten hoofd locatie', 'prefill-gravity-forms'),
@@ -182,7 +198,7 @@ class GravityFormsAddon extends GFAddOn
                         'required' => true,
                     ],
                     [
-                        'label' => __('Wachtwoord', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Wachtwoord', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}passphrase",

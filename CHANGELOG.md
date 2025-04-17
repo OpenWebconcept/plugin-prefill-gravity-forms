@@ -19,6 +19,11 @@
 - Fix: prevent error log spam regarding null being passed to dirname because of a missing variable
 - Change: add editorconfig line that reflects the currently in use code style to prevent whitespace issues
 
+## v1.8.0
+
+- Add: Pink v2 implementation
+- Change: logging to Microsoft Teams via plugin container instance
+
 ## v1.7.5
 
 - Change: clear values of custom fields when validations fail for conditional logic to work

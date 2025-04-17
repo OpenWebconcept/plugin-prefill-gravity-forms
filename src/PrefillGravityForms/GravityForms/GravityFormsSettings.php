@@ -43,6 +43,17 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'oin-number'] ?? '';
     }
 
+    public function getProcessing(): string
+    {
+        return $this->options[$this->prefix . 'processing'] ?? '';
+    }
+
+    public function getUser(): string
+    {
+        return $this->options[$this->prefix . 'user'] ?? '';
+    }
+
+
     public function useAPIAuthentication(): bool
     {
         $value = $this->options[$this->prefix . 'api-use-authentication'] ?? '0';

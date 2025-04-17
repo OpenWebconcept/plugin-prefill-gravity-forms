@@ -36,7 +36,7 @@ class EnableUController extends BaseController
         return $this->preFillFields($form, $apiResponse);
     }
 
-    protected function makeRequest(): array
+    protected function makeRequest(string $doelBinding = ''): array
     {
         $bsn = $this->getBSN();
 
@@ -44,7 +44,7 @@ class EnableUController extends BaseController
             return [];
         }
 
-        return $this->fetchApiResponse($bsn);
+        return $this->fetchApiResponse($bsn, $doelBinding);
     }
 
     protected function fetchApiResponse(string $bsn, string $doelBinding = '', string $expand = ''): array
