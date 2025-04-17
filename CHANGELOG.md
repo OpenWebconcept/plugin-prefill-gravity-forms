@@ -2,6 +2,11 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.8.0
+
+- Add: Pink v2 implementation
+- Change: logging to Microsoft Teams via plugin container instance
+
 ## v1.7.5
 
 - Change: clear values of custom fields when validations fail for conditional logic to work

@@ -2,37 +2,48 @@
 
 namespace OWC\PrefillGravityForms\Traits;
 
-use Exception;
-use OWC\IdpUserData\DigiDSession;
-
-use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
-use function Yard\DigiD\Foundation\Helpers\resolve;
-
 trait SessionTrait
 {
     protected function getBSN(): string
     {
-        if (DigiDSession::isLoggedIn() && ! is_null(DigiDSession::getUserData())) {
-            $bsn = DigiDSession::getUserData()->getBsn();
+		if ($bsn = $this->idpDigiD()) {
+			return $this->validateBSN($bsn);
+		}
 
-            return $this->validateBSN($bsn);
-        }
+		if ($bsn = $this->samlDigiD()) {
+			return $this->validateBSN($bsn);
+		}
 
-        try {
-            $session = resolve('session');
-            $bsn = $session->getSegment('digid')->get('bsn') ?: $session->getSegment('eidas')->get('bsn');
-        } catch (Exception $e) {
-            $bsn = '';
-        }
-
-        $bsn = is_string($bsn) && ! empty($bsn) ? decrypt($bsn) : '';
-
-        if (empty($bsn)) {
-            return '';
-        }
-
-        return $this->validateBSN($bsn);
+        return '';
     }
+
+	private function idpDigiD(): string
+	{
+		if ( ! class_exists( '\OWC\IdpUserData\DigiDSession' )) {
+			return '';
+		}
+
+		if ( ! \OWC\IdpUserData\DigiDSession::isLoggedIn() || is_null( \OWC\IdpUserData\DigiDSession::getUserData() )) {
+			return '';
+		}
+
+		return \OWC\IdpUserData\DigiDSession::getUserData()->getBsn();
+	}
+
+	private function samlDigiD(): string
+	{
+		if ( ! function_exists( '\\Yard\\DigiD\\Foundation\\Helpers\\resolve' ) ) {
+			return '';
+		}
+
+		if ( ! function_exists( '\\Yard\\DigiD\\Foundation\\Helpers\\decrypt' ) ) {
+			return '';
+		}
+
+		$bsn = \Yard\DigiD\Foundation\Helpers\resolve( 'session' )->getSegment( 'digid' )->get( 'bsn' );
+
+		return ! empty( $bsn ) && is_string( $bsn ) ? \Yard\DigiD\Foundation\Helpers\decrypt( $bsn ) : '';
+	}
 
     private function validateBSN(string $bsn)
     {
