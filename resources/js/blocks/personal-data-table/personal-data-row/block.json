@@ -19,6 +19,10 @@
 				"label": ""
 			}
 		},
+    "goalBinding": {
+			"type": "string",
+			"default": ""
+		},
 		"selectedOption": {
 			"type": "object",
 			"default": {

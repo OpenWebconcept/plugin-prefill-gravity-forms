@@ -3,6 +3,7 @@
 namespace OWC\PrefillGravityForms\GravityForms;
 
 use GFAPI;
+use OWC\PrefillGravityForms\Foundation\View;
 use function OWC\PrefillGravityForms\Foundation\Helpers\get_supplier;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 
@@ -30,8 +31,17 @@ class GravityFormsFieldSettings
             return;
         }
 
+        $themeMappingOptions = $form['owc-iconnect-theme-mapping-options-file'] ?? '0';
+
+		// Check if the theme mapping options file exists.
+		if ('0' !== $themeMappingOptions && is_file($themeMappingOptions)) {
+			echo (new View())->renderFullPath($themeMappingOptions);
+
+			return;
+		}
+
         // Render the supplier based options.
-        $mappingOptions = sprintf('partials/gf-field-options-%s.php', $supplier);
+		$mappingOptions = sprintf('partials/gf-field-options-%s.php', $supplier);
 
         echo view($mappingOptions);
     }

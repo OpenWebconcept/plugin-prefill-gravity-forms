@@ -40,6 +40,24 @@ class View
         return $this->parseTemplate($data, $this->bindings);
     }
 
+	/**
+	 * Render a view by providing the absolute path to the view file.
+	 * This method is useful for rendering views that are not located in the plugin's views directory.
+	 */
+    public function renderFullPath(string $fullPath = '', array $vars = []): string
+    {
+        if (! is_file($fullPath)) {
+            return '';
+        }
+
+        $this->bindAll($vars);
+        ob_start();
+        include($fullPath);
+        $data = trim(ob_get_clean());
+
+        return $this->parseTemplate($data, $this->bindings);
+    }
+
     /**
      * Search and replace of variables.
      * Searching for {{VARIABLE}}.

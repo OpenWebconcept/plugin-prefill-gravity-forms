@@ -19,8 +19,13 @@ import personalDataOptions from './config/personalDataOptions';
 import supplierOptions from './config/supplierOptions';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { selectedSupplier, selectedOption, htmlElement, isChildOfTable } =
-		attributes;
+	const {
+		selectedSupplier,
+		goalBinding,
+		selectedOption,
+		htmlElement,
+		isChildOfTable,
+	} = attributes;
 
 	const { blockParents } = useSelect( ( select ) => ( {
 		blockParents: select( 'core/block-editor' ).getBlockNamesByClientId(
@@ -78,6 +83,16 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		/>
 	);
 
+	const goalBindingControl = (
+		<TextControl
+			label="Doelbinding"
+			value={ goalBinding }
+			onChange={ ( value ) => {
+				setAttributes( { goalBinding: value } );
+			} }
+		/>
+	);
+
 	const selectPersonalDataControl = (
 		<SelectControl
 			label="Automatisch invullen"
@@ -126,6 +141,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							{ tab.name === 'settings' && (
 								<>
 									{ selectSupplierControl }
+									{ goalBindingControl }
 									{ selectPersonalDataControl }
 									{ ! isChildOfTable &&
 										selectHtmlElementControl }
