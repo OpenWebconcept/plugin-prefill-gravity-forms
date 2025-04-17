@@ -7,12 +7,12 @@ namespace OWC\PrefillGravityForms\Controllers;
 use DateTime;
 use Exception;
 use GF_Field;
-use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 use OWC\PrefillGravityForms\Traits\SessionTrait;
-
 use TypeError;
+
+use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 
 abstract class BaseController
@@ -36,12 +36,12 @@ abstract class BaseController
 
     abstract public function handle(array $form): array;
 
-    public function get(): array
+    public function get(string $doelBinding = ''): array
     {
-        return static::makeRequest();
+        return static::makeRequest($doelBinding);
     }
 
-    abstract protected function makeRequest(): array;
+    abstract protected function makeRequest(string $doelBinding = ''): array;
 
     public function resolveTeams(): TeamsLogger
     {
