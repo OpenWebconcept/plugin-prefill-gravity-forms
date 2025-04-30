@@ -2,6 +2,7 @@
 
 namespace OWC\PrefillGravityForms\Foundation;
 
+use function DI\create;
 use function OWC\PrefillGravityForms\Foundation\Helpers\resolve;
 
 /**
@@ -66,8 +67,21 @@ class Plugin
         $builder = new \DI\ContainerBuilder();
         $builder->addDefinitions([
             'app' => $this,
-            'config' => function () {
-                return new Config($this->rootPath . '/config');
+            'config' => create(Config::class)->constructor($this->rootPath . '/config'),
+            'logger' => function () {
+                $logger = new \Monolog\Logger('pg_log');
+                $maxFiles = apply_filters('pg::logger/rotating_filer_handler_max_files', PG_LOGGER_DEFAULT_MAX_FILES);
+
+                $handler = (new \Monolog\Handler\RotatingFileHandler(
+                    filename: PG_ROOT_PATH . '/pg-log.json',
+                    maxFiles: is_int($maxFiles) && 0 < $maxFiles ? $maxFiles : PG_LOGGER_DEFAULT_MAX_FILES,
+                    level: \Monolog\Level::Debug
+                ))->setFormatter(new \Monolog\Formatter\JsonFormatter());
+
+                $logger->pushHandler($handler);
+                $logger->pushProcessor(new \Monolog\Processor\IntrospectionProcessor());
+
+                return $logger;
             },
         ]);
         $this->container = $builder->build();
@@ -84,15 +98,6 @@ class Plugin
     public function boot(): bool
     {
         $this->config = resolve('config');
-
-        $dependencyChecker = new DependencyChecker($this->config->get('core.dependencies'));
-
-        if ($dependencyChecker->failed()) {
-            $dependencyChecker->notify();
-            deactivate_plugins(plugin_basename($this->rootPath . '/' . $this->getName() . '.php'));
-
-            return false;
-        }
 
         $this->loadTextDomain();
 
