@@ -41,9 +41,9 @@ In addition, at least one of the following plug-ins must be installed to enable 
 
 1. Go to '/wp-admin/admin.php?page=gf_settings&subview=owc-gravityforms-iconnect' and configure all the required settings.
 
-- 1. Suppliers will provide the needed certificates which need to be selected in order to make prefilling form fields work.
-- 2. Suppliers will also provide an API-key, certificates password (if needed) and a base URL.
-- 3. [OIN](https://logius.nl/domeinen/toegang/organisatie-identificatienummer/wat-is-het) is a unique number for organizations provided by Logius.
+-   1. Suppliers will provide the needed certificates which need to be selected in order to make prefilling form fields work.
+-   2. Suppliers will also provide an API-key, certificates password (if needed) and a base URL.
+-   3. [OIN](https://logius.nl/domeinen/toegang/organisatie-identificatienummer/wat-is-het) is a unique number for organizations provided by Logius.
 
 2. Go to the form settings of the form you want to configure.
 3. Scroll down and look for the 'iConnect' panel and configure the settings.
