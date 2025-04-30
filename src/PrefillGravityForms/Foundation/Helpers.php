@@ -31,7 +31,7 @@ function encrypt($string): string
 {
     try {
         $encrypted = resolve(\OWC\PrefillGravityForms\Foundation\Cryptor::class)->encrypt($string);
-    } catch(\Exception $e) {
+    } catch (\Exception $e) {
         $encrypted = '';
     }
 
@@ -45,7 +45,7 @@ function decrypt($string): string
 {
     try {
         $decrypted = resolve(\OWC\PrefillGravityForms\Foundation\Cryptor::class)->decrypt($string);
-    } catch(\Exception $e) {
+    } catch (\Exception $e) {
         $decrypted = '';
     }
 

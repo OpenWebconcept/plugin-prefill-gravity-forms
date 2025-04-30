@@ -49,3 +49,31 @@ See [here](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/m
 ## License
 
 The source code is made available under the [EUPL 1.2 license](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/main/LICENSE.md). Some of the dependencies are licensed differently, with the BSD or MIT license, for example.
+
+## Logging
+
+Enable logging to monitor errors during communication with the BRP suppliers.
+
+- Logs are written daily to `pg-log{-date}.json` in the uploads directory.
+- A rotating file handler keeps up to 7 log files by default, deleting the oldest as needed.
+- You can change the maximum number of log files using the filter described below.
+
+## Hooks
+
+#### Change the maximum number of log files
+
+Use the following filter to alter the rotating file handler's max files setting:
+
+```php
+apply_filters('pg::logger/rotating_filer_handler_max_files', PG_LOGGER_DEFAULT_MAX_FILES)
+```
+
+#### Intercept exceptions for custom handling
+
+You can intercept exceptions caught by the plugin for additional processing or custom logging using this filter:
+
+```php
+apply_filters('pg::exception/intercept', $exception, $method)
+```
+
+The `$exception` parameter contains the caught exception object.

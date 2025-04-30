@@ -2,16 +2,16 @@
 
 namespace OWC\PrefillGravityForms\Providers;
 
+use GF_Fields;
 use GFAddOn;
 use GFForms;
-use GF_Fields;
+use function OWC\PrefillGravityForms\Foundation\Helpers\config;
+use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\ServiceProvider;
 use OWC\PrefillGravityForms\GravityForms\GravityForms;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsAddon;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsFieldSettings;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsFormSettings;
-use function OWC\PrefillGravityForms\Foundation\Helpers\config;
-use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 
 class GravityFormsServiceProvider extends ServiceProvider
 {
