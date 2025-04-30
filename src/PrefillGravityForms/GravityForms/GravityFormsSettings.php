@@ -70,6 +70,13 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'api-basic-token-password'] ?? '';
     }
 
+    public function loggingEnabled(): bool
+    {
+        $value = $this->options[$this->prefix . 'logging-enabled'] ?? '0';
+
+        return boolval($value);
+    }
+
     public function getPublicCertificate(): string
     {
         return $this->options[$this->prefix . 'public-certificate'] ?? '';

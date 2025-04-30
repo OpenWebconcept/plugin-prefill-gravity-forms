@@ -126,8 +126,13 @@ class GravityFormsAddon extends GFAddOn
                     ],
                 ],
                 'dependency' => [
-                    'field' => "{$prefix}api-use-authentication",
-                    'values' => [true],
+                    'live' => true,
+                    'fields' => [
+                        [
+                            'field' => "{$prefix}api-use-authentication",
+                            'values' => [true],
+                        ]
+                    ]
                 ],
             ],
             [
@@ -152,8 +157,26 @@ class GravityFormsAddon extends GFAddOn
                     ],
                 ],
                 'dependency' => [
-                    'field' => "{$prefix}api-use-authentication",
-                    'values' => [true],
+                    'live' => true,
+                    'fields' => [
+                        [
+                            'field' => "{$prefix}api-use-authentication",
+                            'values' => [true],
+                        ]
+                    ]
+                ],
+            ],
+            [
+                'title' => esc_html__('Berichtenverkeer logboek', 'prefill-gravity-forms'),
+                'fields' => [
+                    [
+                        'name' => "{$prefix}logging-enabled",
+                        'label' => __('Logging inschakelen', 'prefill-gravity-forms'),
+                        'type' => 'toggle',
+                        'required' => false,
+                        'default_value' => false,
+                        'description' => __('Schakel deze optie in om het loggen van foutmeldingen te activeren. Dit kan nuttig zijn voor het opsporen en oplossen van problemen binnen de plug-in.', 'prefill-gravity-forms'),
+                    ],
                 ],
             ],
             [

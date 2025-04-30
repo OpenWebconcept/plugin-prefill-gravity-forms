@@ -1,37 +1,54 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\Traits;
 
 use Exception;
-use OWC\IdpUserData\DigiDSession;
-use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
-use function OWC\PrefillGravityForms\Foundation\Helpers\resolve_teams;
-use function Yard\DigiD\Foundation\Helpers\resolve;
 
 trait SessionTrait
 {
+    use Logger;
+
     protected function getBSN(): string
     {
-        if (DigiDSession::isLoggedIn() && ! is_null(DigiDSession::getUserData())) {
-            $bsn = DigiDSession::getUserData()->getBsn();
-
+        if ($bsn = $this->idpDigiD()) {
             return $this->validateBSN($bsn);
         }
 
-        try {
-            $session = resolve('session');
-            $bsn = $session->getSegment('digid')->get('bsn') ?: $session->getSegment('eidas')->get('bsn');
-        } catch (Exception $e) {
-            $bsn = '';
+        if ($bsn = $this->samlDigiD()) {
+            return $this->validateBSN($bsn);
         }
 
-        $bsn = is_string($bsn) && ! empty($bsn) ? decrypt($bsn) : '';
+        return '';
+    }
 
-        if (empty($bsn)) {
+    private function idpDigiD(): string
+    {
+        if (! class_exists('\OWC\IdpUserData\DigiDSession')) {
             return '';
         }
 
-        return $this->validateBSN($bsn);
+        if (! \OWC\IdpUserData\DigiDSession::isLoggedIn() || is_null(\OWC\IdpUserData\DigiDSession::getUserData())) {
+            return '';
+        }
+
+        return \OWC\IdpUserData\DigiDSession::getUserData()->getBsn();
+    }
+
+    private function samlDigiD(): string
+    {
+        if (! function_exists('\\Yard\\DigiD\\Foundation\\Helpers\\resolve')) {
+            return '';
+        }
+
+        if (! function_exists('\\Yard\\DigiD\\Foundation\\Helpers\\decrypt')) {
+            return '';
+        }
+
+        $bsn = \Yard\DigiD\Foundation\Helpers\resolve('session')->getSegment('digid')->get('bsn');
+
+        return ! empty($bsn) && is_string($bsn) ? \Yard\DigiD\Foundation\Helpers\decrypt($bsn) : '';
     }
 
     private function validateBSN(string $bsn)
@@ -39,9 +56,7 @@ trait SessionTrait
         $bsn = $this->supplementBSN($bsn);
 
         if (strlen($bsn) !== 9) {
-            resolve_teams()->addRecord('error', 'BSN', [
-                'message' => 'BSN does not meet the required length of 9.',
-            ]);
+            $this->logException(new Exception('BSN does not meet the required length of 9.', 400));
 
             return '';
         }
@@ -64,6 +79,6 @@ trait SessionTrait
             return $bsn;
         }
 
-        return sprintf("%'.0" . $requiredLength . "d", $bsn);
+        return sprintf("%'.0" . $requiredLength . 'd', $bsn);
     }
 }

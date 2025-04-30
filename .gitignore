@@ -37,6 +37,7 @@
 !.gitignore
 
 !.php-cs-fixer.php
+.php-cs-fixer.cache
 
 # Eslint
 !.eslintrc
@@ -64,6 +65,7 @@ Thumbs.db
 *.log
 *.sql
 *.sqlite
+pg-log-*.json
 
 # ignore compiled files
 *.com
