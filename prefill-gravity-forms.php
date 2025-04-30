@@ -11,6 +11,7 @@
  * License URI:       https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
  * Text Domain:       prefill-gravity-forms
  * Domain Path:       /languages
+ * Requires Plugins:  gravityforms
  */
 
 /**

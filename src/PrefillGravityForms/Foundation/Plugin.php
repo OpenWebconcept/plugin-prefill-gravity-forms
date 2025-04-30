@@ -2,6 +2,7 @@
 
 namespace OWC\PrefillGravityForms\Foundation;
 
+use function DI\create;
 use function OWC\PrefillGravityForms\Foundation\Helpers\resolve;
 
 /**
@@ -67,9 +68,7 @@ class Plugin
         $builder = new \DI\ContainerBuilder();
         $builder->addDefinitions([
             'app' => $this,
-            'config' => function () {
-                return new Config($this->rootPath . '/config');
-            },
+            'config' => create(Config::class)->constructor($this->rootPath . '/config'),
         ]);
         $this->container = $builder->build();
     }
@@ -85,15 +84,6 @@ class Plugin
     public function boot(): bool
     {
         $this->config = resolve('config');
-
-        $dependencyChecker = new DependencyChecker($this->config->get('core.dependencies'));
-
-        if ($dependencyChecker->failed()) {
-            $dependencyChecker->notify();
-            deactivate_plugins(plugin_basename($this->rootPath . '/' . $this->getName() . '.php'));
-
-            return false;
-        }
 
         // Set up service providers
         $this->callServiceProviders('register');
