@@ -64,6 +64,7 @@ Thumbs.db
 *.log
 *.sql
 *.sqlite
+pg-log-*.json
 
 # ignore compiled files
 *.com
