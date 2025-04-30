@@ -9,7 +9,7 @@ if ($attributes['isChildOfTable'] && ! empty($retrievedValue)) : ?>
 		<th><?php echo $attributes['selectedOption']['label']; ?></th>
 		<td><?php echo $retrievedValue; ?></td>
 	</tr>
-<?php elseif(! empty($retrievedValue)) :
+<?php elseif (! empty($retrievedValue)) :
     echo sprintf(
         "<%s>%s</%s>",
         $attributes['htmlElement'] ?? 'p',

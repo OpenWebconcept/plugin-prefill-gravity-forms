@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OWC\PrefillGravityForms\Controllers;
 
 use OWC\PrefillGravityForms\Abstracts\GetController;
+use Exception;
 use OWC\PrefillGravityForms\Services\CacheService;
 
 class EnableUController extends GetController
@@ -62,7 +63,7 @@ class EnableUController extends GetController
                 $message = sprintf('%s: %s', $message, $apiResponse['message']);
             }
 
-            $this->logError($message, $apiResponse['status'] ?? 500);
+            $this->logException(new Exception($message, (int) ($response['status'] ?? 500)));
 
             return [];
         }

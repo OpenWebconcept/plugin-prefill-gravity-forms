@@ -1,0 +1,863 @@
+# Copyright (C) 2025 Yard | Digital Agency
+# This file is distributed under the EUPL-1.2.
+msgid ""
+msgstr ""
+"Project-Id-Version: Yard | BRP Prefill GravityForms 1.8.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prefill-gravity-forms\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-11-05T15:30:16+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: prefill-gravity-forms\n"
+
+#. Plugin Name of the plugin
+#: prefill-gravity-forms.php
+msgid "Yard | BRP Prefill GravityForms"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: prefill-gravity-forms.php
+msgid "https://www.openwebconcept.nl/"
+msgstr ""
+
+#. Description of the plugin
+#: prefill-gravity-forms.php
+msgid "Prefill GravityForms fields, based on a (Dutch) BSN number. Retrieve personal information and place these values in the corresponding fields."
+msgstr ""
+
+#. Author of the plugin
+#: prefill-gravity-forms.php
+msgid "Yard | Digital Agency"
+msgstr ""
+
+#. Author URI of the plugin
+#: prefill-gravity-forms.php
+msgid "https://www.yard.nl/"
+msgstr ""
+
+#: resources/views/partials/gf-field-age-check-settings.php:3
+msgid "Minimale leeftijd"
+msgstr ""
+
+#: resources/views/partials/gf-field-age-check-settings.php:5
+msgid "Minimale leeftijd die de ingelogde burger dient te hebben."
+msgstr ""
+
+#: resources/views/partials/gf-field-age-check-settings.php:10
+msgid "Maximale leeftijd"
+msgstr ""
+
+#: resources/views/partials/gf-field-age-check-settings.php:12
+msgid "Maximale leeftijd die de ingelogde burger dient te hebben."
+msgstr ""
+
+#: resources/views/partials/gf-field-age-check-settings.php:17
+msgid "Bericht bij onjuiste leeftijd"
+msgstr ""
+
+#: resources/views/partials/gf-field-age-check-settings.php:19
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:243
+msgid "U heeft niet de juiste leeftijd om dit formulier te mogen invullen."
+msgstr ""
+
+#: resources/views/partials/gf-field-age-check-settings.php:23
+msgid "Bericht bij juiste leeftijd"
+msgstr ""
+
+#: resources/views/partials/gf-field-age-check-settings.php:25
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:254
+msgid "U heeft de juiste leeftijd om dit formulier te mogen invullen."
+msgstr ""
+
+#: resources/views/partials/gf-field-municipality-check-settings.php:3
+msgid "Gemeente code"
+msgstr ""
+
+#: resources/views/partials/gf-field-municipality-check-settings.php:5
+msgid "De gemeente code waarop gecontroleerd dient te worden."
+msgstr ""
+
+#: resources/views/partials/gf-field-municipality-check-settings.php:10
+msgid "Bericht bij onjuiste gemeente"
+msgstr ""
+
+#: resources/views/partials/gf-field-municipality-check-settings.php:16
+msgid "Bericht bij juiste gemeente"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:3
+#: resources/views/partials/gf-field-options-openzaak.php:3
+#: resources/views/partials/gf-field-options-pink-roccade.php:3
+#: resources/views/partials/gf-field-options-vrij-brp.php:3
+#: resources/views/partials/gf-field-options-we-are-frank.php:3
+msgid "Automatisch invullen"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:6
+#: resources/views/partials/gf-field-options-openzaak.php:6
+#: resources/views/partials/gf-field-options-pink-roccade.php:6
+#: resources/views/partials/gf-field-options-vrij-brp.php:6
+#: resources/views/partials/gf-field-options-we-are-frank.php:6
+msgid "Kies veldnaam"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:7
+#: resources/views/partials/gf-field-options-enable-u.php:49
+#: resources/views/partials/gf-field-options-enable-u.php:64
+#: resources/views/partials/gf-field-options-enable-u.php:79
+#: resources/views/partials/gf-field-options-openzaak.php:7
+#: resources/views/partials/gf-field-options-openzaak.php:49
+#: resources/views/partials/gf-field-options-openzaak.php:64
+#: resources/views/partials/gf-field-options-openzaak.php:79
+#: resources/views/partials/gf-field-options-pink-roccade.php:7
+#: resources/views/partials/gf-field-options-pink-roccade.php:49
+#: resources/views/partials/gf-field-options-pink-roccade.php:64
+#: resources/views/partials/gf-field-options-pink-roccade.php:79
+#: resources/views/partials/gf-field-options-vrij-brp.php:7
+#: resources/views/partials/gf-field-options-vrij-brp.php:44
+#: resources/views/partials/gf-field-options-vrij-brp.php:67
+#: resources/views/partials/gf-field-options-vrij-brp.php:82
+#: resources/views/partials/gf-field-options-vrij-brp.php:97
+#: resources/views/partials/gf-field-options-we-are-frank.php:7
+#: resources/views/partials/gf-field-options-we-are-frank.php:44
+#: resources/views/partials/gf-field-options-we-are-frank.php:67
+#: resources/views/partials/gf-field-options-we-are-frank.php:79
+#: resources/views/partials/gf-field-options-we-are-frank.php:91
+msgid "Burgerservicenummer"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:8
+#: resources/views/partials/gf-field-options-openzaak.php:8
+#: resources/views/partials/gf-field-options-pink-roccade.php:8
+#: resources/views/partials/gf-field-options-vrij-brp.php:8
+#: resources/views/partials/gf-field-options-we-are-frank.php:8
+msgid "aNummer"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:9
+#: resources/views/partials/gf-field-options-enable-u.php:50
+#: resources/views/partials/gf-field-options-enable-u.php:65
+#: resources/views/partials/gf-field-options-enable-u.php:80
+#: resources/views/partials/gf-field-options-openzaak.php:9
+#: resources/views/partials/gf-field-options-openzaak.php:50
+#: resources/views/partials/gf-field-options-openzaak.php:65
+#: resources/views/partials/gf-field-options-openzaak.php:80
+#: resources/views/partials/gf-field-options-pink-roccade.php:9
+#: resources/views/partials/gf-field-options-pink-roccade.php:50
+#: resources/views/partials/gf-field-options-pink-roccade.php:65
+#: resources/views/partials/gf-field-options-pink-roccade.php:80
+#: resources/views/partials/gf-field-options-vrij-brp.php:9
+#: resources/views/partials/gf-field-options-vrij-brp.php:68
+#: resources/views/partials/gf-field-options-vrij-brp.php:83
+#: resources/views/partials/gf-field-options-vrij-brp.php:98
+#: resources/views/partials/gf-field-options-we-are-frank.php:68
+#: resources/views/partials/gf-field-options-we-are-frank.php:80
+#: resources/views/partials/gf-field-options-we-are-frank.php:92
+msgid "Geslachtsaanduiding"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:10
+#: resources/views/partials/gf-field-options-openzaak.php:10
+#: resources/views/partials/gf-field-options-pink-roccade.php:10
+#: resources/views/partials/gf-field-options-vrij-brp.php:10
+#: resources/views/partials/gf-field-options-we-are-frank.php:9
+msgid "Leeftijd"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:12
+#: resources/views/partials/gf-field-options-enable-u.php:45
+#: resources/views/partials/gf-field-options-enable-u.php:51
+#: resources/views/partials/gf-field-options-enable-u.php:66
+#: resources/views/partials/gf-field-options-enable-u.php:81
+#: resources/views/partials/gf-field-options-openzaak.php:12
+#: resources/views/partials/gf-field-options-openzaak.php:45
+#: resources/views/partials/gf-field-options-openzaak.php:51
+#: resources/views/partials/gf-field-options-openzaak.php:66
+#: resources/views/partials/gf-field-options-openzaak.php:81
+#: resources/views/partials/gf-field-options-pink-roccade.php:12
+#: resources/views/partials/gf-field-options-pink-roccade.php:45
+#: resources/views/partials/gf-field-options-pink-roccade.php:51
+#: resources/views/partials/gf-field-options-pink-roccade.php:66
+#: resources/views/partials/gf-field-options-pink-roccade.php:81
+#: resources/views/partials/gf-field-options-vrij-brp.php:12
+#: resources/views/partials/gf-field-options-vrij-brp.php:45
+#: resources/views/partials/gf-field-options-vrij-brp.php:69
+#: resources/views/partials/gf-field-options-vrij-brp.php:84
+#: resources/views/partials/gf-field-options-vrij-brp.php:99
+#: resources/views/partials/gf-field-options-we-are-frank.php:11
+#: resources/views/partials/gf-field-options-we-are-frank.php:45
+#: resources/views/partials/gf-field-options-we-are-frank.php:69
+#: resources/views/partials/gf-field-options-we-are-frank.php:81
+#: resources/views/partials/gf-field-options-we-are-frank.php:93
+msgid "Geslachtsnaam"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:13
+#: resources/views/partials/gf-field-options-enable-u.php:52
+#: resources/views/partials/gf-field-options-enable-u.php:67
+#: resources/views/partials/gf-field-options-enable-u.php:82
+#: resources/views/partials/gf-field-options-openzaak.php:13
+#: resources/views/partials/gf-field-options-openzaak.php:52
+#: resources/views/partials/gf-field-options-openzaak.php:67
+#: resources/views/partials/gf-field-options-openzaak.php:82
+#: resources/views/partials/gf-field-options-pink-roccade.php:13
+#: resources/views/partials/gf-field-options-pink-roccade.php:52
+#: resources/views/partials/gf-field-options-pink-roccade.php:67
+#: resources/views/partials/gf-field-options-pink-roccade.php:82
+#: resources/views/partials/gf-field-options-vrij-brp.php:13
+#: resources/views/partials/gf-field-options-vrij-brp.php:46
+#: resources/views/partials/gf-field-options-vrij-brp.php:70
+#: resources/views/partials/gf-field-options-vrij-brp.php:85
+#: resources/views/partials/gf-field-options-vrij-brp.php:100
+#: resources/views/partials/gf-field-options-we-are-frank.php:13
+#: resources/views/partials/gf-field-options-we-are-frank.php:46
+#: resources/views/partials/gf-field-options-we-are-frank.php:70
+#: resources/views/partials/gf-field-options-we-are-frank.php:82
+#: resources/views/partials/gf-field-options-we-are-frank.php:94
+msgid "Voorletters"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:14
+#: resources/views/partials/gf-field-options-enable-u.php:46
+#: resources/views/partials/gf-field-options-enable-u.php:53
+#: resources/views/partials/gf-field-options-enable-u.php:68
+#: resources/views/partials/gf-field-options-enable-u.php:83
+#: resources/views/partials/gf-field-options-openzaak.php:14
+#: resources/views/partials/gf-field-options-openzaak.php:46
+#: resources/views/partials/gf-field-options-openzaak.php:53
+#: resources/views/partials/gf-field-options-openzaak.php:68
+#: resources/views/partials/gf-field-options-openzaak.php:83
+#: resources/views/partials/gf-field-options-pink-roccade.php:14
+#: resources/views/partials/gf-field-options-pink-roccade.php:46
+#: resources/views/partials/gf-field-options-pink-roccade.php:53
+#: resources/views/partials/gf-field-options-pink-roccade.php:68
+#: resources/views/partials/gf-field-options-pink-roccade.php:83
+#: resources/views/partials/gf-field-options-vrij-brp.php:14
+#: resources/views/partials/gf-field-options-vrij-brp.php:47
+#: resources/views/partials/gf-field-options-vrij-brp.php:71
+#: resources/views/partials/gf-field-options-vrij-brp.php:86
+#: resources/views/partials/gf-field-options-vrij-brp.php:101
+#: resources/views/partials/gf-field-options-we-are-frank.php:12
+#: resources/views/partials/gf-field-options-we-are-frank.php:47
+#: resources/views/partials/gf-field-options-we-are-frank.php:71
+#: resources/views/partials/gf-field-options-we-are-frank.php:83
+#: resources/views/partials/gf-field-options-we-are-frank.php:95
+msgid "Voornamen"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:15
+#: resources/views/partials/gf-field-options-enable-u.php:54
+#: resources/views/partials/gf-field-options-enable-u.php:69
+#: resources/views/partials/gf-field-options-enable-u.php:84
+#: resources/views/partials/gf-field-options-openzaak.php:15
+#: resources/views/partials/gf-field-options-openzaak.php:54
+#: resources/views/partials/gf-field-options-openzaak.php:69
+#: resources/views/partials/gf-field-options-openzaak.php:84
+#: resources/views/partials/gf-field-options-pink-roccade.php:15
+#: resources/views/partials/gf-field-options-pink-roccade.php:54
+#: resources/views/partials/gf-field-options-pink-roccade.php:69
+#: resources/views/partials/gf-field-options-pink-roccade.php:84
+#: resources/views/partials/gf-field-options-vrij-brp.php:15
+#: resources/views/partials/gf-field-options-vrij-brp.php:48
+#: resources/views/partials/gf-field-options-vrij-brp.php:72
+#: resources/views/partials/gf-field-options-vrij-brp.php:87
+#: resources/views/partials/gf-field-options-vrij-brp.php:102
+#: resources/views/partials/gf-field-options-we-are-frank.php:14
+#: resources/views/partials/gf-field-options-we-are-frank.php:48
+#: resources/views/partials/gf-field-options-we-are-frank.php:72
+#: resources/views/partials/gf-field-options-we-are-frank.php:84
+#: resources/views/partials/gf-field-options-we-are-frank.php:96
+msgid "Voorvoegsel"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:16
+#: resources/views/partials/gf-field-options-openzaak.php:16
+#: resources/views/partials/gf-field-options-pink-roccade.php:16
+#: resources/views/partials/gf-field-options-vrij-brp.php:16
+msgid "Aanschrijfwijze"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:17
+#: resources/views/partials/gf-field-options-openzaak.php:17
+#: resources/views/partials/gf-field-options-pink-roccade.php:17
+#: resources/views/partials/gf-field-options-vrij-brp.php:17
+msgid "AanduidingNaamgebruik"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:20
+#: resources/views/partials/gf-field-options-openzaak.php:20
+#: resources/views/partials/gf-field-options-pink-roccade.php:20
+msgid "Datum"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:21
+#: resources/views/partials/gf-field-options-openzaak.php:21
+#: resources/views/partials/gf-field-options-pink-roccade.php:21
+msgid "Jaar"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:22
+#: resources/views/partials/gf-field-options-openzaak.php:22
+#: resources/views/partials/gf-field-options-pink-roccade.php:22
+msgid "Maand"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:23
+#: resources/views/partials/gf-field-options-openzaak.php:23
+#: resources/views/partials/gf-field-options-pink-roccade.php:23
+msgid "Dag"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:24
+#: resources/views/partials/gf-field-options-openzaak.php:24
+#: resources/views/partials/gf-field-options-pink-roccade.php:24
+#: resources/views/partials/gf-field-options-vrij-brp.php:20
+msgid "Omschrijving"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:25
+#: resources/views/partials/gf-field-options-openzaak.php:25
+#: resources/views/partials/gf-field-options-pink-roccade.php:25
+#: resources/views/partials/gf-field-options-vrij-brp.php:21
+msgid "Code"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:28
+#: resources/views/partials/gf-field-options-enable-u.php:55
+#: resources/views/partials/gf-field-options-enable-u.php:70
+#: resources/views/partials/gf-field-options-enable-u.php:85
+#: resources/views/partials/gf-field-options-openzaak.php:28
+#: resources/views/partials/gf-field-options-openzaak.php:55
+#: resources/views/partials/gf-field-options-openzaak.php:70
+#: resources/views/partials/gf-field-options-openzaak.php:85
+#: resources/views/partials/gf-field-options-pink-roccade.php:28
+#: resources/views/partials/gf-field-options-pink-roccade.php:55
+#: resources/views/partials/gf-field-options-pink-roccade.php:70
+#: resources/views/partials/gf-field-options-pink-roccade.php:85
+#: resources/views/partials/gf-field-options-vrij-brp.php:24
+#: resources/views/partials/gf-field-options-vrij-brp.php:49
+#: resources/views/partials/gf-field-options-vrij-brp.php:73
+#: resources/views/partials/gf-field-options-vrij-brp.php:88
+#: resources/views/partials/gf-field-options-vrij-brp.php:103
+#: resources/views/partials/gf-field-options-we-are-frank.php:28
+#: resources/views/partials/gf-field-options-we-are-frank.php:49
+#: resources/views/partials/gf-field-options-we-are-frank.php:73
+#: resources/views/partials/gf-field-options-we-are-frank.php:85
+#: resources/views/partials/gf-field-options-we-are-frank.php:97
+msgid "Geboortedatum"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:29
+#: resources/views/partials/gf-field-options-enable-u.php:61
+#: resources/views/partials/gf-field-options-enable-u.php:76
+#: resources/views/partials/gf-field-options-enable-u.php:91
+#: resources/views/partials/gf-field-options-openzaak.php:29
+#: resources/views/partials/gf-field-options-openzaak.php:61
+#: resources/views/partials/gf-field-options-openzaak.php:76
+#: resources/views/partials/gf-field-options-openzaak.php:91
+#: resources/views/partials/gf-field-options-pink-roccade.php:29
+#: resources/views/partials/gf-field-options-pink-roccade.php:61
+#: resources/views/partials/gf-field-options-pink-roccade.php:76
+#: resources/views/partials/gf-field-options-pink-roccade.php:91
+#: resources/views/partials/gf-field-options-vrij-brp.php:30
+#: resources/views/partials/gf-field-options-vrij-brp.php:55
+#: resources/views/partials/gf-field-options-vrij-brp.php:79
+#: resources/views/partials/gf-field-options-vrij-brp.php:94
+#: resources/views/partials/gf-field-options-vrij-brp.php:109
+#: resources/views/partials/gf-field-options-we-are-frank.php:55
+#: resources/views/partials/gf-field-options-we-are-frank.php:76
+#: resources/views/partials/gf-field-options-we-are-frank.php:88
+#: resources/views/partials/gf-field-options-we-are-frank.php:103
+msgid "Geboorteland"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:30
+#: resources/views/partials/gf-field-options-enable-u.php:59
+#: resources/views/partials/gf-field-options-enable-u.php:74
+#: resources/views/partials/gf-field-options-enable-u.php:89
+#: resources/views/partials/gf-field-options-openzaak.php:30
+#: resources/views/partials/gf-field-options-openzaak.php:59
+#: resources/views/partials/gf-field-options-openzaak.php:74
+#: resources/views/partials/gf-field-options-openzaak.php:89
+#: resources/views/partials/gf-field-options-pink-roccade.php:30
+#: resources/views/partials/gf-field-options-pink-roccade.php:59
+#: resources/views/partials/gf-field-options-pink-roccade.php:74
+#: resources/views/partials/gf-field-options-pink-roccade.php:89
+#: resources/views/partials/gf-field-options-vrij-brp.php:28
+#: resources/views/partials/gf-field-options-vrij-brp.php:53
+#: resources/views/partials/gf-field-options-vrij-brp.php:77
+#: resources/views/partials/gf-field-options-vrij-brp.php:92
+#: resources/views/partials/gf-field-options-vrij-brp.php:107
+#: resources/views/partials/gf-field-options-we-are-frank.php:53
+#: resources/views/partials/gf-field-options-we-are-frank.php:74
+#: resources/views/partials/gf-field-options-we-are-frank.php:86
+#: resources/views/partials/gf-field-options-we-are-frank.php:101
+msgid "Geboorteplaats"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:33
+#: resources/views/partials/gf-field-options-openzaak.php:33
+#: resources/views/partials/gf-field-options-pink-roccade.php:33
+#: resources/views/partials/gf-field-options-vrij-brp.php:33
+#: resources/views/partials/gf-field-options-we-are-frank.php:35
+msgid "Straat"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:34
+#: resources/views/partials/gf-field-options-openzaak.php:34
+#: resources/views/partials/gf-field-options-pink-roccade.php:34
+#: resources/views/partials/gf-field-options-vrij-brp.php:34
+#: resources/views/partials/gf-field-options-we-are-frank.php:36
+msgid "Huisnummer"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:35
+#: resources/views/partials/gf-field-options-openzaak.php:35
+#: resources/views/partials/gf-field-options-pink-roccade.php:35
+#: resources/views/partials/gf-field-options-vrij-brp.php:35
+#: resources/views/partials/gf-field-options-we-are-frank.php:37
+msgid "Huisletter"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:36
+#: resources/views/partials/gf-field-options-openzaak.php:36
+#: resources/views/partials/gf-field-options-pink-roccade.php:36
+#: resources/views/partials/gf-field-options-vrij-brp.php:36
+#: resources/views/partials/gf-field-options-we-are-frank.php:38
+msgid "Postcode"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:37
+#: resources/views/partials/gf-field-options-openzaak.php:37
+#: resources/views/partials/gf-field-options-pink-roccade.php:37
+#: resources/views/partials/gf-field-options-vrij-brp.php:37
+#: resources/views/partials/gf-field-options-we-are-frank.php:39
+msgid "Woonplaats"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:38
+#: resources/views/partials/gf-field-options-openzaak.php:38
+#: resources/views/partials/gf-field-options-pink-roccade.php:38
+#: resources/views/partials/gf-field-options-vrij-brp.php:38
+msgid "Adres"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:39
+#: resources/views/partials/gf-field-options-openzaak.php:39
+#: resources/views/partials/gf-field-options-pink-roccade.php:39
+#: resources/views/partials/gf-field-options-vrij-brp.php:39
+msgid "Postcode + plaats"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:40
+#: resources/views/partials/gf-field-options-openzaak.php:40
+#: resources/views/partials/gf-field-options-pink-roccade.php:40
+#: resources/views/partials/gf-field-options-vrij-brp.php:40
+#: resources/views/partials/gf-field-options-we-are-frank.php:40
+msgid "Gemeente"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:41
+#: resources/views/partials/gf-field-options-openzaak.php:41
+#: resources/views/partials/gf-field-options-pink-roccade.php:41
+#: resources/views/partials/gf-field-options-vrij-brp.php:41
+#: resources/views/partials/gf-field-options-we-are-frank.php:41
+msgid "Gemeentecode"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:44
+#: resources/views/partials/gf-field-options-openzaak.php:44
+#: resources/views/partials/gf-field-options-pink-roccade.php:44
+#: resources/views/partials/gf-field-options-vrij-brp.php:56
+#: resources/views/partials/gf-field-options-we-are-frank.php:56
+msgid "Soort verbintenis"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:56
+#: resources/views/partials/gf-field-options-enable-u.php:71
+#: resources/views/partials/gf-field-options-enable-u.php:86
+#: resources/views/partials/gf-field-options-openzaak.php:56
+#: resources/views/partials/gf-field-options-openzaak.php:71
+#: resources/views/partials/gf-field-options-openzaak.php:86
+#: resources/views/partials/gf-field-options-pink-roccade.php:56
+#: resources/views/partials/gf-field-options-pink-roccade.php:71
+#: resources/views/partials/gf-field-options-pink-roccade.php:86
+#: resources/views/partials/gf-field-options-vrij-brp.php:25
+#: resources/views/partials/gf-field-options-vrij-brp.php:50
+#: resources/views/partials/gf-field-options-vrij-brp.php:74
+#: resources/views/partials/gf-field-options-vrij-brp.php:89
+#: resources/views/partials/gf-field-options-vrij-brp.php:104
+#: resources/views/partials/gf-field-options-we-are-frank.php:50
+#: resources/views/partials/gf-field-options-we-are-frank.php:98
+msgid "Geboortedag"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:57
+#: resources/views/partials/gf-field-options-enable-u.php:72
+#: resources/views/partials/gf-field-options-enable-u.php:87
+#: resources/views/partials/gf-field-options-openzaak.php:57
+#: resources/views/partials/gf-field-options-openzaak.php:72
+#: resources/views/partials/gf-field-options-openzaak.php:87
+#: resources/views/partials/gf-field-options-pink-roccade.php:57
+#: resources/views/partials/gf-field-options-pink-roccade.php:72
+#: resources/views/partials/gf-field-options-pink-roccade.php:87
+#: resources/views/partials/gf-field-options-vrij-brp.php:26
+#: resources/views/partials/gf-field-options-vrij-brp.php:51
+#: resources/views/partials/gf-field-options-vrij-brp.php:75
+#: resources/views/partials/gf-field-options-vrij-brp.php:90
+#: resources/views/partials/gf-field-options-vrij-brp.php:105
+#: resources/views/partials/gf-field-options-we-are-frank.php:51
+#: resources/views/partials/gf-field-options-we-are-frank.php:99
+msgid "Geboortemaand"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:58
+#: resources/views/partials/gf-field-options-enable-u.php:73
+#: resources/views/partials/gf-field-options-enable-u.php:88
+#: resources/views/partials/gf-field-options-openzaak.php:58
+#: resources/views/partials/gf-field-options-openzaak.php:73
+#: resources/views/partials/gf-field-options-openzaak.php:88
+#: resources/views/partials/gf-field-options-pink-roccade.php:58
+#: resources/views/partials/gf-field-options-pink-roccade.php:73
+#: resources/views/partials/gf-field-options-pink-roccade.php:88
+#: resources/views/partials/gf-field-options-vrij-brp.php:27
+#: resources/views/partials/gf-field-options-vrij-brp.php:52
+#: resources/views/partials/gf-field-options-vrij-brp.php:76
+#: resources/views/partials/gf-field-options-vrij-brp.php:91
+#: resources/views/partials/gf-field-options-vrij-brp.php:106
+#: resources/views/partials/gf-field-options-we-are-frank.php:30
+#: resources/views/partials/gf-field-options-we-are-frank.php:52
+#: resources/views/partials/gf-field-options-we-are-frank.php:100
+msgid "Geboorteplaats code"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-enable-u.php:60
+#: resources/views/partials/gf-field-options-enable-u.php:75
+#: resources/views/partials/gf-field-options-enable-u.php:90
+#: resources/views/partials/gf-field-options-openzaak.php:60
+#: resources/views/partials/gf-field-options-openzaak.php:75
+#: resources/views/partials/gf-field-options-openzaak.php:90
+#: resources/views/partials/gf-field-options-pink-roccade.php:60
+#: resources/views/partials/gf-field-options-pink-roccade.php:75
+#: resources/views/partials/gf-field-options-pink-roccade.php:90
+#: resources/views/partials/gf-field-options-vrij-brp.php:29
+#: resources/views/partials/gf-field-options-vrij-brp.php:54
+#: resources/views/partials/gf-field-options-vrij-brp.php:78
+#: resources/views/partials/gf-field-options-vrij-brp.php:93
+#: resources/views/partials/gf-field-options-vrij-brp.php:108
+#: resources/views/partials/gf-field-options-we-are-frank.php:32
+#: resources/views/partials/gf-field-options-we-are-frank.php:54
+#: resources/views/partials/gf-field-options-we-are-frank.php:75
+#: resources/views/partials/gf-field-options-we-are-frank.php:87
+#: resources/views/partials/gf-field-options-we-are-frank.php:102
+msgid "Geboorteland code"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-vrij-brp.php:57
+#: resources/views/partials/gf-field-options-we-are-frank.php:57
+msgid "Verbintenis datum"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-vrij-brp.php:58
+#: resources/views/partials/gf-field-options-we-are-frank.php:58
+msgid "Verbintenis dag"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-vrij-brp.php:59
+#: resources/views/partials/gf-field-options-we-are-frank.php:59
+msgid "Verbintenis maand"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-vrij-brp.php:60
+#: resources/views/partials/gf-field-options-we-are-frank.php:60
+msgid "Verbintenis jaar"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-vrij-brp.php:61
+#: resources/views/partials/gf-field-options-we-are-frank.php:61
+msgid "Verbintenis land code"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-vrij-brp.php:62
+#: resources/views/partials/gf-field-options-we-are-frank.php:62
+msgid "Verbintenis land"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-vrij-brp.php:63
+#: resources/views/partials/gf-field-options-we-are-frank.php:63
+msgid "Verbintenis plaats code"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-vrij-brp.php:64
+#: resources/views/partials/gf-field-options-we-are-frank.php:64
+msgid "Verbintenis plaats"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-we-are-frank.php:15
+msgid "Aanduiding naamgebruik"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-we-are-frank.php:16
+msgid "Adellijke Titel"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-we-are-frank.php:17
+msgid "Volledige naam"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-we-are-frank.php:20
+msgid "Geslacht code"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-we-are-frank.php:21
+msgid "Geslacht omschrijving"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-we-are-frank.php:24
+msgid "Nationaliteit omschrijving"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-we-are-frank.php:25
+msgid "Nationaliteit code"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-we-are-frank.php:29
+msgid "Geboorteplaats omschrijving"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-we-are-frank.php:31
+msgid "Geboorteland omschrijving"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:26
+msgid "OWC leeftijdscheck"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:31
+msgid "Op basis van het BSN-nummer, verkregen wanneer een burger inlogt met DigiD, wordt de BRP bevraagd. De leeftijd van de burger wordt berekend en op basis daarvan wordt een melding weergegeven die aangeeft of de burger de juiste leeftijd heeft."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:73
+msgid "Het ophalen van uw geboortedatum is mislukt, probeer het later nog eens."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:88
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:87
+msgid "Geslaagd"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:88
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:87
+msgid "Mislukt"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:103
+msgid "Log in met uw DigiD, zonder BSN-nummer kan de leeftijdscheck niet uitgevoerd worden."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:106
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:104
+msgid "Dit veld is onjuist geconfigueerd, contacteer de beheerder van deze website."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:264
+msgid "Dit is een voorbeeldweergave van het veld 'OWC leeftijdscheck'. Stel de minimale en/of maximale leeftijd en de gewenste validatie berichten in via de instellingen van dit veld onder de kop 'OWC leeftijdscheck'."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/AgeCheckField.php:265
+msgid "Vergeet niet om dit veld automatisch te laten invullen met de geboortedatum vanuit de BRP."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:23
+msgid "OWC Gemeentecheck"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:28
+msgid "Op basis van de gemeentecode uit de BRP, verkregen wanneer een burger inlogt met DigiD, wordt er gekeken of de burger in de juiste gemeente woont. De gemeentecode waarop gecontroleerd wordt is instelbaar."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:70
+msgid "Het ophalen van de gemeentecode van uw gemeente is mislukt, probeer het later nog eens."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:101
+msgid "Log in met uw DigiD, zonder BSN-nummer kan de gemeentecheck niet uitgevoerd worden."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:233
+msgid "U woont niet in de juiste gemeente om dit formulier te mogen invullen."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:244
+msgid "U woont in de juiste gemeente om dit formulier te mogen invullen."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:254
+msgid "Dit is een voorbeeldweergave van het veld 'OWC Gemeentecheck'. Stel de gemeentecode in waarop gecontroleerd dient te worden in via de instellingen van dit veld onder de kop 'OWC Gemeentecheck'."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/Fields/MunicipalityCheckField.php:255
+msgid "Vergeet niet om dit veld automatisch te laten invullen met de gemeentecode vanuit de BRP."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:81
+msgid "Algemeen"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:84
+msgid "OIN number"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:91
+msgid "Basis URL"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:98
+msgid "Gebruik API authenticatie"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:99
+msgid "Deze authenticatie zal gebruikt worden naast de gebruikelijke authenticatie middels certificaten."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:108
+msgid "API sleutel"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:110
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:141
+msgid "Vul alleen in als de API van de leverancier dit gebruikt."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:113
+msgid "Sleutel"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:117
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:148
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:156
+msgid "Vul een waarde in"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:120
+msgid "Header naam"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:125
+msgid "Is vereist als header in HTTP verzoeken."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:139
+msgid "API OAuth 2.0"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:144
+msgid "Gebruikersnaam"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:151
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:208
+msgid "Wachtwoord"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:170
+msgid "Berichtenverkeer logboek"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:174
+msgid "Logging inschakelen"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:178
+msgid "Schakel deze optie in om het loggen van foutmeldingen te activeren. Dit kan nuttig zijn voor het opsporen en oplossen van problemen binnen de plug-in."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:183
+msgid "Certificaten"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:186
+msgid "Certificaten hoofd locatie"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:194
+msgid "Publieke locatie certificaten"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:201
+msgid "Privé locatie certificaten"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:213
+msgid "Dit veld mag leeg gelaten worden als er geen wachtwoord vereist is voor het maken van de verzoeken naar de \"Haalcentraal\" API."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:227
+msgid "Geen certificaat geselecteerd"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:12
+msgid "OWC Prefill"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:23
+msgid "Breid de resultaten uit met andere entiteiten. Kommagescheiden waardes in vullen. Bijvoorbeeld: 'ouders,partners,kinderen'"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:28
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:30
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:34
+msgid "Selecteer een leverancier"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:28
+msgid "Kies een leverancier. Let op dat je de inloggegevens ook moet configureren in de algemene instellingen van Gravity Forms."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:39
+msgid "OpenZaak"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:44
+msgid "EnableU"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:49
+msgid "PinkRoccade"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:54
+msgid "VrijBRP"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:59
+msgid "WeAreFrank!"
+msgstr ""
+
+#: src/PrefillGravityForms/Providers/GravityFormsServiceProvider.php:90
+msgid "BRP Prefill velden"
+msgstr ""
+
+#: resources/js/blocks/personal-data-table/block.json
+msgctxt "block title"
+msgid "Profielpagina"
+msgstr ""
+
+#: resources/js/blocks/personal-data-table/block.json
+msgctxt "block description"
+msgid "Maak een profielpagina met persoonsgegevens van de ingelogde gebruiker."
+msgstr ""
+
+#: resources/js/blocks/personal-data-table/personal-data-row/block.json
+msgctxt "block title"
+msgid "Persoonsgegevens"
+msgstr ""
+
+#: resources/js/blocks/personal-data-table/personal-data-row/block.json
+msgctxt "block description"
+msgid "Toon persoonsgegevens van de ingelogde gebruiker."
+msgstr ""
