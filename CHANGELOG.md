@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.7.4
+
+- Change: hide custom GF fields success views when no success message has been configured
+
 ## v1.7.3
 
 - Fix: set field properties age check validation messages
