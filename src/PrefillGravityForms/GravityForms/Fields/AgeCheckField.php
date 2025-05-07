@@ -97,7 +97,7 @@ class AgeCheckField extends GF_Field
         $bsn = $this->check_bsn_value_from_session();
         $dateOfBirth = $value;
         $minimumAgeSetting = $this->get_minimum_age_setting();
-		$maximumAgeSetting = $this->get_maximum_age_setting();
+        $maximumAgeSetting = $this->get_maximum_age_setting();
 
         if (empty($bsn) || empty($dateOfBirth || (empty($minimumAgeSetting) && empty($maximumAgeSetting)))) {
             $message = __('Log in met uw DigiD, zonder BSN-nummer kan de leeftijdscheck niet uitgevoerd worden.', 'prefill-gravity-forms');
@@ -147,9 +147,9 @@ class AgeCheckField extends GF_Field
     public function get_field_container($atts, $form)
     {
         $dateOfBirth = $_POST["input_$this->id"] ?? $this->defaultValue;
+        $successMessageIsEmpty = empty($this->pgAgeCheckSuccessMessage ?? false);
 
-
-        if ($dateOfBirth && $this->check_age($dateOfBirth)) {
+        if ($dateOfBirth && $this->check_age($dateOfBirth) && $successMessageIsEmpty) {
             $atts = [
                 'style' => 'display:none',
             ];

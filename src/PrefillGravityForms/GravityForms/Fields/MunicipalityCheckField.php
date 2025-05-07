@@ -146,8 +146,9 @@ class MunicipalityCheckField extends GF_Field
     {
         $municipalityCode = $_POST["input_$this->id"] ?? $this->defaultValue;
         $municipalityCodeSetting = $this->get_municipality_code_setting();
+        $successMessageIsEmpty = empty($this->pgMunicipalityCheckSuccessMessage ?? false);
 
-        if ($municipalityCodeSetting && $municipalityCode && $this->check_municipality_code($municipalityCodeSetting, $municipalityCode)) {
+        if ($municipalityCodeSetting && $municipalityCode && $this->check_municipality_code($municipalityCodeSetting, $municipalityCode) && $successMessageIsEmpty) {
             $atts = [
                 'style' => 'display:none',
             ];
