@@ -118,7 +118,7 @@ class AgeCheckField extends GF_Field
         if (! $this->check_age($dateOfBirth)) {
             return $this->format_field_input(
                 $form,
-                $value,
+                '',
                 $this->get_check_failed_message(),
                 $this->get_error_svg(),
                 self::AGE_CHECK_VALIDATION_FAILED_CSS_CLASS

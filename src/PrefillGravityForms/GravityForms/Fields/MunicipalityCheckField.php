@@ -116,7 +116,7 @@ class MunicipalityCheckField extends GF_Field
         if (! $this->check_municipality_code($municipalityCodeSetting, $municipalityCode)) {
             return $this->format_field_input(
                 $form,
-                $value,
+                '',
                 $this->get_check_failed_message(),
                 $this->get_error_svg(),
                 self::MUNICIPALITY_CHECK_VALIDATION_FAILED_CSS_CLASS
