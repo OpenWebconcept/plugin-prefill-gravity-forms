@@ -39,6 +39,13 @@ class GravityFormsAddon extends GFAddOn
     private static $_instance = null;
 
     /**
+     * The full path to the Add-On file.
+     *
+     * @var string
+     */
+    protected $_full_path = __FILE__;
+
+    /**
      * Singleton loader.
      */
     public static function get_instance(): self
