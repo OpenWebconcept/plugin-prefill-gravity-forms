@@ -2,6 +2,11 @@
 
 - Tested up to: WordPress 6.6.2
 
+## v1.7.6
+
+- Fix: prevent error log spam regarding null being passed to dirname because of a missing variable
+- Change: add editorconfig line that reflects the currently in use code style to prevent whitespace issues
+
 ## v1.7.5
 
 - Change: clear values of custom fields when validations fail for conditional logic to work
