@@ -47,7 +47,6 @@ class Plugin
         $this->rootPath = $rootPath;
         require_once __DIR__ . '/Helpers.php';
         $this->buildContainer();
-        load_plugin_textdomain($this->getName(), false, $this->getName() . '/languages/');
     }
 
     /**
@@ -95,11 +94,18 @@ class Plugin
             return false;
         }
 
+        $this->loadTextDomain();
+
         // Set up service providers
         $this->callServiceProviders('register');
         $this->callServiceProviders('boot');
 
         return true;
+    }
+
+    private function loadTextDomain(): void
+    {
+        load_plugin_textdomain($this->getName(), false, $this->getName() . '/languages/');
     }
 
 

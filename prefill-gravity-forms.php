@@ -38,6 +38,10 @@ $autoloader = new OWC\PrefillGravityForms\Autoloader();
  * plugin overrides. The plugins_loaded action hook fires early, and precedes the setup_theme, after_setup_theme, init
  * and wp_loaded action hooks.
  */
-\add_action('plugins_loaded', function () {
-    $plugin = \OWC\PrefillGravityForms\Foundation\Plugin::getInstance(__DIR__)->boot();
+add_action('plugins_loaded', function () {
+    $plugin = \OWC\PrefillGravityForms\Foundation\Plugin::getInstance(__DIR__);
+
+    add_action('after_setup_theme', function () use ($plugin) {
+        $plugin->boot();
+    });
 }, 10);
