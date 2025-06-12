@@ -1,6 +1,10 @@
 # Changelog
 
-- Tested up to: WordPress 6.6.2
+- Tested up to: WordPress 6.7.2
+
+## v1.7.7
+
+- Fix: text domain was loaded too early
 
 ## v1.7.6
 
