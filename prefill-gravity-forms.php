@@ -11,6 +11,7 @@
  * License URI:       https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
  * Text Domain:       prefill-gravity-forms
  * Domain Path:       /languages
+ * Requires Plugins:  gravityforms
  */
 
 /**
@@ -24,6 +25,7 @@ define('PG_VERSION', '1.7.7');
 define('PG_DIR', basename(__DIR__));
 define('PG_ROOT_PATH', __DIR__);
 define('PG_PLUGIN_SLUG', 'prefill-gravity-forms');
+define('PG_LOGGER_DEFAULT_MAX_FILES', 7);
 
 /**
  * Manual loaded file: the autoloader.
