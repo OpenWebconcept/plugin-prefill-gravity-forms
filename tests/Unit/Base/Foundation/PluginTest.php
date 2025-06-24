@@ -2,9 +2,9 @@
 
 namespace OWC\PrefillGravityForms\Tests\Base\Foundation;
 
-use WP_Mock;
-use OWC\PrefillGravityForms\Tests\TestCase;
 use OWC\PrefillGravityForms\Foundation\Plugin;
+use OWC\PrefillGravityForms\Tests\TestCase;
+use WP_Mock;
 
 class PluginTest extends TestCase
 {
