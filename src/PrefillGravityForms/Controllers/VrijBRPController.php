@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use Exception;
+
 class VrijBRPController extends BaseController
 {
     public function handle(array $form): array
@@ -54,7 +56,7 @@ class VrijBRPController extends BaseController
                 $message = sprintf('%s: %s', $message, $apiResponse['message']);
             }
 
-            $this->logError($message, $apiResponse['status'] ?? 500);
+            $this->logException(new Exception($message, (int) ($response['status'] ?? 500)));
 
             return [];
         }

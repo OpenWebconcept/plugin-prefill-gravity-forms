@@ -36,7 +36,8 @@
 # track this file .gitignore (i.e. do NOT ignore it)
 !.gitignore
 
-!.php_cs
+!.php-cs-fixer.php
+.php-cs-fixer.cache
 
 # Eslint
 !.eslintrc
@@ -64,6 +65,7 @@ Thumbs.db
 *.log
 *.sql
 *.sqlite
+pg-log-*.json
 
 # ignore compiled files
 *.com

@@ -8,15 +8,14 @@ use DateTime;
 use Exception;
 use GF_Field;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
-use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
+use OWC\PrefillGravityForms\Traits\Logger;
 use OWC\PrefillGravityForms\Traits\SessionTrait;
-
 use TypeError;
-use function Yard\DigiD\Foundation\Helpers\resolve;
 
 abstract class BaseController
 {
+    use Logger;
     use SessionTrait;
 
     protected const CUSTOM_FIELDS_TYPES = [
@@ -25,13 +24,11 @@ abstract class BaseController
     ];
 
     protected GravityFormsSettings $settings;
-    protected TeamsLogger $teams;
     protected array $prefilledChildrenMappingOptions = [];
 
     public function __construct()
     {
         $this->settings = GravityFormsSettings::make();
-        $this->teams = $this->resolveTeams();
     }
 
     abstract public function handle(array $form): array;
@@ -42,27 +39,6 @@ abstract class BaseController
     }
 
     abstract protected function makeRequest(): array;
-
-    public function resolveTeams(): TeamsLogger
-    {
-        try {
-            if (! function_exists('Yard\DigiD\Foundation\Helpers\resolve')) {
-                throw new Exception();
-            }
-
-            return TeamsLogger::make(resolve('teams'));
-        } catch (Exception $e) {
-            return TeamsLogger::make(new \Psr\Log\NullLogger());
-        }
-    }
-
-    protected function logError(string $message, $status): void
-    {
-        $this->teams->addRecord('error', 'Prefill data', [
-            'message' => $message,
-            'status' => $status,
-        ]);
-    }
 
     protected function preFillFields(array $form, array $response): array
     {
