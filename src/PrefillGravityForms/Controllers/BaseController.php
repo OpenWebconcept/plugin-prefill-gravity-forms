@@ -203,7 +203,7 @@ abstract class BaseController
         if ($this->isPossibleDate($foundValue)) {
             $field->defaultValue = (new DateTime($foundValue))->format('d-m-Y');
         } else {
-            $field->defaultValue = ucfirst($foundValue);
+            $field->defaultValue = $foundValue;
         }
 
         $field->cssClass = 'owc_prefilled';
