@@ -1,72 +1,78 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\Controllers;
 
 class EnableUController extends BaseController
 {
-    public function handle(array $form): array
-    {
-        $bsn = $this->getBSN();
+	public function handle(array $form): array
+	{
+		if (! $this->isBlockEditor()) {
+			return $form;
+		}
 
-        if (empty($bsn)) {
-            return $form;
-        }
+		$bsn = $this->getBSN();
 
-        $doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
-        $expand = rgar($form, 'owc-iconnect-expand', '');
+		if (empty($bsn)) {
+			return $form;
+		}
 
-        if (! is_string($doelBinding)) {
-            $doelBinding = (string) $doelBinding;
-        }
+		$doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
+		$expand = rgar($form, 'owc-iconnect-expand', '');
 
-        $apiResponse = $this->fetchApiResponse($bsn, $doelBinding, $expand);
+		if (! is_string($doelBinding)) {
+			$doelBinding = (string) $doelBinding;
+		}
 
-        if (empty($apiResponse)) {
-            return $form;
-        }
+		$apiResponse = $this->fetchApiResponse($bsn, $doelBinding, $expand);
 
-        echo $this->disableFormFields();
+		if (empty($apiResponse)) {
+			return $form;
+		}
 
-        return $this->preFillFields($form, $apiResponse);
-    }
+		echo $this->disableFormFields();
 
-    protected function makeRequest(): array
-    {
-        $bsn = $this->getBSN();
+		return $this->preFillFields($form, $apiResponse);
+	}
 
-        if (empty($bsn)) {
-            return [];
-        }
+	protected function makeRequest(): array
+	{
+		$bsn = $this->getBSN();
 
-        return $this->fetchApiResponse($bsn);
-    }
+		if (empty($bsn)) {
+			return [];
+		}
 
-    protected function fetchApiResponse(string $bsn, string $doelBinding = '', string $expand = ''): array
-    {
-        $apiResponse = $this->request($bsn, $doelBinding, $expand);
+		return $this->fetchApiResponse($bsn);
+	}
 
-        if (isset($apiResponse['status'])) {
-            $message = 'Retrieving prefill data failed';
+	protected function fetchApiResponse(string $bsn, string $doelBinding = '', string $expand = ''): array
+	{
+		$apiResponse = $this->request($bsn, $doelBinding, $expand);
 
-            if (isset($apiResponse['message'])) {
-                $message = sprintf('%s: %s', $message, $apiResponse['message']);
-            }
+		if (isset($apiResponse['status'])) {
+			$message = 'Retrieving prefill data failed';
 
-            $this->logError($message, $apiResponse['status'] ?? 500);
+			if (isset($apiResponse['message'])) {
+				$message = sprintf('%s: %s', $message, $apiResponse['message']);
+			}
 
-            return [];
-        }
+			$this->logError($message, $apiResponse['status'] ?? 500);
 
-        return $apiResponse;
-    }
+			return [];
+		}
 
-    protected function request(string $bsn = '', string $doelBinding = '', string $expand = ''): array
-    {
-        $curlArgs = [
-            CURLOPT_URL => $this->getRequestURL($bsn, $expand),
-            CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
-        ];
+		return $apiResponse;
+	}
 
-        return $this->handleCurl($curlArgs);
-    }
+	protected function request(string $bsn = '', string $doelBinding = '', string $expand = ''): array
+	{
+		$curlArgs = [
+			CURLOPT_URL => $this->getRequestURL($bsn, $expand),
+			CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
+		];
+
+		return $this->handleCurl($curlArgs);
+	}
 }
