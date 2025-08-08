@@ -11,8 +11,8 @@ use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 use OWC\PrefillGravityForms\Traits\SessionTrait;
-
 use TypeError;
+use WP_Screen;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 
 abstract class BaseController
@@ -35,6 +35,17 @@ abstract class BaseController
     }
 
     abstract public function handle(array $form): array;
+
+    protected function isBlockEditor(): bool
+    {
+        global $current_screen;
+
+        if (! $current_screen instanceof WP_Screen) {
+            return false;
+        }
+
+        return method_exists($current_screen, 'is_block_editor') && $current_screen->is_block_editor();
+    }
 
     public function get(): array
     {

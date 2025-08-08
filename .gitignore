@@ -36,7 +36,7 @@
 # track this file .gitignore (i.e. do NOT ignore it)
 !.gitignore
 
-!.php_cs
+!.php-cs-fixer.php
 
 # Eslint
 !.eslintrc

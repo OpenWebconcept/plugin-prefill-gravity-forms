@@ -8,6 +8,10 @@ class WeAreFrankController extends BaseController
 {
     public function handle(array $form): array
     {
+        if ($this->isBlockEditor()) {
+            return $form;
+        }
+
         $bsn = $this->getBSN();
 
         if (empty($bsn)) {

@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\Controllers;
 
 class PinkRoccadeController extends BaseController
 {
     public function handle(array $form): array
     {
+        if ($this->isBlockEditor()) {
+            return $form;
+        }
+
         $bsn = $this->getBSN();
 
         if (empty($bsn)) {
