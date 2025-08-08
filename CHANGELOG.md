@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.7.2
 
+## v1.7.9
+
+- Change: skip prefilling when identification session is active in editor
+
 ## v1.7.8
 
 - Change: remove ucfirst when setting defaultValue of field when prefilled
