@@ -1,6 +1,10 @@
 # Changelog
 
-- Tested up to: WordPress 6.7.2
+- Tested up to: WordPress 6.8.2
+
+## v1.7.10
+
+- Add: data option to personal data block
 
 ## v1.7.9
 
