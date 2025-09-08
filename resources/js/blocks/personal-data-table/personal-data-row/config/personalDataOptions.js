@@ -21,6 +21,10 @@ const personalDataOptions = [
 		value: 'naam.geslachtsnaam',
 	},
 	{
+		label: 'Voorvoegsel (tussenvoegsel)',
+		value: 'naam.voorvoegsel',
+	},
+	{
 		label: 'Voorletters',
 		value: 'naam.voorletters',
 	},
