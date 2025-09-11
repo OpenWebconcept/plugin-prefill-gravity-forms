@@ -35,6 +35,35 @@ See [here](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/m
 3. `cd /wp-content/plugins/prefill-gravity-forms`
 4. Run `composer install`, NPM asset build is in version control already.
 
+> Note: The composer source command mentioned in instruction step 1. might not exist. Use one of these alternatives:
+
+#### Option A: Direct Git Clone (Recommended)
+
+1. `cd /wp-content/plugins/`
+2. `git clone git@github.com:OpenWebconcept/plugin-prefill-gravity-forms.git`
+3. `cd prefill-gravity-forms`
+4. Run `composer install --no-dev` (use `--no-dev` to avoid development dependencies that require additional PHP extensions)
+
+#### Option B: Via Composer (if you have a composer.json in your WordPress root)
+
+1. Add to your `composer.json` repositories section:
+```json
+{
+       "repositories": [
+           {
+               "type": "vcs",
+               "url": "git@github.com:OpenWebconcept/plugin-prefill-gravity-forms.git"
+           }
+       ]
+   }
+```
+
+2. In your Wordpress root dir: `composer require plugin/prefill-gravity-forms`
+3. `cd /wp-content/plugins/prefill-gravity-forms`
+4. Run `composer install --no-dev`
+
+**Technical Note:** The plugin uses both a custom autoloader for its own classes and Composer's autoloader for external dependencies. The Composer autoloader has been included before the custom autoloader to ensure all dependencies (like `DI\ContainerBuilder`) are available.
+
 ### Setup
 
 1. Go to '/wp-admin/admin.php?page=gf_settings&subview=owc-gravityforms-iconnect' and configure all the required settings.
