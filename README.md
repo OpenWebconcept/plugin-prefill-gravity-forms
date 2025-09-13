@@ -41,7 +41,7 @@ See [here](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/m
 
 1. `cd /wp-content/plugins/`
 2. `git clone git@github.com:OpenWebconcept/plugin-prefill-gravity-forms.git`
-3. `cd prefill-gravity-forms`
+3. `cd plugin-prefill-gravity-forms`
 4. Run `composer install --no-dev` (use `--no-dev` to avoid development dependencies that require additional PHP extensions)
 
 #### Option B: Via Composer (if you have a composer.json in your WordPress root)
@@ -58,8 +58,8 @@ See [here](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/m
    }
 ```
 
-2. In your Wordpress root dir: `composer require plugin/prefill-gravity-forms`
-3. `cd /wp-content/plugins/prefill-gravity-forms`
+2. In your Wordpress root dir: `composer require plugin/plugin-prefill-gravity-forms`
+3. `cd /wp-content/plugins/plugin-prefill-gravity-forms`
 4. Run `composer install --no-dev`
 
 **Technical Note:** The plugin uses both a custom autoloader for its own classes and Composer's autoloader for external dependencies. The Composer autoloader has been included before the custom autoloader to ensure all dependencies (like `DI\ContainerBuilder`) are available.
