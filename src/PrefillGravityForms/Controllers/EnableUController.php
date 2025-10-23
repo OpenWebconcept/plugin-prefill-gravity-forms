@@ -73,6 +73,9 @@ class EnableUController extends BaseController
             CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
         ];
 
-        return $this->handleCurl($curlArgs);
+        $hash = md5($curlArgs[CURLOPT_URL]);
+        $transientKey = (is_string($hash) && '' !== $hash) ? $hash : null;
+
+        return $this->handleCurl($curlArgs, $transientKey);
     }
 }
