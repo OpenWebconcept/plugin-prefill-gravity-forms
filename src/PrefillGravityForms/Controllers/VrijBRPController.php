@@ -75,6 +75,9 @@ class VrijBRPController extends BaseController
             CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
         ];
 
-        return $this->handleCurl($curlArgs);
+        $hash = md5($curlArgs[CURLOPT_URL]);
+        $transientKey = (is_string($hash) && '' !== $hash) ? $hash : null;
+
+        return $this->handleCurl($curlArgs, $transientKey);
     }
 }

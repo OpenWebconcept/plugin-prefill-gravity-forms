@@ -132,7 +132,10 @@ class WeAreFrankController extends BaseController
             ],
         ];
 
-        return $this->handleCurl($curlArgs);
+        $hash = md5(json_encode($data));
+        $transientKey = (is_string($hash) && '' !== $hash) ? $hash : null;
+
+        return $this->handleCurl($curlArgs, $transientKey);
     }
 
     protected function getDefaultCurlArgs(): array

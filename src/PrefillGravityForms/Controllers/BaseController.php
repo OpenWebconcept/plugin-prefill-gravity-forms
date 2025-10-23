@@ -309,8 +309,15 @@ abstract class BaseController
         return array_filter($headers);
     }
 
-    protected function handleCurl(array $args): array
+    protected function handleCurl(array $args, ?string $transientKey = null): array
     {
+        if (is_string($transientKey) && 0 < strlen(trim($transientKey))) {
+            $cachedResponse = get_transient($transientKey);
+            if (is_array($cachedResponse) && [] !== $cachedResponse) {
+                return $cachedResponse;
+            }
+        }
+
         $curl = curl_init();
 
         try {
@@ -338,8 +345,12 @@ abstract class BaseController
 
             $decoded = json_decode($output, true);
 
-            if (! $decoded || json_last_error() !== JSON_ERROR_NONE) {
+            if (! is_array($decoded) || [] === $decoded || json_last_error() !== JSON_ERROR_NONE) {
                 throw new Exception('Something went wrong with decoding of the JSON output.', 500);
+            }
+
+            if (is_string($transientKey) && 0 < strlen(trim($transientKey))) {
+                set_transient($transientKey, $decoded, HOUR_IN_SECONDS);
             }
 
             return $decoded;
