@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use OWC\PrefillGravityForms\Services\CacheService;
+
 class WeAreFrankController extends BaseController
 {
     public function handle(array $form): array
@@ -14,14 +16,14 @@ class WeAreFrankController extends BaseController
 
         $bsn = $this->getBSN();
 
-        if (empty($bsn)) {
+        if ('' === $bsn) {
             return $form;
         }
 
         $expand = rgar($form, 'owc-iconnect-expand', '');
         $preparedData = $this->prepareData($bsn, $expand);
 
-        $firstPerson = $this->fetchPersonData($preparedData);
+        $firstPerson = $this->fetchPersonData($preparedData, $bsn);
 
         if (empty($firstPerson)) {
             return $form;
@@ -36,13 +38,13 @@ class WeAreFrankController extends BaseController
     {
         $bsn = $this->getBSN();
 
-        if (empty($bsn)) {
+        if ('' === $bsn) {
             return [];
         }
 
         $preparedData = $this->prepareData($bsn);
 
-        return $this->fetchPersonData($preparedData) ?? [];
+        return $this->fetchPersonData($preparedData, $bsn);
     }
 
     /**
@@ -99,9 +101,9 @@ class WeAreFrankController extends BaseController
         return array_filter(explode(',', $expand));
     }
 
-    protected function fetchPersonData(array $preparedData): array
+    protected function fetchPersonData(array $preparedData, string $bsn): array
     {
-        $apiResponse = $this->request($preparedData);
+        $apiResponse = $this->request($preparedData, $bsn);
         $personData = $apiResponse['personen'] ?? [];
         $firstPerson = reset($personData); // Response is in a multidimensional array which differs from other suppliers.
 
@@ -120,7 +122,7 @@ class WeAreFrankController extends BaseController
         return $firstPerson;
     }
 
-    protected function request(array $data = []): array
+    protected function request(array $data = [], string $bsn = ''): array
     {
         $curlArgs = [
             CURLOPT_URL => $this->settings->getBaseURL(),
@@ -132,10 +134,7 @@ class WeAreFrankController extends BaseController
             ],
         ];
 
-        $hash = md5(json_encode($data));
-        $transientKey = (is_string($hash) && '' !== $hash) ? $hash : null;
-
-        return $this->handleCurl($curlArgs, $transientKey);
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
     }
 
     protected function getDefaultCurlArgs(): array

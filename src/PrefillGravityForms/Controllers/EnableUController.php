@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use OWC\PrefillGravityForms\Services\CacheService;
+
 class EnableUController extends BaseController
 {
     public function handle(array $form): array
@@ -14,7 +16,7 @@ class EnableUController extends BaseController
 
         $bsn = $this->getBSN();
 
-        if (empty($bsn)) {
+        if ('' === $bsn) {
             return $form;
         }
 
@@ -40,7 +42,7 @@ class EnableUController extends BaseController
     {
         $bsn = $this->getBSN();
 
-        if (empty($bsn)) {
+        if ('' === $bsn) {
             return [];
         }
 
@@ -73,9 +75,6 @@ class EnableUController extends BaseController
             CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
         ];
 
-        $hash = md5($curlArgs[CURLOPT_URL]);
-        $transientKey = (is_string($hash) && '' !== $hash) ? $hash : null;
-
-        return $this->handleCurl($curlArgs, $transientKey);
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
     }
 }

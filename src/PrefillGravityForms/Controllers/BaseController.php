@@ -7,13 +7,14 @@ namespace OWC\PrefillGravityForms\Controllers;
 use DateTime;
 use Exception;
 use GF_Field;
+use function OWC\PrefillGravityForms\Foundation\Helpers\resolve_teams;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
+use OWC\PrefillGravityForms\Services\CacheService;
 use OWC\PrefillGravityForms\Traits\SessionTrait;
 use TypeError;
 use WP_Screen;
-use function Yard\DigiD\Foundation\Helpers\resolve;
 
 abstract class BaseController
 {
@@ -31,7 +32,7 @@ abstract class BaseController
     public function __construct()
     {
         $this->settings = GravityFormsSettings::make();
-        $this->teams = $this->resolveTeams();
+        $this->teams = resolve_teams();
     }
 
     abstract public function handle(array $form): array;
@@ -54,22 +55,9 @@ abstract class BaseController
 
     abstract protected function makeRequest(): array;
 
-    public function resolveTeams(): TeamsLogger
-    {
-        try {
-            if (! function_exists('Yard\DigiD\Foundation\Helpers\resolve')) {
-                throw new Exception();
-            }
-
-            return TeamsLogger::make(resolve('teams'));
-        } catch (Exception $e) {
-            return TeamsLogger::make(new \Psr\Log\NullLogger());
-        }
-    }
-
     protected function logError(string $message, $status): void
     {
-        $this->teams->addRecord('error', 'Prefill data', [
+        $this->teams->addRecord('error', 'BRP Prefill GravityForms', [
             'message' => $message,
             'status' => $status,
         ]);
@@ -309,13 +297,15 @@ abstract class BaseController
         return array_filter($headers);
     }
 
-    protected function handleCurl(array $args, ?string $transientKey = null): array
+    protected function handleCurl(array $args, string $transientKey): array
     {
-        if (is_string($transientKey) && 0 < strlen(trim($transientKey))) {
-            $cachedResponse = get_transient($transientKey);
-            if (is_array($cachedResponse) && [] !== $cachedResponse) {
-                return $cachedResponse;
-            }
+        /**
+         * IMPORTANT NOTE: when adjusting this piece of code, please make sure
+         * that the transient key is unique per request. Otherwise, different requests
+         * might return the same cached response.
+        */
+        if ($cachedResponse = CacheService::getArrayFromTransient($transientKey)) {
+            return $cachedResponse;
         }
 
         $curl = curl_init();
@@ -343,17 +333,15 @@ abstract class BaseController
                 throw new Exception('Request failed', is_int($httpStatus) ? $httpStatus : 500);
             }
 
-            $decoded = json_decode($output, true);
+            $response = json_decode($output, true);
 
-            if (! is_array($decoded) || [] === $decoded || json_last_error() !== JSON_ERROR_NONE) {
+            if (! is_array($response) || [] === $response || json_last_error() !== JSON_ERROR_NONE) {
                 throw new Exception('Something went wrong with decoding of the JSON output.', 500);
             }
 
-            if (is_string($transientKey) && 0 < strlen(trim($transientKey))) {
-                set_transient($transientKey, $decoded, HOUR_IN_SECONDS);
-            }
+            $this->handleTransient($response, $transientKey);
 
-            return $decoded;
+            return $response;
         } catch (Exception $e) {
             return [
                 'message' => $e->getMessage(),
@@ -362,6 +350,31 @@ abstract class BaseController
         } finally {
             curl_close($curl);
         }
+    }
+
+    /**
+     * Validates whether the necessary conditions are met before setting the transient.
+     *
+     * Ensures that:
+     * - A valid BSN (burgerservicenummer) is present in the response.
+     * - The transient key derived from that BSN matches the one generated from the current session.
+     */
+    protected function handleTransient(array $response, string $transientKey): void
+    {
+        $responseBSN = (string) ($response['burgerservicenummer'] ?? '');
+
+        if ('' === $responseBSN) {
+            throw new Exception('No burgerservicenummer found in the response.', 404);
+        }
+
+        $transientKeyByResponse = CacheService::formatTransientKey($responseBSN);
+
+        // Ensure the transient keys generated from the BSN out of the response and current session match.
+        if ($transientKeyByResponse !== $transientKey) {
+            throw new Exception('Transient key mismatch.', 500);
+        }
+
+        CacheService::setTransient($transientKey, $response);
     }
 
     protected function timeoutOptionCURL(): int

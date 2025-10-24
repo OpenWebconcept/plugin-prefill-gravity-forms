@@ -4,8 +4,8 @@ namespace OWC\PrefillGravityForms\Traits;
 
 use Exception;
 use OWC\IdpUserData\DigiDSession;
-
 use function OWC\PrefillGravityForms\Foundation\Helpers\decrypt;
+use function OWC\PrefillGravityForms\Foundation\Helpers\resolve_teams;
 use function Yard\DigiD\Foundation\Helpers\resolve;
 
 trait SessionTrait
@@ -39,7 +39,7 @@ trait SessionTrait
         $bsn = $this->supplementBSN($bsn);
 
         if (strlen($bsn) !== 9) {
-            $this->teams->addRecord('error', 'BSN', [
+            resolve_teams()->addRecord('error', 'BSN', [
                 'message' => 'BSN does not meet the required length of 9.',
             ]);
 
