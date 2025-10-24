@@ -2,7 +2,9 @@
 
 namespace OWC\PrefillGravityForms\Foundation\Helpers;
 
+use Exception;
 use OWC\PrefillGravityForms\Foundation\Plugin;
+use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 
 function app(): Plugin
 {
@@ -31,7 +33,7 @@ function encrypt($string): string
 {
     try {
         $encrypted = resolve(\OWC\PrefillGravityForms\Foundation\Cryptor::class)->encrypt($string);
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         $encrypted = '';
     }
 
@@ -45,7 +47,7 @@ function decrypt($string): string
 {
     try {
         $decrypted = resolve(\OWC\PrefillGravityForms\Foundation\Cryptor::class)->decrypt($string);
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         $decrypted = '';
     }
 
@@ -90,4 +92,26 @@ function get_supplier(array $form, bool $getKey = false): string
     }
 
     return $allowed[$supplier] ?? '';
+}
+
+/**
+ * Use teams definition from Yard | GravityForms DigiD plugin.
+ */
+function resolve_teams(): TeamsLogger
+{
+    try {
+        if (! function_exists('Yard\DigiD\Foundation\Helpers\resolve')) {
+            throw new Exception();
+        }
+
+        $logger = \Yard\DigiD\Foundation\Helpers\resolve('teams');
+
+        if (! $logger instanceof \Psr\Log\LoggerInterface) {
+            throw new Exception();
+        }
+
+        return TeamsLogger::make($logger);
+    } catch (Exception $e) {
+        return TeamsLogger::make(new \Psr\Log\NullLogger());
+    }
 }

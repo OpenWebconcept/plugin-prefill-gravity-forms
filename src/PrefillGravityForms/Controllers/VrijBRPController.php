@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use OWC\PrefillGravityForms\Services\CacheService;
+
 class VrijBRPController extends BaseController
 {
     public function handle(array $form): array
@@ -14,7 +16,7 @@ class VrijBRPController extends BaseController
 
         $bsn = $this->getBSN();
 
-        if (empty($bsn)) {
+        if ('' === $bsn) {
             return $form;
         }
 
@@ -40,7 +42,7 @@ class VrijBRPController extends BaseController
     {
         $bsn = $this->getBSN();
 
-        if (empty($bsn)) {
+        if ('' === $bsn) {
             return [];
         }
 
@@ -75,9 +77,6 @@ class VrijBRPController extends BaseController
             CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
         ];
 
-        $hash = md5($curlArgs[CURLOPT_URL]);
-        $transientKey = (is_string($hash) && '' !== $hash) ? $hash : null;
-
-        return $this->handleCurl($curlArgs, $transientKey);
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
     }
 }
