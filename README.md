@@ -46,6 +46,23 @@ See [here](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/m
 2. Go to the form settings of the form you want to configure.
 3. Scroll down and look for the 'iConnect' panel and configure the settings.
 
+### 🔐 Cache Encryption
+
+To enable secure caching of sensitive data, you **must define an encryption key** in your `wp-config.php` file. This key is used to encrypt and decrypt the cached data and should be kept secret at all times.
+
+Add the following line to your `wp-config.php`:
+
+```php
+// Prefill Gravity Forms – Cache Encryption Key
+define('PG_CACHE_ENCRYPTION_KEY', 'your-unique-32-character-key');
+```
+
+Important:
+
+- Use a randomly generated, 32-character key for strong AES-256 encryption.
+- Never store this key in the database.
+- Keep it secret and secure — anyone with access to this key can decrypt cached data.
+
 ## License
 
 The source code is made available under the [EUPL 1.2 license](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/main/LICENSE.md). Some of the dependencies are licensed differently, with the BSD or MIT license, for example.
