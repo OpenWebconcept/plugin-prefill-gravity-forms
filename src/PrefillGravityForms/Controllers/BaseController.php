@@ -299,13 +299,17 @@ abstract class BaseController
 
     protected function handleCurl(array $args, string $transientKey): array
     {
-        /**
-         * IMPORTANT NOTE: when adjusting this piece of code, please make sure
-         * that the transient key is unique per request. Otherwise, different requests
-         * might return the same cached response.
-        */
-        if ($cachedResponse = CacheService::getArrayFromTransient($transientKey)) {
-            return $cachedResponse;
+        try {
+            /**
+             * IMPORTANT NOTE: when adjusting this piece of code, please make sure
+             * that the transient key is unique per request. Otherwise, different requests
+             * might return the same cached response.
+             */
+            if ($cachedResponse = CacheService::getArrayFromTransient($transientKey)) {
+                return $cachedResponse;
+            }
+        } catch (Exception $e) {
+            $this->logError('Failed to get transient: ' . $e->getMessage(), $e->getCode());
         }
 
         $curl = curl_init();
@@ -353,6 +357,14 @@ abstract class BaseController
     }
 
     /**
+     * Extracts the burgerservicenummer (BSN) from the API response.
+     */
+    protected function extractBSN(array $response): string
+    {
+        return (string) ($response['burgerservicenummer'] ?? '');
+    }
+
+    /**
      * Validates whether the necessary conditions are met before setting the transient.
      *
      * Ensures that:
@@ -361,7 +373,7 @@ abstract class BaseController
      */
     protected function handleTransient(array $response, string $transientKey): void
     {
-        $responseBSN = (string) ($response['burgerservicenummer'] ?? '');
+        $responseBSN = $this->extractBSN($response);
 
         if ('' === $responseBSN) {
             throw new Exception('No burgerservicenummer found in the response.', 404);
@@ -374,7 +386,11 @@ abstract class BaseController
             throw new Exception('Transient key mismatch.', 500);
         }
 
-        CacheService::setTransient($transientKey, $response);
+        try {
+            CacheService::setTransient($transientKey, $response);
+        } catch (Exception $e) {
+            $this->logError('Failed to set transient: ' . $e->getMessage(), $e->getCode());
+        }
     }
 
     protected function timeoutOptionCURL(): int

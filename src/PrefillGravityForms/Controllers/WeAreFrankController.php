@@ -101,6 +101,14 @@ class WeAreFrankController extends BaseController
         return array_filter(explode(',', $expand));
     }
 
+    /**
+     * @inheritDoc
+     */
+    protected function extractBSN(array $response): string
+    {
+        return (string) ($response['personen'][0]['burgerservicenummer'] ?? '');
+    }
+
     protected function fetchPersonData(array $preparedData, string $bsn): array
     {
         $apiResponse = $this->request($preparedData, $bsn);

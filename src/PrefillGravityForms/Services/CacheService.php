@@ -8,19 +8,28 @@ class CacheService
 {
     private static int $defaultExpiration = HOUR_IN_SECONDS;
 
+    /**
+     * @throws Exception
+     */
     public static function getArrayFromTransient(string $transientKey): array
     {
         if ('' === trim($transientKey)) {
-            return [];
+            throw new Exception('Transient key is empty.', 500);
         }
 
         $cachedResponse = get_transient($transientKey);
 
-        if (! is_array($cachedResponse) || [] === $cachedResponse) {
+        if (! is_string($cachedResponse) || '' === $cachedResponse) {
             return [];
         }
 
-        return $cachedResponse;
+        $decrypted = EncryptionService::decrypt($cachedResponse);
+
+        if (! is_array($decrypted)) {
+            throw new Exception('Decrypted data is not an array.', 500);
+        }
+
+        return $decrypted;
     }
 
     /**
@@ -32,7 +41,9 @@ class CacheService
             throw new Exception('Transient key is empty.', 500);
         }
 
-        set_transient($transientKey, $data, $expiration ?: static::$defaultExpiration);
+        $encrypted = EncryptionService::encrypt($data);
+
+        set_transient($transientKey, $encrypted, $expiration ?: static::$defaultExpiration);
     }
 
     /**
