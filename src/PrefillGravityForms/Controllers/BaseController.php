@@ -361,7 +361,17 @@ abstract class BaseController
      */
     protected function extractBSN(array $response): string
     {
-        return (string) ($response['burgerservicenummer'] ?? '');
+        if (! isset($response['burgerservicenummer'])) {
+            throw new Exception('Burgerservicenummer not found in response.', 404);
+        }
+
+        $bsn = $response['burgerservicenummer'];
+
+        if (! is_numeric($bsn)) {
+            throw new Exception('Invalid burgerservicenummer format, value is not numeric.', 500);
+        }
+
+        return (string) $bsn;
     }
 
     /**
