@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use Exception;
 use OWC\PrefillGravityForms\Services\CacheService;
 
 class WeAreFrankController extends BaseController
@@ -106,7 +107,17 @@ class WeAreFrankController extends BaseController
      */
     protected function extractBSN(array $response): string
     {
-        return (string) ($response['personen'][0]['burgerservicenummer'] ?? '');
+        if (! isset($response['personen'][0]['burgerservicenummer'])) {
+            throw new Exception('Burgerservicenummer not found in response.', 404);
+        }
+
+        $bsn = $response['personen'][0]['burgerservicenummer'];
+
+        if (! is_numeric($bsn)) {
+            throw new Exception('Invalid burgerservicenummer format, value is not numeric.', 500);
+        }
+
+        return (string) $bsn;
     }
 
     protected function fetchPersonData(array $preparedData, string $bsn): array
