@@ -1,6 +1,11 @@
 # Changelog
 
-- Tested up to: WordPress 6.8.2
+- Tested up to: WordPress 6.8.3
+
+## v1.8.0
+
+- Add: implement transient caching for cURL responses
+- Add: encrypt cached data
 
 ## v1.7.10
 
