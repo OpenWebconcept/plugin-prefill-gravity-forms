@@ -69,6 +69,30 @@ Important:
 
 The source code is made available under the [EUPL 1.2 license](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/main/LICENSE.md). Some of the dependencies are licensed differently, with the BSD or MIT license, for example.
 
+## User model
+
+The `UserModel` provides a simple way to access BRP (Basisregistratie Personen) data that has been retrieved after a valid DigiD login.
+It automatically detects which data supplier is configured (in the add-on settings), loads the correct controller, and exposes a small set of helper methods for use in templates or form-prefill logic.
+
+Before accessing any user attributes, always check whether the user is authenticated using DigiD.
+
+### Usage
+
+```php
+$user = new \OWC\PrefillGravityForms\Models\UserModel();
+
+if ( $user->isLoggedIn() ) {
+    $bsn  = $user->bsn();
+    $age  = $user->age();
+}
+```
+
+This model does not handle authentication itself, it only exposes data retrieved by the underlying BRP supplier controller.
+If a controller fails to load (e.g., misconfiguration or missing supplier), the model gracefully returns default values.
+
+To use this model, make sure it is enabled in the settings available at '/wp-admin/admin.php?page=gf_settings&subview=owc-gravityforms-iconnect'.
+Otherwise, the object will be instantiated but will not contain any data.
+
 ## Logging
 
 Enable logging to monitor errors during communication with the BRP suppliers.

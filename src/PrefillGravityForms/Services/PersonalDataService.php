@@ -2,12 +2,15 @@
 
 namespace OWC\PrefillGravityForms\Services;
 
+use Exception;
 use OWC\PrefillGravityForms\Controllers\BaseController;
 use OWC\PrefillGravityForms\Traits\ControllerTrait;
+use OWC\PrefillGravityForms\Traits\Logger;
 
 class PersonalDataService
 {
     use ControllerTrait;
+    use Logger;
 
     private string $supplier;
     private ?BaseController $controller;
@@ -15,7 +18,18 @@ class PersonalDataService
     public function __construct(string $supplier)
     {
         $this->supplier = $supplier;
-        $this->controller = $this->getController($this->supplier);
+        $this->controller = $this->handleController();
+    }
+
+    private function handleController(): ?BaseController
+    {
+        try {
+            return $this->getController($this->supplier);
+        } catch (Exception $e) {
+            $this->logException($e);
+
+            return null;
+        }
     }
 
     public function get(string $key): string

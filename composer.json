@@ -20,6 +20,7 @@
 		}
 	],
 	"require": {
+    "monolog/monolog": "^3.0",
 		"php": "^8.0",
 		"php-di/php-di": "^7.0",
 		"owc/idp-userdata": "^1.0"
