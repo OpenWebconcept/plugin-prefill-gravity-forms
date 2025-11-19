@@ -2,6 +2,8 @@
 
 namespace OWC\PrefillGravityForms\Foundation;
 
+use Exception;
+
 class Cryptor
 {
     protected string $method = 'aes-128-ctr'; // default cipher method if none supplied
@@ -18,7 +20,7 @@ class Cryptor
         }
         if ($method) {
             if (! in_array(strtolower($method), openssl_get_cipher_methods())) {
-                throw new \Exception(__METHOD__ . ": unrecognised cipher method: {$method}");
+                throw new Exception(__METHOD__ . ": unrecognised cipher method: {$method}");
             }
             $this->method = $method;
         }
