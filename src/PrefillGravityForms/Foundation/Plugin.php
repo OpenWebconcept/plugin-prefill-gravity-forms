@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OWC\PrefillGravityForms\Foundation;
 
 use function DI\create;
+use Exception;
 use function OWC\PrefillGravityForms\Foundation\Helpers\resolve;
 
 /**
@@ -118,7 +119,7 @@ class Plugin
     /**
      * Call method on service providers.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function callServiceProviders(string $method, string $key = ''): void
     {
@@ -133,7 +134,7 @@ class Plugin
             $service = new $service($this);
 
             if (! $service instanceof ServiceProvider) {
-                throw new \Exception('Provider must be an instance of ServiceProvider.');
+                throw new Exception('Provider must be an instance of ServiceProvider.');
             }
 
             if (method_exists($service, $method)) {

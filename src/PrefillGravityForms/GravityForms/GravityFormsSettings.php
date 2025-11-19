@@ -38,6 +38,18 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'base-url'] ?? '';
     }
 
+    public function getSupplier(): string
+    {
+        return $this->options[$this->prefix . 'supplier'] ?? '';
+    }
+
+    public function isUserModelEnabled(): bool
+    {
+        $value = $this->options[$this->prefix . 'enable-user-model'] ?? '0';
+
+        return boolval($value);
+    }
+
     public function getNumberOIN(): string
     {
         return $this->options[$this->prefix . 'oin-number'] ?? '';

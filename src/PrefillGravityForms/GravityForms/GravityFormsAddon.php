@@ -6,6 +6,7 @@ namespace OWC\PrefillGravityForms\GravityForms;
 
 use GFAddOn;
 
+use function OWC\PrefillGravityForms\Foundation\Helpers\config;
 use function OWC\PrefillGravityForms\Foundation\Helpers\storage_path;
 
 class GravityFormsAddon extends GFAddOn
@@ -81,7 +82,7 @@ class GravityFormsAddon extends GFAddOn
                 'title' => __('Algemeen', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label' => __('OIN number', 'prefill-gravity-forms'),
+                        'label' => __('OIN nummer', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}oin-number",
@@ -93,6 +94,19 @@ class GravityFormsAddon extends GFAddOn
                         'class' => 'medium',
                         'name' => "{$prefix}base-url",
                         'required' => true,
+                    ],
+                    [
+                        'label' => __('Leverancier', 'prefill-gravity-forms'),
+                        'type' => 'select',
+                        'class' => 'medium',
+                        'name' => "{$prefix}supplier",
+                        'required' => true,
+                        'choices' => array_merge([['label' => 'Selecteer een leverancier', 'value' => '']], array_map(function ($supplier) {
+                            return [
+                                'label' => $supplier,
+                                'value' => $supplier,
+                            ];
+                        }, array_values(config('suppliers', [])))),
                     ],
                     [
                         'label' => __('Gebruik API authenticatie', 'prefill-gravity-forms'),
@@ -130,7 +144,7 @@ class GravityFormsAddon extends GFAddOn
                     'fields' => [
                         [
                             'field' => "{$prefix}api-use-authentication",
-                            'values' => [true],
+                            'values' => [true, '1'],
                         ]
                     ]
                 ],
@@ -161,9 +175,25 @@ class GravityFormsAddon extends GFAddOn
                     'fields' => [
                         [
                             'field' => "{$prefix}api-use-authentication",
-                            'values' => [true],
+                            'values' => [true, '1'],
                         ]
                     ]
+                ],
+            ],
+            [
+                'title' => esc_html__('Gebruikersmodel', 'prefill-gravity-forms'),
+                'fields' => [
+                    [
+                        'label' => __('Activeer gebruikersmodel', 'prefill-gravity-forms'),
+                        'description' => __(
+                            'Het Gebruikersmodel (UserModel) bevat gegevens van de ingelogde burger die beschikbaar worden gesteld voor gebruik in templates en weergaven. Meer informatie is te vinden in de README van deze plugin.',
+                            'prefill-gravity-forms'
+                        ),
+                        'type' => 'toggle',
+                        'name' => "{$prefix}enable-user-model",
+                        'required' => false,
+                        'default_value' => false,
+                    ],
                 ],
             ],
             [
