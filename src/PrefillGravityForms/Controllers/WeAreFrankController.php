@@ -156,6 +156,24 @@ class WeAreFrankController extends BaseController
         return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
     }
 
+    /**
+     * This one breaks the contract, fix later.
+     */
+    protected function requestEmbedded(array $data = [], string $bsn = ''): array
+    {
+        $curlArgs = [
+            CURLOPT_URL => $this->settings->getBaseURL(),
+            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_HTTPHEADER => [
+                'Content-Type: application/json',
+                'Accept: application/json',
+                sprintf('%s: %s', $this->settings->getAPITokenUsername(), $this->settings->getAPITokenPassword()),
+            ],
+        ];
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+    }
+
     protected function getDefaultCurlArgs(): array
     {
         return [

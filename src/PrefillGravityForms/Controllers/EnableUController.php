@@ -65,6 +65,11 @@ class EnableUController extends BaseController
             return [];
         }
 
+        foreach (array_filter(explode(',', $expand)) as $expandItem) {
+            $apiResponse = $this->supplementEmbeddedByLinks($apiResponse, trim($expandItem), $doelBinding);
+        }
+        dd($apiResponse);
+
         return $apiResponse;
     }
 
@@ -76,5 +81,15 @@ class EnableUController extends BaseController
         ];
 
         return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+    }
+
+    protected function requestEmbedded(string $url, string $doelBinding): array
+    {
+        $curlArgs = [
+            CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
+        ];
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($url));
     }
 }

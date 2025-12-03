@@ -278,6 +278,26 @@ abstract class BaseController
         return urldecode(http_build_query(['expand' => $imploded], '', ','));
     }
 
+    /**
+    * Supplements the '_embedded' array with additional data retrieved via the '_links' array,
+    * using the configured expand arguments to fetch and merge related resources.
+     */
+    protected function supplementEmbeddedByLinks(array $apiResponse, string $embedType = '', string $doelBinding = ''): array
+    {
+        if (! isset($apiResponse['_links'][$embedType])) {
+            return $apiResponse;
+        }
+
+        foreach ($apiResponse['_links'][$embedType] as $key => $embeddedItem) {
+            $response = $this->requestEmbedded(str_replace('https://api.acc-vrijbrp-hoeksche-waard.commonground.nu/haal-centraal-brp-bevragen/api/v1.3/ingeschrevenpersonen', 'https://api.acc-vrijbrp-hoeksche-waard.commonground.nu/api/haalcentraal-brp-bevragen/api/v1.3/ingeschrevenpersonen', $embeddedItem['href']), $doelBinding);
+            $apiResponse['_embedded'][$embedType][$key] = array_merge($apiResponse['_embedded'][$embedType][$key], $response);
+        }
+
+        return $apiResponse;
+    }
+
+    abstract protected function requestEmbedded(string $url, string $doelBinding): array;
+
     protected function getCurlHeaders(string $doelBinding = ''): array
     {
         $headers = [
