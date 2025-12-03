@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use OWC\PrefillGravityForms\Abstracts\GetController;
 use OWC\PrefillGravityForms\Services\CacheService;
 
-class VrijBRPController extends BaseController
+class VrijBRPController extends GetController
 {
     public function handle(array $form): array
     {
@@ -15,6 +16,7 @@ class VrijBRPController extends BaseController
         }
 
         $bsn = $this->getBSN();
+        // $bsn = '900231038';
 
         if ('' === $bsn) {
             return $form;
@@ -65,6 +67,10 @@ class VrijBRPController extends BaseController
             return [];
         }
 
+        foreach (array_filter(explode(',', $expand)) as $expandItem) {
+            $apiResponse = $this->supplementEmbeddedByLinks($apiResponse, trim($expandItem), $doelBinding);
+        }
+
         return $apiResponse;
     }
 
@@ -76,6 +82,21 @@ class VrijBRPController extends BaseController
             CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
             CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
         ];
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+    }
+
+    protected function requestEmbedded(string $url, string $doelBinding): array
+    {
+        $curlArgs = [
+            CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
+            CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
+            CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
+        ];
+
+        $urlParts = explode('/', $url);
+        $bsn = is_array($urlParts) && 0 < count($urlParts) ? end($urlParts) : '';
 
         return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
     }
