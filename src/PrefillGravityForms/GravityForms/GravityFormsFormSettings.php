@@ -23,6 +23,12 @@ class GravityFormsFormSettings
                     'description' => __('Breid de resultaten uit met andere entiteiten. Kommagescheiden waardes in vullen. Bijvoorbeeld: \'ouders,partners,kinderen\'', 'prefill-gravity-forms'),
                 ],
                 [
+                    'name' => 'owc-iconnect-exclude-deceased',
+                    'label' => 'Sluit overledenen uit',
+                    'type' => 'toggle',
+                    'tooltip' => __('Schakel deze optie in om overledenen uit te sluiten van de resultaten.', 'prefill-gravity-forms'),
+                ],
+                [
                     'name' => "owc-form-setting-supplier",
                     'default_value' => "owc-form-setting-supplier-none",
                     'tooltip' => '<h6>' . __('Selecteer een leverancier', 'prefill-gravity-forms') . '</h6>' . __('Kies een leverancier. Let op dat je de inloggegevens ook moet configureren in de algemene instellingen van Gravity Forms.', 'prefill-gravity-forms'),

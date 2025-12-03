@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use OWC\PrefillGravityForms\Abstracts\GetController;
 use OWC\PrefillGravityForms\Services\CacheService;
 
-class EnableUController extends BaseController
+class EnableUController extends GetController
 {
     public function handle(array $form): array
     {
@@ -27,7 +28,8 @@ class EnableUController extends BaseController
             $doelBinding = (string) $doelBinding;
         }
 
-        $apiResponse = $this->fetchApiResponse($bsn, $doelBinding, $expand);
+        $excludeDeceased = (bool) rgar($form, 'owc-iconnect-exclude-deceased', false);
+        $apiResponse = $this->fetchApiResponse($bsn, $doelBinding, $expand, $excludeDeceased);
 
         if (empty($apiResponse)) {
             return $form;
@@ -49,7 +51,7 @@ class EnableUController extends BaseController
         return $this->fetchApiResponse($bsn);
     }
 
-    protected function fetchApiResponse(string $bsn, string $doelBinding = '', string $expand = ''): array
+    protected function fetchApiResponse(string $bsn, string $doelBinding = '', string $expand = '', bool $excludeDeceased = false): array
     {
         $apiResponse = $this->request($bsn, $doelBinding, $expand);
 
@@ -65,6 +67,12 @@ class EnableUController extends BaseController
             return [];
         }
 
+        if ($excludeDeceased) {
+            foreach (array_filter(explode(',', $expand)) as $expandItem) {
+                $apiResponse = $this->supplementEmbeddedByLinks($apiResponse, trim($expandItem), $doelBinding);
+            }
+        }
+
         return $apiResponse;
     }
 
@@ -74,6 +82,19 @@ class EnableUController extends BaseController
             CURLOPT_URL => $this->getRequestURL($bsn, $expand),
             CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
         ];
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+    }
+
+    protected function requestEmbedded(string $url, string $doelBinding): array
+    {
+        $curlArgs = [
+            CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
+        ];
+
+        $urlParts = explode('/', $url);
+        $bsn = is_array($urlParts) && 0 < count($urlParts) ? end($urlParts) : '';
 
         return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
     }
