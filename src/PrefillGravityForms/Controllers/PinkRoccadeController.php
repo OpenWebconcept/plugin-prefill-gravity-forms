@@ -73,9 +73,7 @@ class PinkRoccadeController extends BaseController
     {
         $curlArgs = [
             CURLOPT_URL => $this->getRequestURL($bsn, $expand),
-            CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
-            CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
-            CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
+            CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding)
         ];
 
         return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
