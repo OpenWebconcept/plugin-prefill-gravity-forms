@@ -116,6 +116,14 @@ class GravityFormsAddon extends GFAddOn
                         'required' => false,
                         'default_value' => false,
                     ],
+                    [
+                        'label' => __('Gebruik SSL certificaten', 'prefill-gravity-forms'),
+                        'description' => __('Schakel deze optie in om SSL certificaten te gebruiken voor de communicatie met de API van de leverancier.', 'prefill-gravity-forms'),
+                        'type' => 'toggle',
+                        'name' => "{$prefix}use-ssl-certificates",
+                        'required' => false,
+                        'default_value' => false,
+                    ]
                 ],
             ],
             [
@@ -242,6 +250,15 @@ class GravityFormsAddon extends GFAddOn
                         'required' => false,
                         'tooltip' => esc_html__('Dit veld mag leeg gelaten worden als er geen wachtwoord vereist is voor het maken van de verzoeken naar de "Haalcentraal" API.', 'prefill-gravity-forms'),
                     ],
+                ],
+                'dependency' => [
+                    'live' => true,
+                    'fields' => [
+                        [
+                            'field' => "{$prefix}use-ssl-certificates",
+                            'values' => [true, '1'],
+                        ]
+                    ]
                 ],
             ],
         ];

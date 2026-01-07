@@ -50,6 +50,13 @@ class GravityFormsSettings
         return boolval($value);
     }
 
+    public function useSSLCertificates(): bool
+    {
+        $value = $this->options[$this->prefix . 'use-ssl-certificates'] ?? '0';
+
+        return boolval($value);
+    }
+
     public function getNumberOIN(): string
     {
         return $this->options[$this->prefix . 'oin-number'] ?? '';

@@ -402,7 +402,7 @@ abstract class BaseController
 
     protected function getDefaultCurlArgs(): array
     {
-        return [
+        $args = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -411,6 +411,13 @@ abstract class BaseController
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
         ];
+
+        if ($this->settings->useSSLCertificates()) {
+            $args[CURLOPT_SSLCERT] = $this->settings->getPublicCertificate();
+            $args[CURLOPT_SSLKEY] = $this->settings->getPrivateCertificate();
+        }
+
+        return $args;
     }
 
     /**
