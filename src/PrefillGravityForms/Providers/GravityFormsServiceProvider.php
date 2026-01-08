@@ -24,11 +24,11 @@ class GravityFormsServiceProvider extends ServiceProvider
 
     protected function registerHooks(): void
     {
-        add_filter('gform_pre_render', [new GravityForms(), 'preRender']);
-        add_filter('gform_form_settings_fields', [new GravityFormsFormSettings(), 'addFormSettings'], 9999, 2);
-        add_filter('gform_field_groups_form_editor', [$this, 'fieldGroupsFormEditor'], 999, 1);
-        add_action('gform_field_standard_settings', [GravityFormsFieldSettings::class, 'addSupplierPrefillOptionsSelect'], 10, 2);
-        add_action('gform_editor_js', [GravityFormsFieldSettings::class, 'addSelectScript'], 10, 0);
+        add_filter('gform_pre_render', (new GravityForms())->preRender(...));
+        add_filter('gform_form_settings_fields', (new GravityFormsFormSettings())->addFormSettings(...), 9999, 2);
+        add_filter('gform_field_groups_form_editor', $this->fieldGroupsFormEditor(...), 999, 1);
+        add_action('gform_field_standard_settings', GravityFormsFieldSettings::addSupplierPrefillOptionsSelect(...), 10, 2);
+        add_action('gform_editor_js', GravityFormsFieldSettings::addSelectScript(...), 10, 0);
     }
 
     /**
