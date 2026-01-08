@@ -136,7 +136,6 @@ class GravityFormsAddon extends GFAddOn
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-key",
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                     [
                         'label' => __('Header naam', 'prefill-gravity-forms'),
@@ -167,7 +166,6 @@ class GravityFormsAddon extends GFAddOn
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-basic-token-username",
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                     [
                         'label' => esc_html__('Wachtwoord', 'prefill-gravity-forms'),
@@ -175,7 +173,6 @@ class GravityFormsAddon extends GFAddOn
                         'class' => 'medium',
                         'name' => "{$prefix}api-basic-token-password",
                         'sanitize_callback' => false,
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                 ],
                 'dependency' => [
