@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-08T15:38:42+00:00\n"
+"POT-Creation-Date: 2026-01-09T09:41:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: prefill-gravity-forms\n"
@@ -717,104 +717,120 @@ msgid "Basis URL"
 msgstr ""
 
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:99
+msgid "Verwerking"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:100
+msgid "Uitleg nog te bepalen..."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:107
+msgid "Gebruiker"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:108
+msgid "Gebruiker die de \"HaalCentraal\" aanroept, meestal \"BurgerZelf\"."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:115
 msgid "Leverancier"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:112
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:128
 msgid "Gebruik API authenticatie"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:113
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:129
 msgid "Deze authenticatie zal gebruikt worden naast de gebruikelijke authenticatie middels certificaten."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:120
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:136
 msgid "Gebruik SSL certificaten"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:121
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:137
 msgid "Schakel deze optie in om SSL certificaten te gebruiken voor de communicatie met de API van de leverancier."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:130
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:146
 msgid "API sleutel"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:132
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:162
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:148
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:178
 msgid "Vul alleen in als de API van de leverancier dit gebruikt."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:135
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:151
 msgid "Sleutel"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:141
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:157
 msgid "Header naam"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:146
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:162
 msgid "Is vereist als header in HTTP verzoeken."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:160
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:176
 msgid "API OAuth 2.0"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:165
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:181
 msgid "Gebruikersnaam"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:171
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:243
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:187
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:259
 msgid "Wachtwoord"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:189
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:205
 msgid "Gebruikersmodel"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:192
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:208
 msgid "Activeer gebruikersmodel"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:193
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:209
 msgid "Het Gebruikersmodel (UserModel) bevat gegevens van de ingelogde burger die beschikbaar worden gesteld voor gebruik in templates en weergaven. Meer informatie is te vinden in de README van deze plugin."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:205
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:221
 msgid "Berichtenverkeer logboek"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:209
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:225
 msgid "Logging inschakelen"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:213
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:229
 msgid "Schakel deze optie in om het loggen van foutmeldingen te activeren. Dit kan nuttig zijn voor het opsporen en oplossen van problemen binnen de plug-in."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:218
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:234
 msgid "Certificaten"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:221
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:237
 msgid "Certificaten hoofd locatie"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:229
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:245
 msgid "Publieke locatie certificaten"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:236
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:252
 msgid "Privé locatie certificaten"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:248
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:264
 msgid "Dit veld mag leeg gelaten worden als er geen wachtwoord vereist is voor het maken van de verzoeken naar de \"Haalcentraal\" API."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:271
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:287
 msgid "Geen certificaat geselecteerd"
 msgstr ""
 
@@ -822,38 +838,66 @@ msgstr ""
 msgid "OWC Prefill"
 msgstr ""
 
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:17
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:19
 #: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:23
-msgid "Breid de resultaten uit met andere entiteiten. Kommagescheiden waardes in vullen. Bijvoorbeeld: 'ouders,partners,kinderen'"
-msgstr ""
-
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:28
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:30
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:34
 msgid "Selecteer een leverancier"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:28
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:17
 msgid "Kies een leverancier. Let op dat je de inloggegevens ook moet configureren in de algemene instellingen van Gravity Forms."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:39
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:28
 msgid "OpenZaak"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:44
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:33
 msgid "EnableU"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:49
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:38
 msgid "PinkRoccade"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:54
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:43
 msgid "VrijBRP"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:59
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:48
 msgid "WeAreFrank!"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:55
+msgid "Verwerking (V2)"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:56
+msgid "Schrijf de globale instelling over op formulier niveau."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:62
+msgid "Doelbinding"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:68
+msgid "Uitbreiden (V1)"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:70
+msgid "Breidt de resultaten uit met andere entiteiten. Kommagescheiden waardes in vullen. Bijvoorbeeld: 'ouders,partners,kinderen'. Alleen gebruiken wanneer de doelbinding niet verantwoordelijk is voor het ophalen van extra velden. (vaak alleen voor versie 1 van de HaalCentraal)"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:91
+msgid "Selecteer een mappingbestand uit het thema"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:92
+msgid "Gebruik een eigen bestand vanuit bijv. een thema om formuliervelden te kunnen mappen."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:125
+msgid "Selecteer een bestand"
 msgstr ""
 
 #: src/PrefillGravityForms/Providers/GravityFormsServiceProvider.php:90

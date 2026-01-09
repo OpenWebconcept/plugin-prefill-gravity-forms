@@ -17,6 +17,10 @@ const supplierOptions = [
 		value: 'PinkRoccade',
 	},
 	{
+		label: 'PinkRoccadeV2',
+		value: 'PinkRoccadeV2',
+	},
+	{
 		label: 'VrijBRP',
 		value: 'VrijBRP',
 	},

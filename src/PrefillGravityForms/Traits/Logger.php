@@ -41,6 +41,6 @@ trait Logger
             return;
         }
 
-        $logger->$method($exception->getMessage(), $context);
+        $logger->$method(sprintf('Yard | BRP Prefill GravityForms: %s', $exception->getMessage()), $context);
     }
 }
