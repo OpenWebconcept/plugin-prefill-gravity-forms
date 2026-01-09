@@ -75,8 +75,8 @@ function view(string $template, array $vars = []): string
  */
 function get_supplier(array $form, bool $getKey = false): string
 {
-    $allowed = config('suppliers', []);
-    $supplier = $form[sprintf('%s-form-setting-supplier', 'owc')] ?? '';
+    $allowed = config('suppliers.mapping', []);
+    $supplier = $form['owc-form-setting-supplier'] ?? '';
 
     if (! is_array($allowed) || empty($allowed) || empty($supplier)) {
         return '';

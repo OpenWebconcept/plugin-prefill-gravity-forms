@@ -34,13 +34,13 @@ class PersonalDataService
         }
     }
 
-    public function get(string $key): string
+    public function get(string $key, string $goalBinding = '', string $processing = ''): string
     {
         if (! $this->controller instanceof BaseController || 1 > strlen($key)) {
             return '';
         }
 
-        $data = $this->controller->get();
+        $data = $this->controller->get($goalBinding, $processing);
         $value = $this->getValueFromNestedArray($this->key($key), $data);
 
         return $this->format($key, $value);

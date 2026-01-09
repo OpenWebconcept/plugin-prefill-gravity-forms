@@ -96,7 +96,23 @@ class GravityFormsAddon extends GFAddOn
                         'required' => true,
                     ],
                     [
-                        'label' => esc_html__('Leverancier', 'prefill-gravity-forms'),
+                        'label' => __('Verwerking (v2)', 'prefill-gravity-forms'),
+                        'tooltip' => __('Uitleg nog te bepalen...', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}processing",
+                        'required' => false,
+                    ],
+                    [
+                        'label' => __('Gebruiker (v2)', 'prefill-gravity-forms'),
+                        'tooltip' => __('Gebruiker die de "HaalCentraal" aanroept, meestal "BurgerZelf".', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}user",
+                        'required' => false,
+                    ],
+                    [
+                        'label' => __('Leverancier', 'prefill-gravity-forms'),
                         'type' => 'select',
                         'class' => 'medium',
                         'name' => "{$prefix}supplier",
@@ -106,7 +122,7 @@ class GravityFormsAddon extends GFAddOn
                                 'label' => $supplier,
                                 'value' => $supplier,
                             ];
-                        }, array_values(config('suppliers', [])))),
+                        }, array_values(config('suppliers.mapping', [])))),
                     ],
                     [
                         'label' => esc_html__('Gebruik API authenticatie', 'prefill-gravity-forms'),
@@ -162,13 +178,13 @@ class GravityFormsAddon extends GFAddOn
                 'description' => esc_html__('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label' => esc_html__('Gebruikersnaam', 'prefill-gravity-forms'),
+                        'label' => __('Gebruikersnaam', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-basic-token-username",
                     ],
                     [
-                        'label' => esc_html__('Wachtwoord', 'prefill-gravity-forms'),
+                        'label' => __('Wachtwoord', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-basic-token-password",
@@ -186,7 +202,7 @@ class GravityFormsAddon extends GFAddOn
                 ],
             ],
             [
-                'title' => esc_html__('Gebruikersmodel', 'prefill-gravity-forms'),
+                'title' => __('Gebruikersmodel', 'prefill-gravity-forms'),
                 'fields' => [
                     [
                         'label' => esc_html__('Activeer gebruikersmodel', 'prefill-gravity-forms'),
@@ -202,7 +218,7 @@ class GravityFormsAddon extends GFAddOn
                 ],
             ],
             [
-                'title' => esc_html__('Berichtenverkeer logboek', 'prefill-gravity-forms'),
+                'title' => __('Berichtenverkeer logboek', 'prefill-gravity-forms'),
                 'fields' => [
                     [
                         'name' => "{$prefix}logging-enabled",
@@ -218,7 +234,7 @@ class GravityFormsAddon extends GFAddOn
                 'title' => esc_html__('Certificaten', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label' => esc_html__('Certificaten hoofd locatie', 'prefill-gravity-forms'),
+                        'label' => __('Certificaten hoofd locatie', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}location-root-path-certificates",
@@ -278,7 +294,7 @@ class GravityFormsAddon extends GFAddOn
     {
         $noCertificate = [
             [
-                'label' => esc_html__('Geen certificaat geselecteerd', 'prefill-gravity-forms'),
+                'label' => __('Geen certificaat geselecteerd', 'prefill-gravity-forms'),
                 'value' => 'no-certificate',
             ],
         ];

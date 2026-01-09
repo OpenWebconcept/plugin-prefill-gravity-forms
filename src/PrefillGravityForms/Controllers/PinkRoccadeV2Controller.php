@@ -8,7 +8,7 @@ use Exception;
 use OWC\PrefillGravityForms\Abstracts\PostController;
 use OWC\PrefillGravityForms\Services\CacheService;
 
-class WeAreFrankController extends PostController
+class PinkRoccadeV2Controller extends PostController
 {
     public function handle(array $form): array
     {
@@ -26,15 +26,15 @@ class WeAreFrankController extends PostController
         $processing = rgar($form, 'owc-iconnect-processing', '') ?: $this->settings->getProcessing();
         $expand = rgar($form, 'owc-iconnect-expand', '');
         $excludeDeceased = (bool) rgar($form, 'owc-iconnect-exclude-deceased', false);
-        $firstPerson = $this->fetchApiResponse($bsn, $expand, $goalBinding, $processing, $excludeDeceased);
+        $apiResponse = $this->fetchApiResponse($bsn, $expand, $goalBinding, $processing, $excludeDeceased);
 
-        if (empty($firstPerson)) {
+        if (empty($apiResponse)) {
             return $form;
         }
 
         echo $this->disableFormFields();
 
-        return $this->preFillFields($form, $firstPerson);
+        return $this->preFillFields($form, $apiResponse);
     }
 
     protected function makeRequest(string $goalBinding = '', string $processing = ''): array
@@ -111,13 +111,17 @@ class WeAreFrankController extends PostController
 
     protected function request(string $bsn, string $expand = '', string $goalBinding = '', string $processing = ''): array
     {
+        $processing = 0 < strlen($processing) ? $processing : $this->settings->getProcessing();
+
         $curlArgs = [
             CURLOPT_URL => $this->settings->getBaseURL(),
             CURLOPT_POSTFIELDS => json_encode($this->prepareData($bsn, $expand)),
             CURLOPT_HTTPHEADER => $this->getCurlHeaders($goalBinding, $processing),
         ];
 
-        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+        $locationBsnInResponse = ['personen.0.burgerservicenummer'];
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn), $locationBsnInResponse);
     }
 
     protected function requestEmbedded(string $bsn, string $goalBinding = '', string $processing = ''): array

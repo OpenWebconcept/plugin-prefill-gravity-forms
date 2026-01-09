@@ -6,6 +6,7 @@ import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import {
 	PanelBody,
 	TabPanel,
+	TextControl,
 	SelectControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
@@ -18,7 +19,7 @@ import personalDataOptions from './config/personalDataOptions';
 import supplierOptions from './config/supplierOptions';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { selectedSupplier, selectedOption, htmlElement, isChildOfTable } =
+	const { selectedSupplier, goalBinding, processing, selectedOption, htmlElement, isChildOfTable } =
 		attributes;
 
 	const { blockParents } = useSelect( ( select ) => ( {
@@ -67,11 +68,31 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 	const selectSupplierControl = (
 		<SelectControl
-			help="Selecteer de juiste leverancier die ingesteld is in de algemene instellingen."
+			help="Selecteer de juiste leverancier die ingesteld staat in de algemene instellingen."
 			label="Leverancier"
 			value={ selectedSupplier.value }
 			options={ supplierOptions }
 			onChange={ handleSupplierChange }
+		/>
+	);
+
+	const goalBindingControl = (
+		<TextControl
+			label="Doelbinding (v2)"
+			value={ goalBinding }
+			onChange={ ( value ) => {
+				setAttributes( { goalBinding: value } );
+			} }
+		/>
+	);
+
+	const processingControl = (
+		<TextControl
+			label="Verwerking (v2)"
+			value={ processing }
+			onChange={ ( value ) => {
+				setAttributes( { processing: value } );
+			} }
 		/>
 	);
 
@@ -123,6 +144,8 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							{ tab.name === 'settings' && (
 								<>
 									{ selectSupplierControl }
+									{ goalBindingControl }
+									{ processingControl }
 									{ selectPersonalDataControl }
 									{ ! isChildOfTable &&
 										selectHtmlElementControl }

@@ -22,15 +22,15 @@ class PinkRoccadeController extends GetController
             return $form;
         }
 
-        $doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
+        $goalBinding = rgar($form, 'owc-iconnect-doelbinding', '');
         $expand = rgar($form, 'owc-iconnect-expand', '');
 
-        if (! is_string($doelBinding)) {
-            $doelBinding = (string) $doelBinding;
+        if (! is_string($goalBinding)) {
+            $goalBinding = (string) $goalBinding;
         }
 
         $excludeDeceased = (bool) rgar($form, 'owc-iconnect-exclude-deceased', false);
-        $apiResponse = $this->fetchApiResponse($bsn, $doelBinding, $expand, $excludeDeceased);
+        $apiResponse = $this->fetchApiResponse($bsn, $goalBinding, $expand, $excludeDeceased);
 
         if (empty($apiResponse)) {
             return $form;
@@ -41,7 +41,7 @@ class PinkRoccadeController extends GetController
         return $this->preFillFields($form, $apiResponse);
     }
 
-    protected function makeRequest(): array
+    protected function makeRequest(string $goalBinding = '', string $processing = ''): array
     {
         $bsn = $this->getBSN();
 
@@ -49,12 +49,12 @@ class PinkRoccadeController extends GetController
             return [];
         }
 
-        return $this->fetchApiResponse($bsn);
+        return $this->fetchApiResponse($bsn, $goalBinding);
     }
 
-    protected function fetchApiResponse(string $bsn, string $doelBinding = '', string $expand = '', bool $excludeDeceased = false): array
+    protected function fetchApiResponse(string $bsn, string $goalBinding = '', string $expand = '', bool $excludeDeceased = false): array
     {
-        $apiResponse = $this->request($bsn, $doelBinding, $expand);
+        $apiResponse = $this->request($bsn, $goalBinding, $expand);
 
         if (isset($apiResponse['status'])) {
             $message = 'Retrieving prefill data failed';
@@ -63,37 +63,35 @@ class PinkRoccadeController extends GetController
                 $message = sprintf('%s: %s', $message, $apiResponse['message']);
             }
 
-            $this->logException(new Exception($message, (int) ($response['status'] ?? 500)));
+            $this->logException(new Exception($message, (int) ($apiResponse['status'] ?? 500)));
 
             return [];
         }
 
         if ($excludeDeceased) {
             foreach (array_filter(explode(',', $expand)) as $expandItem) {
-                $apiResponse = $this->supplementEmbeddedByLinks($apiResponse, trim($expandItem), $doelBinding);
+                $apiResponse = $this->filterDeceasedFromEmbeddedRelations($apiResponse, trim($expandItem), $goalBinding);
             }
         }
 
         return $apiResponse;
     }
 
-    protected function request(string $bsn = '', string $doelBinding = '', string $expand = ''): array
+    protected function request(string $bsn = '', string $goalBinding = '', string $expand = ''): array
     {
         $curlArgs = [
             CURLOPT_URL => $this->getRequestURL($bsn, $expand),
-            CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding)
+            CURLOPT_HTTPHEADER => $this->getCurlHeaders($goalBinding)
         ];
 
         return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
     }
 
-    protected function requestEmbedded(string $url, string $doelBinding): array
+    protected function requestEmbedded(string $url, string $goalBinding): array
     {
         $curlArgs = [
             CURLOPT_URL => $url,
-            CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
-            CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
-            CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
+            CURLOPT_HTTPHEADER => $this->getCurlHeaders($goalBinding)
         ];
 
         $urlParts = explode('/', $url);
