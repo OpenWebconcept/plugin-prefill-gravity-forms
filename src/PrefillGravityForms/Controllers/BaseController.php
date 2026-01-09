@@ -46,12 +46,12 @@ abstract class BaseController
         return method_exists($current_screen, 'is_block_editor') && $current_screen->is_block_editor();
     }
 
-    public function get(): array
+    public function get(string $doelBindig = '', string $processing = ''): array
     {
-        return static::makeRequest();
+        return static::makeRequest($doelBindig, $processing);
     }
 
-    abstract protected function makeRequest(): array;
+    abstract protected function makeRequest(string $doelBindig = '', string $processing = ''): array;
 
     protected function preFillFields(array $form, array $response): array
     {
@@ -268,26 +268,56 @@ abstract class BaseController
         return urldecode(http_build_query(['expand' => $imploded], '', ','));
     }
 
-    protected function getCurlHeaders(string $doelBinding = ''): array
+    protected function getCurlHeaders(string $goalBinding = '', string $processing = ''): array
     {
+        $settings = $this->settings;
+
         $headers = [
-            'x-doelbinding: ' . $doelBinding,
-            'x-origin-oin: ' . $this->settings->getNumberOIN(),
+            'Content-Type: application/json',
+            'Accept: application/json',
+            'x-origin-oin: ' . $settings->getNumberOIN(),
         ];
 
-        if ($this->settings->useAPIAuthentication()) {
-            if (! empty($this->settings->getAPIKey())) {
-                $headers[] = sprintf('%s: %s', $this->settings->getAPIKeyHeaderName(), $this->settings->getAPIKey());
-            } elseif (! empty($this->settings->getAPITokenUsername()) && ! empty($this->settings->getAPITokenPassword())) {
-                $bearerToken = base64_encode(sprintf('%s:%s', $this->settings->getAPITokenUsername(), $this->settings->getAPITokenPassword()));
-                $headers[] = sprintf('Authorization: Basic %s', $bearerToken);
+        if ('' !== $goalBinding) {
+            $headers[] = 'x-doelbinding: ' . $goalBinding;
+        }
+
+        if ('' !== $processing) {
+            $headers[] = 'x-verwerking: ' . $processing;
+        }
+
+        $user = $settings->getUser();
+        if ('' !== $user) {
+            $headers[] = 'x-gebruiker: ' . $user;
+        }
+
+        return $this->getCurlHeadersAPIAuthentication($settings, $headers);
+    }
+
+    private function getCurlHeadersAPIAuthentication($settings, array $headers): array
+    {
+        if ($settings->useAPIAuthentication()) {
+            $apiKey = $settings->getAPIKey();
+            if ('' !== $apiKey) {
+                $headers[] = sprintf(
+                    '%s: %s',
+                    $settings->getAPIKeyHeaderName(),
+                    $apiKey
+                );
+            } else {
+                $username = $settings->getAPITokenUsername();
+                $password = $settings->getAPITokenPassword();
+
+                if ('' !== $username && '' !== $password) {
+                    $headers[] = 'Authorization: Basic ' . base64_encode($username . ':' . $password);
+                }
             }
         }
 
-        return array_filter($headers);
+        return $headers;
     }
 
-    protected function handleCurl(array $args, string $transientKey): array
+    protected function handleCurl(array $args, string $transientKey, array $locationBsnInResponse = []): array
     {
         try {
             /**
@@ -321,19 +351,19 @@ abstract class BaseController
                 throw new Exception(curl_error($curl));
             }
 
-            $httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-            if (200 !== $httpStatus) {
-                throw new Exception('Request failed', is_int($httpStatus) ? $httpStatus : 500);
-            }
-
             $response = json_decode($output, true);
 
             if (! is_array($response) || [] === $response || json_last_error() !== JSON_ERROR_NONE) {
                 throw new Exception('Something went wrong with decoding of the JSON output.', 500);
             }
 
-            $this->handleTransient($response, $transientKey);
+            $httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+            if (200 !== $httpStatus) {
+                throw new Exception(sprintf('%s', $decoded['detail'] ?? ($decoded['Error Details'] ?? 'Request failed, error unknown')), is_int($httpStatus) ? $httpStatus : 500);
+            }
+
+            $this->handleTransient($response, $transientKey, $locationBsnInResponse);
 
             return $response;
         } catch (Exception $e) {
@@ -347,33 +377,15 @@ abstract class BaseController
     }
 
     /**
-     * Extracts the burgerservicenummer (BSN) from the API response.
-     */
-    protected function extractBSN(array $response): string
-    {
-        if (! isset($response['burgerservicenummer'])) {
-            throw new Exception('Burgerservicenummer not found in response.', 404);
-        }
-
-        $bsn = $response['burgerservicenummer'];
-
-        if (! is_numeric($bsn)) {
-            throw new Exception('Invalid burgerservicenummer format, value is not numeric.', 500);
-        }
-
-        return (string) $bsn;
-    }
-
-    /**
      * Validates whether the necessary conditions are met before setting the transient.
      *
      * Ensures that:
      * - A valid BSN (burgerservicenummer) is present in the response.
      * - The transient key derived from that BSN matches the one generated from the current session.
      */
-    protected function handleTransient(array $response, string $transientKey): void
+    protected function handleTransient(array $response, string $transientKey, array $locationBsnInResponse = []): void
     {
-        $responseBSN = $this->extractBSN($response);
+        $responseBSN = $this->extractBSN($response, $locationBsnInResponse);
 
         if ('' === $responseBSN) {
             throw new Exception('No burgerservicenummer found in the response.', 404);
@@ -393,6 +405,29 @@ abstract class BaseController
         }
     }
 
+    /**
+     * Extracts the burgerservicenummer (BSN) from the API response.
+     */
+    protected function extractBSN(array $response, array $locationBsnInResponse = []): string
+    {
+        if ([] !== $locationBsnInResponse) {
+            $response = $this->explodeDotNotationValue(implode('.', $locationBsnInResponse), $response);
+            $bsn = $response;
+        } else {
+            if (! isset($response['burgerservicenummer'])) {
+                throw new Exception('Burgerservicenummer not found in response.', 404);
+            }
+
+            $bsn = $response['burgerservicenummer'];
+        }
+
+        if ('' === $bsn || ! is_numeric($bsn)) {
+            throw new Exception('Invalid burgerservicenummer format, value is not numeric.', 500);
+        }
+
+        return (string) $bsn;
+    }
+
     protected function timeoutOptionCURL(): int
     {
         $timeout = apply_filters('owc_prefill_gravity_forms_curl_timeout', 10);
@@ -406,7 +441,6 @@ abstract class BaseController
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
