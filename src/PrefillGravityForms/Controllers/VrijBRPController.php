@@ -15,6 +15,8 @@ class VrijBRPController extends BaseController
         }
 
         $bsn = $this->getBSN();
+        $bsn = '900231038';
+        // $bsn = '311204557';
 
         if ('' === $bsn) {
             return $form;
@@ -65,6 +67,10 @@ class VrijBRPController extends BaseController
             return [];
         }
 
+        foreach (array_filter(explode(',', $expand)) as $expandItem) {
+            $apiResponse = $this->supplementEmbeddedByLinks($apiResponse, trim($expandItem), $doelBinding);
+        }
+
         return $apiResponse;
     }
 
@@ -78,5 +84,20 @@ class VrijBRPController extends BaseController
         ];
 
         return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+    }
+
+    protected function requestEmbedded(string $url, string $doelBinding): array
+    {
+        // return ['overleden' => true];
+        $curlArgs = [
+            CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
+            CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
+            CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
+        ];
+
+        $urlParts = explode('/', $url);
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($urlParts[8]));
     }
 }
