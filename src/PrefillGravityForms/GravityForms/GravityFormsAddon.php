@@ -316,6 +316,29 @@ class GravityFormsAddon extends GFAddOn
      */
     private function getRootPathToCertificates(): string
     {
-        return (! empty(GravityFormsSettings::make()->get('location-root-path-certificates'))) ? GravityFormsSettings::make()->get('location-root-path-certificates') : storage_path('certificates');
+        $configured = GravityFormsSettings::make()->get('location-root-path-certificates');
+        $fallback = storage_path('certificates');
+
+        if (empty($configured)) {
+            return $fallback;
+        }
+
+        $realPath = realpath($configured);
+
+        if (false === $realPath) {
+            return $fallback;
+        }
+
+        $safeBase = realpath(\ABSPATH . '/../../');
+
+        if (! str_starts_with($realPath, $safeBase . DIRECTORY_SEPARATOR)) {
+            return $fallback;
+        }
+
+        if (! is_dir($realPath) || ! is_readable($realPath)) {
+            return $fallback;
+        }
+
+        return $realPath;
     }
 }
