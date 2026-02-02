@@ -32,13 +32,13 @@ class PersonalDataService
         }
     }
 
-    public function get(string $key): string
+    public function get(string $key, string $doelBinding): string
     {
         if (! $this->controller instanceof BaseController || 1 > strlen($key)) {
             return '';
         }
 
-        $data = $this->controller->get();
+        $data = $this->controller->get($doelBinding);
         $value = $this->getValueFromNestedArray($this->key($key), $data);
 
         return $this->format($key, $value);

@@ -46,12 +46,12 @@ abstract class BaseController
         return method_exists($current_screen, 'is_block_editor') && $current_screen->is_block_editor();
     }
 
-    public function get(): array
+    public function get(string $doelBindig = ''): array
     {
-        return static::makeRequest();
+        return static::makeRequest($doelBindig);
     }
 
-    abstract protected function makeRequest(): array;
+    abstract protected function makeRequest(string $doelBindig = ''): array;
 
     protected function preFillFields(array $form, array $response): array
     {
@@ -321,16 +321,16 @@ abstract class BaseController
                 throw new Exception(curl_error($curl));
             }
 
-            $httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-            if (200 !== $httpStatus) {
-                throw new Exception('Request failed', is_int($httpStatus) ? $httpStatus : 500);
-            }
-
             $response = json_decode($output, true);
 
             if (! is_array($response) || [] === $response || json_last_error() !== JSON_ERROR_NONE) {
                 throw new Exception('Something went wrong with decoding of the JSON output.', 500);
+            }
+
+            $httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+            if (200 !== $httpStatus) {
+                throw new Exception(sprintf('%s', $decoded['detail'] ?? ($decoded['Error Details'] ?? 'Request failed, error unknown')), is_int($httpStatus) ? $httpStatus : 500);
             }
 
             $this->handleTransient($response, $transientKey);

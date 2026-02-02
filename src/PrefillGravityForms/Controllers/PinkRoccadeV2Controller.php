@@ -1,38 +1,38 @@
 <?php
 
-declare(strict_types=1);
-
 namespace OWC\PrefillGravityForms\Controllers;
 
 use Exception;
 use OWC\PrefillGravityForms\Services\CacheService;
 
-class WeAreFrankController extends BaseController
+class PinkRoccadeV2Controller extends BaseController
 {
     public function handle(array $form): array
     {
-        if ($this->isBlockEditor()) {
-            return $form;
-        }
-
         $bsn = $this->getBSN();
 
         if ('' === $bsn) {
             return $form;
         }
 
+        $doelBinding = rgar($form, 'owc-iconnect-doelbinding', '');
+        $processing = rgar($form, 'owc-iconnect-processing', '');
         $expand = rgar($form, 'owc-iconnect-expand', '');
+
+        if (! is_string($doelBinding)) {
+            $doelBinding = (string) $doelBinding;
+        }
+
         $preparedData = $this->prepareData($bsn, $expand);
+        $apiResponse = $this->fetchApiResponse($preparedData, $bsn, $doelBinding, $processing);
 
-        $firstPerson = $this->fetchPersonData($preparedData, $bsn);
-
-        if (empty($firstPerson)) {
+        if (empty($apiResponse)) {
             return $form;
         }
 
         echo $this->disableFormFields();
 
-        return $this->preFillFields($form, $firstPerson);
+        return $this->preFillFields($form, $apiResponse);
     }
 
     protected function makeRequest(string $doelBinding = ''): array
@@ -45,47 +45,19 @@ class WeAreFrankController extends BaseController
 
         $preparedData = $this->prepareData($bsn);
 
-        return $this->fetchPersonData($preparedData, $bsn);
+        return $this->fetchApiResponse($preparedData, $bsn, $doelBinding);
     }
 
     /**
      * Prepares the data payload for querying a citizen's information using their BSN (Burgerservicenummer).
      *
      * This method constructs a data array containing the necessary fields for a query.
-     * Additional fields can be included by passing a comma-separated string to the $expand parameter.
-     *
-     * @param string $bsn The citizen's BSN (Burgerservicenummer), a unique identification number in the Netherlands.
-     * @param string $expand Comma-separated list of additional fields to include in the query. Possible values: 'ouders', 'kinderen', 'partners'.
-     *
-     * @return array The prepared data payload for the query, including the base fields and any additional expanded fields.
      */
-    protected function prepareData(string $bsn, string $expand = ''): array
+    protected function prepareData(string $bsn): array
     {
-        $fields = [
-            'aNummer',
-            'adressering',
-            'burgerservicenummer',
-            'datumEersteInschrijvingGBA',
-            'datumInschrijvingInGemeente',
-            'geboorte',
-            'gemeenteVanInschrijving',
-            'geslacht',
-            'immigratie',
-            'leeftijd',
-            'naam',
-            'nationaliteiten',
-            'verblijfplaats',
-            'verblijfstitel',
-        ];
-
-        if (! empty($expand)) {
-            $expandFields = $this->getExpandFields($expand);
-            $fields = array_merge($fields, $expandFields);
-        }
-
         return [
             'type' => 'RaadpleegMetBurgerservicenummer',
-            'fields' => $fields,
+            'fields' => ['burgerservicenummer'],
             'burgerservicenummer' => [$bsn],
         ];
     }
@@ -102,27 +74,9 @@ class WeAreFrankController extends BaseController
         return array_filter(explode(',', $expand));
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function extractBSN(array $response): string
+    protected function fetchApiResponse(array $preparedData, string $bsn, string $doelBinding, $processing = ''): array
     {
-        if (! isset($response['personen'][0]['burgerservicenummer'])) {
-            throw new Exception('Burgerservicenummer not found in response.', 404);
-        }
-
-        $bsn = $response['personen'][0]['burgerservicenummer'];
-
-        if (! is_numeric($bsn)) {
-            throw new Exception('Invalid burgerservicenummer format, value is not numeric.', 500);
-        }
-
-        return (string) $bsn;
-    }
-
-    protected function fetchPersonData(array $preparedData, string $bsn): array
-    {
-        $apiResponse = $this->request($preparedData, $bsn);
+        $apiResponse = $this->request($preparedData, $doelBinding, $processing);
         $personData = $apiResponse['personen'] ?? [];
         $firstPerson = reset($personData); // Response is in a multidimensional array which differs from other suppliers.
 
@@ -141,15 +95,20 @@ class WeAreFrankController extends BaseController
         return $firstPerson;
     }
 
-    protected function request(array $data = [], string $bsn = ''): array
+    protected function request(array $data, string $bsn, string $doelBinding, string $processing = ''): array
     {
+        $processing = 0 < strlen($processing) ? $processing : $this->settings->getProcessing();
+
         $curlArgs = [
             CURLOPT_URL => $this->settings->getBaseURL(),
             CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => [
                 'Content-Type: application/json',
                 'Accept: application/json',
-                sprintf('%s: %s', $this->settings->getAPITokenUsername(), $this->settings->getAPITokenPassword()),
+                'x-doelbinding: ' . $doelBinding,
+                'x-origin-oin: ' . $this->settings->getNumberOIN(),
+                'x-verwerking: ' . $processing,
+                'x-gebruiker: ' . $this->settings->getUser(),
             ],
         ];
 
