@@ -50,6 +50,10 @@ class PersonalDataService
             return 'naam.voornamen';
         }
 
+        if ('enableu' === strtolower($this->supplier) && 'verblijfplaats.woonplaats' === $key) {
+            return 'verblijfplaats.woonplaatsnaam';
+        }
+
         return $key;
     }
 
