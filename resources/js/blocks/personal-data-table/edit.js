@@ -9,10 +9,10 @@ const Edit = () => {
 			<div className="container px-0">
 				<InnerBlocks
 					allowedBlocks={ [
-						'prefill-gravity-forms/personal-data-row',
+						'owc-prefill-gravity-forms/personal-data-row',
 					] }
 					template={ [
-						[ 'prefill-gravity-forms/personal-data-row' ],
+						[ 'owc-prefill-gravity-forms/personal-data-row' ],
 					] }
 					renderAppender={ () => <InnerBlocks.ButtonBlockAppender /> }
 				/>

@@ -6,11 +6,10 @@ import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import {
 	PanelBody,
 	TabPanel,
-	TextControl,
 	SelectControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -31,7 +30,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	useEffect( () => {
 		if (
 			blockParents.length > 0 &&
-			'prefill-gravity-forms/personal-data-table' ===
+			'owc-prefill-gravity-forms/personal-data-table' ===
 				blockParents[ blockParents.length - 1 ]
 		) {
 			setAttributes( { isChildOfTable: true } );
@@ -65,8 +64,6 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		if ( ! str ) return str;
 		return str.charAt( 0 ).toLowerCase() + str.slice( 1 );
 	};
-
-	const DynamicElement = htmlElement || 'div';
 
 	const selectSupplierControl = (
 		<SelectControl
