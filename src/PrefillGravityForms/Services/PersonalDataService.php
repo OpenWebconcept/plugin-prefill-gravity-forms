@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\Services;
 
 use Exception;
@@ -50,6 +52,14 @@ class PersonalDataService
             return 'naam.voornamen';
         }
 
+        if ('enableu' === strtolower($this->supplier) && 'verblijfplaats.woonplaats' === $key) {
+            return 'verblijfplaats.woonplaatsnaam';
+        }
+
+        if ('enableu' === strtolower($this->supplier) && 'verblijfplaats.straat' === $key) {
+            return 'verblijfplaats.straatnaam';
+        }
+
         return $key;
     }
 
@@ -73,7 +83,7 @@ class PersonalDataService
         $keyFormatMapping = [
             'geslachtsaanduiding' => fn ($value) => ucfirst($value),
             'naam.voornaam' => fn ($value) => explode(' ', $value)[0],
-            'geboorte.datum.datum' => fn ($value) => date_i18n(get_option('date_format', 'j F Y'), strtotime($value)),
+            'geboorte.datum.datum' => fn ($value) => '' !== $value ? date_i18n(get_option('date_format', 'j F Y'), strtotime($value)) : '',
         ];
 
         if (isset($keyFormatMapping[$key])) {
@@ -82,5 +92,4 @@ class PersonalDataService
 
         return $value;
     }
-
 }
