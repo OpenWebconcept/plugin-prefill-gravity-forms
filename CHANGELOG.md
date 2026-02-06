@@ -2,6 +2,10 @@
 
 - Tested up to: WordPress 6.8.3
 
+## v1.8.1
+
+- Add: housenumberaddition option to pink prefill
+
 ## v1.8.0
 
 - Add: implement transient caching for cURL responses
