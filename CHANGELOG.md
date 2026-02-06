@@ -1,6 +1,9 @@
 # Changelog
 
 - Tested up to: WordPress 6.8.3
+## v1.8.2
+
+- Add: housenumberaddition option to openzaak prefill
 
 ## v1.8.1
 
