@@ -29,10 +29,11 @@
             <option value="geboorte.land.omschrijving"><?php _e('Geboorteland', 'prefill-gravity-forms'); ?></option>
             <option value="geboorte.plaats.omschrijving"><?php _e('Geboorteplaats', 'prefill-gravity-forms'); ?></option>
         </optgroup>
-        <optgroup label="Verblijftplaats">
+        <optgroup label="Verblijfplaats">
             <option value="verblijfplaats.straat"><?php _e('Straat', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.huisnummer"><?php _e('Huisnummer', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.huisletter"><?php _e('Huisletter', 'prefill-gravity-forms'); ?></option>
+            <option value="verblijfplaats.huisnummertoevoeging"><?php _e('Huisnummertoevoeging', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.postcode"><?php _e('Postcode', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.woonplaats"><?php _e('Woonplaats', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.adresregel1"><?php _e('Adres', 'prefill-gravity-forms'); ?></option>
