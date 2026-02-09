@@ -87,7 +87,7 @@ class PinkRoccadeV2Controller extends BaseController
                 $message = sprintf('%s: %s', $message, $apiResponse['message']);
             }
 
-            $this->logException(new Exception($message, (int) ($response['status'] ?? 500)));
+            $this->logException(new Exception($message, (int) ($apiResponse['status'] ?? 500)));
 
             return [];
         }
@@ -112,7 +112,9 @@ class PinkRoccadeV2Controller extends BaseController
             ],
         ];
 
-        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+        $locationBsnInResponse = ['personen.0.burgerservicenummer'];
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn), $locationBsnInResponse);
     }
 
     protected function getDefaultCurlArgs(): array

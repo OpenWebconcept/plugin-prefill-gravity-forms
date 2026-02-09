@@ -287,7 +287,7 @@ abstract class BaseController
         return array_filter($headers);
     }
 
-    protected function handleCurl(array $args, string $transientKey): array
+    protected function handleCurl(array $args, string $transientKey, array $locationBsnInResponse = []): array
     {
         try {
             /**
@@ -333,7 +333,7 @@ abstract class BaseController
                 throw new Exception(sprintf('%s', $decoded['detail'] ?? ($decoded['Error Details'] ?? 'Request failed, error unknown')), is_int($httpStatus) ? $httpStatus : 500);
             }
 
-            $this->handleTransient($response, $transientKey);
+            $this->handleTransient($response, $transientKey, $locationBsnInResponse);
 
             return $response;
         } catch (Exception $e) {
@@ -347,33 +347,15 @@ abstract class BaseController
     }
 
     /**
-     * Extracts the burgerservicenummer (BSN) from the API response.
-     */
-    protected function extractBSN(array $response): string
-    {
-        if (! isset($response['burgerservicenummer'])) {
-            throw new Exception('Burgerservicenummer not found in response.', 404);
-        }
-
-        $bsn = $response['burgerservicenummer'];
-
-        if (! is_numeric($bsn)) {
-            throw new Exception('Invalid burgerservicenummer format, value is not numeric.', 500);
-        }
-
-        return (string) $bsn;
-    }
-
-    /**
      * Validates whether the necessary conditions are met before setting the transient.
      *
      * Ensures that:
      * - A valid BSN (burgerservicenummer) is present in the response.
      * - The transient key derived from that BSN matches the one generated from the current session.
      */
-    protected function handleTransient(array $response, string $transientKey): void
+    protected function handleTransient(array $response, string $transientKey, array $locationBsnInResponse = []): void
     {
-        $responseBSN = $this->extractBSN($response);
+        $responseBSN = $this->extractBSN($response, $locationBsnInResponse);
 
         if ('' === $responseBSN) {
             throw new Exception('No burgerservicenummer found in the response.', 404);
@@ -391,6 +373,29 @@ abstract class BaseController
         } catch (Exception $e) {
             $this->logException($e);
         }
+    }
+
+    /**
+     * Extracts the burgerservicenummer (BSN) from the API response.
+     */
+    protected function extractBSN(array $response, array $locationBsnInResponse = []): string
+    {
+        if ([] !== $locationBsnInResponse) {
+            $response = $this->explodeDotNotationValue(implode('.', $locationBsnInResponse), $response);
+            $bsn = $response;
+        } else {
+            if (! isset($response['burgerservicenummer'])) {
+                throw new Exception('Burgerservicenummer not found in response.', 404);
+            }
+
+            $bsn = $response['burgerservicenummer'];
+        }
+
+        if ('' === $bsn || ! is_numeric($bsn)) {
+            throw new Exception('Invalid burgerservicenummer format, value is not numeric.', 500);
+        }
+
+        return (string) $bsn;
     }
 
     protected function timeoutOptionCURL(): int
