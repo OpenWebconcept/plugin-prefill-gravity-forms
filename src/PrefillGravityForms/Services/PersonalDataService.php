@@ -63,19 +63,19 @@ class PersonalDataService
         return $key;
     }
 
-    private function getValueFromNestedArray(string $keyString, array $array): string
+    private function getValueFromNestedArray(string $keyString, array $data): string
     {
         $keys = explode('.', $keyString);
 
         foreach ($keys as $key) {
-            if (is_array($array) && isset($array[$key])) {
-                $array = $array[$key];
+            if (is_array($data) && isset($data[$key])) {
+                $data = $data[$key];
             } else {
                 return '';
             }
         }
 
-        return $array;
+        return (string) $data;
     }
 
     private function format(string $key, string $value): string
