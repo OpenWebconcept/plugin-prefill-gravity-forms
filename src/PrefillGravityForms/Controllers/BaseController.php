@@ -7,17 +7,17 @@ namespace OWC\PrefillGravityForms\Controllers;
 use DateTime;
 use Exception;
 use GF_Field;
-use function OWC\PrefillGravityForms\Foundation\Helpers\resolve_teams;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
-use OWC\PrefillGravityForms\Foundation\TeamsLogger;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 use OWC\PrefillGravityForms\Services\CacheService;
+use OWC\PrefillGravityForms\Traits\Logger;
 use OWC\PrefillGravityForms\Traits\SessionTrait;
 use TypeError;
 use WP_Screen;
 
 abstract class BaseController
 {
+    use Logger;
     use SessionTrait;
 
     protected const CUSTOM_FIELDS_TYPES = [
@@ -26,13 +26,11 @@ abstract class BaseController
     ];
 
     protected GravityFormsSettings $settings;
-    protected TeamsLogger $teams;
     protected array $prefilledChildrenMappingOptions = [];
 
     public function __construct()
     {
         $this->settings = GravityFormsSettings::make();
-        $this->teams = resolve_teams();
     }
 
     abstract public function handle(array $form): array;
@@ -54,14 +52,6 @@ abstract class BaseController
     }
 
     abstract protected function makeRequest(): array;
-
-    protected function logError(string $message, $status): void
-    {
-        $this->teams->addRecord('error', 'BRP Prefill GravityForms', [
-            'message' => $message,
-            'status' => $status,
-        ]);
-    }
 
     protected function preFillFields(array $form, array $response): array
     {
@@ -309,7 +299,7 @@ abstract class BaseController
                 return $cachedResponse;
             }
         } catch (Exception $e) {
-            $this->logError('Failed to get transient: ' . $e->getMessage(), $e->getCode());
+            $this->logException($e);
         }
 
         $curl = curl_init();
@@ -399,7 +389,7 @@ abstract class BaseController
         try {
             CacheService::setTransient($transientKey, $response);
         } catch (Exception $e) {
-            $this->logError('Failed to set transient: ' . $e->getMessage(), $e->getCode());
+            $this->logException($e);
         }
     }
 
@@ -412,7 +402,7 @@ abstract class BaseController
 
     protected function getDefaultCurlArgs(): array
     {
-        return [
+        $args = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -421,6 +411,13 @@ abstract class BaseController
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
         ];
+
+        if ($this->settings->useSSLCertificates()) {
+            $args[CURLOPT_SSLCERT] = $this->settings->getPublicCertificate();
+            $args[CURLOPT_SSLKEY] = $this->settings->getPrivateCertificate();
+        }
+
+        return $args;
     }
 
     /**

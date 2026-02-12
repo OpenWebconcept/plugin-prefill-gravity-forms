@@ -11,6 +11,7 @@
  * License URI:       https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
  * Text Domain:       prefill-gravity-forms
  * Domain Path:       /languages
+ * Requires Plugins:  gravityforms
  */
 
 /**
@@ -24,12 +25,21 @@ define('PG_VERSION', '1.8.2');
 define('PG_DIR', basename(__DIR__));
 define('PG_ROOT_PATH', __DIR__);
 define('PG_PLUGIN_SLUG', 'prefill-gravity-forms');
+define('PG_LOGGER_DEFAULT_MAX_FILES', 7);
 
 /**
- * Manual loaded file: the autoloader.
+ * Not all the members of the OpenWebconcept are using composer in the root of their project.
+ * Therefore they are required to run a composer install inside this plugin directory.
+ * In this case the composer autoload file needs to be required.
  */
-require_once __DIR__ . '/autoloader.php';
-$autoloader = new OWC\PrefillGravityForms\Autoloader();
+$composerAutoload = __DIR__ . '/vendor/autoload.php';
+
+if (file_exists($composerAutoload)) {
+    require_once $composerAutoload;
+} else {
+    require_once __DIR__ . '/autoloader.php';
+    $autoloader = new OWC\PrefillGravityForms\Autoloader();
+}
 
 /**
  * Begin execution of the plugin
