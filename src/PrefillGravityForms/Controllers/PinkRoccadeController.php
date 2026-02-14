@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use OWC\PrefillGravityForms\Abstracts\GetController;
 use OWC\PrefillGravityForms\Services\CacheService;
 
-class PinkRoccadeController extends BaseController
+class PinkRoccadeController extends GetController
 {
     public function handle(array $form): array
     {
@@ -65,6 +66,10 @@ class PinkRoccadeController extends BaseController
             return [];
         }
 
+        foreach (array_filter(explode(',', $expand)) as $expandItem) {
+            $apiResponse = $this->supplementEmbeddedByLinks($apiResponse, trim($expandItem), $doelBinding);
+        }
+
         return $apiResponse;
     }
 
@@ -76,6 +81,21 @@ class PinkRoccadeController extends BaseController
             CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
             CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
         ];
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+    }
+
+    protected function requestEmbedded(string $url, string $doelBinding): array
+    {
+        $curlArgs = [
+            CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => $this->getCurlHeaders($doelBinding),
+            CURLOPT_SSLCERT => $this->settings->getPublicCertificate(),
+            CURLOPT_SSLKEY => $this->settings->getPrivateCertificate(),
+        ];
+
+        $urlParts = explode('/', $url);
+        $bsn = is_array($urlParts) && 0 < count($urlParts) ? end($urlParts) : '';
 
         return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
     }

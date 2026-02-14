@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace OWC\PrefillGravityForms\Controllers;
 
 use Exception;
+use OWC\PrefillGravityForms\Abstracts\PostController;
 use OWC\PrefillGravityForms\Services\CacheService;
 
-class WeAreFrankController extends BaseController
+class WeAreFrankController extends PostController
 {
     public function handle(array $form): array
     {
@@ -22,9 +23,7 @@ class WeAreFrankController extends BaseController
         }
 
         $expand = rgar($form, 'owc-iconnect-expand', '');
-        $preparedData = $this->prepareData($bsn, $expand);
-
-        $firstPerson = $this->fetchPersonData($preparedData, $bsn);
+        $firstPerson = $this->fetchPersonData($bsn, $expand);
 
         if (empty($firstPerson)) {
             return $form;
@@ -45,7 +44,7 @@ class WeAreFrankController extends BaseController
 
         $preparedData = $this->prepareData($bsn);
 
-        return $this->fetchPersonData($preparedData, $bsn);
+        return $this->fetchPersonData($bsn);
     }
 
     /**
@@ -120,9 +119,9 @@ class WeAreFrankController extends BaseController
         return (string) $bsn;
     }
 
-    protected function fetchPersonData(array $preparedData, string $bsn): array
+    protected function fetchPersonData(string $bsn, string $expand = ''): array
     {
-        $apiResponse = $this->request($preparedData, $bsn);
+        $apiResponse = $this->request($bsn, $expand);
         $personData = $apiResponse['personen'] ?? [];
         $firstPerson = reset($personData); // Response is in a multidimensional array which differs from other suppliers.
 
@@ -138,14 +137,36 @@ class WeAreFrankController extends BaseController
             return [];
         }
 
+        foreach (array_filter(explode(',', $expand)) as $expandItem) {
+            $firstPerson = $this->supplementEmbeddedByLinks($firstPerson, trim($expandItem));
+        }
+
         return $firstPerson;
     }
 
-    protected function request(array $data = [], string $bsn = ''): array
+    protected function request(string $bsn = '', string $expand = ''): array
     {
         $curlArgs = [
             CURLOPT_URL => $this->settings->getBaseURL(),
-            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_POSTFIELDS => json_encode($this->prepareData($bsn, $expand)),
+            CURLOPT_HTTPHEADER => [
+                'Content-Type: application/json',
+                'Accept: application/json',
+                sprintf('%s: %s', $this->settings->getAPITokenUsername(), $this->settings->getAPITokenPassword()),
+            ],
+        ];
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+    }
+
+    /**
+     * This one breaks the contract, fix later.
+     */
+    protected function requestEmbedded(string $bsn = ''): array
+    {
+        $curlArgs = [
+            CURLOPT_URL => $this->settings->getBaseURL(),
+            CURLOPT_POSTFIELDS => json_encode($this->prepareData($bsn)),
             CURLOPT_HTTPHEADER => [
                 'Content-Type: application/json',
                 'Accept: application/json',
