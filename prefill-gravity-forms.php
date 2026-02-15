@@ -28,6 +28,7 @@ define('PG_PLUGIN_SLUG', 'prefill-gravity-forms');
 /**
  * Manual loaded file: the autoloader.
  */
+require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/autoloader.php';
 $autoloader = new OWC\PrefillGravityForms\Autoloader();
 
