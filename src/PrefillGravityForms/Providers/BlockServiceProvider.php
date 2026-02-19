@@ -15,7 +15,7 @@ class BlockServiceProvider extends ServiceProvider
         add_action('init', $this->registerBlocks(...));
     }
 
-    public function registerBlockCategory(array $blockCategories, WP_Block_Editor_Context $block_editor_context): array
+    public function registerBlockCategory(array $blockCategories, WP_Block_Editor_Context $blockEditorContext): array
     {
         $blockCategories[] = [
             'slug' => self::BLOCK_CATEGORY,
