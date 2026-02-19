@@ -8,8 +8,8 @@ class EnqueueServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        add_action('admin_enqueue_scripts', [$this, 'enqueueIconsStyles']);
-        add_action('wp_enqueue_scripts', [$this, 'enqueueStyles']);
+        add_action('admin_enqueue_scripts', $this->enqueueIconsStyles(...));
+        add_action('wp_enqueue_scripts', $this->enqueueStyles(...));
     }
 
     public function enqueueIconsStyles(): void

@@ -6,18 +6,15 @@
 	"license": "EUPL-1.2",
 	"main": "build/index.js",
 	"scripts": {
-		"build": "wp-scripts build",
+		"build": "wp-scripts build --webpack-src-dir=resources/js/blocks",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start"
+		"start": "wp-scripts start --webpack-src-dir=resources/js/blocks"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^26.18.0"
-	},
-	"dependencies": {
-		"@wordpress/blocks": "^11.9.0"
+		"@wordpress/scripts": "^31.2.0"
 	}
 }

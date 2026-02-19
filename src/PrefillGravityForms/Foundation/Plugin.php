@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OWC\PrefillGravityForms\Foundation;
 
+use function DI\create;
+use Exception;
 use function OWC\PrefillGravityForms\Foundation\Helpers\resolve;
 
 /**
@@ -66,8 +70,21 @@ class Plugin
         $builder = new \DI\ContainerBuilder();
         $builder->addDefinitions([
             'app' => $this,
-            'config' => function () {
-                return new Config($this->rootPath . '/config');
+            'config' => create(Config::class)->constructor($this->rootPath . '/config'),
+            'logger' => function () {
+                $logger = new \Monolog\Logger('pg_log');
+                $maxFiles = apply_filters('pg::logger/rotating_filer_handler_max_files', PG_LOGGER_DEFAULT_MAX_FILES);
+
+                $handler = (new \Monolog\Handler\RotatingFileHandler(
+                    filename:  sprintf('%s/pg-log.json', dirname(ABSPATH)),
+                    maxFiles: is_int($maxFiles) && 0 < $maxFiles ? $maxFiles : PG_LOGGER_DEFAULT_MAX_FILES,
+                    level: \Monolog\Level::Debug
+                ))->setFormatter(new \Monolog\Formatter\JsonFormatter());
+
+                $logger->pushHandler($handler);
+                $logger->pushProcessor(new \Monolog\Processor\IntrospectionProcessor());
+
+                return $logger;
             },
         ]);
         $this->container = $builder->build();
@@ -85,15 +102,6 @@ class Plugin
     {
         $this->config = resolve('config');
 
-        $dependencyChecker = new DependencyChecker($this->config->get('core.dependencies'));
-
-        if ($dependencyChecker->failed()) {
-            $dependencyChecker->notify();
-            deactivate_plugins(plugin_basename($this->rootPath . '/' . $this->getName() . '.php'));
-
-            return false;
-        }
-
         $this->loadTextDomain();
 
         // Set up service providers
@@ -108,11 +116,10 @@ class Plugin
         load_plugin_textdomain($this->getName(), false, $this->getName() . '/languages/');
     }
 
-
     /**
      * Call method on service providers.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function callServiceProviders(string $method, string $key = ''): void
     {
@@ -127,7 +134,7 @@ class Plugin
             $service = new $service($this);
 
             if (! $service instanceof ServiceProvider) {
-                throw new \Exception('Provider must be an instance of ServiceProvider.');
+                throw new Exception('Provider must be an instance of ServiceProvider.');
             }
 
             if (method_exists($service, $method)) {

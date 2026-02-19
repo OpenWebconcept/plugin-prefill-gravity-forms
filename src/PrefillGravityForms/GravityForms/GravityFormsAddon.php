@@ -6,6 +6,7 @@ namespace OWC\PrefillGravityForms\GravityForms;
 
 use GFAddOn;
 
+use function OWC\PrefillGravityForms\Foundation\Helpers\config;
 use function OWC\PrefillGravityForms\Foundation\Helpers\storage_path;
 
 class GravityFormsAddon extends GFAddOn
@@ -81,7 +82,7 @@ class GravityFormsAddon extends GFAddOn
                 'title' => __('Algemeen', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label' => __('OIN number', 'prefill-gravity-forms'),
+                        'label' => __('OIN nummer', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}oin-number",
@@ -95,6 +96,19 @@ class GravityFormsAddon extends GFAddOn
                         'required' => true,
                     ],
                     [
+                        'label' => __('Leverancier', 'prefill-gravity-forms'),
+                        'type' => 'select',
+                        'class' => 'medium',
+                        'name' => "{$prefix}supplier",
+                        'required' => true,
+                        'choices' => array_merge([['label' => 'Selecteer een leverancier', 'value' => '']], array_map(function ($supplier) {
+                            return [
+                                'label' => $supplier,
+                                'value' => $supplier,
+                            ];
+                        }, array_values(config('suppliers', [])))),
+                    ],
+                    [
                         'label' => __('Gebruik API authenticatie', 'prefill-gravity-forms'),
                         'description' => __('Deze authenticatie zal gebruikt worden naast de gebruikelijke authenticatie middels certificaten.', 'prefill-gravity-forms'),
                         'type' => 'toggle',
@@ -102,6 +116,14 @@ class GravityFormsAddon extends GFAddOn
                         'required' => false,
                         'default_value' => false,
                     ],
+                    [
+                        'label' => __('Gebruik SSL certificaten', 'prefill-gravity-forms'),
+                        'description' => __('Schakel deze optie in om SSL certificaten te gebruiken voor de communicatie met de API van de leverancier.', 'prefill-gravity-forms'),
+                        'type' => 'toggle',
+                        'name' => "{$prefix}use-ssl-certificates",
+                        'required' => false,
+                        'default_value' => false,
+                    ]
                 ],
             ],
             [
@@ -114,7 +136,6 @@ class GravityFormsAddon extends GFAddOn
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-key",
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                     [
                         'label' => __('Header naam', 'prefill-gravity-forms'),
@@ -126,8 +147,13 @@ class GravityFormsAddon extends GFAddOn
                     ],
                 ],
                 'dependency' => [
-                    'field' => "{$prefix}api-use-authentication",
-                    'values' => [true],
+                    'live' => true,
+                    'fields' => [
+                        [
+                            'field' => "{$prefix}api-use-authentication",
+                            'values' => [true, '1'],
+                        ]
+                    ]
                 ],
             ],
             [
@@ -140,7 +166,6 @@ class GravityFormsAddon extends GFAddOn
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-basic-token-username",
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                     [
                         'label' => esc_html__('Wachtwoord', 'prefill-gravity-forms'),
@@ -148,12 +173,45 @@ class GravityFormsAddon extends GFAddOn
                         'class' => 'medium',
                         'name' => "{$prefix}api-basic-token-password",
                         'sanitize_callback' => false,
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                 ],
                 'dependency' => [
-                    'field' => "{$prefix}api-use-authentication",
-                    'values' => [true],
+                    'live' => true,
+                    'fields' => [
+                        [
+                            'field' => "{$prefix}api-use-authentication",
+                            'values' => [true, '1'],
+                        ]
+                    ]
+                ],
+            ],
+            [
+                'title' => esc_html__('Gebruikersmodel', 'prefill-gravity-forms'),
+                'fields' => [
+                    [
+                        'label' => __('Activeer gebruikersmodel', 'prefill-gravity-forms'),
+                        'description' => __(
+                            'Het Gebruikersmodel (UserModel) bevat gegevens van de ingelogde burger die beschikbaar worden gesteld voor gebruik in templates en weergaven. Meer informatie is te vinden in de README van deze plugin.',
+                            'prefill-gravity-forms'
+                        ),
+                        'type' => 'toggle',
+                        'name' => "{$prefix}enable-user-model",
+                        'required' => false,
+                        'default_value' => false,
+                    ],
+                ],
+            ],
+            [
+                'title' => esc_html__('Berichtenverkeer logboek', 'prefill-gravity-forms'),
+                'fields' => [
+                    [
+                        'name' => "{$prefix}logging-enabled",
+                        'label' => __('Logging inschakelen', 'prefill-gravity-forms'),
+                        'type' => 'toggle',
+                        'required' => false,
+                        'default_value' => false,
+                        'description' => __('Schakel deze optie in om het loggen van foutmeldingen te activeren. Dit kan nuttig zijn voor het opsporen en oplossen van problemen binnen de plug-in.', 'prefill-gravity-forms'),
+                    ],
                 ],
             ],
             [
@@ -189,6 +247,15 @@ class GravityFormsAddon extends GFAddOn
                         'required' => false,
                         'tooltip' => esc_html__('Dit veld mag leeg gelaten worden als er geen wachtwoord vereist is voor het maken van de verzoeken naar de "Haalcentraal" API.', 'prefill-gravity-forms'),
                     ],
+                ],
+                'dependency' => [
+                    'live' => true,
+                    'fields' => [
+                        [
+                            'field' => "{$prefix}use-ssl-certificates",
+                            'values' => [true, '1'],
+                        ]
+                    ]
                 ],
             ],
         ];
@@ -249,6 +316,29 @@ class GravityFormsAddon extends GFAddOn
      */
     private function getRootPathToCertificates(): string
     {
-        return (! empty(GravityFormsSettings::make()->get('location-root-path-certificates'))) ? GravityFormsSettings::make()->get('location-root-path-certificates') : storage_path('certificates');
+        $configured = GravityFormsSettings::make()->get('location-root-path-certificates');
+        $fallback = storage_path('certificates');
+
+        if (empty($configured)) {
+            return $fallback;
+        }
+
+        $realPath = realpath($configured);
+
+        if (false === $realPath) {
+            return $fallback;
+        }
+
+        $safeBase = realpath(\ABSPATH . '/../../');
+
+        if (! str_starts_with($realPath, $safeBase . DIRECTORY_SEPARATOR)) {
+            return $fallback;
+        }
+
+        if (! is_dir($realPath) || ! is_readable($realPath)) {
+            return $fallback;
+        }
+
+        return $realPath;
     }
 }

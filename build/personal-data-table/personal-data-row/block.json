@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "owc-prefill-gravity-forms/personal-data-row",
+  "version": "0.1.0",
+  "title": "Persoonsgegevens",
+  "icon": "id",
+  "description": "Toon persoonsgegevens van de ingelogde gebruiker.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "selectedSupplier": {
+      "type": "object",
+      "default": {
+        "value": "",
+        "label": ""
+      }
+    },
+    "selectedOption": {
+      "type": "object",
+      "default": {
+        "value": "",
+        "label": ""
+      }
+    },
+    "isChildOfTable": {
+      "type": "boolean",
+      "default": false
+    },
+    "htmlElement": {
+      "type": "string",
+      "default": "p"
+    }
+  },
+  "textdomain": "prefill-gravity-forms",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
