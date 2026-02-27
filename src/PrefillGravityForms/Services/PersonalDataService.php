@@ -52,11 +52,11 @@ class PersonalDataService
             return 'naam.voornamen';
         }
 
-        if ('enableu' === strtolower($this->supplier) && 'verblijfplaats.woonplaats' === $key) {
+        if ('enableu' === strtolower($this->supplier) && 'verblijfplaats.woonplaats' === $key || 'vrijbrp' == strtolower($this->supplier) && 'verblijfplaats.woonplaats' === $key) {
             return 'verblijfplaats.woonplaatsnaam';
         }
 
-        if ('enableu' === strtolower($this->supplier) && 'verblijfplaats.straat' === $key) {
+        if ('enableu' === strtolower($this->supplier) && 'verblijfplaats.straat' === $key || 'vrijbrp' == strtolower($this->supplier) && 'verblijfplaats.straat' === $key) {
             return 'verblijfplaats.straatnaam';
         }
 
