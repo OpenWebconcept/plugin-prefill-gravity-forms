@@ -49,6 +49,10 @@ const personalDataOptions = [
 		value: 'verblijfplaats.huisnummer',
 	},
 	{
+		label: 'Huisletter',
+		value: 'verblijfplaats.huisletter',
+	},
+	{
 		label: 'Postcode',
 		value: 'verblijfplaats.postcode',
 	},
