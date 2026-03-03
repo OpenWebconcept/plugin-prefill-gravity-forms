@@ -23,7 +23,7 @@ abstract class GetController extends BaseController
                 continue;
             }
 
-            $response = $this->requestEmbedded(str_replace('https://api.acc-vrijbrp-hoeksche-waard.commonground.nu/haal-centraal-brp-bevragen/api/v1.3/ingeschrevenpersonen', 'https://api.acc-vrijbrp-hoeksche-waard.commonground.nu/api/haalcentraal-brp-bevragen/api/v1.3/ingeschrevenpersonen', $embeddedItem['_links']['ingeschrevenPersoon']['href']), $doelBinding);
+            $response = $this->requestEmbedded($this->normalizeCommonGroundUrl($embeddedItem['_links']['ingeschrevenPersoon']['href']), $doelBinding);
 
             if (true === ($response['overlijden']['indicatieOverleden'] ?? false)) {
                 unset($apiResponse['_embedded'][$embedType][$key]);
@@ -33,6 +33,57 @@ abstract class GetController extends BaseController
         $apiResponse['_embedded'][$embedType] = array_values($apiResponse['_embedded'][$embedType]);
 
         return $apiResponse;
+    }
+
+    /**
+     * Normalizes incorrectly embedded HaalCentraal BRP endpoints originating from a supplier.
+     *
+     * Certain Common Ground VrijBRP environments return URLs without the required `/api`
+     * prefix (e.g. `/haal-centraal-brp-bevragen/...` instead of
+     * `/api/haalcentraal-brp-bevragen/...`). As a result, follow-up requests would fail.
+     *
+     * This method transparently corrects the malformed path for commonground.nu domains
+     * until the supplier resolves the issue in their endpoint generation.
+     *
+     * IMPORTANT:
+     * This is a temporary compatibility workaround and should be removed once the
+     * supplier provides correctly structured URLs.
+     */
+    private function normalizeCommonGroundUrl(string $url): string
+    {
+        $parts = parse_url($url);
+
+        if (! is_array($parts) || ! isset($parts['host'], $parts['path'])) {
+            return $url;
+        }
+
+        $host = $parts['host'];
+        $path = $parts['path'];
+
+        // Only for commonground.nu domains (incl. subdomains).
+        if (substr($host, -strlen('commonground.nu')) !== 'commonground.nu') {
+            return $url;
+        }
+
+        // Only correct if the path starts incorrectly.
+        if (strpos($path, '/haal-centraal-brp-bevragen') !== 0) {
+            return $url;
+        }
+
+        // Replace only the leading segment (safer than blind str_replace).
+        $path = preg_replace(
+            '#^/haal-centraal-brp-bevragen#',
+            '/api/haalcentraal-brp-bevragen',
+            $path
+        );
+
+        // Rebuild URL safely
+        $scheme = isset($parts['scheme']) ? $parts['scheme'] : 'https';
+        $port = isset($parts['port']) ? ':' . $parts['port'] : '';
+        $query = isset($parts['query']) ? '?' . $parts['query'] : '';
+        $fragment = isset($parts['fragment']) ? '#' . $parts['fragment'] : '';
+
+        return $scheme . '://' . $host . $port . $path . $query . $fragment;
     }
 
     abstract protected function requestEmbedded(string $url, string $doelBinding): array;
