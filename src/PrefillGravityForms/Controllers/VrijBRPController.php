@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OWC\PrefillGravityForms\Controllers;
 
-use OWC\PrefillGravityForms\Abstracts\GetController;
 use Exception;
+use OWC\PrefillGravityForms\Abstracts\GetController;
 use OWC\PrefillGravityForms\Services\CacheService;
 
 class VrijBRPController extends GetController
