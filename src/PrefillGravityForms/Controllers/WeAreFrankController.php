@@ -24,7 +24,7 @@ class WeAreFrankController extends PostController
 
         $expand = rgar($form, 'owc-iconnect-expand', '');
         $excludeDeceased = (bool) rgar($form, 'owc-iconnect-exclude-deceased', false);
-        $firstPerson = $this->fetchPersonData($bsn, $expand, $excludeDeceased );
+        $firstPerson = $this->fetchPersonData($bsn, $expand, $excludeDeceased);
 
         if (empty($firstPerson)) {
             return $form;
@@ -136,7 +136,7 @@ class WeAreFrankController extends PostController
             return [];
         }
 
-        if ($excludeDeceased){
+        if ($excludeDeceased) {
             foreach (array_filter(explode(',', $expand)) as $expandItem) {
                 $firstPerson = $this->supplementEmbeddedByLinks($firstPerson, trim($expandItem));
             }
