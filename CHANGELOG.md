@@ -2,6 +2,11 @@
 
 -   Tested up to: WordPress 6.8.3
 
+## v1.9.1
+
+-   Fix: normalize malformed HaalCentraal endpoint from supplier
+-   Chore: add huisletter to 'Mijn gegevens' block
+
 ## v1.9.0
 
 -   Add: supplement embedded data via form setting
