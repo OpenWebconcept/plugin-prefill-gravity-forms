@@ -2,16 +2,18 @@
 
 ## Description
 
-Prefill GravityForms fields, based on the dutch BSN number. Retrieve personal information and place these values in the corrensponding fields.
+Prefill GravityForms fields, based on the Dutch BSN number. Retrieve personal information and place these values in the corrensponding fields.
 
 ## Dependencies
 
-In order to use this plug-in there are two required plug-ins:
+To use this plug-in, the following dependencies are required:
 
 - GravityForms (premium)
-- Yard | GravityForms DigiD (private repo, contact [Yard | Digital Agency](https://www.yard.nl/) for access)
 
-See [here](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/main/config/core.php) for more details.
+In addition, at least one of the following plug-ins must be installed to enable authentication by BSN:
+
+- Yard | GravityForms DigiD (<https://github.com/yardinternet/owc-gravityforms-digid>)
+- OWC Signicat OpenID (<https://github.com/yardinternet/plugin-owc-signicat-openid>)
 
 ## Features
 
@@ -46,7 +48,7 @@ See [here](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/m
 2. Go to the form settings of the form you want to configure.
 3. Scroll down and look for the 'iConnect' panel and configure the settings.
 
-### 🔐 Cache Encryption
+### Cache Encryption
 
 To enable secure caching of sensitive data, you **must define an encryption key** in your `wp-config.php` file. This key is used to encrypt and decrypt the cached data and should be kept secret at all times.
 
@@ -66,3 +68,55 @@ Important:
 ## License
 
 The source code is made available under the [EUPL 1.2 license](https://github.com/OpenWebconcept/plugin-prefill-gravity-forms/blob/main/LICENSE.md). Some of the dependencies are licensed differently, with the BSD or MIT license, for example.
+
+## User model
+
+The `UserModel` provides a simple way to access BRP (Basisregistratie Personen) data that has been retrieved after a valid DigiD login.
+It automatically detects which data supplier is configured (in the add-on settings), loads the correct controller, and exposes a small set of helper methods for use in templates or form-prefill logic.
+
+Before accessing any user attributes, always check whether the user is authenticated using DigiD.
+
+### Usage
+
+```php
+$user = new \OWC\PrefillGravityForms\Models\UserModel();
+
+if ( $user->isLoggedIn() ) {
+    $bsn  = $user->bsn();
+    $age  = $user->age();
+}
+```
+
+This model does not handle authentication itself, it only exposes data retrieved by the underlying BRP supplier controller.
+If a controller fails to load (e.g., misconfiguration or missing supplier), the model gracefully returns default values.
+
+To use this model, make sure it is enabled in the settings available at '/wp-admin/admin.php?page=gf_settings&subview=owc-gravityforms-iconnect'.
+Otherwise, the object will be instantiated but will not contain any data.
+
+## Logging
+
+Enable logging to monitor errors during communication with the BRP suppliers.
+
+- Logs are written daily to `pg-log{-date}.json` in the WordPress webroot directory.
+- A rotating file handler keeps up to 7 log files by default, deleting the oldest as needed.
+- You can change the maximum number of log files using the filter described below.
+
+## Hooks
+
+### Change the maximum number of log files
+
+Use the following filter to alter the rotating file handler's max files setting:
+
+```php
+apply_filters('pg::logger/rotating_filer_handler_max_files', PG_LOGGER_DEFAULT_MAX_FILES)
+```
+
+### Intercept exceptions for custom handling
+
+You can intercept exceptions caught by the plugin for additional processing or custom logging using this filter:
+
+```php
+do_action('pg::exception/intercept', $exception, $method)
+```
+
+The `$exception` parameter contains the caught exception object.

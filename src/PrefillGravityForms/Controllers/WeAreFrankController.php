@@ -131,7 +131,7 @@ class WeAreFrankController extends PostController
                 $message = sprintf('%s: %s', $message, $apiResponse['message']);
             }
 
-            $this->logError($message, $apiResponse['status'] ?? 500);
+            $this->logException(new Exception($message, (int) ($response['status'] ?? 500)));
 
             return [];
         }
