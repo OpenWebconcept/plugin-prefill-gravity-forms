@@ -62,6 +62,11 @@ class UserModel
         return (int) ($this->data['leeftijd'] ?? 0);
     }
 
+    public function initials(): string
+    {
+        return (string) ($this->data['naam']['voorletters'] ?? '');
+    }
+
     public function firstNames(): string
     {
         return (string) ($this->data['naam']['voornamen'] ?? '');
@@ -75,5 +80,16 @@ class UserModel
     public function lastNamePrefix(): string
     {
         return (string) ($this->data['naam']['voorvoegsel'] ?? '');
+    }
+
+    public function fullName(bool $withInitials = false): string
+    {
+        $nameParts = [
+            $withInitials ? $this->initials() : $this->firstNames(),
+            $this->lastNamePrefix(),
+            $this->lastName(),
+        ];
+
+        return implode(' ', array_filter($nameParts));
     }
 }
