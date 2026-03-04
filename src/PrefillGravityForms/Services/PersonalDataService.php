@@ -53,7 +53,6 @@ class PersonalDataService
         }
 
         $prefillSuppliersWithKeyExceptions = [
-            'enableu',
             'vrijbrp'
         ];
 
