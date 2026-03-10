@@ -311,8 +311,10 @@ abstract class BaseController
                 curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->settings->getPassphrase());
             }
 
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->settings->getSupplierCertificate() ? true : false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->settings->getSupplierCertificate() ? 2 : 0);
+            $shouldVerifyPeerHost = $this->shouldVerifyPeerHost();
+
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $shouldVerifyPeerHost);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $shouldVerifyPeerHost ? 2 : 0);
             curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeoutOptionCURL());
 
             $output = curl_exec($curl);
@@ -344,6 +346,15 @@ abstract class BaseController
         } finally {
             unset($curl);
         }
+    }
+
+    /**
+     * Verification of the peer's SSL certificate and host is only necessary when
+     * SSL certificates are used and a supplier certificate is provided.
+     */
+    private function shouldVerifyPeerHost(): bool
+    {
+        return $this->settings->useSSLCertificates() && $this->settings->getSupplierCertificate();
     }
 
     /**
