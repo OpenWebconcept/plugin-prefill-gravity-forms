@@ -2,14 +2,14 @@
 # This file is distributed under the EUPL-1.2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yard | BRP Prefill GravityForms 1.8.0\n"
+"Project-Id-Version: Yard | BRP Prefill GravityForms 1.9.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prefill-gravity-forms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-08T15:38:42+00:00\n"
+"POT-Creation-Date: 2026-03-10T12:26:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: prefill-gravity-forms\n"
@@ -110,13 +110,13 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:64
 #: resources/views/partials/gf-field-options-enable-u.php:79
 #: resources/views/partials/gf-field-options-openzaak.php:7
-#: resources/views/partials/gf-field-options-openzaak.php:49
-#: resources/views/partials/gf-field-options-openzaak.php:64
-#: resources/views/partials/gf-field-options-openzaak.php:79
+#: resources/views/partials/gf-field-options-openzaak.php:50
+#: resources/views/partials/gf-field-options-openzaak.php:65
+#: resources/views/partials/gf-field-options-openzaak.php:80
 #: resources/views/partials/gf-field-options-pink-roccade.php:7
-#: resources/views/partials/gf-field-options-pink-roccade.php:49
-#: resources/views/partials/gf-field-options-pink-roccade.php:64
-#: resources/views/partials/gf-field-options-pink-roccade.php:79
+#: resources/views/partials/gf-field-options-pink-roccade.php:50
+#: resources/views/partials/gf-field-options-pink-roccade.php:65
+#: resources/views/partials/gf-field-options-pink-roccade.php:80
 #: resources/views/partials/gf-field-options-vrij-brp.php:7
 #: resources/views/partials/gf-field-options-vrij-brp.php:44
 #: resources/views/partials/gf-field-options-vrij-brp.php:67
@@ -143,13 +143,13 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:65
 #: resources/views/partials/gf-field-options-enable-u.php:80
 #: resources/views/partials/gf-field-options-openzaak.php:9
-#: resources/views/partials/gf-field-options-openzaak.php:50
-#: resources/views/partials/gf-field-options-openzaak.php:65
-#: resources/views/partials/gf-field-options-openzaak.php:80
+#: resources/views/partials/gf-field-options-openzaak.php:51
+#: resources/views/partials/gf-field-options-openzaak.php:66
+#: resources/views/partials/gf-field-options-openzaak.php:81
 #: resources/views/partials/gf-field-options-pink-roccade.php:9
-#: resources/views/partials/gf-field-options-pink-roccade.php:50
-#: resources/views/partials/gf-field-options-pink-roccade.php:65
-#: resources/views/partials/gf-field-options-pink-roccade.php:80
+#: resources/views/partials/gf-field-options-pink-roccade.php:51
+#: resources/views/partials/gf-field-options-pink-roccade.php:66
+#: resources/views/partials/gf-field-options-pink-roccade.php:81
 #: resources/views/partials/gf-field-options-vrij-brp.php:9
 #: resources/views/partials/gf-field-options-vrij-brp.php:68
 #: resources/views/partials/gf-field-options-vrij-brp.php:83
@@ -174,15 +174,15 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:66
 #: resources/views/partials/gf-field-options-enable-u.php:81
 #: resources/views/partials/gf-field-options-openzaak.php:12
-#: resources/views/partials/gf-field-options-openzaak.php:45
-#: resources/views/partials/gf-field-options-openzaak.php:51
-#: resources/views/partials/gf-field-options-openzaak.php:66
-#: resources/views/partials/gf-field-options-openzaak.php:81
+#: resources/views/partials/gf-field-options-openzaak.php:46
+#: resources/views/partials/gf-field-options-openzaak.php:52
+#: resources/views/partials/gf-field-options-openzaak.php:67
+#: resources/views/partials/gf-field-options-openzaak.php:82
 #: resources/views/partials/gf-field-options-pink-roccade.php:12
-#: resources/views/partials/gf-field-options-pink-roccade.php:45
-#: resources/views/partials/gf-field-options-pink-roccade.php:51
-#: resources/views/partials/gf-field-options-pink-roccade.php:66
-#: resources/views/partials/gf-field-options-pink-roccade.php:81
+#: resources/views/partials/gf-field-options-pink-roccade.php:46
+#: resources/views/partials/gf-field-options-pink-roccade.php:52
+#: resources/views/partials/gf-field-options-pink-roccade.php:67
+#: resources/views/partials/gf-field-options-pink-roccade.php:82
 #: resources/views/partials/gf-field-options-vrij-brp.php:12
 #: resources/views/partials/gf-field-options-vrij-brp.php:45
 #: resources/views/partials/gf-field-options-vrij-brp.php:69
@@ -201,13 +201,13 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:67
 #: resources/views/partials/gf-field-options-enable-u.php:82
 #: resources/views/partials/gf-field-options-openzaak.php:13
-#: resources/views/partials/gf-field-options-openzaak.php:52
-#: resources/views/partials/gf-field-options-openzaak.php:67
-#: resources/views/partials/gf-field-options-openzaak.php:82
+#: resources/views/partials/gf-field-options-openzaak.php:53
+#: resources/views/partials/gf-field-options-openzaak.php:68
+#: resources/views/partials/gf-field-options-openzaak.php:83
 #: resources/views/partials/gf-field-options-pink-roccade.php:13
-#: resources/views/partials/gf-field-options-pink-roccade.php:52
-#: resources/views/partials/gf-field-options-pink-roccade.php:67
-#: resources/views/partials/gf-field-options-pink-roccade.php:82
+#: resources/views/partials/gf-field-options-pink-roccade.php:53
+#: resources/views/partials/gf-field-options-pink-roccade.php:68
+#: resources/views/partials/gf-field-options-pink-roccade.php:83
 #: resources/views/partials/gf-field-options-vrij-brp.php:13
 #: resources/views/partials/gf-field-options-vrij-brp.php:46
 #: resources/views/partials/gf-field-options-vrij-brp.php:70
@@ -227,15 +227,15 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:68
 #: resources/views/partials/gf-field-options-enable-u.php:83
 #: resources/views/partials/gf-field-options-openzaak.php:14
-#: resources/views/partials/gf-field-options-openzaak.php:46
-#: resources/views/partials/gf-field-options-openzaak.php:53
-#: resources/views/partials/gf-field-options-openzaak.php:68
-#: resources/views/partials/gf-field-options-openzaak.php:83
+#: resources/views/partials/gf-field-options-openzaak.php:47
+#: resources/views/partials/gf-field-options-openzaak.php:54
+#: resources/views/partials/gf-field-options-openzaak.php:69
+#: resources/views/partials/gf-field-options-openzaak.php:84
 #: resources/views/partials/gf-field-options-pink-roccade.php:14
-#: resources/views/partials/gf-field-options-pink-roccade.php:46
-#: resources/views/partials/gf-field-options-pink-roccade.php:53
-#: resources/views/partials/gf-field-options-pink-roccade.php:68
-#: resources/views/partials/gf-field-options-pink-roccade.php:83
+#: resources/views/partials/gf-field-options-pink-roccade.php:47
+#: resources/views/partials/gf-field-options-pink-roccade.php:54
+#: resources/views/partials/gf-field-options-pink-roccade.php:69
+#: resources/views/partials/gf-field-options-pink-roccade.php:84
 #: resources/views/partials/gf-field-options-vrij-brp.php:14
 #: resources/views/partials/gf-field-options-vrij-brp.php:47
 #: resources/views/partials/gf-field-options-vrij-brp.php:71
@@ -254,13 +254,13 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:69
 #: resources/views/partials/gf-field-options-enable-u.php:84
 #: resources/views/partials/gf-field-options-openzaak.php:15
-#: resources/views/partials/gf-field-options-openzaak.php:54
-#: resources/views/partials/gf-field-options-openzaak.php:69
-#: resources/views/partials/gf-field-options-openzaak.php:84
+#: resources/views/partials/gf-field-options-openzaak.php:55
+#: resources/views/partials/gf-field-options-openzaak.php:70
+#: resources/views/partials/gf-field-options-openzaak.php:85
 #: resources/views/partials/gf-field-options-pink-roccade.php:15
-#: resources/views/partials/gf-field-options-pink-roccade.php:54
-#: resources/views/partials/gf-field-options-pink-roccade.php:69
-#: resources/views/partials/gf-field-options-pink-roccade.php:84
+#: resources/views/partials/gf-field-options-pink-roccade.php:55
+#: resources/views/partials/gf-field-options-pink-roccade.php:70
+#: resources/views/partials/gf-field-options-pink-roccade.php:85
 #: resources/views/partials/gf-field-options-vrij-brp.php:15
 #: resources/views/partials/gf-field-options-vrij-brp.php:48
 #: resources/views/partials/gf-field-options-vrij-brp.php:72
@@ -331,13 +331,13 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:70
 #: resources/views/partials/gf-field-options-enable-u.php:85
 #: resources/views/partials/gf-field-options-openzaak.php:28
-#: resources/views/partials/gf-field-options-openzaak.php:55
-#: resources/views/partials/gf-field-options-openzaak.php:70
-#: resources/views/partials/gf-field-options-openzaak.php:85
+#: resources/views/partials/gf-field-options-openzaak.php:56
+#: resources/views/partials/gf-field-options-openzaak.php:71
+#: resources/views/partials/gf-field-options-openzaak.php:86
 #: resources/views/partials/gf-field-options-pink-roccade.php:28
-#: resources/views/partials/gf-field-options-pink-roccade.php:55
-#: resources/views/partials/gf-field-options-pink-roccade.php:70
-#: resources/views/partials/gf-field-options-pink-roccade.php:85
+#: resources/views/partials/gf-field-options-pink-roccade.php:56
+#: resources/views/partials/gf-field-options-pink-roccade.php:71
+#: resources/views/partials/gf-field-options-pink-roccade.php:86
 #: resources/views/partials/gf-field-options-vrij-brp.php:24
 #: resources/views/partials/gf-field-options-vrij-brp.php:49
 #: resources/views/partials/gf-field-options-vrij-brp.php:73
@@ -356,13 +356,13 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:76
 #: resources/views/partials/gf-field-options-enable-u.php:91
 #: resources/views/partials/gf-field-options-openzaak.php:29
-#: resources/views/partials/gf-field-options-openzaak.php:61
-#: resources/views/partials/gf-field-options-openzaak.php:76
-#: resources/views/partials/gf-field-options-openzaak.php:91
+#: resources/views/partials/gf-field-options-openzaak.php:62
+#: resources/views/partials/gf-field-options-openzaak.php:77
+#: resources/views/partials/gf-field-options-openzaak.php:92
 #: resources/views/partials/gf-field-options-pink-roccade.php:29
-#: resources/views/partials/gf-field-options-pink-roccade.php:61
-#: resources/views/partials/gf-field-options-pink-roccade.php:76
-#: resources/views/partials/gf-field-options-pink-roccade.php:91
+#: resources/views/partials/gf-field-options-pink-roccade.php:62
+#: resources/views/partials/gf-field-options-pink-roccade.php:77
+#: resources/views/partials/gf-field-options-pink-roccade.php:92
 #: resources/views/partials/gf-field-options-vrij-brp.php:30
 #: resources/views/partials/gf-field-options-vrij-brp.php:55
 #: resources/views/partials/gf-field-options-vrij-brp.php:79
@@ -380,13 +380,13 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:74
 #: resources/views/partials/gf-field-options-enable-u.php:89
 #: resources/views/partials/gf-field-options-openzaak.php:30
-#: resources/views/partials/gf-field-options-openzaak.php:59
-#: resources/views/partials/gf-field-options-openzaak.php:74
-#: resources/views/partials/gf-field-options-openzaak.php:89
+#: resources/views/partials/gf-field-options-openzaak.php:60
+#: resources/views/partials/gf-field-options-openzaak.php:75
+#: resources/views/partials/gf-field-options-openzaak.php:90
 #: resources/views/partials/gf-field-options-pink-roccade.php:30
-#: resources/views/partials/gf-field-options-pink-roccade.php:59
-#: resources/views/partials/gf-field-options-pink-roccade.php:74
-#: resources/views/partials/gf-field-options-pink-roccade.php:89
+#: resources/views/partials/gf-field-options-pink-roccade.php:60
+#: resources/views/partials/gf-field-options-pink-roccade.php:75
+#: resources/views/partials/gf-field-options-pink-roccade.php:90
 #: resources/views/partials/gf-field-options-vrij-brp.php:28
 #: resources/views/partials/gf-field-options-vrij-brp.php:53
 #: resources/views/partials/gf-field-options-vrij-brp.php:77
@@ -424,54 +424,54 @@ msgid "Huisletter"
 msgstr ""
 
 #: resources/views/partials/gf-field-options-enable-u.php:36
-#: resources/views/partials/gf-field-options-openzaak.php:36
-#: resources/views/partials/gf-field-options-pink-roccade.php:36
+#: resources/views/partials/gf-field-options-openzaak.php:37
+#: resources/views/partials/gf-field-options-pink-roccade.php:37
 #: resources/views/partials/gf-field-options-vrij-brp.php:36
 #: resources/views/partials/gf-field-options-we-are-frank.php:38
 msgid "Postcode"
 msgstr ""
 
 #: resources/views/partials/gf-field-options-enable-u.php:37
-#: resources/views/partials/gf-field-options-openzaak.php:37
-#: resources/views/partials/gf-field-options-pink-roccade.php:37
+#: resources/views/partials/gf-field-options-openzaak.php:38
+#: resources/views/partials/gf-field-options-pink-roccade.php:38
 #: resources/views/partials/gf-field-options-vrij-brp.php:37
 #: resources/views/partials/gf-field-options-we-are-frank.php:39
 msgid "Woonplaats"
 msgstr ""
 
 #: resources/views/partials/gf-field-options-enable-u.php:38
-#: resources/views/partials/gf-field-options-openzaak.php:38
-#: resources/views/partials/gf-field-options-pink-roccade.php:38
+#: resources/views/partials/gf-field-options-openzaak.php:39
+#: resources/views/partials/gf-field-options-pink-roccade.php:39
 #: resources/views/partials/gf-field-options-vrij-brp.php:38
 msgid "Adres"
 msgstr ""
 
 #: resources/views/partials/gf-field-options-enable-u.php:39
-#: resources/views/partials/gf-field-options-openzaak.php:39
-#: resources/views/partials/gf-field-options-pink-roccade.php:39
+#: resources/views/partials/gf-field-options-openzaak.php:40
+#: resources/views/partials/gf-field-options-pink-roccade.php:40
 #: resources/views/partials/gf-field-options-vrij-brp.php:39
 msgid "Postcode + plaats"
 msgstr ""
 
 #: resources/views/partials/gf-field-options-enable-u.php:40
-#: resources/views/partials/gf-field-options-openzaak.php:40
-#: resources/views/partials/gf-field-options-pink-roccade.php:40
+#: resources/views/partials/gf-field-options-openzaak.php:41
+#: resources/views/partials/gf-field-options-pink-roccade.php:41
 #: resources/views/partials/gf-field-options-vrij-brp.php:40
 #: resources/views/partials/gf-field-options-we-are-frank.php:40
 msgid "Gemeente"
 msgstr ""
 
 #: resources/views/partials/gf-field-options-enable-u.php:41
-#: resources/views/partials/gf-field-options-openzaak.php:41
-#: resources/views/partials/gf-field-options-pink-roccade.php:41
+#: resources/views/partials/gf-field-options-openzaak.php:42
+#: resources/views/partials/gf-field-options-pink-roccade.php:42
 #: resources/views/partials/gf-field-options-vrij-brp.php:41
 #: resources/views/partials/gf-field-options-we-are-frank.php:41
 msgid "Gemeentecode"
 msgstr ""
 
 #: resources/views/partials/gf-field-options-enable-u.php:44
-#: resources/views/partials/gf-field-options-openzaak.php:44
-#: resources/views/partials/gf-field-options-pink-roccade.php:44
+#: resources/views/partials/gf-field-options-openzaak.php:45
+#: resources/views/partials/gf-field-options-pink-roccade.php:45
 #: resources/views/partials/gf-field-options-vrij-brp.php:56
 #: resources/views/partials/gf-field-options-we-are-frank.php:56
 msgid "Soort verbintenis"
@@ -480,12 +480,12 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:56
 #: resources/views/partials/gf-field-options-enable-u.php:71
 #: resources/views/partials/gf-field-options-enable-u.php:86
-#: resources/views/partials/gf-field-options-openzaak.php:56
-#: resources/views/partials/gf-field-options-openzaak.php:71
-#: resources/views/partials/gf-field-options-openzaak.php:86
-#: resources/views/partials/gf-field-options-pink-roccade.php:56
-#: resources/views/partials/gf-field-options-pink-roccade.php:71
-#: resources/views/partials/gf-field-options-pink-roccade.php:86
+#: resources/views/partials/gf-field-options-openzaak.php:57
+#: resources/views/partials/gf-field-options-openzaak.php:72
+#: resources/views/partials/gf-field-options-openzaak.php:87
+#: resources/views/partials/gf-field-options-pink-roccade.php:57
+#: resources/views/partials/gf-field-options-pink-roccade.php:72
+#: resources/views/partials/gf-field-options-pink-roccade.php:87
 #: resources/views/partials/gf-field-options-vrij-brp.php:25
 #: resources/views/partials/gf-field-options-vrij-brp.php:50
 #: resources/views/partials/gf-field-options-vrij-brp.php:74
@@ -499,12 +499,12 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:57
 #: resources/views/partials/gf-field-options-enable-u.php:72
 #: resources/views/partials/gf-field-options-enable-u.php:87
-#: resources/views/partials/gf-field-options-openzaak.php:57
-#: resources/views/partials/gf-field-options-openzaak.php:72
-#: resources/views/partials/gf-field-options-openzaak.php:87
-#: resources/views/partials/gf-field-options-pink-roccade.php:57
-#: resources/views/partials/gf-field-options-pink-roccade.php:72
-#: resources/views/partials/gf-field-options-pink-roccade.php:87
+#: resources/views/partials/gf-field-options-openzaak.php:58
+#: resources/views/partials/gf-field-options-openzaak.php:73
+#: resources/views/partials/gf-field-options-openzaak.php:88
+#: resources/views/partials/gf-field-options-pink-roccade.php:58
+#: resources/views/partials/gf-field-options-pink-roccade.php:73
+#: resources/views/partials/gf-field-options-pink-roccade.php:88
 #: resources/views/partials/gf-field-options-vrij-brp.php:26
 #: resources/views/partials/gf-field-options-vrij-brp.php:51
 #: resources/views/partials/gf-field-options-vrij-brp.php:75
@@ -518,12 +518,12 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:58
 #: resources/views/partials/gf-field-options-enable-u.php:73
 #: resources/views/partials/gf-field-options-enable-u.php:88
-#: resources/views/partials/gf-field-options-openzaak.php:58
-#: resources/views/partials/gf-field-options-openzaak.php:73
-#: resources/views/partials/gf-field-options-openzaak.php:88
-#: resources/views/partials/gf-field-options-pink-roccade.php:58
-#: resources/views/partials/gf-field-options-pink-roccade.php:73
-#: resources/views/partials/gf-field-options-pink-roccade.php:88
+#: resources/views/partials/gf-field-options-openzaak.php:59
+#: resources/views/partials/gf-field-options-openzaak.php:74
+#: resources/views/partials/gf-field-options-openzaak.php:89
+#: resources/views/partials/gf-field-options-pink-roccade.php:59
+#: resources/views/partials/gf-field-options-pink-roccade.php:74
+#: resources/views/partials/gf-field-options-pink-roccade.php:89
 #: resources/views/partials/gf-field-options-vrij-brp.php:27
 #: resources/views/partials/gf-field-options-vrij-brp.php:52
 #: resources/views/partials/gf-field-options-vrij-brp.php:76
@@ -538,12 +538,12 @@ msgstr ""
 #: resources/views/partials/gf-field-options-enable-u.php:60
 #: resources/views/partials/gf-field-options-enable-u.php:75
 #: resources/views/partials/gf-field-options-enable-u.php:90
-#: resources/views/partials/gf-field-options-openzaak.php:60
-#: resources/views/partials/gf-field-options-openzaak.php:75
-#: resources/views/partials/gf-field-options-openzaak.php:90
-#: resources/views/partials/gf-field-options-pink-roccade.php:60
-#: resources/views/partials/gf-field-options-pink-roccade.php:75
-#: resources/views/partials/gf-field-options-pink-roccade.php:90
+#: resources/views/partials/gf-field-options-openzaak.php:61
+#: resources/views/partials/gf-field-options-openzaak.php:76
+#: resources/views/partials/gf-field-options-openzaak.php:91
+#: resources/views/partials/gf-field-options-pink-roccade.php:61
+#: resources/views/partials/gf-field-options-pink-roccade.php:76
+#: resources/views/partials/gf-field-options-pink-roccade.php:91
 #: resources/views/partials/gf-field-options-vrij-brp.php:29
 #: resources/views/partials/gf-field-options-vrij-brp.php:54
 #: resources/views/partials/gf-field-options-vrij-brp.php:78
@@ -555,6 +555,11 @@ msgstr ""
 #: resources/views/partials/gf-field-options-we-are-frank.php:87
 #: resources/views/partials/gf-field-options-we-are-frank.php:102
 msgid "Geboorteland code"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-openzaak.php:36
+#: resources/views/partials/gf-field-options-pink-roccade.php:36
+msgid "Huisnummertoevoeging"
 msgstr ""
 
 #: resources/views/partials/gf-field-options-vrij-brp.php:57
@@ -766,7 +771,7 @@ msgid "Gebruikersnaam"
 msgstr ""
 
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:171
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:243
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:245
 msgid "Wachtwoord"
 msgstr ""
 
@@ -803,18 +808,34 @@ msgid "Certificaten hoofd locatie"
 msgstr ""
 
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:229
-msgid "Publieke locatie certificaten"
+msgid "Publiek certificaat"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:236
-msgid "Privé locatie certificaten"
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:234
+msgid "Selecteer het publieke certificaat waarmee deze applicatie zich identificeert bij de API tijdens de mTLS-handshake."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:248
-msgid "Dit veld mag leeg gelaten worden als er geen wachtwoord vereist is voor het maken van de verzoeken naar de \"Haalcentraal\" API."
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:237
+msgid "Privé certificaat"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:271
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:242
+msgid "Selecteer het privé certificaat dat hoort bij het publieke certificaat. Deze sleutel wordt gebruikt om het certificaat cryptografisch te valideren tijdens de TLS-handshake."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:250
+msgid "Voer hier het wachtwoord in dat hoort bij het publieke en privé certificaat. Laat dit veld leeg als het privé certificaat niet met een wachtwoord is beveiligd."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:253
+msgid "Leverancier certificaat"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:258
+msgid "Optioneel: het certificaat of de CA van de leverancier om het servercertificaat van de API te valideren. Als dit niet is ingesteld, wordt TLS peer- en host-verificatie uitgeschakeld en kan de server mogelijk niet veilig worden geauthenticeerd."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:281
 msgid "Geen certificaat geselecteerd"
 msgstr ""
 
@@ -826,33 +847,37 @@ msgstr ""
 msgid "Breid de resultaten uit met andere entiteiten. Kommagescheiden waardes in vullen. Bijvoorbeeld: 'ouders,partners,kinderen'"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:28
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:30
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:29
+msgid "Schakel deze optie in om overledenen uit te sluiten van de resultaten."
+msgstr ""
+
 #: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:34
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:36
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:40
 msgid "Selecteer een leverancier"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:28
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:34
 msgid "Kies een leverancier. Let op dat je de inloggegevens ook moet configureren in de algemene instellingen van Gravity Forms."
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:39
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:45
 msgid "OpenZaak"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:44
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:50
 msgid "EnableU"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:49
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:55
 msgid "PinkRoccade"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:54
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:60
 msgid "VrijBRP"
 msgstr ""
 
-#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:59
+#: src/PrefillGravityForms/GravityForms/GravityFormsFormSettings.php:65
 msgid "WeAreFrank!"
 msgstr ""
 

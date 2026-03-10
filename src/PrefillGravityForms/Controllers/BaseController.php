@@ -311,8 +311,8 @@ abstract class BaseController
                 curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->settings->getPassphrase());
             }
 
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->settings->getSupplierCertificate() ? true : false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->settings->getSupplierCertificate() ? 2 : 0);
             curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeoutOptionCURL());
 
             $output = curl_exec($curl);
@@ -342,7 +342,7 @@ abstract class BaseController
                 'status' => $e->getCode(),
             ];
         } finally {
-            curl_close($curl);
+            unset($curl);
         }
     }
 
@@ -415,6 +415,11 @@ abstract class BaseController
         if ($this->settings->useSSLCertificates()) {
             $args[CURLOPT_SSLCERT] = $this->settings->getPublicCertificate();
             $args[CURLOPT_SSLKEY] = $this->settings->getPrivateCertificate();
+
+            $supplierCertificate = $this->settings->getSupplierCertificate();
+            if (0 < strlen($supplierCertificate)) {
+                $args[CURLOPT_CAINFO] = $supplierCertificate;
+            }
         }
 
         return $args;

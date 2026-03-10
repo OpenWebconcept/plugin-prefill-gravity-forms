@@ -98,12 +98,35 @@ class GravityFormsSettings
 
     public function getPublicCertificate(): string
     {
-        return $this->options[$this->prefix . 'public-certificate'] ?? '';
+        $path = $this->options[$this->prefix . 'public-certificate'] ?? '';
+
+        if (! is_string($path) || '' === $path) {
+            return '';
+        }
+
+        return file_exists($path) ? $path : '';
     }
 
     public function getPrivateCertificate(): string
     {
-        return $this->options[$this->prefix . 'private-certificate'] ?? '';
+        $path = $this->options[$this->prefix . 'private-certificate'] ?? '';
+
+        if (! is_string($path) || '' === $path) {
+            return '';
+        }
+
+        return file_exists($path) ? $path : '';
+    }
+
+    public function getSupplierCertificate(): string
+    {
+        $path = $this->options[$this->prefix . 'supplier-certificate'] ?? '';
+
+        if (! is_string($path) || '' === $path) {
+            return '';
+        }
+
+        return file_exists($path) ? $path : '';
     }
 
     public function getPassphrase(): string
