@@ -9,10 +9,13 @@ use OWC\PrefillGravityForms\Controllers\BaseController;
 abstract class GetController extends BaseController
 {
     /**
-    * Supplements the '_embedded' array with additional data retrieved via the '_links' array,
-    * using the configured expand arguments to fetch and merge related resources.
+     * Filters deceased persons from the given embedded relation collection.
+     *
+     * For each embedded item containing a BSN, additional person data is requested
+     * and the relation is removed when the person is marked as deceased
+     * ('opschortingBijhouding.reden.omschrijving' === 'overlijden').
      */
-    protected function supplementEmbeddedByLinks(array $apiResponse, string $embedType = '', string $doelBinding = ''): array
+    protected function filterDeceasedFromEmbeddedRelations(array $apiResponse, string $embedType = '', string $goalBinding = ''): array
     {
         if (! isset($apiResponse['_embedded'][$embedType])) {
             return $apiResponse;
@@ -23,7 +26,7 @@ abstract class GetController extends BaseController
                 continue;
             }
 
-            $response = $this->requestEmbedded($this->normalizeCommonGroundUrl($embeddedItem['_links']['ingeschrevenPersoon']['href']), $doelBinding);
+            $response = $this->requestEmbedded($this->normalizeCommonGroundUrl($embeddedItem['_links']['ingeschrevenPersoon']['href']), $goalBinding);
 
             if (true === ($response['overlijden']['indicatieOverleden'] ?? false)) {
                 unset($apiResponse['_embedded'][$embedType][$key]);
@@ -86,5 +89,5 @@ abstract class GetController extends BaseController
         return $scheme . '://' . $host . $port . $path . $query . $fragment;
     }
 
-    abstract protected function requestEmbedded(string $url, string $doelBinding): array;
+    abstract protected function requestEmbedded(string $url, string $goalBinding): array;
 }

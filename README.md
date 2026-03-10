@@ -41,9 +41,9 @@ In addition, at least one of the following plug-ins must be installed to enable 
 
 1. Go to '/wp-admin/admin.php?page=gf_settings&subview=owc-gravityforms-iconnect' and configure all the required settings.
 
-- 1. Suppliers will provide the needed certificates which need to be selected in order to make prefilling form fields work.
-- 2. Suppliers will also provide an API-key, certificates password (if needed) and a base URL.
-- 3. [OIN](https://logius.nl/domeinen/toegang/organisatie-identificatienummer/wat-is-het) is a unique number for organizations provided by Logius.
+-   1. Suppliers will provide the needed certificates which need to be selected in order to make prefilling form fields work.
+-   2. Suppliers will also provide an API-key, certificates password (if needed) and a base URL.
+-   3. [OIN](https://logius.nl/domeinen/toegang/organisatie-identificatienummer/wat-is-het) is a unique number for organizations provided by Logius.
 
 2. Go to the form settings of the form you want to configure.
 3. Scroll down and look for the 'iConnect' panel and configure the settings.
@@ -120,3 +120,15 @@ do_action('pg::exception/intercept', $exception, $method)
 ```
 
 The `$exception` parameter contains the caught exception object.
+
+### Provide Custom Mapping Options from a Theme Directory
+
+This plugin includes supplier-specific mapping option files. In version 1 of the "HaalCentraal API", all available fields were returned, even when only a subset was needed.
+
+Since version 2 of HaalCentraal, this has changed: the goal binding (doelbinding) now determines which fields are returned. This results in a more concise dataset that contains only the necessary fields. Because each municipality (gemeente) can define its own unique goal bindings and corresponding fields, this plugin cannot include all possible mapping configurations by default.
+
+```php
+add_filter('pg::theme/dir_mapping_options', function ($value) {
+    return __DIR__ . '/templates/owc-prefill/';
+}, 10, 1);
+```

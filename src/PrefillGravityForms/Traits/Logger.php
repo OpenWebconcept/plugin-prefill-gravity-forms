@@ -8,6 +8,7 @@ use Exception;
 use Monolog\Level;
 use function OWC\PrefillGravityForms\Foundation\Helpers\resolve;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
+use Throwable;
 
 trait Logger
 {
@@ -16,7 +17,7 @@ trait Logger
         try {
             $level = Level::from($exception->getCode());
             $method = $level->toPsrLogLevel();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $method = 'error';
         }
 
@@ -41,6 +42,6 @@ trait Logger
             return;
         }
 
-        $logger->$method($exception->getMessage(), $context);
+        $logger->$method(sprintf('Yard | BRP Prefill GravityForms: %s', $exception->getMessage()), $context);
     }
 }
