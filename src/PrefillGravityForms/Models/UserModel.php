@@ -92,4 +92,19 @@ class UserModel
 
         return implode(' ', array_filter($nameParts));
     }
+
+    public function zipcode(): string
+    {
+        return (string) ($this->data['verblijfplaats']['postcode'] ?? '');
+    }
+
+    public function houseNumber(): string
+    {
+        return (string) ($this->data['verblijfplaats']['huisnummer'] ?? '');
+    }
+
+    public function houseLetter(): string
+    {
+        return (string) ($this->data['verblijfplaats']['huisletter'] ?? '');
+    }
 }
