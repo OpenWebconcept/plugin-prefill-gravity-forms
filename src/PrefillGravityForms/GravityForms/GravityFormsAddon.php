@@ -6,6 +6,7 @@ namespace OWC\PrefillGravityForms\GravityForms;
 
 use GFAddOn;
 
+use function OWC\PrefillGravityForms\Foundation\Helpers\config;
 use function OWC\PrefillGravityForms\Foundation\Helpers\storage_path;
 
 class GravityFormsAddon extends GFAddOn
@@ -78,69 +79,93 @@ class GravityFormsAddon extends GFAddOn
 
         return [
             [
-                'title' => __('Algemeen', 'prefill-gravity-forms'),
+                'title' => esc_html__('Algemeen', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label' => __('OIN number', 'prefill-gravity-forms'),
+                        'label' => esc_html__('OIN nummer', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}oin-number",
                         'required' => true,
                     ],
                     [
-                        'label' => __('Basis URL', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Basis URL', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}base-url",
                         'required' => true,
                     ],
                     [
-                        'label' => __('Gebruik API authenticatie', 'prefill-gravity-forms'),
-                        'description' => __('Deze authenticatie zal gebruikt worden naast de gebruikelijke authenticatie middels certificaten.', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Leverancier', 'prefill-gravity-forms'),
+                        'type' => 'select',
+                        'class' => 'medium',
+                        'name' => "{$prefix}supplier",
+                        'required' => true,
+                        'choices' => array_merge([['label' => 'Selecteer een leverancier', 'value' => '']], array_map(function ($supplier) {
+                            return [
+                                'label' => $supplier,
+                                'value' => $supplier,
+                            ];
+                        }, array_values(config('suppliers', [])))),
+                    ],
+                    [
+                        'label' => esc_html__('Gebruik API authenticatie', 'prefill-gravity-forms'),
+                        'description' => esc_html__('Deze authenticatie zal gebruikt worden naast de gebruikelijke authenticatie middels certificaten.', 'prefill-gravity-forms'),
                         'type' => 'toggle',
                         'name' => "{$prefix}api-use-authentication",
                         'required' => false,
                         'default_value' => false,
                     ],
+                    [
+                        'label' => esc_html__('Gebruik SSL certificaten', 'prefill-gravity-forms'),
+                        'description' => esc_html__('Schakel deze optie in om SSL certificaten te gebruiken voor de communicatie met de API van de leverancier.', 'prefill-gravity-forms'),
+                        'type' => 'toggle',
+                        'name' => "{$prefix}use-ssl-certificates",
+                        'required' => false,
+                        'default_value' => false,
+                    ]
                 ],
             ],
             [
-                'title' => __('API sleutel', 'prefill-gravity-forms'),
+                'title' => esc_html__('API sleutel', 'prefill-gravity-forms'),
                 'class' => 'gform-settings-panel--half',
-                'description' => __('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
+                'description' => esc_html__('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
                 'fields' => [
                     [
-                        'label' => __('Sleutel', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Sleutel', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-key",
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                     [
-                        'label' => __('Header naam', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Header naam', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-key-header-name",
                         'default_value' => 'x-api-key',
-                        'description' => __('Is vereist als header in HTTP verzoeken.', 'prefill-gravity-forms'),
+                        'description' => esc_html__('Is vereist als header in HTTP verzoeken.', 'prefill-gravity-forms'),
                     ],
                 ],
                 'dependency' => [
-                    'field' => "{$prefix}api-use-authentication",
-                    'values' => [true],
+                    'live' => true,
+                    'fields' => [
+                        [
+                            'field' => "{$prefix}api-use-authentication",
+                            'values' => [true, '1'],
+                        ]
+                    ]
                 ],
             ],
             [
-                'title' => __('API OAuth 2.0', 'prefill-gravity-forms'),
+                'title' => esc_html__('API OAuth 2.0', 'prefill-gravity-forms'),
                 'class' => 'gform-settings-panel--half',
-                'description' => __('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
+                'description' => esc_html__('Vul alleen in als de API van de leverancier dit gebruikt.', 'prefill-gravity-forms'),
                 'fields' => [
                     [
                         'label' => esc_html__('Gebruikersnaam', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}api-basic-token-username",
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                     [
                         'label' => esc_html__('Wachtwoord', 'prefill-gravity-forms'),
@@ -148,16 +173,49 @@ class GravityFormsAddon extends GFAddOn
                         'class' => 'medium',
                         'name' => "{$prefix}api-basic-token-password",
                         'sanitize_callback' => false,
-                        'default_value' => __('Vul een waarde in', 'prefill-gravity-forms'),
                     ],
                 ],
                 'dependency' => [
-                    'field' => "{$prefix}api-use-authentication",
-                    'values' => [true],
+                    'live' => true,
+                    'fields' => [
+                        [
+                            'field' => "{$prefix}api-use-authentication",
+                            'values' => [true, '1'],
+                        ]
+                    ]
                 ],
             ],
             [
-                'title' => __('Certificaten', 'prefill-gravity-forms'),
+                'title' => esc_html__('Gebruikersmodel', 'prefill-gravity-forms'),
+                'fields' => [
+                    [
+                        'label' => esc_html__('Activeer gebruikersmodel', 'prefill-gravity-forms'),
+                        'description' => esc_html__(
+                            'Het Gebruikersmodel (UserModel) bevat gegevens van de ingelogde burger die beschikbaar worden gesteld voor gebruik in templates en weergaven. Meer informatie is te vinden in de README van deze plugin.',
+                            'prefill-gravity-forms'
+                        ),
+                        'type' => 'toggle',
+                        'name' => "{$prefix}enable-user-model",
+                        'required' => false,
+                        'default_value' => false,
+                    ],
+                ],
+            ],
+            [
+                'title' => esc_html__('Berichtenverkeer logboek', 'prefill-gravity-forms'),
+                'fields' => [
+                    [
+                        'name' => "{$prefix}logging-enabled",
+                        'label' => esc_html__('Logging inschakelen', 'prefill-gravity-forms'),
+                        'type' => 'toggle',
+                        'required' => false,
+                        'default_value' => false,
+                        'description' => esc_html__('Schakel deze optie in om het loggen van foutmeldingen te activeren. Dit kan nuttig zijn voor het opsporen en oplossen van problemen binnen de plug-in.', 'prefill-gravity-forms'),
+                    ],
+                ],
+            ],
+            [
+                'title' => esc_html__('Certificaten', 'prefill-gravity-forms'),
                 'fields' => [
                     [
                         'label' => esc_html__('Certificaten hoofd locatie', 'prefill-gravity-forms'),
@@ -168,27 +226,46 @@ class GravityFormsAddon extends GFAddOn
                         'required' => true,
                     ],
                     [
-                        'label' => esc_html__('Publieke locatie certificaten', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Publiek certificaat', 'prefill-gravity-forms'),
                         'type' => 'select',
                         'name' => "{$prefix}public-certificate",
                         'choices' => $this->getPublicCertificates(),
                         'required' => true,
+                        'tooltip' => esc_html__('Selecteer het publieke certificaat waarmee deze applicatie zich identificeert bij de API tijdens de mTLS-handshake.', 'prefill-gravity-forms'),
                     ],
                     [
-                        'label' => esc_html__('Privé locatie certificaten', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Privé certificaat', 'prefill-gravity-forms'),
                         'type' => 'select',
                         'name' => "{$prefix}private-certificate",
                         'choices' => $this->getPrivateCertificates(),
                         'required' => true,
+                        'tooltip' => esc_html__('Selecteer het privé certificaat dat hoort bij het publieke certificaat. Deze sleutel wordt gebruikt om het certificaat cryptografisch te valideren tijdens de TLS-handshake.', 'prefill-gravity-forms'),
                     ],
                     [
-                        'label' => __('Wachtwoord', 'prefill-gravity-forms'),
+                        'label' => esc_html__('Wachtwoord', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}passphrase",
                         'required' => false,
-                        'tooltip' => esc_html__('Dit veld mag leeg gelaten worden als er geen wachtwoord vereist is voor het maken van de verzoeken naar de "Haalcentraal" API.', 'prefill-gravity-forms'),
+                        'tooltip' => esc_html__('Voer hier het wachtwoord in dat hoort bij het publieke en privé certificaat. Laat dit veld leeg als het privé certificaat niet met een wachtwoord is beveiligd.', 'prefill-gravity-forms'),
                     ],
+                    [
+                        'label' => esc_html__('Leverancier certificaat', 'prefill-gravity-forms'),
+                        'type' => 'select',
+                        'name' => "{$prefix}supplier-certificate",
+                        'choices' => $this->getPublicCertificates(),
+                        'required' => false,
+                        'tooltip' => esc_html__('Optioneel: het certificaat of de CA van de leverancier om het servercertificaat van de API te valideren. Als dit niet is ingesteld, wordt TLS peer- en host-verificatie uitgeschakeld en kan de server mogelijk niet veilig worden geauthenticeerd.', 'prefill-gravity-forms'),
+                    ],
+                ],
+                'dependency' => [
+                    'live' => true,
+                    'fields' => [
+                        [
+                            'field' => "{$prefix}use-ssl-certificates",
+                            'values' => [true, '1'],
+                        ]
+                    ]
                 ],
             ],
         ];
@@ -249,6 +326,29 @@ class GravityFormsAddon extends GFAddOn
      */
     private function getRootPathToCertificates(): string
     {
-        return (! empty(GravityFormsSettings::make()->get('location-root-path-certificates'))) ? GravityFormsSettings::make()->get('location-root-path-certificates') : storage_path('certificates');
+        $configured = GravityFormsSettings::make()->get('location-root-path-certificates');
+        $fallback = storage_path('certificates');
+
+        if (empty($configured)) {
+            return $fallback;
+        }
+
+        $realPath = realpath($configured);
+
+        if (false === $realPath) {
+            return $fallback;
+        }
+
+        $safeBase = realpath(\ABSPATH . '/../../');
+
+        if (! str_starts_with($realPath, $safeBase . DIRECTORY_SEPARATOR)) {
+            return $fallback;
+        }
+
+        if (! is_dir($realPath) || ! is_readable($realPath)) {
+            return $fallback;
+        }
+
+        return $realPath;
     }
 }

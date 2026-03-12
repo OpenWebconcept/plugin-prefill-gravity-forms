@@ -38,6 +38,25 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'base-url'] ?? '';
     }
 
+    public function getSupplier(): string
+    {
+        return $this->options[$this->prefix . 'supplier'] ?? '';
+    }
+
+    public function isUserModelEnabled(): bool
+    {
+        $value = $this->options[$this->prefix . 'enable-user-model'] ?? '0';
+
+        return boolval($value);
+    }
+
+    public function useSSLCertificates(): bool
+    {
+        $value = $this->options[$this->prefix . 'use-ssl-certificates'] ?? '0';
+
+        return boolval($value);
+    }
+
     public function getNumberOIN(): string
     {
         return $this->options[$this->prefix . 'oin-number'] ?? '';
@@ -70,14 +89,44 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'api-basic-token-password'] ?? '';
     }
 
+    public function loggingEnabled(): bool
+    {
+        $value = $this->options[$this->prefix . 'logging-enabled'] ?? '0';
+
+        return boolval($value);
+    }
+
     public function getPublicCertificate(): string
     {
-        return $this->options[$this->prefix . 'public-certificate'] ?? '';
+        $path = $this->options[$this->prefix . 'public-certificate'] ?? '';
+
+        if (! is_string($path) || '' === $path) {
+            return '';
+        }
+
+        return file_exists($path) ? $path : '';
     }
 
     public function getPrivateCertificate(): string
     {
-        return $this->options[$this->prefix . 'private-certificate'] ?? '';
+        $path = $this->options[$this->prefix . 'private-certificate'] ?? '';
+
+        if (! is_string($path) || '' === $path) {
+            return '';
+        }
+
+        return file_exists($path) ? $path : '';
+    }
+
+    public function getSupplierCertificate(): string
+    {
+        $path = $this->options[$this->prefix . 'supplier-certificate'] ?? '';
+
+        if (! is_string($path) || '' === $path) {
+            return '';
+        }
+
+        return file_exists($path) ? $path : '';
     }
 
     public function getPassphrase(): string

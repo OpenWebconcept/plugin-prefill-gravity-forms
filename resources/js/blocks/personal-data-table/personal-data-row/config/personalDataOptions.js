@@ -49,7 +49,7 @@ const personalDataOptions = [
 		value: 'verblijfplaats.huisnummer',
 	},
 	{
-		label: 'Huisletter',
+		label: 'Huisnummertoevoeging',
 		value: 'verblijfplaats.huisletter',
 	},
 	{

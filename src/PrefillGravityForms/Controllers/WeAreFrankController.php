@@ -131,7 +131,7 @@ class WeAreFrankController extends PostController
                 $message = sprintf('%s: %s', $message, $apiResponse['message']);
             }
 
-            $this->logError($message, $apiResponse['status'] ?? 500);
+            $this->logException(new Exception($message, (int) ($response['status'] ?? 500)));
 
             return [];
         }
@@ -180,7 +180,7 @@ class WeAreFrankController extends PostController
 
     protected function getDefaultCurlArgs(): array
     {
-        return [
+        $args = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -189,5 +189,12 @@ class WeAreFrankController extends PostController
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
         ];
+
+        if ($this->settings->useSSLCertificates()) {
+            $args[CURLOPT_SSLCERT] = $this->settings->getPublicCertificate();
+            $args[CURLOPT_SSLKEY] = $this->settings->getPrivateCertificate();
+        }
+
+        return $args;
     }
 }
