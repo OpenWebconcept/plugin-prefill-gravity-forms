@@ -29,7 +29,7 @@
             <option value="geboorte.land.omschrijving"><?php _e('Geboorteland', 'prefill-gravity-forms'); ?></option>
             <option value="geboorte.plaats.omschrijving"><?php _e('Geboorteplaats', 'prefill-gravity-forms'); ?></option>
         </optgroup>
-        <optgroup label="Verblijftplaats">
+        <optgroup label="Verblijfplaats">
             <option value="verblijfplaats.straatnaam"><?php _e('Straat', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.huisnummer"><?php _e('Huisnummer', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.huisletter"><?php _e('Huisletter', 'prefill-gravity-forms'); ?></option>
