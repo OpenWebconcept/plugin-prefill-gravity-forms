@@ -117,7 +117,9 @@ class WeAreFrankController extends PostController
             CURLOPT_HTTPHEADER => $this->getCurlHeaders($goalBinding, $processing),
         ];
 
-        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+        $locationBsnInResponse = ['personen.0.burgerservicenummer'];
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn), $locationBsnInResponse);
     }
 
     protected function requestEmbedded(string $bsn, string $goalBinding = '', string $processing = ''): array
