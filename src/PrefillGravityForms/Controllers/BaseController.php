@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OWC\PrefillGravityForms\Controllers;
 
+use CurlHandle;
 use DateTime;
 use Exception;
 use GF_Field;
@@ -341,11 +342,7 @@ abstract class BaseController
                 curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->settings->getPassphrase());
             }
 
-            $shouldVerifyPeerHost = $this->shouldVerifyPeerHost();
-
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $shouldVerifyPeerHost);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $shouldVerifyPeerHost ? 2 : 0);
-            curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeoutOptionCURL());
+            $this->applyCurlSSLOptions($curl);
 
             $output = curl_exec($curl);
 
@@ -385,6 +382,22 @@ abstract class BaseController
     private function shouldVerifyPeerHost(): bool
     {
         return $this->settings->useSSLCertificates() && $this->settings->getSupplierCertificate();
+    }
+
+    /**
+     * Applies SSL options to the cURL handle based on the settings.
+     */
+    private function applyCurlSSLOptions(CurlHandle $curl): void
+    {
+        $shouldVerifyPeerHost = $this->shouldVerifyPeerHost();
+
+        if ($shouldVerifyPeerHost) {
+            curl_setopt($curl, CURLOPT_CAINFO, $this->settings->getSupplierCertificate());
+        }
+
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $shouldVerifyPeerHost);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $shouldVerifyPeerHost ? 2 : 0);
+        curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeoutOptionCURL());
     }
 
     /**
