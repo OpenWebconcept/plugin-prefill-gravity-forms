@@ -47,12 +47,12 @@ abstract class BaseController
         return method_exists($current_screen, 'is_block_editor') && $current_screen->is_block_editor();
     }
 
-    public function get(string $doelBindig = '', string $processing = ''): array
+    public function get(string $goalBinding = '', string $processing = ''): array
     {
-        return static::makeRequest($doelBindig, $processing);
+        return static::makeRequest($goalBinding, $processing);
     }
 
-    abstract protected function makeRequest(string $doelBindig = '', string $processing = ''): array;
+    abstract protected function makeRequest(string $goalBinding = '', string $processing = ''): array;
 
     protected function preFillFields(array $form, array $response): array
     {
