@@ -8,6 +8,8 @@ use OWC\PrefillGravityForms\Controllers\BaseController;
 
 abstract class PostController extends BaseController
 {
+    protected const BRP_API_VERSION = '2';
+
     /**
      * Filters deceased persons from the given embedded relation collection.
      *

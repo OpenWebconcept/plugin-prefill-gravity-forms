@@ -26,12 +26,19 @@ abstract class BaseController
         'owc_pg_municipality_check',
     ];
 
+    protected const BRP_API_VERSION = '';
+
     protected GravityFormsSettings $settings;
     protected array $prefilledChildrenMappingOptions = [];
 
     public function __construct()
     {
         $this->settings = GravityFormsSettings::make();
+    }
+
+    public function getApiVersion(): string
+    {
+        return static::BRP_API_VERSION;
     }
 
     abstract public function handle(array $form): array;
