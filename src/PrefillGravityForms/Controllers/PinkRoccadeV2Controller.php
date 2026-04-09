@@ -120,8 +120,9 @@ class PinkRoccadeV2Controller extends PostController
         ];
 
         $locationBsnInResponse = ['personen.0.burgerservicenummer'];
+        $transientKey = $this->isPersonalDataServiceRequest ? $bsn . '_personal_data_service' : $bsn;
 
-        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn), $locationBsnInResponse);
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($transientKey), $locationBsnInResponse);
     }
 
     protected function requestEmbedded(string $bsn, string $goalBinding = '', string $processing = ''): array

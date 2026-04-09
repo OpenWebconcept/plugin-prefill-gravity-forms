@@ -45,7 +45,7 @@ class PersonalDataService
         if ($this->controller->getApiVersion() === '1') {
             $key = $this->keyVersionOne($key);
             $value = $this->getValueFromNestedArray($key, $data);
-        } elseif($this->controller->getApiVersion() === '2') {
+        } elseif ($this->controller->getApiVersion() === '2') {
             $key = $this->keyVersionTwo($key);
             $value = $this->getValueFromNestedArray($key, $data);
         } else {

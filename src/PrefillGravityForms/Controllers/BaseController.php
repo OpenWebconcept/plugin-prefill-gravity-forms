@@ -30,6 +30,7 @@ abstract class BaseController
 
     protected GravityFormsSettings $settings;
     protected array $prefilledChildrenMappingOptions = [];
+    protected bool $isPersonalDataServiceRequest = false;
 
     public function __construct()
     {
@@ -56,6 +57,8 @@ abstract class BaseController
 
     public function get(string $goalBinding = '', string $processing = ''): array
     {
+        $this->isPersonalDataServiceRequest = true;
+
         return static::makeRequest($goalBinding, $processing);
     }
 
@@ -422,7 +425,9 @@ abstract class BaseController
             throw new Exception('No burgerservicenummer found in the response.', 404);
         }
 
-        $transientKeyByResponse = CacheService::formatTransientKey($responseBSN);
+        $transientKeyByResponse = CacheService::formatTransientKey(
+            $this->isPersonalDataServiceRequest ? $responseBSN . '_personal_data_service' : $responseBSN
+        );
 
         // Ensure the transient keys generated from the BSN out of the response and current session match.
         if ($transientKeyByResponse !== $transientKey) {

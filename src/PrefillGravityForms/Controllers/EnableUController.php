@@ -84,7 +84,9 @@ class EnableUController extends GetController
             CURLOPT_HTTPHEADER => $this->getCurlHeaders($goalBinding),
         ];
 
-        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn));
+        $transientKey = $this->isPersonalDataServiceRequest ? $bsn . '_personal_data_service' : $bsn;
+
+        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($transientKey));
     }
 
     protected function requestEmbedded(string $url, string $goalBinding): array
