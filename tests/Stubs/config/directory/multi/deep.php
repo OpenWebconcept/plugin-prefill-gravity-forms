@@ -1,5 +1,5 @@
 <?php
 
-return [
-    'multi_level' => 'works',
-];
+return array(
+	'multi_level' => 'works',
+);

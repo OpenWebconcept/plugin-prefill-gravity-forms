@@ -1,5 +1,5 @@
 <?php
 
-return [
-    'in_directory' => 'directory',
-];
+return array(
+	'in_directory' => 'directory',
+);

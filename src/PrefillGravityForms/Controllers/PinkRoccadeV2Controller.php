@@ -2,141 +2,173 @@
 
 declare(strict_types=1);
 
+/**
+ * @package  OWC\PrefillGravityForms
+ * @author   Yard | Digital Agency
+ * @since    NEXT
+ */
+
 namespace OWC\PrefillGravityForms\Controllers;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; }
 
 use Exception;
 use OWC\PrefillGravityForms\Abstracts\PostController;
 use OWC\PrefillGravityForms\Services\CacheService;
 
+/**
+ * Controller for the PinkRoccade V2 BRP supplier.
+ *
+ * @since NEXT
+ */
 class PinkRoccadeV2Controller extends PostController
 {
-    public function handle(array $form): array
-    {
-        if ($this->isBlockEditor()) {
-            return $form;
-        }
+	/**
+	 * @since NEXT
+	 */
+	public function handle(array $form ): array
+	{
+		if ( $this->is_block_editor() ) {
+			return $form;
+		}
 
-        $bsn = $this->getBSN();
+		$bsn = $this->get_bsn();
 
-        if ('' === $bsn) {
-            return $form;
-        }
+		if ( '' === $bsn ) {
+			return $form;
+		}
 
-        $goalBinding = rgar($form, 'owc-iconnect-doelbinding', '');
-        $processing = rgar($form, 'owc-iconnect-processing', '') ?: $this->settings->getProcessing();
-        $expand = rgar($form, 'owc-iconnect-expand', '');
-        $excludeDeceased = (bool) rgar($form, 'owc-iconnect-exclude-deceased', false);
-        $apiResponse = $this->fetchApiResponse($bsn, $expand, $goalBinding, $processing, $excludeDeceased);
+		$goal_binding     = rgar( $form, 'owc-iconnect-doelbinding', '' );
+		$processing       = rgar( $form, 'owc-iconnect-processing', '' ) ?: $this->settings->get_processing();
+		$expand           = rgar( $form, 'owc-iconnect-expand', '' );
+		$exclude_deceased = (bool) rgar( $form, 'owc-iconnect-exclude-deceased', false );
+		$api_response     = $this->fetch_api_response( $bsn, $expand, $goal_binding, $processing, $exclude_deceased );
 
-        if (empty($apiResponse)) {
-            return $form;
-        }
+		if ( empty( $api_response ) ) {
+			return $form;
+		}
 
-        echo $this->disableFormFields();
+		echo $this->disable_form_fields();
 
-        return $this->preFillFields($form, $apiResponse);
-    }
+		return $this->pre_fill_fields( $form, $api_response );
+	}
 
-    protected function makeRequest(string $goalBinding = '', string $processing = ''): array
-    {
-        $bsn = $this->getBSN();
+	/**
+	 * @since NEXT
+	 */
+	protected function make_request(string $goal_binding = '', string $processing = '' ): array
+	{
+		$bsn = $this->get_bsn();
 
-        if ('' === $bsn) {
-            return [];
-        }
+		if ( '' === $bsn ) {
+			return array();
+		}
 
-        return $this->fetchApiResponse($bsn, '', $goalBinding, $processing);
-    }
+		return $this->fetch_api_response( $bsn, '', $goal_binding, $processing );
+	}
 
-    protected function prepareData(string $bsn, string $expand = ''): array
-    {
-        $fields = [
-            'aNummer',
-            'adressering',
-            'burgerservicenummer',
-            'datumEersteInschrijvingGBA',
-            'datumInschrijvingInGemeente',
-            'geboorte',
-            'gemeenteVanInschrijving',
-            'geslacht',
-            'immigratie',
-            'leeftijd',
-            'naam',
-            'nationaliteiten',
-            'overlijden',
-            'verblijfplaats',
-            'verblijfstitel',
-            'verblijfplaatsBinnenland',
-            'adresseringBinnenland',
-        ];
+	/**
+	 * @since NEXT
+	 */
+	protected function prepare_data(string $bsn, string $expand = '' ): array
+	{
+		$fields = array(
+			'aNummer',
+			'adressering',
+			'burgerservicenummer',
+			'datumEersteInschrijvingGBA',
+			'datumInschrijvingInGemeente',
+			'geboorte',
+			'gemeenteVanInschrijving',
+			'geslacht',
+			'immigratie',
+			'leeftijd',
+			'naam',
+			'nationaliteiten',
+			'overlijden',
+			'verblijfplaats',
+			'verblijfstitel',
+			'verblijfplaatsBinnenland',
+			'adresseringBinnenland',
+		);
 
-        if (! empty($expand)) {
-            $expandFields = $this->getExpandFields($expand);
-            $fields = array_merge($fields, $expandFields);
-        }
+		if ( ! empty( $expand ) ) {
+			$expand_fields = $this->get_expand_fields( $expand );
+			$fields        = array_merge( $fields, $expand_fields );
+		}
 
-        return [
-            'type' => 'RaadpleegMetBurgerservicenummer',
-            'fields' => $fields,
-            'burgerservicenummer' => [$bsn],
-        ];
-    }
+		return array(
+			'type'                => 'RaadpleegMetBurgerservicenummer',
+			'fields'              => $fields,
+			'burgerservicenummer' => array( $bsn ),
+		);
+	}
 
-    protected function fetchApiResponse(string $bsn, string $expand = '', string $goalBinding = '', string $processing = '', bool $excludeDeceased = false): array
-    {
-        $apiResponse = $this->request($bsn, $expand, $goalBinding, $processing);
-        $personData = $apiResponse['personen'] ?? [];
-        $firstPerson = reset($personData); // Response is in a multidimensional array which differs from other suppliers.
+	/**
+	 * @since NEXT
+	 */
+	protected function fetch_api_response(string $bsn, string $expand = '', string $goal_binding = '', string $processing = '', bool $exclude_deceased = false ): array
+	{
+		$api_response = $this->request( $bsn, $expand, $goal_binding, $processing );
+		$person_data  = $api_response['personen'] ?? array();
+		$first_person = reset( $person_data ); // Response is in a multidimensional array which differs from other suppliers.
 
-        if (isset($apiResponse['status']) || ! is_array($firstPerson) || ! count($firstPerson)) {
-            $message = 'Retrieving prefill data failed';
+		if ( isset( $api_response['status'] ) || ! is_array( $first_person ) || ! count( $first_person ) ) {
+			$message = 'Retrieving prefill data failed';
 
-            if (isset($apiResponse['message'])) {
-                $message = sprintf('%s: %s', $message, $apiResponse['message']);
-            }
+			if ( isset( $api_response['message'] ) ) {
+				$message = sprintf( '%s: %s', $message, $api_response['message'] );
+			}
 
-            $this->logException(new Exception($message, (int) ($apiResponse['status'] ?? 500)));
+			$this->log_exception( new Exception( $message, (int) ( $api_response['status'] ?? 500 ) ) );
 
-            return [];
-        }
+			return array();
+		}
 
-        if ($excludeDeceased) {
-            foreach (array_filter(explode(',', $expand)) as $embedType) {
-                $firstPerson = $this->filterDeceasedFromEmbeddedRelations($firstPerson, trim($embedType), $goalBinding, $processing);
-            }
-        }
+		if ( $exclude_deceased ) {
+			foreach ( array_filter( explode( ',', $expand ) ) as $embed_type ) {
+				$first_person = $this->filter_deceased_from_embedded_relations( $first_person, trim( $embed_type ), $goal_binding, $processing );
+			}
+		}
 
-        return $firstPerson;
-    }
+		return $first_person;
+	}
 
-    protected function request(string $bsn, string $expand = '', string $goalBinding = '', string $processing = ''): array
-    {
-        $processing = 0 < strlen($processing) ? $processing : $this->settings->getProcessing();
+	/**
+	 * @since NEXT
+	 */
+	protected function request(string $bsn, string $expand = '', string $goal_binding = '', string $processing = '' ): array
+	{
+		$processing = 0 < strlen( $processing ) ? $processing : $this->settings->get_processing();
 
-        $curlArgs = [
-            CURLOPT_URL => $this->settings->getBaseURL(),
-            CURLOPT_POSTFIELDS => json_encode($this->prepareData($bsn, $expand)),
-            CURLOPT_HTTPHEADER => $this->getCurlHeaders($goalBinding, $processing),
-        ];
+		$curl_args = array(
+			CURLOPT_URL        => $this->settings->get_base_url(),
+			CURLOPT_POSTFIELDS => json_encode( $this->prepare_data( $bsn, $expand ) ),
+			CURLOPT_HTTPHEADER => $this->get_curl_headers( $goal_binding, $processing ),
+		);
 
-        $locationBsnInResponse = ['personen.0.burgerservicenummer'];
-        $transientKey = $this->isPersonalDataServiceRequest ? $bsn . '_personal_data_service' : $bsn;
+		$location_bsn_in_response = array( 'personen.0.burgerservicenummer' );
+		$transient_key            = $this->is_personal_data_service_request ? $bsn . '_personal_data_service' : $bsn;
 
-        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($transientKey), $locationBsnInResponse);
-    }
+		return $this->handle_curl( $curl_args, CacheService::formatTransientKey( $transient_key ), $location_bsn_in_response );
+	}
 
-    protected function requestEmbedded(string $bsn, string $goalBinding = '', string $processing = ''): array
-    {
-        $processing = 0 < strlen($processing) ? $processing : $this->settings->getProcessing();
+	/**
+	 * @since NEXT
+	 */
+	protected function request_embedded(string $bsn, string $goal_binding = '', string $processing = '' ): array
+	{
+		$processing = 0 < strlen( $processing ) ? $processing : $this->settings->get_processing();
 
-        $curlArgs = [
-            CURLOPT_URL => $this->settings->getBaseURL(),
-            CURLOPT_POSTFIELDS => json_encode($this->prepareData($bsn)),
-            CURLOPT_HTTPHEADER => $this->getCurlHeaders($goalBinding, $processing),
-        ];
+		$curl_args = array(
+			CURLOPT_URL        => $this->settings->get_base_url(),
+			CURLOPT_POSTFIELDS => json_encode( $this->prepare_data( $bsn ) ),
+			CURLOPT_HTTPHEADER => $this->get_curl_headers( $goal_binding, $processing ),
+		);
 
-        $locationBsnInResponse = ['personen.0.burgerservicenummer'];
+		$location_bsn_in_response = array( 'personen.0.burgerservicenummer' );
 
-        return $this->handleCurl($curlArgs, CacheService::formatTransientKey($bsn), $locationBsnInResponse);
-    }
+		return $this->handle_curl( $curl_args, CacheService::formatTransientKey( $bsn ), $location_bsn_in_response );
+	}
 }

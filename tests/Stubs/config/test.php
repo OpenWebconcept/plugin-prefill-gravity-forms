@@ -1,5 +1,5 @@
 <?php
 
-return [
-    'single_file' => true,
-];
+return array(
+	'single_file' => true,
+);

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<ruleset name="PrefillGravityForms">
+    <arg name="extensions" value="php"/>
+
+    <!-- Exclude some folders such as third-party code -->
+    <exclude-pattern>.github/*</exclude-pattern>
+    <exclude-pattern>vendor/*</exclude-pattern>
+
+    <!-- Parallel processing for faster results, check up to 8 files simultaneously -->
+    <arg name="parallel" value="8" />
+
+    <!-- Show results with colors -->
+    <arg name="colors" />
+
+    <!-- Scan only PHP files in this directory and its subdirectories -->
+    <file>.</file>
+    <arg name="extensions" value="php" />
+
+    <!-- Whenever possible, cache the scan results and re-use those for unchanged files on the next scan -->
+    <arg name="cache" />
+
+    <!-- Strip the file paths down to the relevant bit -->
+    <arg name="basepath" value="./" />
+
+    <!-- Show sniff codes in all reports -->
+    <arg value="ps" />
+
+    <!-- Set the minimum supported WordPress version -->
+    <config name="minimum_supported_wp_version" value="6.7" />
+
+    <rule ref="WordPress">
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen"/>
+        <exclude name="Squiz.Commenting.FileComment.Missing"/>
+        <exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
+        <exclude name="Generic.Classes.OpeningBraceSameLine.BraceOnNewLine" />
+        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie.BraceOnNewLine" />
+        <exclude name="Squiz.Commenting.FunctionComment.Missing" />
+        <exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed" />
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
+        <exclude name="Generic.Commenting.DocComment.MissingShort" />
+        <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
+        <exclude name="Squiz.Commenting.VariableComment.Missing" />
+        <exclude name="Squiz.Commenting.InlineComment.SpacingBefore" />
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop" />
+        <exclude name="Squiz.Commenting.FunctionComment.ThrowsNoFullStop" />
+    </rule>
+    <rule ref="WordPress-Docs" />
+    <rule ref="Squiz.Commenting.DocCommentAlignment" />
+    <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
+    <rule ref="Squiz.Classes.ClassDeclaration.OpenBraceNewLine" />
+</ruleset>

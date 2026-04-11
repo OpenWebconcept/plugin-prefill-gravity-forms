@@ -9,6 +9,7 @@ module.exports = {
 			...entries,
 			icons: './resources/scss/icons.scss',
 			style: './resources/scss/index.scss',
+			'admin/config-manager': './resources/js/admin/config-manager.js',
 		};
 	},
 };

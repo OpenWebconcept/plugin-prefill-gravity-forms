@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Plugin Name:       Yard | BRP Prefill GravityForms
  * Plugin URI:        https://www.openwebconcept.nl/
@@ -12,20 +14,24 @@
  * Text Domain:       prefill-gravity-forms
  * Domain Path:       /languages
  * Requires Plugins:  gravityforms
+ *
+ * @package  OWC\PrefillGravityForms
+ * @author   Yard | Digital Agency
+ * @since    1.0.0
  */
 
 /**
  * If this file is called directly, abort.
  */
-if (! defined('WPINC')) {
-    die;
+if ( ! defined( 'WPINC' ) ) {
+	die;
 }
 
-define('PG_VERSION', '1.9.1');
-define('PG_DIR', basename(__DIR__));
-define('PG_ROOT_PATH', __DIR__);
-define('PG_PLUGIN_SLUG', 'prefill-gravity-forms');
-define('PG_LOGGER_DEFAULT_MAX_FILES', 7);
+define( 'PG_VERSION', '1.9.1' );
+define( 'PG_DIR', basename( __DIR__ ) );
+define( 'PG_ROOT_PATH', __DIR__ );
+define( 'PG_PLUGIN_SLUG', 'prefill-gravity-forms' );
+define( 'PG_LOGGER_DEFAULT_MAX_FILES', 7 );
 
 /**
  * Not all the members of the OpenWebconcept are using composer in the root of their project.
@@ -34,11 +40,11 @@ define('PG_LOGGER_DEFAULT_MAX_FILES', 7);
  */
 $composerAutoload = __DIR__ . '/vendor/autoload.php';
 
-if (file_exists($composerAutoload)) {
-    require_once $composerAutoload;
+if ( file_exists( $composerAutoload ) ) {
+	require_once $composerAutoload;
 } else {
-    require_once __DIR__ . '/autoloader.php';
-    $autoloader = new OWC\PrefillGravityForms\Autoloader();
+	require_once __DIR__ . '/autoloader.php';
+	$autoloader = new OWC\PrefillGravityForms\Autoloader();
 }
 
 /**
@@ -48,10 +54,17 @@ if (file_exists($composerAutoload)) {
  * plugin overrides. The plugins_loaded action hook fires early, and precedes the setup_theme, after_setup_theme, init
  * and wp_loaded action hooks.
  */
-add_action('plugins_loaded', function () {
-    $plugin = \OWC\PrefillGravityForms\Foundation\Plugin::getInstance(__DIR__);
+add_action(
+	'plugins_loaded',
+	function () {
+		$plugin = \OWC\PrefillGravityForms\Foundation\Plugin::get_instance( __DIR__ );
 
-    add_action('after_setup_theme', function () use ($plugin) {
-        $plugin->boot();
-    });
-}, 10);
+		add_action(
+			'after_setup_theme',
+			function () use ( $plugin ) {
+				$plugin->boot();
+			}
+		);
+	},
+	10
+);

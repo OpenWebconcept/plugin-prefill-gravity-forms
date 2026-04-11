@@ -1,0 +1,94 @@
+/**
+ * OWC Prefill Gravity Forms — Configuration Manager styles
+ */
+
+/* ---------------------------------------------------------------------------
+ * Editor panel
+ * --------------------------------------------------------------------------- */
+
+.owc-pg-editor {
+	margin-top: 16px;
+	padding: 20px 24px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.owc-pg-editor h4 {
+	margin: 0 0 16px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #1d2327;
+	border-bottom: 1px solid #f0f0f1;
+	padding-bottom: 12px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Validation errors
+ * Note: we deliberately avoid WordPress .notice classes to prevent style
+ * conflicts that would make the element always visible.
+ * --------------------------------------------------------------------------- */
+
+.owc-pg-validation-errors {
+	display: none;
+	margin: 0 0 16px;
+	padding: 10px 12px;
+	background: #fce9e9;
+	border-left: 4px solid #d63638;
+	border-radius: 2px;
+}
+
+.owc-pg-validation-errors.is-visible {
+	display: block;
+}
+
+.owc-pg-validation-errors p {
+	margin: 0;
+	color: #d63638;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+/* ---------------------------------------------------------------------------
+ * Form layout
+ * --------------------------------------------------------------------------- */
+
+.owc-pg-config-form .owc-pg-required {
+	color: #d63638;
+	margin-left: 2px;
+}
+
+/* Conditional rows — hidden until checkbox is toggled by JS */
+.owc-pg-api-auth-field,
+.owc-pg-ssl-field {
+	display: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Editor action buttons
+ * --------------------------------------------------------------------------- */
+
+.owc-pg-editor-actions {
+	margin: 16px 0 0;
+	padding-top: 16px;
+	border-top: 1px solid #f0f0f1;
+}
+
+/* ---------------------------------------------------------------------------
+ * Configuration table
+ * --------------------------------------------------------------------------- */
+
+#owc-pg-config-table .button-small {
+	margin-right: 6px;
+	margin-bottom: 5px;
+	width: 100%;
+}
+
+#owc-pg-config-table .button-small:last-child {
+	margin-right: 0;
+}
+
+#owc-pg-config-table td {
+	vertical-align: middle;
+}

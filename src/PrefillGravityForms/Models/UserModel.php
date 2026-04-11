@@ -2,7 +2,16 @@
 
 declare(strict_types=1);
 
+/**
+ * @package  OWC\PrefillGravityForms
+ * @author   Yard | Digital Agency
+ * @since    NEXT
+ */
+
 namespace OWC\PrefillGravityForms\Models;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; }
 
 use Exception;
 use OWC\PrefillGravityForms\Controllers\BaseController;
@@ -10,101 +19,144 @@ use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 use OWC\PrefillGravityForms\Traits\ControllerTrait;
 use OWC\PrefillGravityForms\Traits\Logger;
 
+/**
+ * Provides typed accessors for the currently logged-in citizen's personal data.
+ *
+ * @since NEXT
+ */
 class UserModel
 {
-    use ControllerTrait;
-    use Logger;
+	use ControllerTrait;
+	use Logger;
 
-    protected string $supplier;
-    protected ?BaseController $controller;
-    protected array $data;
+	protected string $supplier;
+	protected ?BaseController $controller;
+	protected array $data;
 
-    public function __construct()
-    {
-        $this->supplier = GravityFormsSettings::make()->getSupplier();
-        $this->controller = $this->handleController();
-        $this->data = $this->controller?->get() ?? [];
-    }
+	/**
+	 * @since NEXT
+	 */
+	public function __construct()
+	{
+		$this->supplier   = GravityFormsSettings::make()->get_supplier();
+		$this->controller = $this->handle_controller();
+		$this->data       = $this->controller?->get() ?? array();
+	}
 
-    private function handleController(): ?BaseController
-    {
-        if (! GravityFormsSettings::make()->isUserModelEnabled()) {
-            return null;
-        }
+	/**
+	 * @since NEXT
+	 */
+	private function handle_controller(): ?BaseController
+	{
+		if ( ! GravityFormsSettings::make()->is_user_model_enabled() ) {
+			return null;
+		}
 
-        try {
-            return $this->getController($this->supplier);
-        } catch (Exception $e) {
-            $this->logException($e);
+		try {
+			return $this->get_controller( $this->supplier );
+		} catch ( Exception $e ) {
+			$this->log_exception( $e );
 
-            return null;
-        }
-    }
+			return null;
+		}
+	}
 
-    /**
-     * Use this method to determine whether the user is logged in or not before using any of the class methods.
-     * A DigiD login is required to retrieve user data.
-     */
-    public function isLoggedIn(): bool
-    {
-        $bsn = (string) $this->bsn();
+	/**
+	 * Use this method to determine whether the user is logged in or not before using any of the class methods.
+	 * A DigiD login is required to retrieve user data.
+	 *
+	 * @since NEXT
+	 */
+	public function is_logged_in(): bool
+	{
+		$bsn = (string) $this->bsn();
 
-        return 7 < strlen($bsn) && 10 > strlen($bsn);
-    }
+		return 7 < strlen( $bsn ) && 10 > strlen( $bsn );
+	}
 
-    public function bsn(): int
-    {
-        return (int) ($this->data['burgerservicenummer'] ?? 0);
-    }
+	/**
+	 * @since NEXT
+	 */
+	public function bsn(): int
+	{
+		return (int) ( $this->data['burgerservicenummer'] ?? 0 );
+	}
 
-    public function age(): int
-    {
-        return (int) ($this->data['leeftijd'] ?? 0);
-    }
+	/**
+	 * @since NEXT
+	 */
+	public function age(): int
+	{
+		return (int) ( $this->data['leeftijd'] ?? 0 );
+	}
 
-    public function initials(): string
-    {
-        return (string) ($this->data['naam']['voorletters'] ?? '');
-    }
+	/**
+	 * @since NEXT
+	 */
+	public function initials(): string
+	{
+		return (string) ( $this->data['naam']['voorletters'] ?? '' );
+	}
 
-    public function firstNames(): string
-    {
-        return (string) ($this->data['naam']['voornamen'] ?? '');
-    }
+	/**
+	 * @since NEXT
+	 */
+	public function first_names(): string
+	{
+		return (string) ( $this->data['naam']['voornamen'] ?? '' );
+	}
 
-    public function lastName(): string
-    {
-        return (string) ($this->data['naam']['geslachtsnaam'] ?? '');
-    }
+	/**
+	 * @since NEXT
+	 */
+	public function last_name(): string
+	{
+		return (string) ( $this->data['naam']['geslachtsnaam'] ?? '' );
+	}
 
-    public function lastNamePrefix(): string
-    {
-        return (string) ($this->data['naam']['voorvoegsel'] ?? '');
-    }
+	/**
+	 * @since NEXT
+	 */
+	public function last_name_prefix(): string
+	{
+		return (string) ( $this->data['naam']['voorvoegsel'] ?? '' );
+	}
 
-    public function fullName(bool $withInitials = false): string
-    {
-        $nameParts = [
-            $withInitials ? $this->initials() : $this->firstNames(),
-            $this->lastNamePrefix(),
-            $this->lastName(),
-        ];
+	/**
+	 * @since NEXT
+	 */
+	public function full_name(bool $with_initials = false ): string
+	{
+		$name_parts = array(
+			$with_initials ? $this->initials() : $this->first_names(),
+			$this->last_name_prefix(),
+			$this->last_name(),
+		);
 
-        return implode(' ', array_filter($nameParts));
-    }
+		return implode( ' ', array_filter( $name_parts ) );
+	}
 
-    public function zipcode(): string
-    {
-        return (string) ($this->data['verblijfplaats']['postcode'] ?? '');
-    }
+	/**
+	 * @since NEXT
+	 */
+	public function zipcode(): string
+	{
+		return (string) ( $this->data['verblijfplaats']['postcode'] ?? '' );
+	}
 
-    public function houseNumber(): string
-    {
-        return (string) ($this->data['verblijfplaats']['huisnummer'] ?? '');
-    }
+	/**
+	 * @since NEXT
+	 */
+	public function house_number(): string
+	{
+		return (string) ( $this->data['verblijfplaats']['huisnummer'] ?? '' );
+	}
 
-    public function houseLetter(): string
-    {
-        return (string) ($this->data['verblijfplaats']['huisletter'] ?? '');
-    }
+	/**
+	 * @since NEXT
+	 */
+	public function house_letter(): string
+	{
+		return (string) ( $this->data['verblijfplaats']['huisletter'] ?? '' );
+	}
 }

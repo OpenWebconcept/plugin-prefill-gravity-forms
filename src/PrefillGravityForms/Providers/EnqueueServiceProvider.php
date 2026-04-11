@@ -1,42 +1,73 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * @package  OWC\PrefillGravityForms
+ * @author   Yard | Digital Agency
+ * @since    1.4.0
+ */
+
 namespace OWC\PrefillGravityForms\Providers;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; }
 
 use OWC\PrefillGravityForms\Foundation\ServiceProvider;
 
+/**
+ * Enqueues plugin styles on the front-end and admin.
+ *
+ * @since 1.4.0
+ */
 class EnqueueServiceProvider extends ServiceProvider
 {
-    public function register()
-    {
-        add_action('admin_enqueue_scripts', $this->enqueueIconsStyles(...));
-        add_action('wp_enqueue_scripts', $this->enqueueStyles(...));
-    }
+	/**
+	 * @since 1.4.0
+	 */
+	public function register()
+	{
+		add_action( 'admin_enqueue_scripts', $this->enqueue_icons_styles( ... ) );
+		add_action( 'wp_enqueue_scripts', $this->enqueue_styles( ... ) );
+	}
 
-    public function enqueueIconsStyles(): void
-    {
-        $path = $this->plugin->resourcePath('icons.asset.php');
-        $scriptAsset = file_exists($path) ? require $path : ['dependencies' => [], 'version' => round(microtime(true))];
+	/**
+	 * @since 1.4.0
+	 */
+	public function enqueue_icons_styles(): void
+	{
+		$path         = $this->plugin->resource_path( 'icons.asset.php' );
+		$script_asset = file_exists( $path ) ? require $path : array(
+			'dependencies' => array(),
+			'version'      => round( microtime( true ) ),
+		);
 
-        wp_enqueue_style(
-            'owc-pg-icons',
-            $this->plugin->resourceUrl('icons.css'),
-            $scriptAsset['dependencies'],
-            $scriptAsset['version']
-        );
+		wp_enqueue_style(
+			'owc-pg-icons',
+			$this->plugin->resource_url( 'icons.css' ),
+			$script_asset['dependencies'],
+			$script_asset['version']
+		);
 
-        $this->enqueueStyles();
-    }
+		$this->enqueue_styles();
+	}
 
-    public function enqueueStyles(): void
-    {
-        $path = $this->plugin->resourcePath('style.asset.php');
-        $scriptAsset = file_exists($path) ? require $path : ['dependencies' => [], 'version' => round(microtime(true))];
+	/**
+	 * @since 1.4.0
+	 */
+	public function enqueue_styles(): void
+	{
+		$path         = $this->plugin->resource_path( 'style.asset.php' );
+		$script_asset = file_exists( $path ) ? require $path : array(
+			'dependencies' => array(),
+			'version'      => round( microtime( true ) ),
+		);
 
-        wp_enqueue_style(
-            'owc-pg-styles',
-            $this->plugin->resourceUrl('style.css'),
-            $scriptAsset['dependencies'],
-            $scriptAsset['version']
-        );
-    }
+		wp_enqueue_style(
+			'owc-pg-styles',
+			$this->plugin->resource_url( 'style.css' ),
+			$script_asset['dependencies'],
+			$script_asset['version']
+		);
+	}
 }

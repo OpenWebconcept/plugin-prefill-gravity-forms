@@ -2,185 +2,225 @@
 
 declare(strict_types=1);
 
+/**
+ * @package  OWC\PrefillGravityForms
+ * @author   Yard | Digital Agency
+ * @since    1.0.0
+ */
+
 namespace OWC\PrefillGravityForms\Foundation;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; }
 
 use function DI\create;
 use Exception;
 use function OWC\PrefillGravityForms\Foundation\Helpers\resolve;
 
 /**
- * BasePlugin which sets all the serviceproviders.
+ * BasePlugin which sets all the service providers.
+ *
+ * @since 1.0.0
  */
 class Plugin
 {
-    /**
-     * Name of the plugin.
-     *
-     * @var string
-     */
-    public const NAME = 'prefill-gravity-forms';
+	/**
+	 * Name of the plugin.
+	 *
+	 * @var string
+	 */
+	public const NAME = 'prefill-gravity-forms';
 
-    /**
-     * Version of the plugin.
-     * Used for setting versions of enqueue scripts and styles.
-     */
-    public const VERSION = \PG_VERSION;
+	/**
+	 * Version of the plugin.
+	 * Used for setting versions of enqueue scripts and styles.
+	 */
+	public const VERSION = \PG_VERSION;
 
-    /**
-     * Path to the root of the plugin.
-     */
-    protected string $rootPath;
+	/**
+	 * Path to the root of the plugin.
+	 */
+	protected string $root_path;
 
-    /**
-     * Instance of the configuration repository.
-     */
-    public Config $config;
+	/**
+	 * Instance of the configuration repository.
+	 */
+	public Config $config;
 
-    protected \DI\Container $container;
+	protected \DI\Container $container;
 
-    /**
-     * @var Plugin
-     */
-    protected static $instance;
+	/**
+	 * @var Plugin
+	 */
+	protected static $instance;
 
-    /**
-     * Constructor of the BasePlugin
-     */
-    public function __construct(string $rootPath)
-    {
-        $this->rootPath = $rootPath;
-        require_once __DIR__ . '/Helpers.php';
-        $this->buildContainer();
-    }
+	/**
+	 * Constructor of the Plugin.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct(string $root_path )
+	{
+		$this->root_path = $root_path;
+		require_once __DIR__ . '/Helpers.php';
+		$this->build_container();
+	}
 
-    /**
-     * Return the Plugin instance
-     */
-    public static function getInstance(string $rootPath = ''): self
-    {
-        if (null == static::$instance) {
-            static::$instance = new static($rootPath);
-        }
+	/**
+	 * Return the Plugin instance.
+	 *
+	 * @since 1.0.0
+	 */
+	public static function get_instance(string $root_path = '' ): self
+	{
+		if ( null == static::$instance ) {
+			static::$instance = new static( $root_path );
+		}
 
-        return static::$instance;
-    }
+		return static::$instance;
+	}
 
-    protected function buildContainer(): void
-    {
-        $builder = new \DI\ContainerBuilder();
-        $builder->addDefinitions([
-            'app' => $this,
-            'config' => create(Config::class)->constructor($this->rootPath . '/config'),
-            'logger' => function () {
-                $logger = new \Monolog\Logger('pg_log');
-                $maxFiles = apply_filters('pg::logger/rotating_filer_handler_max_files', PG_LOGGER_DEFAULT_MAX_FILES);
+	/**
+	 * @since 1.0.0
+	 */
+	protected function build_container(): void
+	{
+		$builder = new \DI\ContainerBuilder();
+		$builder->addDefinitions(
+			array(
+				'app'    => $this,
+				'config' => create( Config::class )->constructor( $this->root_path . '/config' ),
+				'logger' => function () {
+					$logger = new \Monolog\Logger( 'pg_log' );
+					$max_files = apply_filters( 'pg::logger/rotating_filer_handler_max_files', PG_LOGGER_DEFAULT_MAX_FILES );
 
-                $handler = (new \Monolog\Handler\RotatingFileHandler(
-                    filename:  sprintf('%s/pg-log.json', dirname(ABSPATH)),
-                    maxFiles: is_int($maxFiles) && 0 < $maxFiles ? $maxFiles : PG_LOGGER_DEFAULT_MAX_FILES,
-                    level: \Monolog\Level::Debug
-                ))->setFormatter(new \Monolog\Formatter\JsonFormatter());
+					$handler = ( new \Monolog\Handler\RotatingFileHandler(
+						filename:  sprintf( '%s/pg-log.json', dirname( ABSPATH ) ),
+						maxFiles: is_int( $max_files ) && 0 < $max_files ? $max_files : PG_LOGGER_DEFAULT_MAX_FILES,
+						level: \Monolog\Level::Debug
+					) )->setFormatter( new \Monolog\Formatter\JsonFormatter() );
 
-                $logger->pushHandler($handler);
-                $logger->pushProcessor(new \Monolog\Processor\IntrospectionProcessor());
+					$logger->pushHandler( $handler );
+					$logger->pushProcessor( new \Monolog\Processor\IntrospectionProcessor() );
 
-                return $logger;
-            },
-        ]);
-        $this->container = $builder->build();
-    }
+					return $logger;
+				},
+			)
+		);
+		$this->container = $builder->build();
+	}
 
-    public function getContainer(): \DI\Container
-    {
-        return $this->container;
-    }
+	/**
+	 * @since 1.0.0
+	 */
+	public function get_container(): \DI\Container
+	{
+		return $this->container;
+	}
 
-    /**
-     * Boot the plugin.
-     */
-    public function boot(): bool
-    {
-        $this->config = resolve('config');
+	/**
+	 * Boot the plugin.
+	 *
+	 * @since 1.0.0
+	 */
+	public function boot(): bool
+	{
+		$this->config = resolve( 'config' );
 
-        $this->loadTextDomain();
+		$this->load_text_domain();
 
-        // Set up service providers
-        $this->callServiceProviders('register');
-        $this->callServiceProviders('boot');
+		// Set up service providers
+		$this->call_service_providers( 'register' );
+		$this->call_service_providers( 'boot' );
 
-        return true;
-    }
+		return true;
+	}
 
-    private function loadTextDomain(): void
-    {
-        load_plugin_textdomain($this->getName(), false, $this->getName() . '/languages/');
-    }
+	/**
+	 * @since 1.0.0
+	 */
+	private function load_text_domain(): void
+	{
+		load_plugin_textdomain( $this->get_name(), false, $this->get_name() . '/languages/' );
+	}
 
-    /**
-     * Call method on service providers.
-     *
-     * @throws Exception
-     */
-    public function callServiceProviders(string $method, string $key = ''): void
-    {
-        $offset = $key ? "core.providers.{$key}" : 'core.providers';
-        $services = $this->config->get($offset);
+	/**
+	 * Call method on service providers.
+	 *
+	 * @throws Exception
+	 * @since  1.0.0
+	 */
+	public function call_service_providers(string $method, string $key = '' ): void
+	{
+		$offset   = $key ? "core.providers.{$key}" : 'core.providers';
+		$services = $this->config->get( $offset );
 
-        foreach ($services as $service) {
-            if (is_array($service)) {
-                continue;
-            }
+		foreach ( $services as $service ) {
+			if ( is_array( $service ) ) {
+				continue;
+			}
 
-            $service = new $service($this);
+			$service = new $service( $this );
 
-            if (! $service instanceof ServiceProvider) {
-                throw new Exception('Provider must be an instance of ServiceProvider.');
-            }
+			if ( ! $service instanceof ServiceProvider ) {
+				throw new Exception( 'Provider must be an instance of ServiceProvider.' );
+			}
 
-            if (method_exists($service, $method)) {
-                $service->$method();
-            }
-        }
-    }
+			if ( method_exists( $service, $method ) ) {
+				$service->$method();
+			}
+		}
+	}
 
-    /**
-     * Get the name of the plugin.
-     */
-    public function getName(): string
-    {
-        return static::NAME;
-    }
+	/**
+	 * Get the name of the plugin.
+	 *
+	 * @since 1.0.0
+	 */
+	public function get_name(): string
+	{
+		return static::NAME;
+	}
 
-    /**
-     * Get the version of the plugin.
-     */
-    public function getVersion(): string
-    {
-        return static::VERSION;
-    }
+	/**
+	 * Get the version of the plugin.
+	 *
+	 * @since 1.0.0
+	 */
+	public function get_version(): string
+	{
+		return static::VERSION;
+	}
 
-    /**
-     * Return root path of plugin.
-     */
-    public function getRootPath(): string
-    {
-        return $this->rootPath;
-    }
+	/**
+	 * Return root path of plugin.
+	 *
+	 * @since 1.0.0
+	 */
+	public function get_root_path(): string
+	{
+		return $this->root_path;
+	}
 
-    /**
-     * Get the path to a particular resource.
-     */
-    public function resourceUrl(string $file, string $directory = ''): string
-    {
-        $directory = ! empty($directory) ? $directory . '/' : '';
+	/**
+	 * Get the path to a particular resource.
+	 *
+	 * @since 1.0.0
+	 */
+	public function resource_url(string $file, string $directory = '' ): string
+	{
+		$directory = ! empty( $directory ) ? $directory . '/' : '';
 
-        return plugins_url("build/{$directory}{$file}", $this->getName() . '/plugin.php');
-    }
+		return plugins_url( "build/{$directory}{$file}", $this->get_name() . '/plugin.php' );
+	}
 
-    public function resourcePath(string $file, string $directory = ''): string
-    {
-        $directory = ! empty($directory) ? $directory . '/' : '';
+	/**
+	 * @since 1.0.0
+	 */
+	public function resource_path(string $file, string $directory = '' ): string
+	{
+		$directory = ! empty( $directory ) ? $directory . '/' : '';
 
-        return $this->rootPath . "/build/{$directory}{$file}";
-    }
+		return $this->root_path . "/build/{$directory}{$file}";
+	}
 }
