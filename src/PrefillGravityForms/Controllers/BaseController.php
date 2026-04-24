@@ -285,7 +285,7 @@ abstract class BaseController
 
         $headers = [
             'Content-Type: application/json',
-            'Accept: application/json',
+//            'Accept: application/json',
             'x-origin-oin: ' . $settings->getNumberOIN(),
         ];
 
