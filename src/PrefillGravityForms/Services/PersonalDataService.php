@@ -66,7 +66,7 @@ class PersonalDataService
         }
 
         $prefillSuppliersWithKeyExceptions = [
-            'vrijbrp'
+            // 'vrijbrp'
         ];
 
         if (! in_array(strtolower($this->supplier), $prefillSuppliersWithKeyExceptions)) {
