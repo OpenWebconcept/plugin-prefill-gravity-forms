@@ -305,7 +305,7 @@ abstract class BaseController
         return $this->getCurlHeadersAPIAuthentication($settings, $headers);
     }
 
-    private function getCurlHeadersAPIAuthentication($settings, array $headers): array
+    protected function getCurlHeadersAPIAuthentication($settings, array $headers): array
     {
         if ($settings->useAPIAuthentication()) {
             $apiKey = $settings->getAPIKey();

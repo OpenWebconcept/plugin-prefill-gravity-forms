@@ -77,6 +77,31 @@ class VrijBRPController extends GetController
         return $apiResponse;
     }
 
+    protected function getCurlHeaders(string $goalBinding = '', string $processing = ''): array
+    {
+        $settings = $this->settings;
+
+        $headers = [
+            'Content-Type: application/json',
+            'x-origin-oin: ' . $settings->getNumberOIN(),
+        ];
+
+        if ('' !== $goalBinding) {
+            $headers[] = 'x-doelbinding: ' . $goalBinding;
+        }
+
+        if ('' !== $processing) {
+            $headers[] = 'x-verwerking: ' . $processing;
+        }
+
+        $user = $settings->getUser();
+        if ('' !== $user) {
+            $headers[] = 'x-gebruiker: ' . $user;
+        }
+
+        return $this->getCurlHeadersAPIAuthentication($settings, $headers);
+    }
+
     protected function request(string $bsn = '', string $goalBinding = '', string $expand = ''): array
     {
         $curlArgs = [
