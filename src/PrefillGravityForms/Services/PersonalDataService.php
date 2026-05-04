@@ -66,17 +66,14 @@ class PersonalDataService
         }
 
         $prefillSuppliersWithKeyExceptions = [
-            'vrijbrp'
+            ''
         ];
 
         if (! in_array(strtolower($this->supplier), $prefillSuppliersWithKeyExceptions)) {
             return $key;
         }
 
-        $mapping = [
-            'verblijfplaats.woonplaats' => 'verblijfplaats.woonplaatsnaam',
-            'verblijfplaats.straat' => 'verblijfplaats.straatnaam',
-        ];
+        $mapping = [];
 
         return $mapping[$key] ?? $key;
     }
