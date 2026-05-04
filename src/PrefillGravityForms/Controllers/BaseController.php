@@ -369,7 +369,7 @@ abstract class BaseController
             $httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
             if (200 !== $httpStatus) {
-                throw new Exception(sprintf('%s', $decoded['detail'] ?? ($decoded['Error Details'] ?? 'Request failed, error unknown')), is_int($httpStatus) ? $httpStatus : 500);
+                throw new Exception("Unexpected HTTP status. Response: $output", is_int($httpStatus) ? $httpStatus : 500);
             }
 
             $this->handleTransient($response, $transientKey, $locationBsnInResponse);
