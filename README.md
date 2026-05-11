@@ -46,7 +46,7 @@ In addition, at least one of the following plug-ins must be installed to enable 
 -   3. [OIN](https://logius.nl/domeinen/toegang/organisatie-identificatienummer/wat-is-het) is a unique number for organizations provided by Logius.
 
 2. Go to the form settings of the form you want to configure.
-3. Scroll down and look for the 'iConnect' panel and configure the settings.
+3. Scroll down and look for the 'OWC Prefill' panel and configure the settings.
 
 ### Cache Encryption
 
