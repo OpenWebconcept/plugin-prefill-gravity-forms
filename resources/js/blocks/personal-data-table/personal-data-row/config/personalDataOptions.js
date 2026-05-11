@@ -37,6 +37,14 @@ const personalDataOptions = [
 		value: 'naam.voornamen',
 	},
 	{
+		label: 'Aanduiding Naamgebruik (V1)',
+		value: 'naam.aanduidingNaamgebruik',
+	},
+	{
+		label: 'Aanduiding Naamgebruik (V2)',
+		value: 'naam.aanduidingNaamgebruik.omschrijving',
+	},
+	{
 		label: 'Geboortedatum',
 		value: 'geboorte.datum.datum',
 	},

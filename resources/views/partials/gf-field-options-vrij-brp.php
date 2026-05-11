@@ -14,7 +14,8 @@
             <option value="naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
 			<option value="naam.voorvoegsel"><?php _e('Voorvoegsel', 'prefill-gravity-forms'); ?></option>
             <option value="naam.aanschrijfwijze"><?php _e('Aanschrijfwijze', 'prefill-gravity-forms'); ?></option>
-            <option value="naam.aanduidingNaamgebruik"><?php _e('AanduidingNaamgebruik', 'prefill-gravity-forms'); ?></option>
+            <option value="naam.aanduidingNaamgebruik.code"><?php _e('AanduidingNaamgebruik code', 'prefill-gravity-forms'); ?></option>
+            <option value="naam.aanduidingNaamgebruik.omschrijving"><?php _e('AanduidingNaamgebruik omschrijving', 'prefill-gravity-forms'); ?></option>
         </optgroup>
         <optgroup label="Nationaliteiten">
             <option value="nationaliteiten.0.nationaliteit.omschrijving"><?php _e('Omschrijving', 'prefill-gravity-forms'); ?></option>
