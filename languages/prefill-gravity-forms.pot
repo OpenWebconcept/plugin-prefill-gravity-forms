@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-11T06:23:57+00:00\n"
+"POT-Creation-Date: 2026-05-20T12:51:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: prefill-gravity-forms\n"
@@ -124,10 +124,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:65
 #: resources/views/partials/gf-field-options-pink-roccade.php:80
 #: resources/views/partials/gf-field-options-vrij-brp.php:7
-#: resources/views/partials/gf-field-options-vrij-brp.php:45
-#: resources/views/partials/gf-field-options-vrij-brp.php:68
-#: resources/views/partials/gf-field-options-vrij-brp.php:83
-#: resources/views/partials/gf-field-options-vrij-brp.php:98
+#: resources/views/partials/gf-field-options-vrij-brp.php:47
+#: resources/views/partials/gf-field-options-vrij-brp.php:70
+#: resources/views/partials/gf-field-options-vrij-brp.php:85
+#: resources/views/partials/gf-field-options-vrij-brp.php:100
 #: resources/views/partials/gf-field-options-we-are-frank.php:7
 #: resources/views/partials/gf-field-options-we-are-frank.php:44
 #: resources/views/partials/gf-field-options-we-are-frank.php:67
@@ -194,10 +194,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:67
 #: resources/views/partials/gf-field-options-pink-roccade.php:82
 #: resources/views/partials/gf-field-options-vrij-brp.php:12
-#: resources/views/partials/gf-field-options-vrij-brp.php:46
-#: resources/views/partials/gf-field-options-vrij-brp.php:70
-#: resources/views/partials/gf-field-options-vrij-brp.php:85
-#: resources/views/partials/gf-field-options-vrij-brp.php:100
+#: resources/views/partials/gf-field-options-vrij-brp.php:48
+#: resources/views/partials/gf-field-options-vrij-brp.php:72
+#: resources/views/partials/gf-field-options-vrij-brp.php:87
+#: resources/views/partials/gf-field-options-vrij-brp.php:102
 #: resources/views/partials/gf-field-options-we-are-frank.php:11
 #: resources/views/partials/gf-field-options-we-are-frank.php:45
 #: resources/views/partials/gf-field-options-we-are-frank.php:69
@@ -229,10 +229,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:68
 #: resources/views/partials/gf-field-options-pink-roccade.php:83
 #: resources/views/partials/gf-field-options-vrij-brp.php:13
-#: resources/views/partials/gf-field-options-vrij-brp.php:47
-#: resources/views/partials/gf-field-options-vrij-brp.php:71
-#: resources/views/partials/gf-field-options-vrij-brp.php:86
-#: resources/views/partials/gf-field-options-vrij-brp.php:101
+#: resources/views/partials/gf-field-options-vrij-brp.php:49
+#: resources/views/partials/gf-field-options-vrij-brp.php:73
+#: resources/views/partials/gf-field-options-vrij-brp.php:88
+#: resources/views/partials/gf-field-options-vrij-brp.php:103
 #: resources/views/partials/gf-field-options-we-are-frank.php:13
 #: resources/views/partials/gf-field-options-we-are-frank.php:46
 #: resources/views/partials/gf-field-options-we-are-frank.php:70
@@ -273,10 +273,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:69
 #: resources/views/partials/gf-field-options-pink-roccade.php:84
 #: resources/views/partials/gf-field-options-vrij-brp.php:14
-#: resources/views/partials/gf-field-options-vrij-brp.php:48
-#: resources/views/partials/gf-field-options-vrij-brp.php:72
-#: resources/views/partials/gf-field-options-vrij-brp.php:87
-#: resources/views/partials/gf-field-options-vrij-brp.php:102
+#: resources/views/partials/gf-field-options-vrij-brp.php:50
+#: resources/views/partials/gf-field-options-vrij-brp.php:74
+#: resources/views/partials/gf-field-options-vrij-brp.php:89
+#: resources/views/partials/gf-field-options-vrij-brp.php:104
 #: resources/views/partials/gf-field-options-we-are-frank.php:12
 #: resources/views/partials/gf-field-options-we-are-frank.php:47
 #: resources/views/partials/gf-field-options-we-are-frank.php:71
@@ -308,10 +308,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:70
 #: resources/views/partials/gf-field-options-pink-roccade.php:85
 #: resources/views/partials/gf-field-options-vrij-brp.php:15
-#: resources/views/partials/gf-field-options-vrij-brp.php:49
-#: resources/views/partials/gf-field-options-vrij-brp.php:73
-#: resources/views/partials/gf-field-options-vrij-brp.php:88
-#: resources/views/partials/gf-field-options-vrij-brp.php:103
+#: resources/views/partials/gf-field-options-vrij-brp.php:51
+#: resources/views/partials/gf-field-options-vrij-brp.php:75
+#: resources/views/partials/gf-field-options-vrij-brp.php:90
+#: resources/views/partials/gf-field-options-vrij-brp.php:105
 #: resources/views/partials/gf-field-options-we-are-frank.php:14
 #: resources/views/partials/gf-field-options-we-are-frank.php:48
 #: resources/views/partials/gf-field-options-we-are-frank.php:72
@@ -400,10 +400,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:71
 #: resources/views/partials/gf-field-options-pink-roccade.php:86
 #: resources/views/partials/gf-field-options-vrij-brp.php:25
-#: resources/views/partials/gf-field-options-vrij-brp.php:50
-#: resources/views/partials/gf-field-options-vrij-brp.php:74
-#: resources/views/partials/gf-field-options-vrij-brp.php:89
-#: resources/views/partials/gf-field-options-vrij-brp.php:104
+#: resources/views/partials/gf-field-options-vrij-brp.php:52
+#: resources/views/partials/gf-field-options-vrij-brp.php:76
+#: resources/views/partials/gf-field-options-vrij-brp.php:91
+#: resources/views/partials/gf-field-options-vrij-brp.php:106
 #: resources/views/partials/gf-field-options-we-are-frank.php:28
 #: resources/views/partials/gf-field-options-we-are-frank.php:49
 #: resources/views/partials/gf-field-options-we-are-frank.php:73
@@ -435,10 +435,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:77
 #: resources/views/partials/gf-field-options-pink-roccade.php:92
 #: resources/views/partials/gf-field-options-vrij-brp.php:31
-#: resources/views/partials/gf-field-options-vrij-brp.php:56
-#: resources/views/partials/gf-field-options-vrij-brp.php:80
-#: resources/views/partials/gf-field-options-vrij-brp.php:95
-#: resources/views/partials/gf-field-options-vrij-brp.php:110
+#: resources/views/partials/gf-field-options-vrij-brp.php:58
+#: resources/views/partials/gf-field-options-vrij-brp.php:82
+#: resources/views/partials/gf-field-options-vrij-brp.php:97
+#: resources/views/partials/gf-field-options-vrij-brp.php:112
 #: resources/views/partials/gf-field-options-we-are-frank.php:55
 #: resources/views/partials/gf-field-options-we-are-frank.php:76
 #: resources/views/partials/gf-field-options-we-are-frank.php:88
@@ -469,10 +469,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:75
 #: resources/views/partials/gf-field-options-pink-roccade.php:90
 #: resources/views/partials/gf-field-options-vrij-brp.php:29
-#: resources/views/partials/gf-field-options-vrij-brp.php:54
-#: resources/views/partials/gf-field-options-vrij-brp.php:78
-#: resources/views/partials/gf-field-options-vrij-brp.php:93
-#: resources/views/partials/gf-field-options-vrij-brp.php:108
+#: resources/views/partials/gf-field-options-vrij-brp.php:56
+#: resources/views/partials/gf-field-options-vrij-brp.php:80
+#: resources/views/partials/gf-field-options-vrij-brp.php:95
+#: resources/views/partials/gf-field-options-vrij-brp.php:110
 #: resources/views/partials/gf-field-options-we-are-frank.php:53
 #: resources/views/partials/gf-field-options-we-are-frank.php:74
 #: resources/views/partials/gf-field-options-we-are-frank.php:86
@@ -495,7 +495,7 @@ msgstr ""
 #: resources/views/partials/gf-field-options-openzaak.php:34
 #: resources/views/partials/gf-field-options-pink-roccade-v2.php:37
 #: resources/views/partials/gf-field-options-pink-roccade.php:34
-#: resources/views/partials/gf-field-options-vrij-brp.php:35
+#: resources/views/partials/gf-field-options-vrij-brp.php:36
 #: resources/views/partials/gf-field-options-we-are-frank.php:36
 msgid "Huisnummer"
 msgstr ""
@@ -505,7 +505,7 @@ msgstr ""
 #: resources/views/partials/gf-field-options-openzaak.php:35
 #: resources/views/partials/gf-field-options-pink-roccade-v2.php:38
 #: resources/views/partials/gf-field-options-pink-roccade.php:35
-#: resources/views/partials/gf-field-options-vrij-brp.php:36
+#: resources/views/partials/gf-field-options-vrij-brp.php:37
 #: resources/views/partials/gf-field-options-we-are-frank.php:37
 msgid "Huisletter"
 msgstr ""
@@ -515,7 +515,7 @@ msgstr ""
 #: resources/views/partials/gf-field-options-openzaak.php:37
 #: resources/views/partials/gf-field-options-pink-roccade-v2.php:39
 #: resources/views/partials/gf-field-options-pink-roccade.php:37
-#: resources/views/partials/gf-field-options-vrij-brp.php:37
+#: resources/views/partials/gf-field-options-vrij-brp.php:38
 #: resources/views/partials/gf-field-options-we-are-frank.php:38
 msgid "Postcode"
 msgstr ""
@@ -525,7 +525,7 @@ msgstr ""
 #: resources/views/partials/gf-field-options-openzaak.php:38
 #: resources/views/partials/gf-field-options-pink-roccade-v2.php:40
 #: resources/views/partials/gf-field-options-pink-roccade.php:38
-#: resources/views/partials/gf-field-options-vrij-brp.php:38
+#: resources/views/partials/gf-field-options-vrij-brp.php:39
 #: resources/views/partials/gf-field-options-we-are-frank.php:39
 msgid "Woonplaats"
 msgstr ""
@@ -535,7 +535,7 @@ msgstr ""
 #: resources/views/partials/gf-field-options-openzaak.php:39
 #: resources/views/partials/gf-field-options-pink-roccade-v2.php:41
 #: resources/views/partials/gf-field-options-pink-roccade.php:39
-#: resources/views/partials/gf-field-options-vrij-brp.php:39
+#: resources/views/partials/gf-field-options-vrij-brp.php:41
 msgid "Adres"
 msgstr ""
 
@@ -544,7 +544,7 @@ msgstr ""
 #: resources/views/partials/gf-field-options-openzaak.php:40
 #: resources/views/partials/gf-field-options-pink-roccade-v2.php:42
 #: resources/views/partials/gf-field-options-pink-roccade.php:40
-#: resources/views/partials/gf-field-options-vrij-brp.php:40
+#: resources/views/partials/gf-field-options-vrij-brp.php:42
 msgid "Postcode + plaats"
 msgstr ""
 
@@ -553,7 +553,7 @@ msgstr ""
 #: resources/views/partials/gf-field-options-openzaak.php:41
 #: resources/views/partials/gf-field-options-pink-roccade-v2.php:43
 #: resources/views/partials/gf-field-options-pink-roccade.php:41
-#: resources/views/partials/gf-field-options-vrij-brp.php:41
+#: resources/views/partials/gf-field-options-vrij-brp.php:43
 #: resources/views/partials/gf-field-options-we-are-frank.php:40
 msgid "Gemeente"
 msgstr ""
@@ -563,7 +563,7 @@ msgstr ""
 #: resources/views/partials/gf-field-options-openzaak.php:42
 #: resources/views/partials/gf-field-options-pink-roccade-v2.php:44
 #: resources/views/partials/gf-field-options-pink-roccade.php:42
-#: resources/views/partials/gf-field-options-vrij-brp.php:42
+#: resources/views/partials/gf-field-options-vrij-brp.php:44
 #: resources/views/partials/gf-field-options-we-are-frank.php:41
 msgid "Gemeentecode"
 msgstr ""
@@ -573,7 +573,7 @@ msgstr ""
 #: resources/views/partials/gf-field-options-openzaak.php:45
 #: resources/views/partials/gf-field-options-pink-roccade-v2.php:47
 #: resources/views/partials/gf-field-options-pink-roccade.php:45
-#: resources/views/partials/gf-field-options-vrij-brp.php:57
+#: resources/views/partials/gf-field-options-vrij-brp.php:59
 #: resources/views/partials/gf-field-options-we-are-frank.php:56
 msgid "Soort verbintenis"
 msgstr ""
@@ -645,9 +645,9 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:66
 #: resources/views/partials/gf-field-options-pink-roccade.php:81
 #: resources/views/partials/gf-field-options-vrij-brp.php:9
-#: resources/views/partials/gf-field-options-vrij-brp.php:69
-#: resources/views/partials/gf-field-options-vrij-brp.php:84
-#: resources/views/partials/gf-field-options-vrij-brp.php:99
+#: resources/views/partials/gf-field-options-vrij-brp.php:71
+#: resources/views/partials/gf-field-options-vrij-brp.php:86
+#: resources/views/partials/gf-field-options-vrij-brp.php:101
 #: resources/views/partials/gf-field-options-we-are-frank.php:68
 #: resources/views/partials/gf-field-options-we-are-frank.php:80
 #: resources/views/partials/gf-field-options-we-are-frank.php:92
@@ -696,10 +696,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:72
 #: resources/views/partials/gf-field-options-pink-roccade.php:87
 #: resources/views/partials/gf-field-options-vrij-brp.php:26
-#: resources/views/partials/gf-field-options-vrij-brp.php:51
-#: resources/views/partials/gf-field-options-vrij-brp.php:75
-#: resources/views/partials/gf-field-options-vrij-brp.php:90
-#: resources/views/partials/gf-field-options-vrij-brp.php:105
+#: resources/views/partials/gf-field-options-vrij-brp.php:53
+#: resources/views/partials/gf-field-options-vrij-brp.php:77
+#: resources/views/partials/gf-field-options-vrij-brp.php:92
+#: resources/views/partials/gf-field-options-vrij-brp.php:107
 #: resources/views/partials/gf-field-options-we-are-frank.php:50
 #: resources/views/partials/gf-field-options-we-are-frank.php:98
 msgid "Geboortedag"
@@ -715,10 +715,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:73
 #: resources/views/partials/gf-field-options-pink-roccade.php:88
 #: resources/views/partials/gf-field-options-vrij-brp.php:27
-#: resources/views/partials/gf-field-options-vrij-brp.php:52
-#: resources/views/partials/gf-field-options-vrij-brp.php:76
-#: resources/views/partials/gf-field-options-vrij-brp.php:91
-#: resources/views/partials/gf-field-options-vrij-brp.php:106
+#: resources/views/partials/gf-field-options-vrij-brp.php:54
+#: resources/views/partials/gf-field-options-vrij-brp.php:78
+#: resources/views/partials/gf-field-options-vrij-brp.php:93
+#: resources/views/partials/gf-field-options-vrij-brp.php:108
 #: resources/views/partials/gf-field-options-we-are-frank.php:51
 #: resources/views/partials/gf-field-options-we-are-frank.php:99
 msgid "Geboortemaand"
@@ -734,10 +734,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:74
 #: resources/views/partials/gf-field-options-pink-roccade.php:89
 #: resources/views/partials/gf-field-options-vrij-brp.php:28
-#: resources/views/partials/gf-field-options-vrij-brp.php:53
-#: resources/views/partials/gf-field-options-vrij-brp.php:77
-#: resources/views/partials/gf-field-options-vrij-brp.php:92
-#: resources/views/partials/gf-field-options-vrij-brp.php:107
+#: resources/views/partials/gf-field-options-vrij-brp.php:55
+#: resources/views/partials/gf-field-options-vrij-brp.php:79
+#: resources/views/partials/gf-field-options-vrij-brp.php:94
+#: resources/views/partials/gf-field-options-vrij-brp.php:109
 #: resources/views/partials/gf-field-options-we-are-frank.php:30
 #: resources/views/partials/gf-field-options-we-are-frank.php:52
 #: resources/views/partials/gf-field-options-we-are-frank.php:100
@@ -754,10 +754,10 @@ msgstr ""
 #: resources/views/partials/gf-field-options-pink-roccade.php:76
 #: resources/views/partials/gf-field-options-pink-roccade.php:91
 #: resources/views/partials/gf-field-options-vrij-brp.php:30
-#: resources/views/partials/gf-field-options-vrij-brp.php:55
-#: resources/views/partials/gf-field-options-vrij-brp.php:79
-#: resources/views/partials/gf-field-options-vrij-brp.php:94
-#: resources/views/partials/gf-field-options-vrij-brp.php:109
+#: resources/views/partials/gf-field-options-vrij-brp.php:57
+#: resources/views/partials/gf-field-options-vrij-brp.php:81
+#: resources/views/partials/gf-field-options-vrij-brp.php:96
+#: resources/views/partials/gf-field-options-vrij-brp.php:111
 #: resources/views/partials/gf-field-options-we-are-frank.php:32
 #: resources/views/partials/gf-field-options-we-are-frank.php:54
 #: resources/views/partials/gf-field-options-we-are-frank.php:75
@@ -771,42 +771,50 @@ msgstr ""
 msgid "Huisnummertoevoeging"
 msgstr ""
 
-#: resources/views/partials/gf-field-options-vrij-brp.php:58
+#: resources/views/partials/gf-field-options-vrij-brp.php:35
+msgid "Straatnaam"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-vrij-brp.php:40
+msgid "Woonplaats naam"
+msgstr ""
+
+#: resources/views/partials/gf-field-options-vrij-brp.php:60
 #: resources/views/partials/gf-field-options-we-are-frank.php:57
 msgid "Verbintenis datum"
 msgstr ""
 
-#: resources/views/partials/gf-field-options-vrij-brp.php:59
+#: resources/views/partials/gf-field-options-vrij-brp.php:61
 #: resources/views/partials/gf-field-options-we-are-frank.php:58
 msgid "Verbintenis dag"
 msgstr ""
 
-#: resources/views/partials/gf-field-options-vrij-brp.php:60
+#: resources/views/partials/gf-field-options-vrij-brp.php:62
 #: resources/views/partials/gf-field-options-we-are-frank.php:59
 msgid "Verbintenis maand"
 msgstr ""
 
-#: resources/views/partials/gf-field-options-vrij-brp.php:61
+#: resources/views/partials/gf-field-options-vrij-brp.php:63
 #: resources/views/partials/gf-field-options-we-are-frank.php:60
 msgid "Verbintenis jaar"
 msgstr ""
 
-#: resources/views/partials/gf-field-options-vrij-brp.php:62
+#: resources/views/partials/gf-field-options-vrij-brp.php:64
 #: resources/views/partials/gf-field-options-we-are-frank.php:61
 msgid "Verbintenis land code"
 msgstr ""
 
-#: resources/views/partials/gf-field-options-vrij-brp.php:63
+#: resources/views/partials/gf-field-options-vrij-brp.php:65
 #: resources/views/partials/gf-field-options-we-are-frank.php:62
 msgid "Verbintenis land"
 msgstr ""
 
-#: resources/views/partials/gf-field-options-vrij-brp.php:64
+#: resources/views/partials/gf-field-options-vrij-brp.php:66
 #: resources/views/partials/gf-field-options-we-are-frank.php:63
 msgid "Verbintenis plaats code"
 msgstr ""
 
-#: resources/views/partials/gf-field-options-vrij-brp.php:65
+#: resources/views/partials/gf-field-options-vrij-brp.php:67
 #: resources/views/partials/gf-field-options-we-are-frank.php:64
 msgid "Verbintenis plaats"
 msgstr ""

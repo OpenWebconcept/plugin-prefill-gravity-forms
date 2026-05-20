@@ -14,6 +14,7 @@
             <option value="naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
 			<option value="naam.voorvoegsel"><?php _e('Voorvoegsel', 'prefill-gravity-forms'); ?></option>
             <option value="naam.aanschrijfwijze"><?php _e('Aanschrijfwijze', 'prefill-gravity-forms'); ?></option>
+            <option value="naam.gebruikInLopendeTekst"><?php _e('Gebruik in lopende tekst', 'prefill-gravity-forms'); ?></option>
             <option value="naam.aanduidingNaamgebruik.code"><?php _e('AanduidingNaamgebruik code', 'prefill-gravity-forms'); ?></option>
             <option value="naam.aanduidingNaamgebruik.omschrijving"><?php _e('AanduidingNaamgebruik omschrijving', 'prefill-gravity-forms'); ?></option>
         </optgroup>
@@ -32,10 +33,12 @@
         </optgroup>
         <optgroup label="Verblijfplaats">
             <option value="verblijfplaats.straat"><?php _e('Straat', 'prefill-gravity-forms'); ?></option>
+            <option value="verblijfplaats.straatnaam"><?php _e('Straatnaam', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.huisnummer"><?php _e('Huisnummer', 'prefill-gravity-forms'); ?></option>
 			<option value="verblijfplaats.huisletter"><?php _e('Huisletter', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.postcode"><?php _e('Postcode', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.woonplaats"><?php _e('Woonplaats', 'prefill-gravity-forms'); ?></option>
+            <option value="verblijfplaats.woonplaatsnaam"><?php _e('Woonplaats naam', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.adresregel1"><?php _e('Adres', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.adresregel2"><?php _e('Postcode + plaats', 'prefill-gravity-forms'); ?></option>
             <option value="verblijfplaats.gemeenteVanInschrijving.omschrijving"><?php _e('Gemeente', 'prefill-gravity-forms'); ?></option>

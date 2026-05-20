@@ -45,12 +45,24 @@ const personalDataOptions = [
 		value: 'naam.aanduidingNaamgebruik.omschrijving',
 	},
 	{
+		label: 'Aanschrijfwijze',
+		value: 'naam.aanschrijfwijze',
+	},
+	{
+		label: 'Gebruik in lopende tekst',
+		value: 'naam.gebruikInLopendeTekst',
+	},
+	{
 		label: 'Geboortedatum',
 		value: 'geboorte.datum.datum',
 	},
 	{
 		label: 'Straat',
 		value: 'verblijfplaats.straat',
+	},
+	{
+		label: 'Straatnaam',
+		value: 'verblijfplaats.straatnaam',
 	},
 	{
 		label: 'Huisnummer',
@@ -67,6 +79,10 @@ const personalDataOptions = [
 	{
 		label: 'Woonplaats',
 		value: 'verblijfplaats.woonplaats',
+	},
+	{
+		label: 'Woonplaats naam',
+		value: 'verblijfplaats.woonplaatsnaam',
 	},
 ];
 
