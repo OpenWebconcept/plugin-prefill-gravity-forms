@@ -365,7 +365,7 @@ class GravityFormsAddon extends GFAddOn
 
         $safeBase = realpath(\ABSPATH . '/../../');
 
-        if (! str_starts_with($realPath, $safeBase . DIRECTORY_SEPARATOR)) {
+        if (false === $safeBase || ! str_starts_with($realPath, $safeBase . DIRECTORY_SEPARATOR)) {
             return $fallback;
         }
 
