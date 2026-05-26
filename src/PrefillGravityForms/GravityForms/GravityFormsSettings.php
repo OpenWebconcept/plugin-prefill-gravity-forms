@@ -72,6 +72,14 @@ class GravityFormsSettings
         return $this->options[$this->prefix . 'user'] ?? '';
     }
 
+    /**
+     * Get the goal binding for requests. This can be used to set a general goal binding for all requests that do not have a specific goal binding set.
+     */
+    public function getGoalBinding(): string
+    {
+        return $this->options[$this->prefix . 'goal-binding'] ?? '';
+    }
+
     public function useAPIAuthentication(): bool
     {
         $value = $this->options[$this->prefix . 'api-use-authentication'] ?? '0';

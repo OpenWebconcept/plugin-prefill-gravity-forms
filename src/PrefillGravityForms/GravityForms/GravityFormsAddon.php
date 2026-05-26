@@ -112,6 +112,14 @@ class GravityFormsAddon extends GFAddOn
                         'required' => false,
                     ],
                     [
+                        'label' => __('Doelbinding (v2)', 'prefill-gravity-forms'),
+                        'tooltip' => __('Algemene doelbinding voor verzoeken zonder ingestelde doelbinding', 'prefill-gravity-forms'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                        'name' => "{$prefix}goal-binding",
+                        'required' => false,
+                    ],
+                    [
                         'label' => __('Leverancier', 'prefill-gravity-forms'),
                         'type' => 'select',
                         'class' => 'medium',

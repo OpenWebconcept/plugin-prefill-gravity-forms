@@ -23,7 +23,7 @@ class UserModel
     {
         $this->supplier = GravityFormsSettings::make()->getSupplier();
         $this->controller = $this->handleController();
-        $this->data = $this->controller?->get() ?? [];
+        $this->data = $this->controller?->get(GravityFormsSettings::make()->getGoalBinding(), GravityFormsSettings::make()->getProcessing()) ?? [];
     }
 
     private function handleController(): ?BaseController
