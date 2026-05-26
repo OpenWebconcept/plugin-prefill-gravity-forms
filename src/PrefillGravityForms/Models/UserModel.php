@@ -47,14 +47,14 @@ class UserModel
      */
     public function isLoggedIn(): bool
     {
-        $bsn = (string) $this->bsn();
+        $bsn = $this->bsn();
 
         return 7 < strlen($bsn) && 10 > strlen($bsn);
     }
 
-    public function bsn(): int
+    public function bsn(): string
     {
-        return (int) ($this->data['burgerservicenummer'] ?? 0);
+        return (string) ($this->data['burgerservicenummer'] ?? '');
     }
 
     public function age(): int
