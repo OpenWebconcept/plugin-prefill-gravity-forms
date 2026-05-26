@@ -70,8 +70,13 @@ abstract class PostController extends BaseController
         ];
 
         if ($this->settings->useSSLCertificates()) {
-            $args[CURLOPT_SSLCERT] = $this->settings->getPublicCertificate();
-            $args[CURLOPT_SSLKEY] = $this->settings->getPrivateCertificate();
+            $publicCertificate = $this->settings->getPublicCertificate();
+            $privateCertificate = $this->settings->getPrivateCertificate();
+
+            if ('' !== $publicCertificate && '' !== $privateCertificate) {
+                $args[CURLOPT_SSLCERT] = $publicCertificate;
+                $args[CURLOPT_SSLKEY] = $privateCertificate;
+            }
         }
 
         return $args;
