@@ -93,6 +93,22 @@ If a controller fails to load (e.g., misconfiguration or missing supplier), the 
 To use this model, make sure it is enabled in the settings available at '/wp-admin/admin.php?page=gf_settings&subview=owc-gravityforms-iconnect'.
 Otherwise, the object will be instantiated but will not contain any data.
 
+## Gutenberg blocks
+
+This plugin ships with two Gutenberg blocks for displaying personal data of the logged-in user on any page.
+
+- **Personal Data Table** (`owc-prefill-gravity-forms/personal-data-table`) — a container block that wraps rows in an HTML table (`<table>`).
+- **Personal Data Row** (`owc-prefill-gravity-forms/personal-data-row`) — displays a single personal data field. When placed inside the table block it renders as a `<tr>`, otherwise as a configurable HTML element (`<div>`, `<p>`, or `<span>`).
+
+Each Personal Data Row block must be configured in the block sidebar:
+
+| Setting | Description |
+|---|---|
+| Supplier | Must match the supplier configured in the plugin settings. |
+| Goal binding | Required for HaalCentraal API v2 — determines which fields are returned. |
+| Processing | Optional processing context for HaalCentraal API v2. |
+| Personal data field | The specific BRP attribute to display (e.g. name, date of birth). |
+
 ## Logging
 
 Enable logging to monitor errors during communication with the BRP suppliers.
