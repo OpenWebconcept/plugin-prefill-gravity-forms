@@ -34,7 +34,7 @@ trait Logger
          * @param Exception $exception The exception to intercept.
          * @param string $method PSR‑3 log level name (e.g. 'error', 'debug').
          *
-         * @since NEXT
+         * @since 2.0.0
          */
         do_action('pg::exception/intercept', $exception, $method);
 

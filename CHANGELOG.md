@@ -1,6 +1,33 @@
 # Changelog
 
--   Tested up to: WordPress 6.8.3
+## [v2.0.0] - 2026-06-03
+
+- Added: upgrade to PHP 8
+- Added: user object model class with fullName support
+- Added: mTLS certificate configuration with passphrase support and improved tooltips
+- Added: conditional usage of SSL certificates
+- Added: Pink and EnableU v2 implementation
+- Fix: prevent octal conversion from stripping leading zeros in BSN
+- Fix: path traversal bypass
+- Fix: validate SSL certificates and their paths
+- Fix: set supplier certificate as CA to support self-signed certificates
+- Fix: use general goal binding when none is used in the request
+- Fix: mapping options VrijBRP
+- Fix: broken cURL error handling
+- Fix: separate cache for personal data service and form requests
+- Fix: personal data service class, also improves V2 usage
+- Fix: BSN location in response
+- Fix: escape output and strip version suffix in personal data row block
+- Fix: personal data row inner block
+- Fix: remove some default values in GF Addon settings
+- Change: VrijBRP controller uses specific cURL headers
+- Change: rename doelBinding to goalBinding
+- Change: update block registration and prefix to make blocks visible in editor
+- Change: verify SSL peer and host when using client certificates
+- Chore: update mapping options BRP V2
+- Chore: remove EnableU as supplier
+- Chore: add missing information to personal data block for mijngegevens page
+- Chore: improve README.md
 
 ## v1.9.1
 
