@@ -1,5 +1,9 @@
 # Changelog
 
+## [v2.0.1] - 2026-07-24
+
+- Chore: clarify HTTP headers x-doelbinding and x-verwerking
+
 ## [v2.0.0] - 2026-06-03
 
 - Added: upgrade to PHP 8
