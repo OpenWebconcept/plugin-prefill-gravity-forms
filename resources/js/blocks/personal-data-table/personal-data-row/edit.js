@@ -78,6 +78,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 	const goalBindingControl = (
 		<TextControl
+			help="Algemene doelbinding voor verzoeken zonder specifieke doelbinding. Beschrijft waarom de persoonsgegevens worden opgevraagd en op basis van welke wettelijke taak of bevoegdheid de organisatie dit doet. De mogelijke waarden zijn implementatieafhankelijk en worden door de leverancier bepaald."
 			label="Doelbinding (v2)"
 			value={ goalBinding }
 			onChange={ ( value ) => {
@@ -88,6 +89,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 	const processingControl = (
 		<TextControl
+			help="Beschrijft voor welk werkproces of welke processtap de BRP-gegevens worden opgevraagd. De mogelijke waarden zijn implementatieafhankelijk en dienen door de leverancier te worden aangeleverd."
 			label="Verwerking (v2)"
 			value={ processing }
 			onChange={ ( value ) => {

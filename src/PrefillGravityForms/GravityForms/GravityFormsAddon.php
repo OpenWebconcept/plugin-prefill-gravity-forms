@@ -97,7 +97,7 @@ class GravityFormsAddon extends GFAddOn
                     ],
                     [
                         'label' => __('Verwerking (v2)', 'prefill-gravity-forms'),
-                        'tooltip' => __('Uitleg nog te bepalen...', 'prefill-gravity-forms'),
+                        'tooltip' => __('Beschrijft voor welk werkproces of welke processtap de BRP-gegevens worden opgevraagd. De mogelijke waarden zijn implementatieafhankelijk en dienen door de leverancier te worden aangeleverd.', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}processing",
@@ -113,7 +113,7 @@ class GravityFormsAddon extends GFAddOn
                     ],
                     [
                         'label' => __('Doelbinding (v2)', 'prefill-gravity-forms'),
-                        'tooltip' => __('Algemene doelbinding voor verzoeken zonder ingestelde doelbinding', 'prefill-gravity-forms'),
+                        'tooltip' => __('Algemene doelbinding voor verzoeken zonder specifieke doelbinding. Beschrijft waarom de persoonsgegevens worden opgevraagd en op basis van welke wettelijke taak of bevoegdheid de organisatie dit doet. De mogelijke waarden zijn implementatieafhankelijk en worden door de leverancier bepaald.', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
                         'name' => "{$prefix}goal-binding",

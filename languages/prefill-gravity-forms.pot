@@ -935,7 +935,7 @@ msgid "Verwerking (v2)"
 msgstr ""
 
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:100
-msgid "Uitleg nog te bepalen..."
+msgid "Beschrijft voor welk werkproces of welke processtap de BRP-gegevens worden opgevraagd. De mogelijke waarden zijn implementatieafhankelijk en dienen door de leverancier te worden aangeleverd."
 msgstr ""
 
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:107
@@ -951,7 +951,7 @@ msgid "Doelbinding (v2)"
 msgstr ""
 
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:116
-msgid "Algemene doelbinding voor verzoeken zonder ingestelde doelbinding"
+msgid "Algemene doelbinding voor verzoeken zonder specifieke doelbinding. Beschrijft waarom de persoonsgegevens worden opgevraagd en op basis van welke wettelijke taak of bevoegdheid de organisatie dit doet. De mogelijke waarden zijn implementatieafhankelijk en worden door de leverancier bepaald."
 msgstr ""
 
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:123
