@@ -330,6 +330,13 @@ abstract class BaseController
 
     protected function handleCurl(array $args, string $transientKey, array $locationBsnInResponse = []): array
     {
+        if ($this->settings->requestsDisabled()) {
+            return [
+                'message' => 'Requests are disabled via the plugin settings.',
+                'status' => 503,
+            ];
+        }
+
         try {
             /**
              * IMPORTANT NOTE: when adjusting this piece of code, please make sure

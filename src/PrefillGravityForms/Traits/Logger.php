@@ -14,6 +14,10 @@ trait Logger
 {
     public function logException(Exception $exception, array $context = []): void
     {
+        if (GravityFormsSettings::make()->requestsDisabled()) {
+            return;
+        }
+
         try {
             $level = Level::from($exception->getCode());
             $method = $level->toPsrLogLevel();

@@ -57,6 +57,21 @@ class GravityFormsSettings
         return boolval($value);
     }
 
+    /**
+     * Whether outgoing requests to the supplier's API are disabled.
+     *
+     * Can be used as a maintenance mode when the connection with a supplier is
+     * unreliable, to prevent the site from hanging until the request times out.
+     *
+     * @since NEXT
+     */
+    public function requestsDisabled(): bool
+    {
+        $value = $this->options[$this->prefix . 'disable-requests'] ?? '0';
+
+        return boolval($value);
+    }
+
     public function getNumberOIN(): string
     {
         return $this->options[$this->prefix . 'oin-number'] ?? '';

@@ -923,6 +923,14 @@ msgid "Algemeen"
 msgstr ""
 
 #: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:85
+msgid "Verzoeken uitschakelen"
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:86
+msgid "Schakel deze optie in om alle uitgaande verzoeken naar de API van de leverancier uit te schakelen. Gebruik dit als tijdelijke onderhoudsmodus wanneer de verbinding met de leverancier niet werkt, om te voorkomen dat de website vertraagt doordat verzoeken wachten tot de time-out is verstreken."
+msgstr ""
+
+#: src/PrefillGravityForms/GravityForms/GravityFormsAddon.php:93
 msgid "OIN nummer"
 msgstr ""
 

@@ -82,6 +82,14 @@ class GravityFormsAddon extends GFAddOn
                 'title' => esc_html__('Algemeen', 'prefill-gravity-forms'),
                 'fields' => [
                     [
+                        'label' => esc_html__('Verzoeken uitschakelen', 'prefill-gravity-forms'),
+                        'description' => esc_html__('Schakel deze optie in om alle uitgaande verzoeken naar de API van de leverancier uit te schakelen. Gebruik dit als tijdelijke onderhoudsmodus wanneer de verbinding met de leverancier niet werkt, om te voorkomen dat de website vertraagt doordat verzoeken wachten tot de time-out is verstreken.', 'prefill-gravity-forms'),
+                        'type' => 'toggle',
+                        'name' => "{$prefix}disable-requests",
+                        'required' => false,
+                        'default_value' => false,
+                    ],
+                    [
                         'label' => esc_html__('OIN nummer', 'prefill-gravity-forms'),
                         'type' => 'text',
                         'class' => 'medium',
