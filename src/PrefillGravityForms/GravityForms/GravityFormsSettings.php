@@ -63,7 +63,7 @@ class GravityFormsSettings
      * Can be used as a maintenance mode when the connection with a supplier is
      * unreliable, to prevent the site from hanging until the request times out.
      *
-     * @since NEXT
+     * @since 2.1.0
      */
     public function requestsDisabled(): bool
     {
