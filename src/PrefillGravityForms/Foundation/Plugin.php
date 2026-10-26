@@ -73,10 +73,18 @@ class Plugin
             'config' => create(Config::class)->constructor($this->rootPath . '/config'),
             'logger' => function () {
                 $logger = new \Monolog\Logger('pg_log');
+                $directory = $this->getLogDirectory();
+
+                if (null === $directory) {
+                    $logger->pushHandler(new \Monolog\Handler\NullHandler());
+
+                    return $logger;
+                }
+
                 $maxFiles = apply_filters('pg::logger/rotating_filer_handler_max_files', PG_LOGGER_DEFAULT_MAX_FILES);
 
                 $handler = (new \Monolog\Handler\RotatingFileHandler(
-                    filename:  sprintf('%s/pg-log.json', $this->getLogFilePath()),
+                    filename: sprintf('%s/pg-log.json', $directory),
                     maxFiles: is_int($maxFiles) && 0 < $maxFiles ? $maxFiles : PG_LOGGER_DEFAULT_MAX_FILES,
                     level: \Monolog\Level::Debug
                 ))->setFormatter(new \Monolog\Formatter\JsonFormatter());
@@ -185,36 +193,22 @@ class Plugin
     }
 
     /**
-     * Wrapper function to get the path the log file is written to.
-     * Why? The default dirname(ABSPATH) resolves to the __PUBLIC__ website root directory when WordPress
-     * is installed in a subdirectory (for example: composer-based websites. This is not ideal for logging,
-     * so we allow the user to override this path via a filter, constant, or environment variable.
-     *
-     * @return mixed|string|null
+     * The default dirname(ABSPATH) resolves to the public webroot when WordPress
+     * is installed in a subdirectory (e.g. Bedrock), so allow overriding it.
+     * Returns null when the directory is invalid, in which case file logging is skipped.
      */
-    private function getLogFilePath()
+    private function getLogDirectory(): ?string
     {
-        $logFilePath = dirname(ABSPATH);
+        $directory = defined('PREFILL_GRAVITY_FORMS_LOG_DIR') ? PREFILL_GRAVITY_FORMS_LOG_DIR : dirname(ABSPATH);
+        $directory = apply_filters('pg::logger/log_directory', $directory);
 
-        $potentialLogFilePath = null;
-        // Allow log override via filter;
-        $potentialLogFilePath = apply_filters('pg::logger/log_file_path', $potentialLogFilePath);
+        if (! is_string($directory) || '' === $directory || ! is_dir($directory) || ! is_writable($directory)) {
+            /** This action is documented in src/PrefillGravityForms/Traits/Logger.php */
+            do_action('pg::exception/intercept', new Exception(sprintf('Log directory "%s" does not exist or is not writable, file logging is disabled.', is_string($directory) ? $directory : gettype($directory)), 300), 'warning');
 
-        // Allow log override via environment variable;
-        if ( !empty($_ENV['PREFILL_GRAVITY_FORMS_LOG_FILE_PATH'])) {
-            $potentialLogFilePath = $_ENV['PREFILL_GRAVITY_FORMS_LOG_FILE_PATH'];
+            return null;
         }
 
-        // Allow log override via constant;
-        if (defined('PREFILL_GRAVITY_FORMS_LOG_FILE_PATH')) {
-            $potentialLogFilePath = PREFILL_GRAVITY_FORMS_LOG_FILE_PATH;
-        }
-
-        // If the potential log file path is valid, use it instead of the default.
-        if (!empty($potentialLogFilePath) && is_string($potentialLogFilePath) && is_dir($potentialLogFilePath) && is_writable($potentialLogFilePath)) {
-            $logFilePath = $potentialLogFilePath;
-        }
-
-        return $logFilePath;
+        return untrailingslashit($directory);
     }
 }
