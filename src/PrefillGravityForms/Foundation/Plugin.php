@@ -7,6 +7,7 @@ namespace OWC\PrefillGravityForms\Foundation;
 use function DI\create;
 use Exception;
 use function OWC\PrefillGravityForms\Foundation\Helpers\resolve;
+use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 
 /**
  * BasePlugin which sets all the serviceproviders.
@@ -73,10 +74,18 @@ class Plugin
             'config' => create(Config::class)->constructor($this->rootPath . '/config'),
             'logger' => function () {
                 $logger = new \Monolog\Logger('pg_log');
+                $directory = $this->getLogDirectory();
+
+                if (null === $directory) {
+                    $logger->pushHandler(new \Monolog\Handler\NullHandler());
+
+                    return $logger;
+                }
+
                 $maxFiles = apply_filters('pg::logger/rotating_filer_handler_max_files', PG_LOGGER_DEFAULT_MAX_FILES);
 
                 $handler = (new \Monolog\Handler\RotatingFileHandler(
-                    filename:  sprintf('%s/pg-log.json', dirname(ABSPATH)),
+                    filename: sprintf('%s/pg-log.json', $directory),
                     maxFiles: is_int($maxFiles) && 0 < $maxFiles ? $maxFiles : PG_LOGGER_DEFAULT_MAX_FILES,
                     level: \Monolog\Level::Debug
                 ))->setFormatter(new \Monolog\Formatter\JsonFormatter());
@@ -182,5 +191,29 @@ class Plugin
         $directory = ! empty($directory) ? $directory . '/' : '';
 
         return $this->rootPath . "/build/{$directory}{$file}";
+    }
+
+    /**
+     * The default dirname(ABSPATH) resolves to the public webroot when WordPress
+     * is installed in a subdirectory (e.g. Bedrock), so allow overriding it.
+     * Returns null when the directory is invalid, in which case file logging is skipped.
+     *
+     * @since NEXT
+     */
+    private function getLogDirectory(): ?string
+    {
+        $directory = defined('PREFILL_GRAVITY_FORMS_LOG_DIR') ? PREFILL_GRAVITY_FORMS_LOG_DIR : dirname(ABSPATH);
+        $directory = apply_filters('pg::logger/log_directory', $directory);
+
+        if (! is_string($directory) || '' === $directory || ! is_dir($directory) || ! is_writable($directory)) {
+            if (GravityFormsSettings::make()->loggingEnabled()) {
+                /** This action is documented in src/PrefillGravityForms/Traits/Logger.php */
+                do_action('pg::exception/intercept', new Exception(sprintf('Log directory "%s" does not exist or is not writable, file logging is disabled.', is_string($directory) ? $directory : gettype($directory)), 300), 'warning');
+            }
+
+            return null;
+        }
+
+        return untrailingslashit($directory);
     }
 }

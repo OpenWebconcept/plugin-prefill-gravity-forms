@@ -113,9 +113,21 @@ Each Personal Data Row block must be configured in the block sidebar:
 
 Enable logging to monitor errors during communication with the BRP suppliers.
 
-- Logs are written daily to `pg-log{-date}.json` in the WordPress webroot directory.
+- Logs are written daily to `pg-log{-date}.json` in the parent directory of the WordPress installation (`dirname(ABSPATH)`) by default.
 - A rotating file handler keeps up to 7 log files by default, deleting the oldest as needed.
 - You can change the maximum number of log files using the filter described below.
+- When the log directory does not exist or is not writable, file logging is disabled. If logging is enabled, a warning is passed to the `pg::exception/intercept` action.
+
+### Log directory
+
+When WordPress is installed in a subdirectory (e.g. a Composer/Bedrock based setup), `dirname(ABSPATH)` resolves to the public webroot, which would make the log files publicly accessible. Make sure the log files are stored outside of the webroot by defining the log directory in your `wp-config.php` (or `config/application.php` in Bedrock):
+
+```php
+// Prefill Gravity Forms – Log directory (must exist and be writable, outside of the webroot)
+define('PREFILL_GRAVITY_FORMS_LOG_DIR', '/path/outside/webroot/logs');
+```
+
+The directory can also be changed using the filter described below.
 
 ## Hooks
 
@@ -125,6 +137,22 @@ Use the following filter to alter the rotating file handler's max files setting:
 
 ```php
 apply_filters('pg::logger/rotating_filer_handler_max_files', PG_LOGGER_DEFAULT_MAX_FILES)
+```
+
+### Change the log directory
+
+Use the following filter to alter the directory the log files are written to. The filter receives the value of the `PREFILL_GRAVITY_FORMS_LOG_DIR` constant when defined, otherwise `dirname(ABSPATH)`:
+
+```php
+apply_filters('pg::logger/log_directory', $directory)
+```
+
+Example:
+
+```php
+add_filter('pg::logger/log_directory', function (string $directory): string {
+    return dirname(ABSPATH, 2) . '/logs';
+});
 ```
 
 ### Intercept exceptions for custom handling
