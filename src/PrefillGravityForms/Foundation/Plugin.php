@@ -198,7 +198,7 @@ class Plugin
      * is installed in a subdirectory (e.g. Bedrock), so allow overriding it.
      * Returns null when the directory is invalid, in which case file logging is skipped.
      *
-     * @since NEXT
+     * @since 2.1.1
      */
     private function getLogDirectory(): ?string
     {

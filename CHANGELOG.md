@@ -1,5 +1,9 @@
 # Changelog
 
+## [v2.1.1] - 2026-10-27
+
+-   Added: make log directory configurable to keep log files outside the webroot
+
 ## [v2.1.0] - 2026-09-16
 
 -   Added: setting to disable outgoing requests as maintenance mode
