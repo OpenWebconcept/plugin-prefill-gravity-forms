@@ -59,6 +59,11 @@ class GravityFormsAddon extends GFAddOn
     }
 
     /**
+     * HTML message about the supplier migration, shown with the settings saved message.
+     */
+    private string $supplierMigrationMessage = '';
+
+    /**
      * Return the plugin's icon for the plugin/form settings menu.
      *
      * @since 2.5
@@ -139,6 +144,12 @@ class GravityFormsAddon extends GFAddOn
                                 'value' => $supplier,
                             ];
                         }, array_values(config('suppliers.mapping', [])))),
+                    ],
+                    [
+                        // Set by JavaScript when the user confirms the migration of forms and blocks to the V2 supplier.
+                        'type' => 'hidden',
+                        'name' => SupplierMigrationSettings::SETTING_CONFIRMED,
+                        'default_value' => '',
                     ],
                     [
                         'label' => esc_html__('Gebruik API authenticatie', 'prefill-gravity-forms'),
@@ -301,6 +312,73 @@ class GravityFormsAddon extends GFAddOn
                 ],
             ],
         ];
+    }
+
+    /**
+     * @since NEXT
+     */
+    public function init_admin()
+    {
+        parent::init_admin();
+
+        add_action('admin_enqueue_scripts', $this->enqueueSupplierMigrationScript(...));
+    }
+
+    /**
+     * @since NEXT
+     */
+    public function plugin_settings_init()
+    {
+        parent::plugin_settings_init();
+
+        $renderer = $this->get_settings_renderer();
+
+        if (! is_object($renderer) || ! method_exists($renderer, 'set_postback_message_callback')) {
+            return;
+        }
+
+        $renderer->set_postback_message_callback(function ($message) {
+            return $message . $this->supplierMigrationMessage;
+        });
+    }
+
+    /**
+     * Migrates the forms and blocks when the supplier is changed from V1 to V2 and the user confirmed this.
+     *
+     * @param array $settings
+     * @since NEXT
+     */
+    public function update_plugin_settings($settings)
+    {
+        $confirmed = '1' === (string) ($settings[SupplierMigrationSettings::SETTING_CONFIRMED] ?? '');
+        unset($settings[SupplierMigrationSettings::SETTING_CONFIRMED]);
+
+        $previousSettings = $this->get_plugin_settings();
+        $previousSupplier = is_array($previousSettings) ? (string) ($previousSettings[SupplierMigrationSettings::SETTING_SUPPLIER] ?? '') : '';
+
+        parent::update_plugin_settings($settings);
+
+        $this->supplierMigrationMessage = (new SupplierMigrationSettings())->handleSupplierChange(
+            $previousSupplier,
+            (string) ($settings[SupplierMigrationSettings::SETTING_SUPPLIER] ?? ''),
+            $confirmed
+        );
+    }
+
+    /**
+     * @since NEXT
+     */
+    private function enqueueSupplierMigrationScript(): void
+    {
+        if (! $this->is_plugin_settings($this->get_slug())) {
+            return;
+        }
+
+        $settings = $this->get_plugin_settings();
+
+        (new SupplierMigrationSettings())->enqueueConfirmScript(
+            is_array($settings) ? (string) ($settings[SupplierMigrationSettings::SETTING_SUPPLIER] ?? '') : ''
+        );
     }
 
     /**
