@@ -48,6 +48,22 @@ In addition, at least one of the following plug-ins must be installed to enable 
 2. Go to the form settings of the form you want to configure.
 3. Scroll down and look for the 'OWC Prefill' panel and configure the settings.
 
+### Migrating from a V1 to a V2 supplier
+
+When the supplier in the add-on settings is changed from a V1 supplier (EnableU, PinkRoccade or VrijBRP) to a V2 supplier (EnableU V2 or PinkRoccade V2), you will be asked to migrate the linked forms and personal data blocks. Every V1 supplier can be migrated to every V2 supplier, e.g. VrijBRP to EnableU V2.
+After confirming, the supplier in the form settings is switched and the linked fields are mapped to their V2 counterparts, see `config/supplier-migrations/`.
+Fields without a V2 counterpart and forms using a mapping file from the theme are reported after saving and need to be updated manually.
+The original values are kept in the form setting `owc-form-setting-supplier-legacy` and the field property `linkedFieldValueLegacy`.
+
+The migration can also be run with WP-CLI, use `--dry-run` to see what will be migrated first:
+
+```sh
+wp prefill migrate-supplier enable-u enable-u-v2 --dry-run
+wp prefill migrate-supplier vrij-brp enable-u-v2
+```
+
+On a multisite, add `--url=<site>` to migrate a specific site.
+
 ### Cache Encryption
 
 To enable secure caching of sensitive data, you **must define an encryption key** in your `wp-config.php` file. This key is used to encrypt and decrypt the cached data and should be kept secret at all times.

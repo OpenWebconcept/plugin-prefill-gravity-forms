@@ -1,3 +1,7 @@
+/**
+ * Options without a version are available for every supplier, these are translated on runtime for V2 suppliers
+ * by the PersonalDataService. Options with a version are only available for suppliers of that API version.
+ */
 const personalDataOptions = [
 	{
 		value: '',
@@ -37,12 +41,14 @@ const personalDataOptions = [
 		value: 'naam.voornamen',
 	},
 	{
-		label: 'Aanduiding Naamgebruik (V1)',
+		label: 'Aanduiding Naamgebruik',
 		value: 'naam.aanduidingNaamgebruik',
+		version: '1',
 	},
 	{
-		label: 'Aanduiding Naamgebruik (V2)',
+		label: 'Aanduiding Naamgebruik',
 		value: 'naam.aanduidingNaamgebruik.omschrijving',
+		version: '2',
 	},
 	{
 		label: 'Aanschrijfwijze',
@@ -59,10 +65,17 @@ const personalDataOptions = [
 	{
 		label: 'Straat',
 		value: 'verblijfplaats.straat',
+		version: '1',
 	},
 	{
 		label: 'Straatnaam',
 		value: 'verblijfplaats.straatnaam',
+		version: '1',
+	},
+	{
+		label: 'Straat',
+		value: 'verblijfplaats.verblijfadres.officieleStraatnaam',
+		version: '2',
 	},
 	{
 		label: 'Huisnummer',
@@ -79,10 +92,17 @@ const personalDataOptions = [
 	{
 		label: 'Woonplaats',
 		value: 'verblijfplaats.woonplaats',
+		version: '1',
 	},
 	{
 		label: 'Woonplaats naam',
 		value: 'verblijfplaats.woonplaatsnaam',
+		version: '1',
+	},
+	{
+		label: 'Woonplaats',
+		value: 'verblijfplaats.verblijfadres.woonplaats',
+		version: '2',
 	},
 ];
 

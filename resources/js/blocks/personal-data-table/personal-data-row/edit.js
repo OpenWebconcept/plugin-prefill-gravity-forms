@@ -38,6 +38,27 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		}
 	}, [ blockParents, setAttributes ] );
 
+	const supplierVersion = supplierOptions.find(
+		( option ) => option.value === selectedSupplier.value
+	)?.version;
+
+	// Only show the options of the API version of the supplier, the selected option is kept to avoid an empty select.
+	const availablePersonalDataOptions = personalDataOptions
+		.filter(
+			( option ) =>
+				! option.version ||
+				! supplierVersion ||
+				option.version === supplierVersion ||
+				option.value === selectedOption.value
+		)
+		.map( ( { label, value, disabled } ) => ( { label, value, disabled } ) );
+
+	// Labels saved by previous versions could contain a version suffix, e.g. 'Straat (V2)'.
+	const selectedOptionLabel = ( selectedOption.label ?? '' ).replace(
+		/\s*\(V\d+\)$/,
+		''
+	);
+
 	const handleSupplierChange = ( value ) => {
 		const selectedSupplierData = {
 			value,
@@ -102,7 +123,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		<SelectControl
 			label="Automatisch invullen"
 			value={ selectedOption.value }
-			options={ personalDataOptions }
+			options={ availablePersonalDataOptions }
 			onChange={ handlePersonalDataChange }
 		/>
 	);
@@ -165,11 +186,11 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					<div className="row">
 						{ isChildOfTable && (
 							<div className="col-6 font-weight-bold">
-								<p>{ selectedOption.label }</p>
+								<p>{ selectedOptionLabel }</p>
 							</div>
 						) }
 						<div className="col-6">
-							[{ uncapitalize( selectedOption.label ) }]
+							[{ uncapitalize( selectedOptionLabel ) }]
 						</div>
 					</div>
 				</>

@@ -1,0 +1,1 @@
+!function(e){if(!e)return;const n=document.getElementById("gform-settings");if(!n)return;const t=n.querySelector(`[name="${e.supplierInput}"]`),r=n.querySelector(`[name="${e.confirmedInput}"]`);t&&r&&n.addEventListener("submit",()=>{const n=e.targets.includes(t.value);r.value=n&&window.confirm(e.message.replace("%s",t.value))?"1":""})}(window.owcPrefillSupplierMigration);
