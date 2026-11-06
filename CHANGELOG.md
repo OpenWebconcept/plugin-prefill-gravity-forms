@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+-   Added: migrate forms and personal data blocks from a V1 supplier (EnableU, PinkRoccade, VrijBRP) to a V2 supplier (EnableU V2, PinkRoccade V2) when changing the supplier in the add-on settings, after confirmation
+-   Changed: personal data block only shows the options of the API version of the selected supplier
+-   Added: WP-CLI command `wp prefill migrate-supplier` to migrate forms and personal data blocks to a V2 supplier
+
 ## [v2.1.1] - 2026-10-27
 
 -   Added: make log directory configurable to keep log files outside the webroot
