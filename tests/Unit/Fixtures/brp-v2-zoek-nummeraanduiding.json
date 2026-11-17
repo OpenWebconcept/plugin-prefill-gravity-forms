@@ -1,0 +1,8 @@
+{
+    "type": "ZoekMetNummeraanduidingIdentificatie",
+    "personen": [
+        { "burgerservicenummer": "999990019" },
+        { "burgerservicenummer": "999990020" },
+        { "burgerservicenummer": "999990031" }
+    ]
+}

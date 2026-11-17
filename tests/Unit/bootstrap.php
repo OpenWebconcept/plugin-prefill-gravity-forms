@@ -20,6 +20,10 @@ array_map(function ($file) {
 define('WP_PLUGIN_DIR', __DIR__);
 define('WP_DEBUG', false);
 
+if (! defined('HOUR_IN_SECONDS')) {
+    define('HOUR_IN_SECONDS', 3600);
+}
+
 /**
  * Bootstrap WordPress Mock.
  */

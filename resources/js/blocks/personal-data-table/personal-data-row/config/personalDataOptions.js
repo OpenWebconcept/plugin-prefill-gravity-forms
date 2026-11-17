@@ -84,6 +84,10 @@ const personalDataOptions = [
 		label: 'Woonplaats naam',
 		value: 'verblijfplaats.woonplaatsnaam',
 	},
+	{
+		label: 'Aantal bewoners (V2)',
+		value: 'aantalBewoners',
+	},
 ];
 
 export default personalDataOptions;

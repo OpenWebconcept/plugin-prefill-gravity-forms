@@ -1,0 +1,18 @@
+{
+    "burgerservicenummer": "999990019",
+    "leeftijd": 42,
+    "naam": {
+        "voornamen": "Voorbeeld",
+        "voorletters": "V.",
+        "geslachtsnaam": "Testpersoon"
+    },
+    "verblijfplaats": {
+        "straat": "Voorbeeldstraat",
+        "huisnummer": 31,
+        "huisletter": "A",
+        "huisnummertoevoeging": "2",
+        "postcode": "1234AB",
+        "woonplaats": "Voorbeeldstad",
+        "identificatiecodeNummeraanduiding": "0599200000219678"
+    }
+}

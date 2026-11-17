@@ -393,6 +393,55 @@ abstract class BaseController
     }
 
     /**
+     * Executes a cURL request without caching and returns the HTTP status code and the decoded JSON body.
+     *
+     * Unlike handleCurl(), this method does not require a BSN in the response and never
+     * includes the raw response in exception messages.
+     *
+     * @param array<int, mixed> $args cURL options, merged with the default arguments.
+     *
+     * @throws Exception With a fixed message when the request fails or the body is not valid JSON.
+     *
+     * @return array{status: int, body: array<mixed>}
+     */
+    protected function executeCurlRequest(array $args): array
+    {
+        $curl = curl_init();
+
+        try {
+            curl_setopt_array($curl, $this->getDefaultCurlArgs() + $args);
+
+            $passphrase = $this->settings->getPassphrase();
+
+            if ('' !== $passphrase) {
+                curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $passphrase);
+            }
+
+            $this->applyCurlSSLOptions($curl);
+
+            $output = curl_exec($curl);
+            $errorNumber = curl_errno($curl);
+
+            if (0 !== $errorNumber || ! is_string($output)) {
+                throw new Exception(sprintf('cURL request failed with error number %d.', $errorNumber), 500);
+            }
+
+            $body = json_decode($output, true);
+
+            if (! is_array($body)) {
+                throw new Exception('Response body is not valid JSON.', 500);
+            }
+
+            return [
+                'status' => curl_getinfo($curl, CURLINFO_HTTP_CODE),
+                'body' => $body,
+            ];
+        } finally {
+            unset($curl);
+        }
+    }
+
+    /**
      * Verification of the peer's SSL certificate and host is only necessary when
      * SSL certificates are used and a supplier certificate is provided.
      */

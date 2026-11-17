@@ -32,6 +32,8 @@ class PinkRoccadeV2Controller extends PostController
             return $form;
         }
 
+        $apiResponse = $this->addResidentsCountToResponse($form, $apiResponse, $goalBinding, $processing);
+
         echo $this->disableFormFields();
 
         return $this->preFillFields($form, $apiResponse);

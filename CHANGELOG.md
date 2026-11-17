@@ -1,5 +1,12 @@
 # Changelog
 
+## [NEXT] - 2026-
+
+-   Added: UserModel address getters for BRP API v2 (`street()`, `city()`, `houseNumberAddition()`, `nummeraanduidingIdentificatie()`)
+-   Added: number of residents at the residential address via BRP search query `ZoekMetNummeraanduidingIdentificatie` (`PostController::countResidents()`, `UserModel::residentsCount()`)
+-   Added: mappable field "Aantal bewoners" in the Gravity Forms field mapping (v2 suppliers) and the Personal Data Row block
+-   Fix: `zipcode()`, `houseNumber()` and `houseLetter()` of the UserModel now return values for BRP API v2 responses
+
 ## [v2.1.2] - 2026-11-17
 
 -   Fix: use general goal binding when a form has no goal binding (V2 suppliers)

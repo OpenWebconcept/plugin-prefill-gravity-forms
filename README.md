@@ -87,6 +87,21 @@ if ( $user->isLoggedIn() ) {
 }
 ```
 
+### Available methods
+
+| Method | Returns |
+|---|---|
+| `isLoggedIn()` | `true` when a valid BSN is available |
+| `bsn()`, `age()` | BSN and age |
+| `initials()`, `firstNames()`, `lastNamePrefix()`, `lastName()`, `fullName(bool $withInitials = false)` | Name parts |
+| `street()`, `houseNumber()`, `houseLetter()`, `houseNumberAddition()`, `zipcode()`, `city()` | Residential address |
+| `nummeraanduidingIdentificatie()` | BAG identification (16 digits) of the residential address, or `''` |
+| `residentsCount()` | Number of persons registered at the residential address, or `null` (see below) |
+
+When no goal binding is given (for example a Personal Data Row block without one), the count uses the general goal binding from the settings. `residentsCount()` uses the BRP search query `ZoekMetNummeraanduidingIdentificatie` and is only available for HaalCentraal BRP API v2 suppliers (e.g. `PinkRoccadeV2`, `EnableUV2`). It returns `null` when the user is not logged in, no address is known, a v1 supplier is configured or the request fails (e.g. a 403 because the goal binding does not allow the search). Only the count is cached (encrypted, one hour, requires `PG_CACHE_ENCRYPTION_KEY`); the persons in the response are discarded.
+
+The address methods read the HaalCentraal BRP API v2 structure (`verblijfplaats.verblijfadres.*`) first and fall back to the v1 structure. All address methods return an empty string when no address is known (e.g. a `Locatie` without address).
+
 This model does not handle authentication itself, it only exposes data retrieved by the underlying BRP supplier controller.
 If a controller fails to load (e.g., misconfiguration or missing supplier), the model gracefully returns default values.
 
@@ -108,6 +123,15 @@ Each Personal Data Row block must be configured in the block sidebar:
 | Goal binding (Doelbinding) | Required for HaalCentraal API v2 — determines which fields are returned. Describes why the personal data is being requested and under which legal task or authority the organization does so. |
 | Processing (Verwerking) | Optional for HaalCentraal API v2. Describes for which work process or process step the BRP data is being requested. |
 | Personal data field | The specific BRP attribute to display (e.g. name, date of birth). |
+
+### Number of residents
+
+The field **Aantal bewoners** (`aantalBewoners`) shows the number of persons registered at the residential address of the logged-in user. It is available in the Personal Data Row block ("Aantal bewoners (V2)") and in the Gravity Forms field mapping of the HaalCentraal v2 suppliers (group "Verblijfplaats").
+
+- Only for HaalCentraal BRP API v2 suppliers; the goal binding must allow the search query `ZoekMetNummeraanduidingIdentificatie`. Otherwise the field stays empty and the failure is logged.
+- In Gravity Forms, map it to a **Text** field; Number and Hidden fields are not prefilled.
+- A count of `0` is shown as empty.
+- The count is only requested when a form field is mapped to it.
 
 ## Logging
 

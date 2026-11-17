@@ -42,6 +42,7 @@
             <option value="adressering.adresregel2"><?php _e('Postcode + plaats', 'prefill-gravity-forms'); ?></option>
 			<option value="gemeenteVanInschrijving.omschrijving"><?php _e('Gemeente', 'prefill-gravity-forms'); ?></option>
 			<option value="gemeenteVanInschrijving.code"><?php _e('Gemeentecode', 'prefill-gravity-forms'); ?></option>
+            <option value="aantalBewoners"><?php _e('Aantal bewoners', 'prefill-gravity-forms'); ?></option>
         </optgroup>
         <optgroup label="Huwelijk/Partnerschap-gegevens">
             <option value="partners.0.soortVerbintenis.omschrijving"><?php _e('Soort verbintenis', 'prefill-gravity-forms'); ?></option>

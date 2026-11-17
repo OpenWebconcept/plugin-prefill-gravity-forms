@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OWC\PrefillGravityForms\Services;
 
 use Exception;
+use OWC\PrefillGravityForms\Abstracts\PostController;
 use OWC\PrefillGravityForms\Controllers\BaseController;
 use OWC\PrefillGravityForms\Traits\ControllerTrait;
 use OWC\PrefillGravityForms\Traits\Logger;
@@ -40,6 +41,10 @@ class PersonalDataService
             return '';
         }
 
+        if (PostController::RESIDENTS_COUNT_KEY === $key) {
+            return $this->residentsCount($goalBinding, $processing);
+        }
+
         $data = $this->controller->get($goalBinding, $processing);
 
         if ($this->controller->getApiVersion() === '1') {
@@ -53,6 +58,28 @@ class PersonalDataService
         }
 
         return $this->format($key, $value);
+    }
+
+    /**
+     * Virtual field: number of persons registered at the residential address of the logged-in user (BRP API v2 only).
+     */
+    private function residentsCount(string $goalBinding, string $processing): string
+    {
+        if (! $this->controller instanceof PostController) {
+            return '';
+        }
+
+        $data = $this->controller->get($goalBinding, $processing);
+        $verblijfplaats = $data['verblijfplaats'] ?? null;
+        $nummeraanduidingIdentificatie = is_array($verblijfplaats) ? ($verblijfplaats['nummeraanduidingIdentificatie'] ?? null) : null;
+
+        if (! is_string($nummeraanduidingIdentificatie)) {
+            return '';
+        }
+
+        $count = $this->controller->countResidents($nummeraanduidingIdentificatie, $goalBinding, $processing);
+
+        return null === $count ? '' : (string) $count;
     }
 
     /**
