@@ -22,7 +22,7 @@ class EnableUV2Controller extends PostController
             return $form;
         }
 
-        $goalBinding = rgar($form, 'owc-iconnect-doelbinding', '');
+        $goalBinding = $this->getGoalBinding($form);
         $processing = rgar($form, 'owc-iconnect-processing', '') ?: $this->settings->getProcessing();
         $expand = rgar($form, 'owc-iconnect-expand', '');
         $excludeDeceased = (bool) rgar($form, 'owc-iconnect-exclude-deceased', false);
