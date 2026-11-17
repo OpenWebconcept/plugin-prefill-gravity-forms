@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+-   Fix: use general goal binding when a form has no goal binding (V2 suppliers)
+
 ## [v2.1.1] - 2026-10-27
 
 -   Added: make log directory configurable to keep log files outside the webroot

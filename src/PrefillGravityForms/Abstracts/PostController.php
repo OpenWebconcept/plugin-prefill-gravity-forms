@@ -11,6 +11,14 @@ abstract class PostController extends BaseController
     protected const BRP_API_VERSION = '2';
 
     /**
+     * Returns the goal binding of the form, falls back to the general goal binding of the plugin settings.
+     */
+    protected function getGoalBinding(array $form): string
+    {
+        return rgar($form, 'owc-iconnect-doelbinding', '') ?: $this->settings->getGoalBinding();
+    }
+
+    /**
      * Filters deceased persons from the given embedded relation collection.
      *
      * For each embedded item containing a BSN, additional person data is requested
