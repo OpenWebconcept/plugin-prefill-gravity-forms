@@ -39,7 +39,13 @@ abstract class PostController extends BaseController
         // PinkRoccade refuses this search without x-doelbinding (HTTP 400).
         $goalBinding = '' !== $goalBinding ? $goalBinding : $this->settings->getGoalBinding();
         $processing = '' !== $processing ? $processing : $this->settings->getProcessing();
-        $transientKey = CacheService::formatTransientKey('residents_count_' . $nummeraanduidingIdentificatie);
+        $transientKey = CacheService::formatTransientKey('residents_count_' . serialize([
+            static::class,
+            $this->settings->getBaseURL(),
+            $nummeraanduidingIdentificatie,
+            $goalBinding,
+            $processing,
+        ]));
 
         try {
             $cached = CacheService::getArrayFromTransient($transientKey);
