@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v2.1.2] - 2026-11-17
 
 -   Fix: use general goal binding when a form has no goal binding (V2 suppliers)
 
