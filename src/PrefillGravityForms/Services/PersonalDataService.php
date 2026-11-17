@@ -69,6 +69,10 @@ class PersonalDataService
             return '';
         }
 
+        if ('' === $goalBinding) {
+            $goalBinding = \OWC\PrefillGravityForms\GravityForms\GravityFormsSettings::make()->getGoalBinding();
+        }
+
         $data = $this->controller->get($goalBinding, $processing);
         $verblijfplaats = $data['verblijfplaats'] ?? null;
         $nummeraanduidingIdentificatie = is_array($verblijfplaats) ? ($verblijfplaats['nummeraanduidingIdentificatie'] ?? null) : null;
