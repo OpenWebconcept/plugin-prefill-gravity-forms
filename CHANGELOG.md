@@ -1,5 +1,9 @@
 # Changelog
 
+## [v2.1.3] - 2026-11-23
+
+-   Fix: disabled form fields
+
 ## [v2.1.2] - 2026-11-17
 
 -   Fix: use general goal binding when a form has no goal binding (V2 suppliers)

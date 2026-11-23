@@ -13,7 +13,7 @@ use WP_HTML_Tag_Processor;
  * Previously this was done with an inline script on 'gform_post_render',
  * which is blocked by a nonce-based Content Security Policy.
  *
- * @since NEXT
+ * @since 2.1.3
  */
 class GravityFormsPrefilledFields
 {
@@ -28,7 +28,7 @@ class GravityFormsPrefilledFields
 
         $processor = new WP_HTML_Tag_Processor($content);
 
-       while ($processor->next_tag('input')) {
+        while ($processor->next_tag('input')) {
             $processor->set_attribute('readonly', 'readonly');
         }
 
