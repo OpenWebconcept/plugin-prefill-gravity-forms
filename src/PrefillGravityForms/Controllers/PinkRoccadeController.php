@@ -36,8 +36,6 @@ class PinkRoccadeController extends GetController
             return $form;
         }
 
-        echo $this->disableFormFields();
-
         return $this->preFillFields($form, $apiResponse);
     }
 

@@ -12,6 +12,7 @@ use OWC\PrefillGravityForms\GravityForms\GravityForms;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsAddon;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsFieldSettings;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsFormSettings;
+use OWC\PrefillGravityForms\GravityForms\GravityFormsPrefilledFields;
 
 class GravityFormsServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,7 @@ class GravityFormsServiceProvider extends ServiceProvider
     protected function registerHooks(): void
     {
         add_filter('gform_pre_render', (new GravityForms())->preRender(...));
+        add_filter('gform_field_content', (new GravityFormsPrefilledFields())->addReadonlyAttribute(...), 10, 5);
         add_filter('gform_form_settings_fields', (new GravityFormsFormSettings())->addFormSettings(...), 9999, 2);
         add_filter('gform_field_groups_form_editor', $this->fieldGroupsFormEditor(...), 999, 1);
         add_action('gform_field_standard_settings', GravityFormsFieldSettings::addSupplierPrefillOptionsSelect(...), 10, 2);

@@ -32,8 +32,6 @@ class EnableUV2Controller extends PostController
             return $form;
         }
 
-        echo $this->disableFormFields();
-
         return $this->preFillFields($form, $apiResponse);
     }
 

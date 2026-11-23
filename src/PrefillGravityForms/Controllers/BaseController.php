@@ -8,7 +8,6 @@ use CurlHandle;
 use DateTime;
 use Exception;
 use GF_Field;
-use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsSettings;
 use OWC\PrefillGravityForms\Services\CacheService;
 use OWC\PrefillGravityForms\Traits\Logger;
@@ -505,14 +504,5 @@ abstract class BaseController
         }
 
         return $args;
-    }
-
-    /**
-     * Prefilled fields have a custom css class
-     * Based on this custom class fields are disabled.
-     */
-    protected function disableFormFields(): string
-    {
-        return view('disabledFormFields.php');
     }
 }
