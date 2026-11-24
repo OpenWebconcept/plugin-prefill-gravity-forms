@@ -118,12 +118,12 @@ This plugin ships with two Gutenberg blocks for displaying personal data of the 
 
 Each Personal Data Row block must be configured in the block sidebar:
 
-| Setting | Description |
-|---|---|
-| Supplier | Must match the supplier configured in the plugin settings. |
+| Setting                    | Description                                                                                                                                                                                   |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Supplier                   | Must match the supplier configured in the plugin settings.                                                                                                                                    |
 | Goal binding (Doelbinding) | Required for HaalCentraal API v2 — determines which fields are returned. Describes why the personal data is being requested and under which legal task or authority the organization does so. |
-| Processing (Verwerking) | Optional for HaalCentraal API v2. Describes for which work process or process step the BRP data is being requested. |
-| Personal data field | The specific BRP attribute to display (e.g. name, date of birth). |
+| Processing (Verwerking)    | Optional for HaalCentraal API v2. Describes for which work process or process step the BRP data is being requested.                                                                           |
+| Personal data field        | The specific BRP attribute to display (e.g. name, date of birth).                                                                                                                             |
 
 ## Logging
 
