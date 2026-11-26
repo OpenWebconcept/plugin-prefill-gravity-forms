@@ -8,6 +8,7 @@ import {
 	TabPanel,
 	TextControl,
 	SelectControl,
+	ToggleControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
@@ -19,8 +20,15 @@ import personalDataOptions from './config/personalDataOptions';
 import supplierOptions from './config/supplierOptions';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { selectedSupplier, goalBinding, processing, selectedOption, htmlElement, isChildOfTable } =
-		attributes;
+	const {
+		selectedSupplier,
+		goalBinding,
+		processing,
+		selectedOption,
+		secondApplicant,
+		htmlElement,
+		isChildOfTable,
+	} = attributes;
 
 	const { blockParents } = useSelect( ( select ) => ( {
 		blockParents: select( 'core/block-editor' ).getBlockNamesByClientId(
@@ -107,6 +115,17 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		/>
 	);
 
+	const secondApplicantControl = (
+		<ToggleControl
+			label="Tweede aanvrager (mede-aanvrager)"
+			help="Toon de gegevens van de tweede aanvrager die via de tweede login met DigiD is ingelogd."
+			checked={ !! secondApplicant }
+			onChange={ ( value ) => {
+				setAttributes( { secondApplicant: value } );
+			} }
+		/>
+	);
+
 	const selectHtmlElementControl = (
 		<SelectControl
 			label="HTML Element"
@@ -149,6 +168,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 									{ goalBindingControl }
 									{ processingControl }
 									{ selectPersonalDataControl }
+									{ secondApplicantControl }
 									{ ! isChildOfTable &&
 										selectHtmlElementControl }
 								</>

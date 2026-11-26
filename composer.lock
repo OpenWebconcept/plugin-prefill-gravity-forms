@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67f9926596a20e300567ee5d0eac02d0",
+    "content-hash": "0576a2d43a9dbdd8801e284921f34ca2",
     "packages": [
         {
             "name": "laravel/serializable-closure",
@@ -172,16 +172,16 @@
         },
         {
             "name": "owc/idp-userdata",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenWebconcept/idp-userdata.git",
-                "reference": "a95986c390ab59356922fd12b995c26dc9e88bf9"
+                "reference": "6080feecc724ba39e0f7ca0261a18b4ca4c3e5a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenWebconcept/idp-userdata/zipball/a95986c390ab59356922fd12b995c26dc9e88bf9",
-                "reference": "a95986c390ab59356922fd12b995c26dc9e88bf9",
+                "url": "https://api.github.com/repos/OpenWebconcept/idp-userdata/zipball/6080feecc724ba39e0f7ca0261a18b4ca4c3e5a2",
+                "reference": "6080feecc724ba39e0f7ca0261a18b4ca4c3e5a2",
                 "shasum": ""
             },
             "require": {
@@ -201,10 +201,10 @@
             ],
             "description": "Common interfaces for IDP userdata (DigiD, eHerkenning)",
             "support": {
-                "source": "https://github.com/OpenWebconcept/idp-userdata/tree/v1.1.0",
+                "source": "https://github.com/OpenWebconcept/idp-userdata/tree/v1.2.0",
                 "issues": "https://github.com/OpenWebconcept/idp-userdata/issues"
             },
-            "time": "2024-11-06T10:20:58+00:00"
+            "time": "2026-03-27T05:13:53+00:00"
         },
         {
             "name": "php-di/invoker",
@@ -5214,8 +5214,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0"
+        "php": "^8.1"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.11.0"
 }

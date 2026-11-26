@@ -100,7 +100,9 @@ class AgeCheckField extends GF_Field
         $maximumAgeSetting = $this->get_maximum_age_setting();
 
         if (empty($bsn) || empty($dateOfBirth || (empty($minimumAgeSetting) && empty($maximumAgeSetting)))) {
-            $message = __('Log in met uw DigiD, zonder BSN-nummer kan de leeftijdscheck niet uitgevoerd worden.', 'prefill-gravity-forms');
+            $message = $this->is_second_applicant_field()
+                ? __('De tweede aanvrager moet inloggen met DigiD, zonder BSN-nummer kan de leeftijdscheck niet uitgevoerd worden.', 'prefill-gravity-forms')
+                : __('Log in met uw DigiD, zonder BSN-nummer kan de leeftijdscheck niet uitgevoerd worden.', 'prefill-gravity-forms');
 
             if (empty($minimumAgeSetting) && empty($maximumAgeSetting)) {
                 $message = __('Dit veld is onjuist geconfigueerd, contacteer de beheerder van deze website.', 'prefill-gravity-forms');

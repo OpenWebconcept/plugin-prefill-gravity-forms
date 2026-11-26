@@ -34,13 +34,13 @@ class PersonalDataService
         }
     }
 
-    public function get(string $key, string $goalBinding = '', string $processing = ''): string
+    public function get(string $key, string $goalBinding = '', string $processing = '', bool $secondApplicant = false): string
     {
         if (! $this->controller instanceof BaseController || 1 > strlen($key)) {
             return '';
         }
 
-        $data = $this->controller->get($goalBinding, $processing);
+        $data = $this->controller->get($goalBinding, $processing, $secondApplicant);
 
         if ($this->controller->getApiVersion() === '1') {
             $key = $this->keyVersionOne($key);

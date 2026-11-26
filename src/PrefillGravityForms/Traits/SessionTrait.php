@@ -23,6 +23,33 @@ trait SessionTrait
         return '';
     }
 
+    /**
+     * BSN of the second applicant (co-applicant) who logged in with DigiD on the
+     * second login slot, e.g. via the Signicat OpenID plugin.
+     *
+     * @since NEXT
+     */
+    protected function getSecondApplicantBSN(): string
+    {
+        if (! class_exists('\OWC\IdpUserData\DigiDPartnerSession')) {
+            return '';
+        }
+
+        if (! \OWC\IdpUserData\DigiDPartnerSession::isLoggedIn()) {
+            return '';
+        }
+
+        $userData = \OWC\IdpUserData\DigiDPartnerSession::getUserData();
+
+        if (is_null($userData)) {
+            return '';
+        }
+
+        $bsn = $userData->getBsn();
+
+        return '' !== $bsn ? $this->validateBSN($bsn) : '';
+    }
+
     private function idpDigiD(): string
     {
         if (! class_exists('\OWC\IdpUserData\DigiDSession')) {

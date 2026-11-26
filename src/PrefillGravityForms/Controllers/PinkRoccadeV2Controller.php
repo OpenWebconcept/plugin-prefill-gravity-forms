@@ -10,39 +10,18 @@ use OWC\PrefillGravityForms\Services\CacheService;
 
 class PinkRoccadeV2Controller extends PostController
 {
-    public function handle(array $form): array
+    protected function fetchPrefillData(array $form, string $bsn): array
     {
-        if ($this->isBlockEditor()) {
-            return $form;
-        }
-
-        $bsn = $this->getBSN();
-
-        if ('' === $bsn) {
-            return $form;
-        }
-
         $goalBinding = $this->getGoalBinding($form);
         $processing = rgar($form, 'owc-iconnect-processing', '') ?: $this->settings->getProcessing();
         $expand = rgar($form, 'owc-iconnect-expand', '');
         $excludeDeceased = (bool) rgar($form, 'owc-iconnect-exclude-deceased', false);
-        $apiResponse = $this->fetchApiResponse($bsn, $expand, $goalBinding, $processing, $excludeDeceased);
 
-        if (empty($apiResponse)) {
-            return $form;
-        }
-
-        return $this->preFillFields($form, $apiResponse);
+        return $this->fetchApiResponse($bsn, $expand, $goalBinding, $processing, $excludeDeceased);
     }
 
-    protected function makeRequest(string $goalBinding = '', string $processing = ''): array
+    protected function makeRequest(string $bsn, string $goalBinding = '', string $processing = ''): array
     {
-        $bsn = $this->getBSN();
-
-        if ('' === $bsn) {
-            return [];
-        }
-
         return $this->fetchApiResponse($bsn, '', $goalBinding, $processing);
     }
 

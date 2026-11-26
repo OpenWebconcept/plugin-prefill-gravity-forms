@@ -31,6 +31,7 @@
      */
     function populateCustomSettings(field) {
         jQuery("#linkedField").val(field["linkedFieldValue"]);
+        jQuery("#linkedFieldSecondApplicant").prop('checked', field["linkedFieldSecondApplicant"] === true);
 
         if (field.type === 'owc_pg_age_check') {
             jQuery('#pgAgeCheckMinimumAge').val(field['pgAgeCheckMinimumAgeValue'] || '');

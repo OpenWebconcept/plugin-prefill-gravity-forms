@@ -98,7 +98,9 @@ class MunicipalityCheckField extends GF_Field
         $municipalityCodeSetting = $this->get_municipality_code_setting();
 
         if (empty($bsn) || empty($municipalityCodeSetting)) {
-            $message = __('Log in met uw DigiD, zonder BSN-nummer kan de gemeentecheck niet uitgevoerd worden.', 'prefill-gravity-forms');
+            $message = $this->is_second_applicant_field()
+                ? __('De tweede aanvrager moet inloggen met DigiD, zonder BSN-nummer kan de gemeentecheck niet uitgevoerd worden.', 'prefill-gravity-forms')
+                : __('Log in met uw DigiD, zonder BSN-nummer kan de gemeentecheck niet uitgevoerd worden.', 'prefill-gravity-forms');
 
             if (empty($municipalityCodeSetting)) {
                 $message = __('Dit veld is onjuist geconfigueerd, contacteer de beheerder van deze website.', 'prefill-gravity-forms');

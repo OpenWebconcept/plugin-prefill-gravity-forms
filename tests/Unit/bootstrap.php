@@ -12,7 +12,10 @@ require __DIR__ . '/../../vendor/autoload.php';
 /**
  * Load all stubs.
  */
-$files = glob(__DIR__ .'/../Stubs/WordPress/*.php');
+$files = array_merge(
+    glob(__DIR__ .'/../Stubs/WordPress/*.php'),
+    glob(__DIR__ .'/../Stubs/GravityForms/*.php')
+);
 array_map(function ($file) {
     require_once $file;
 }, $files);

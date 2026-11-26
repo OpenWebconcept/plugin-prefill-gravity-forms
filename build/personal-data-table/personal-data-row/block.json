@@ -33,6 +33,10 @@
         "label": ""
       }
     },
+    "secondApplicant": {
+      "type": "boolean",
+      "default": false
+    },
     "isChildOfTable": {
       "type": "boolean",
       "default": false
