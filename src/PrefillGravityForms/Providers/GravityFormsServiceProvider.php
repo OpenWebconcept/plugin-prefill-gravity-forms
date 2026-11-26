@@ -5,6 +5,7 @@ namespace OWC\PrefillGravityForms\Providers;
 use GF_Fields;
 use GFAddOn;
 use GFForms;
+use OWC\PrefillGravityForms\Console\MigrateSupplierCommand;
 use function OWC\PrefillGravityForms\Foundation\Helpers\config;
 use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 use OWC\PrefillGravityForms\Foundation\ServiceProvider;
@@ -13,6 +14,7 @@ use OWC\PrefillGravityForms\GravityForms\GravityFormsAddon;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsFieldSettings;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsFormSettings;
 use OWC\PrefillGravityForms\GravityForms\GravityFormsPrefilledFields;
+use WP_CLI;
 
 class GravityFormsServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,19 @@ class GravityFormsServiceProvider extends ServiceProvider
         $this->registerHooks();
         $this->registerFieldsWithTabs();
         $this->registerSettingsAddon();
+        $this->registerCommands();
+    }
+
+    /**
+     * @since NEXT
+     */
+    protected function registerCommands(): void
+    {
+        if (! defined('WP_CLI') || ! WP_CLI) {
+            return;
+        }
+
+        WP_CLI::add_command('prefill migrate-supplier', MigrateSupplierCommand::class);
     }
 
     protected function registerHooks(): void

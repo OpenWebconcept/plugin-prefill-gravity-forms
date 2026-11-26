@@ -44,6 +44,9 @@
 !.eslintrc
 !.eslintignore
 
+# Prettier
+!.prettierignore
+
 # track .editorconfig file (i.e. do NOT ignore it)
 !.editorconfig
 
