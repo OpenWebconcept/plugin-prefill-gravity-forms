@@ -13,7 +13,6 @@ use OWC\PrefillGravityForms\SupplierMigration\V1ToV2FieldMapping;
 
 // VrijBRP has a single partner, which is available with most of its attributes in V2 as well.
 $partner = [
-    'burgerservicenummer' => null,
     'soortVerbintenis' => 'soortVerbintenis.omschrijving',
     'aangaanHuwelijkPartnerschap.datum.datum' => 'aangaanHuwelijkPartnerschap.datum.datum',
     'aangaanHuwelijkPartnerschap.datum.dag' => null,

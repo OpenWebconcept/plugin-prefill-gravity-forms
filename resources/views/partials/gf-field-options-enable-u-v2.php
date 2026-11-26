@@ -44,6 +44,7 @@
 			<option value="gemeenteVanInschrijving.code"><?php _e('Gemeentecode', 'prefill-gravity-forms'); ?></option>
         </optgroup>
         <optgroup label="Huwelijk/Partnerschap-gegevens">
+            <option value="partners.0.burgerservicenummer"><?php _e('Burgerservicenummer', 'prefill-gravity-forms'); ?></option>
             <option value="partners.0.soortVerbintenis.omschrijving"><?php _e('Soort verbintenis', 'prefill-gravity-forms'); ?></option>
             <option value="partners.0.naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
             <option value="partners.0.naam.voorvoegsel"><?php _e('Voorvoegsel', 'prefill-gravity-forms'); ?></option>
@@ -60,6 +61,7 @@
             <option value="partners.0.aangaanHuwelijkPartnerschap.land.omschrijving"><?php _e('Land huwelijk/partnerschap', 'prefill-gravity-forms'); ?></option>
         </optgroup>
         <optgroup label="Ouder 1 (doorgaans de moeder)">
+            <option value="ouders.0.burgerservicenummer"><?php _e('Burgerservicenummer', 'prefill-gravity-forms'); ?></option>
             <option value="ouders.0.geslacht.omschrijving"><?php _e('Geslacht', 'prefill-gravity-forms'); ?></option>
             <option value="ouders.0.naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
             <option value="ouders.0.naam.voorletters"><?php _e('Voorletters', 'prefill-gravity-forms'); ?></option>
@@ -73,6 +75,7 @@
             <option value="ouders.0.datumIngangFamilierechtelijkeBetrekking.langFormaat"><?php _e('Datum ingang familierechtelijke betrekking (lang)', 'prefill-gravity-forms'); ?></option>
         </optgroup>
         <optgroup label="Ouder 2 (doorgaans de vader)">
+            <option value="ouders.1.burgerservicenummer"><?php _e('Burgerservicenummer', 'prefill-gravity-forms'); ?></option>
             <option value="ouders.1.geslacht.omschrijving"><?php _e('Geslacht', 'prefill-gravity-forms'); ?></option>
             <option value="ouders.1.naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
             <option value="ouders.1.naam.voorletters"><?php _e('Voorletters', 'prefill-gravity-forms'); ?></option>
@@ -86,6 +89,7 @@
             <option value="ouders.1.datumIngangFamilierechtelijkeBetrekking.langFormaat"><?php _e('Datum ingang familierechtelijke betrekking (lang)', 'prefill-gravity-forms'); ?></option>
         </optgroup>
         <optgroup label="Kinderen (gebruik vaker voor meerdere kinderen)">
+            <option value="kinderen.*.burgerservicenummer"><?php _e('Burgerservicenummer', 'prefill-gravity-forms'); ?></option>
             <option value="kinderen.*.naam.voornamen"><?php _e('Voornamen', 'prefill-gravity-forms'); ?></option>
             <option value="kinderen.*.naam.voorletters"><?php _e('Voorletters', 'prefill-gravity-forms'); ?></option>
             <option value="kinderen.*.naam.voorvoegsel"><?php _e('Voorvoegsel', 'prefill-gravity-forms'); ?></option>

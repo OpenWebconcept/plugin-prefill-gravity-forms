@@ -72,7 +72,7 @@ final class V1ToV2FieldMapping
     public static function relative(): array
     {
         return [
-            'burgerservicenummer' => null,
+            'burgerservicenummer' => 'burgerservicenummer',
             'naam.geslachtsnaam' => 'naam.geslachtsnaam',
             'naam.voorletters' => 'naam.voorletters',
             'naam.voornamen' => 'naam.voornamen',
