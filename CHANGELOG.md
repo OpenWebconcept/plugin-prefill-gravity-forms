@@ -4,7 +4,7 @@
 
 -    Added: migrate forms and personal data blocks from a V1 supplier (EnableU, PinkRoccade, VrijBRP) to a V2 supplier (EnableU V2, PinkRoccade V2) when changing the supplier in the add-on settings, after confirmation
 -   Changed: personal data block only shows the options of the API version of the selected supplier
--   Added: WP-CLI command `wp prefill migrate-supplier` to migrate forms and personal data blocks to a V2 supplier
+-   Added: WP-CLI command `wp prefill migrate-supplier` to migrate forms and personal data blocks to a V2 supplier, use `--check` to verify migrated forms afterwards
 
 ## [v2.1.3] - 2026-11-23
 

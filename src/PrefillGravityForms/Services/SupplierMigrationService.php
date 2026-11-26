@@ -6,6 +6,7 @@ namespace OWC\PrefillGravityForms\Services;
 
 use GFAPI;
 use function OWC\PrefillGravityForms\Foundation\Helpers\config;
+use function OWC\PrefillGravityForms\Foundation\Helpers\view;
 
 use stdClass;
 
@@ -111,6 +112,85 @@ class SupplierMigrationService
             ...$this->migrateForms($from, $to, $dryRun),
             'posts' => $this->migrateBlocks($from, $to, $dryRun),
         ];
+    }
+
+    /**
+     * Check the forms migrated from the V1 supplier $from to the V2 supplier $to, e.g. after the fields reported by
+     * the migration have been linked manually. Reports the fields that are still unlinked since the migration and
+     * the fields linked to a value that is not an option of the V2 supplier.
+     *
+     * @return array{
+     *     from: string,
+     *     to: string,
+     *     checked: int,
+     *     forms: array<int, array{title: string, issues: array<int, array{label: string, value: string, legacy: string, problem: string}>}>
+     * }
+     */
+    public function check(string $from, string $to): array
+    {
+        if (! $this->canMigrate($from, $to)) {
+            throw new \InvalidArgumentException(sprintf('There is no migration available from supplier "%s" to "%s".', $from, $to));
+        }
+
+        $report = ['from' => $from, 'to' => $to, 'checked' => 0, 'forms' => []];
+
+        if (! class_exists('GFAPI')) {
+            return $report;
+        }
+
+        $options = $this->targetOptions($to);
+
+        foreach (GFAPI::get_forms(null, null) as $form) {
+            if (($form[self::FORM_SETTING_SUPPLIER_LEGACY] ?? '') !== $from || ($form[self::FORM_SETTING_SUPPLIER] ?? '') !== $to) {
+                continue;
+            }
+
+            $report['checked']++;
+            $issues = [];
+
+            foreach ($form['fields'] ?? [] as $field) {
+                $value = $field->linkedFieldValue ?? '';
+                $legacy = $field->{self::FIELD_LEGACY_PROPERTY} ?? '';
+                $value = is_string($value) ? $value : '';
+                $legacy = is_string($legacy) ? $legacy : '';
+
+                if ('' === $value && '' !== $legacy) {
+                    $problem = 'not linked';
+                } elseif ('' !== $value && count($options) && ! in_array($value, $options, true)) {
+                    $problem = 'unknown option';
+                } else {
+                    continue;
+                }
+
+                $issues[(int) $field->id] = [
+                    'label' => (string) ($field->label ?? ''),
+                    'value' => $value,
+                    'legacy' => $legacy,
+                    'problem' => $problem,
+                ];
+            }
+
+            if (count($issues)) {
+                $report['forms'][(int) $form['id']] = ['title' => (string) ($form['title'] ?? ''), 'issues' => $issues];
+            }
+        }
+
+        return $report;
+    }
+
+    /**
+     * Returns the option values of the field mapping partial of a V2 supplier, e.g. 'naam.geslachtsnaam'.
+     * The partial is the source of the options shown in the field settings, so it is parsed instead of duplicated.
+     */
+    public function targetOptions(string $to): array
+    {
+        $html = view(sprintf('partials/gf-field-options-%s.php', $to));
+
+        if (! preg_match_all('/<option\s+value="([^"]+)"/', $html, $matches)) {
+            return [];
+        }
+
+        return array_values(array_unique(array_map('html_entity_decode', $matches[1])));
     }
 
     private function sources(): array

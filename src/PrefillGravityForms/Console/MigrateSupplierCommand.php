@@ -44,10 +44,16 @@ class MigrateSupplierCommand
      * [--yes]
      * : Do not ask for confirmation.
      *
+     * [--check]
+     * : Check the forms that have already been migrated, e.g. after linking the reported fields manually.
+     * Reports fields that are still unlinked or linked to an unknown V2 option, and anything not migrated yet.
+     * Exits with an error when issues are found. Nothing is changed.
+     *
      * ## EXAMPLES
      *
      *     wp prefill migrate-supplier enable-u enable-u-v2 --dry-run
      *     wp prefill migrate-supplier vrij-brp enable-u-v2 --yes
+     *     wp prefill migrate-supplier vrij-brp enable-u-v2 --check
      */
     public function __invoke(array $args, array $assocArgs): void
     {
@@ -58,6 +64,12 @@ class MigrateSupplierCommand
 
         if (! $service->canMigrate($from, $to)) {
             WP_CLI::error(sprintf('There is no migration available from supplier "%s" to "%s".', $from, $to));
+        }
+
+        if ((bool) \WP_CLI\Utils\get_flag_value($assocArgs, 'check', false)) {
+            $this->check($service, $from, $to);
+
+            return;
         }
 
         try {
@@ -100,6 +112,65 @@ class MigrateSupplierCommand
         ));
 
         $this->warnSkippedForms($report);
+    }
+
+    private function check(SupplierMigrationService $service, string $from, string $to): void
+    {
+        try {
+            $report = $service->check($from, $to);
+            $pending = $service->migrate($from, $to, true);
+        } catch (Throwable $e) {
+            WP_CLI::error($e->getMessage());
+
+            return; // Unreachable: WP_CLI::error() exits; keeps static analysis happy.
+        }
+
+        if (0 === count($service->targetOptions($to))) {
+            WP_CLI::warning(sprintf('No options found for supplier "%s", linked values have not been validated.', $to));
+        }
+
+        $issues = [];
+
+        foreach ($report['forms'] as $id => $form) {
+            foreach ($form['issues'] as $fieldId => $field) {
+                $issues[] = [
+                    'form' => $id,
+                    'title' => $form['title'],
+                    'field' => $fieldId,
+                    'label' => $field['label'],
+                    'problem' => $field['problem'],
+                    'value' => $field['value'],
+                    'legacy' => $field['legacy'],
+                ];
+            }
+        }
+
+        if (count($issues)) {
+            WP_CLI::log('Fields that need to be linked manually:');
+            \WP_CLI\Utils\format_items('table', $issues, ['form', 'title', 'field', 'label', 'problem', 'value', 'legacy']);
+        }
+
+        $notMigrated = count($pending['forms']) + count($pending['posts']) + count($pending['skipped_forms']);
+
+        if ($notMigrated) {
+            WP_CLI::log('');
+            WP_CLI::log(sprintf('Forms and blocks still linked to "%s":', $from));
+            $this->printReport($pending);
+        }
+
+        WP_CLI::log('');
+        WP_CLI::log(sprintf('Checked %d migrated form(s) from "%s" to "%s".', $report['checked'], $from, $to));
+
+        if (count($issues) || $notMigrated) {
+            WP_CLI::error(sprintf(
+                '%d field(s) in %d form(s) need attention, %d form(s)/post(s) are not migrated yet.',
+                count($issues),
+                count($report['forms']),
+                $notMigrated
+            ));
+        }
+
+        WP_CLI::success('All migrated forms are linked to valid V2 options.');
     }
 
     private function warnSkippedForms(array $report): void

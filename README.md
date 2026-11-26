@@ -62,6 +62,12 @@ wp prefill migrate-supplier enable-u enable-u-v2 --dry-run
 wp prefill migrate-supplier vrij-brp enable-u-v2
 ```
 
+After linking the reported fields manually, use `--check` to verify the migrated forms. It lists fields that are still unlinked or linked to an unknown V2 option, and forms or blocks that are not migrated yet. Nothing is changed and the command exits with an error when issues are found:
+
+```sh
+wp prefill migrate-supplier vrij-brp enable-u-v2 --check
+```
+
 On a multisite, add `--url=<site>` to migrate a specific site.
 
 ### Cache Encryption
