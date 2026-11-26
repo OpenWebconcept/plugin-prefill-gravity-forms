@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+-   Added: prefill form fields with BRP data of the second applicant (co-applicant) logged in with DigiD on the second login slot
+-   Added: age check, municipality check and personal data block support the second applicant
+-   Added: public helper `Helpers::secondApplicantBSN()`
+-   Changed: require owc/idp-userdata ^1.2
+-   Fix: personal data block now passes its 'processing' (verwerking) setting to the request
+
 ## [v2.1.3] - 2026-11-23
 
 -   Fix: disabled form fields

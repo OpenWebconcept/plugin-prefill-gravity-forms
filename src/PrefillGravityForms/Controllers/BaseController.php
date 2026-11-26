@@ -41,7 +41,75 @@ abstract class BaseController
         return static::BRP_API_VERSION;
     }
 
-    abstract public function handle(array $form): array;
+    /**
+     * Prefills the form fields for the primary applicant and, when present,
+     * for the second applicant (co-applicant) logged in on the second login slot.
+     *
+     * @since NEXT
+     */
+    public function handle(array $form): array
+    {
+        if ($this->isBlockEditor()) {
+            return $form;
+        }
+
+        $form = $this->handleApplicant($form, $this->getBSN(), false);
+
+        if ($this->formHasSecondApplicantFields($form)) {
+            $form = $this->handleApplicant($form, $this->getSecondApplicantBSN(), true);
+        }
+
+        return $form;
+    }
+
+    /**
+     * @since NEXT
+     */
+    protected function handleApplicant(array $form, string $bsn, bool $isSecondApplicant): array
+    {
+        if ('' === $bsn) {
+            return $form;
+        }
+
+        $apiResponse = $this->fetchPrefillData($form, $bsn);
+
+        if (empty($apiResponse)) {
+            return $form;
+        }
+
+        return $this->preFillFields($form, $apiResponse, $isSecondApplicant);
+    }
+
+    /**
+     * Retrieves the person data from the BRP which is used to prefill the form fields.
+     *
+     * @since NEXT
+     */
+    abstract protected function fetchPrefillData(array $form, string $bsn): array;
+
+    /**
+     * @since NEXT
+     */
+    protected function formHasSecondApplicantFields(array $form): bool
+    {
+        foreach ($form['fields'] ?? [] as $field) {
+            if ($this->isSecondApplicantField($field)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines if the given field belongs to the second applicant.
+     *
+     * @since NEXT
+     */
+    protected function isSecondApplicantField(GF_Field $field): bool
+    {
+        return true === filter_var($field->linkedFieldSecondApplicant ?? false, FILTER_VALIDATE_BOOLEAN);
+    }
 
     protected function isBlockEditor(): bool
     {
@@ -54,18 +122,35 @@ abstract class BaseController
         return method_exists($current_screen, 'is_block_editor') && $current_screen->is_block_editor();
     }
 
-    public function get(string $goalBinding = '', string $processing = ''): array
+    /**
+     * Retrieves the person data of the logged in user, or of the second applicant (co-applicant)
+     * when $secondApplicant is true. Used by the personal data blocks.
+     */
+    public function get(string $goalBinding = '', string $processing = '', bool $secondApplicant = false): array
     {
         $this->isPersonalDataServiceRequest = true;
 
-        return static::makeRequest($goalBinding, $processing);
+        $bsn = $secondApplicant ? $this->getSecondApplicantBSN() : $this->getBSN();
+
+        if ('' === $bsn) {
+            return [];
+        }
+
+        return static::makeRequest($bsn, $goalBinding, $processing);
     }
 
-    abstract protected function makeRequest(string $goalBinding = '', string $processing = ''): array;
+    abstract protected function makeRequest(string $bsn, string $goalBinding = '', string $processing = ''): array;
 
-    protected function preFillFields(array $form, array $response): array
+    protected function preFillFields(array $form, array $response, bool $isSecondApplicant = false): array
     {
+        // Child index placeholders are counted per applicant.
+        $this->prefilledChildrenMappingOptions = [];
+
         foreach ($form['fields'] as $field) {
+            if ($this->isSecondApplicantField($field) !== $isSecondApplicant) {
+                continue;
+            }
+
             $linkedMappingOption = $field->linkedFieldValue ?? '';
 
             if (! is_string($linkedMappingOption) || 1 > strlen($linkedMappingOption)) {

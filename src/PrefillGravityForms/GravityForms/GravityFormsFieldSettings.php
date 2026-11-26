@@ -36,13 +36,26 @@ class GravityFormsFieldSettings
         // Check if the theme mapping options file exists.
         if ('0' !== $themeMappingOptions && is_file($themeMappingOptions)) {
             echo (new View())->renderFullPath($themeMappingOptions);
+        } else {
+            // Render the supplier based options.
+            echo view(sprintf('partials/gf-field-options-%s.php', $supplier));
+        }
 
+        self::addSecondApplicantSetting();
+    }
+
+    /**
+     * Allows a field to be prefilled with the data of the second applicant (co-applicant)
+     * who logged in on the second login slot, e.g. via the Signicat OpenID plugin.
+     *
+     * @since NEXT
+     */
+    protected static function addSecondApplicantSetting(): void
+    {
+        if (! class_exists('\OWC\IdpUserData\DigiDPartnerSession')) {
             return;
         }
 
-        // Render the supplier based options.
-        $mappingOptions = sprintf('partials/gf-field-options-%s.php', $supplier);
-
-        echo view($mappingOptions);
+        echo view('partials/gf-field-second-applicant-setting.php');
     }
 }

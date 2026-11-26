@@ -2,7 +2,12 @@
 
 use OWC\PrefillGravityForms\Services\PersonalDataService;
 
-$retrievedValue = (new PersonalDataService($attributes['selectedSupplier']['value'] ?? ''))->get($attributes['selectedOption']['value'] ?? '', $attributes['goalBinding'] ?? '');
+$retrievedValue = (new PersonalDataService($attributes['selectedSupplier']['value'] ?? ''))->get(
+    $attributes['selectedOption']['value'] ?? '',
+    $attributes['goalBinding'] ?? '',
+    $attributes['processing'] ?? '',
+    (bool) ($attributes['secondApplicant'] ?? false)
+);
 $label = preg_replace('/\s*\(V\d+\)$/', '', $attributes['selectedOption']['label'] ?? '');
 
 if ($attributes['isChildOfTable'] && ! empty($retrievedValue)) : ?>
